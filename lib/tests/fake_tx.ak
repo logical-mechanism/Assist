@@ -1,14 +1,73 @@
 use aiken/dict
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
-use aiken/transaction.{Transaction, TransactionId}
+use aiken/transaction.{
+  Input, NoDatum, Output, OutputReference, Transaction, TransactionId,
+}
 use aiken/transaction/value
+use assist/addresses
 
-pub fn signature_only_tx() -> Transaction {
+pub fn test_tx() -> Transaction {
   let tx =
     Transaction {
-      inputs: [],
+      inputs: [
+        Input {
+          output_reference: OutputReference {
+            transaction_id: TransactionId { hash: #"" },
+            output_index: 0,
+          },
+          output: Output {
+            address: addresses.create_address(#"acab", #""),
+            value: value.from_lovelace(100),
+            datum: NoDatum,
+            reference_script: None,
+          },
+        },
+        Input {
+          output_reference: OutputReference {
+            transaction_id: TransactionId { hash: #"" },
+            output_index: 1,
+          },
+          output: Output {
+            address: addresses.create_address(#"face", #""),
+            value: value.from_lovelace(5),
+            datum: NoDatum,
+            reference_script: None,
+          },
+        },
+        Input {
+          output_reference: OutputReference {
+            transaction_id: TransactionId { hash: #"" },
+            output_index: 1,
+          },
+          output: Output {
+            address: addresses.create_address(#"face", #""),
+            value: value.from_lovelace(5),
+            datum: NoDatum,
+            reference_script: None,
+          },
+        },
+      ],
       reference_inputs: [],
-      outputs: [],
+      outputs: [
+        Output {
+          address: addresses.create_address(#"acab", #""),
+          value: value.from_asset(#"acab", #"beef", 40),
+          datum: NoDatum,
+          reference_script: None,
+        },
+        Output {
+          address: addresses.create_address(#"face", #""),
+          value: value.from_lovelace(40),
+          datum: NoDatum,
+          reference_script: None,
+        },
+        Output {
+          address: addresses.create_address(#"face", #""),
+          value: value.from_lovelace(60),
+          datum: NoDatum,
+          reference_script: None,
+        },
+      ],
       fee: value.zero(),
       mint: value.zero(),
       certificates: [],
