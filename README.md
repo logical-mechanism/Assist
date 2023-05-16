@@ -6,7 +6,7 @@ It extends the default library with routines that will assist in quick developme
 
 ## Using the library
 
-Add this to the dependency seciton of the `aiken.toml` file:
+Add this to the dependency section of the `aiken.toml` file:
 
 ```
 [[dependencies]]
@@ -24,4 +24,4 @@ use assist/count
 
 ## Documentation
 
-Build the documentation locally with `aiken docs` or view [documentation](https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html).
+Build the documentation locally with `aiken docs` or view the [documentation](https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html).
