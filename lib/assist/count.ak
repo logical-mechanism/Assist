@@ -6,14 +6,15 @@
 use aiken/transaction.{Input, Output}
 use aiken/transaction/credential.{Address}
 use assist/addresses
+// for testing only
 use tests/fake_tx
 
 /// Verify that the number of inputs from a specific script is equal the amount
 /// intended in the contract. The amount must be exact with the counter.
 ///
 /// ```aiken
-/// script_inputs(tx.inputs, this_script_addr, 1)
-/// script_inputs(tx.inputs, that_script_addr, 2)
+/// count.script_inputs(tx.inputs, this_script_addr, 1)
+/// count.script_inputs(tx.inputs, that_script_addr, 2)
 /// ```
 pub fn script_inputs(
   inputs: List<Input>,
@@ -68,8 +69,8 @@ test multiple_script_inputs() {
 /// intended in the contract. The amount must be exact with the counter.
 ///
 /// ```aiken
-/// script_outputs(tx.outputs, this_script_addr, 1)
-/// script_outputs(tx.outputs, that_script_addr, 2)
+/// count.script_outputs(tx.outputs, this_script_addr, 1)
+/// count.script_outputs(tx.outputs, that_script_addr, 2)
 /// ```
 pub fn script_outputs(
   outputs: List<Output>,

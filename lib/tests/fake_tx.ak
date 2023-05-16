@@ -6,6 +6,7 @@ use aiken/transaction.{
 use aiken/transaction/value
 use assist/addresses
 
+/// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
   let tx =
     Transaction {
