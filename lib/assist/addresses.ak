@@ -13,8 +13,8 @@ use aiken/transaction/credential.{
 /// credential. An empty sc means enterpise address by default.
 ///
 /// ```aiken
-/// create_address(#"acab", #"")
-/// create_address(datum.wallet.pkh, datum.wallet.sc)
+/// addresses.create_address(#"acab", #"")
+/// addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 /// ```
 pub fn create_address(
   pkh: Hash<Blake2b_224, VerificationKey>,
@@ -52,8 +52,8 @@ test base_wallet() {
 /// assumed to be not staked.
 ///
 /// ```aiken
-/// create_script_address(#"acab", #"")
-/// create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script.sc)
+/// addresses.create_script_address(#"acab", #"")
+/// addresses.create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script.sc)
 /// ```
 pub fn create_script_address(
   pkh: Hash<Blake2b_224, Script>,
