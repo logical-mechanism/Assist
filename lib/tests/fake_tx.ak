@@ -1,10 +1,41 @@
 use aiken/dict
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
 use aiken/transaction.{
-  Input, NoDatum, Output, OutputReference, Transaction, TransactionId,
+  InlineDatum, Input, NoDatum, Output, OutputReference, Transaction,
+  TransactionId,
 }
 use aiken/transaction/value
 use assist/addresses
+
+/// A fake input used for testing.
+pub fn test_input() -> Input {
+  let input =
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 0,
+      },
+      output: Output {
+        address: addresses.create_address(#"acab", #""),
+        value: value.from_lovelace(100),
+        datum: InlineDatum(#"acabbeeffacecafe"),
+        reference_script: None,
+      },
+    }
+  input
+}
+
+/// A fake output used for testing.
+pub fn test_output() -> Output {
+  let output =
+    Output {
+      address: addresses.create_address(#"acab", #""),
+      value: value.from_asset(#"acab", #"beef", 40),
+      datum: InlineDatum(#"acabbeeffacecafe"),
+      reference_script: None,
+    }
+  output
+}
 
 /// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
@@ -19,7 +50,7 @@ pub fn test_tx() -> Transaction {
           output: Output {
             address: addresses.create_address(#"acab", #""),
             value: value.from_lovelace(100),
-            datum: NoDatum,
+            datum: InlineDatum(#"acabbeeffacecafe"),
             reference_script: None,
           },
         },
@@ -53,7 +84,7 @@ pub fn test_tx() -> Transaction {
         Output {
           address: addresses.create_address(#"acab", #""),
           value: value.from_asset(#"acab", #"beef", 40),
-          datum: NoDatum,
+          datum: InlineDatum(#"acabbeeffacecafe"),
           reference_script: None,
         },
         Output {
