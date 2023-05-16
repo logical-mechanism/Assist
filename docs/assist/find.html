@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/data - aiken-lang/assist</title>
+    <title>assist/find - aiken-lang/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -204,13 +204,13 @@
         
 	  <li><a href="../assist/data.html">
 	  
-	  <strong>assist/data</strong>
+	  assist/data
 	  
 	  </a></li>
         
 	  <li><a href="../assist/find.html">
 	  
-	  assist/find
+	  <strong>assist/find</strong>
 	  
 	  </a></li>
         
@@ -249,9 +249,17 @@
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#input_datum">input_datum</a></li>
+  <li><a href="#first_input_index">first_input_index</a></li>
   
-  <li><a href="#output_datum">output_datum</a></li>
+  <li><a href="#first_input_ref">first_input_ref</a></li>
+  
+  <li><a href="#input_by_ref">input_by_ref</a></li>
+  
+  <li><a href="#output_by_addr">output_by_addr</a></li>
+  
+  <li><a href="#output_datum_by_addr">output_datum_by_addr</a></li>
+  
+  <li><a href="#staking_reward_amount">staking_reward_amount</a></li>
   
 </ul>
 
@@ -261,10 +269,11 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/data</a>
+  <a href="#module-name">assist/find</a>
 </h1>
-<p>This module includes code to help extracting data from a potential 
-inline datum on either an input or output.</p>
+<p>This module includes code finding aspects of a validating
+transaction. </p>
+<p>The amounts are assumed to be exact.</p>
 
 
 
@@ -279,7 +288,7 @@ inline datum on either an input or output.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="input_datum"><pre class="hljs language-aiken">input_datum(possible_input: Input) -&gt; Data</pre></h2>
+      <h2 id="first_input_index"><pre class="hljs language-aiken">first_input_index(inputs: List&lt;Input&gt;) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -288,16 +297,17 @@ inline datum on either an input or output.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the datum data on an input or error. The data is assumed
-to be an inline datum.</p>
-<pre><code class="language-aiken">expect datum: Datum = data.input_datum(this_input)
+    <div class="rendered-markdown"><p>Find the first input’s output reference index.
+Output references have the form TxId#Idx, this function
+extracts the Idx part. If nothing is found then error.</p>
+<pre><code class="language-aiken">find.first_input_index(tx.inputs)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="output_datum"><pre class="hljs language-aiken">output_datum(possible_output: Output) -&gt; Data</pre></h2>
+      <h2 id="first_input_ref"><pre class="hljs language-aiken">first_input_ref(inputs: List&lt;Input&gt;) -&gt; ByteArray</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -306,9 +316,85 @@ to be an inline datum.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the datum data on an output or error. The data is assumed
-to be an inline datum.</p>
-<pre><code class="language-aiken">expect datum: Datum = data.output_datum(that_output)
+    <div class="rendered-markdown"><p>Find the first input’s output reference transaction id hash.
+Output references have the form TxId#Idx, this function
+extracts the TxId part. If nothing is found then error.</p>
+<pre><code class="language-aiken">find.first_input_index(tx.inputs)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="input_by_ref"><pre class="hljs language-aiken">input_by_ref(inputs: List&lt;Input&gt;, out_ref: OutputReference) -&gt; Input</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find an input by its output reference else error. Similar to the builtin
+function in stdlib but auto errors.</p>
+<pre><code class="language-aiken">find.input_by_ref(tx.inputs, out_ref)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="output_by_addr"><pre class="hljs language-aiken">output_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Output</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the first occurrence of an output by a specific address. If nothing
+is found then error. The address here is an exact match, pkh and sc.</p>
+<pre><code class="language-aiken">find.output_by_addr(tx.outputs, your_address)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="output_datum_by_addr"><pre class="hljs language-aiken">output_datum_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Data</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the first occurence of output datum by some address. If nothing is
+found then error.</p>
+<pre><code class="language-aiken">expect datum: Datum = find.output_datum_by_addr(tx.outputs, this_address)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="staking_reward_amount"><pre class="hljs language-aiken">staking_reward_amount(
+  withdraws: Dict&lt;StakeCredential, Int&gt;,
+  stake_credential: StakeCredential,
+) -&gt; Int</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the staking reward amount in loveace for some stake credential.
+If no rewards are available then error.</p>
+<pre><code class="language-aiken">find.staking_reward_amount(tx.withdrawals, datum.wallet.sc)
 </code></pre>
 </div>
   </div>

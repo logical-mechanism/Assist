@@ -27,7 +27,7 @@ test find_input_datum() {
     fake_tx.test_input()
   expect datum: ByteArray =
     input_datum(input)
-  datum == #"acabbeeffacecafe"
+  datum == fake_tx.test_datum
 }
 
 /// Find the datum data on an output or error. The data is assumed
@@ -51,5 +51,5 @@ test find_output_datum() {
     fake_tx.test_output()
   expect datum: ByteArray =
     output_datum(output)
-  datum == #"acabbeeffacecafe"
+  datum == fake_tx.test_datum
 }

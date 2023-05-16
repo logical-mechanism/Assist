@@ -4,21 +4,27 @@ use aiken/transaction.{
   InlineDatum, Input, NoDatum, Output, OutputReference, Transaction,
   TransactionId,
 }
+use aiken/transaction/credential.{
+  Inline, StakeCredential, VerificationKeyCredential,
+}
 use aiken/transaction/value
 use assist/addresses
+
+pub const test_datum: ByteArray =
+  #"acabbeeffacecafe"
 
 /// A fake input used for testing.
 pub fn test_input() -> Input {
   let input =
     Input {
       output_reference: OutputReference {
-        transaction_id: TransactionId { hash: #"" },
+        transaction_id: TransactionId { hash: #"acab" },
         output_index: 0,
       },
       output: Output {
         address: addresses.create_address(#"acab", #""),
         value: value.from_lovelace(100),
-        datum: InlineDatum(#"acabbeeffacecafe"),
+        datum: InlineDatum(test_datum),
         reference_script: None,
       },
     }
@@ -31,7 +37,7 @@ pub fn test_output() -> Output {
     Output {
       address: addresses.create_address(#"acab", #""),
       value: value.from_asset(#"acab", #"beef", 40),
-      datum: InlineDatum(#"acabbeeffacecafe"),
+      datum: InlineDatum(test_datum),
       reference_script: None,
     }
   output
@@ -39,18 +45,23 @@ pub fn test_output() -> Output {
 
 /// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
+  let sc: StakeCredential =
+    Inline(VerificationKeyCredential(#"face"))
+  let withdrawal =
+    dict.new()
+      |> dict.insert(key: sc, value: 100, compare: fn(_, _) { Equal })
   let tx =
     Transaction {
       inputs: [
         Input {
           output_reference: OutputReference {
-            transaction_id: TransactionId { hash: #"" },
+            transaction_id: TransactionId { hash: #"acab" },
             output_index: 0,
           },
           output: Output {
             address: addresses.create_address(#"acab", #""),
             value: value.from_lovelace(100),
-            datum: InlineDatum(#"acabbeeffacecafe"),
+            datum: InlineDatum(test_datum),
             reference_script: None,
           },
         },
@@ -84,7 +95,7 @@ pub fn test_tx() -> Transaction {
         Output {
           address: addresses.create_address(#"acab", #""),
           value: value.from_asset(#"acab", #"beef", 40),
-          datum: InlineDatum(#"acabbeeffacecafe"),
+          datum: InlineDatum(test_datum),
           reference_script: None,
         },
         Output {
@@ -103,7 +114,7 @@ pub fn test_tx() -> Transaction {
       fee: value.zero(),
       mint: value.zero(),
       certificates: [],
-      withdrawals: dict.new(),
+      withdrawals: withdrawal,
       validity_range: Interval {
         lower_bound: IntervalBound {
           bound_type: NegativeInfinity,
