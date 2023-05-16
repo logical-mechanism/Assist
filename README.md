@@ -21,3 +21,7 @@ Import the module like:
 use assist/signing
 use assist/count
 ```
+
+## Documentation
+
+Build the documentation locally with `aiken docs` or view [documentation](https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html).
