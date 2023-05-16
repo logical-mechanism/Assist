@@ -120,13 +120,13 @@
       <h2>
         <a href="./">assist</a>
         <span id="project-version">
-          <span>v1.0.0 </span>
+          <span>v0.1.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v1.0.0";
+            const currentVersion = "v0.1.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -255,7 +255,7 @@
 <p>A library of specialized Aiken functions for smart contracts on Cardano.</p>
 <p>It extends the default library with routines that will assist in quick development.</p>
 <h2>Using the library</h2>
-<p>Add this to the dependency seciton of the <code>aiken.toml</code> file:</p>
+<p>Add this to the dependency section of the <code>aiken.toml</code> file:</p>
 <pre><code>[[dependencies]]
 name = &quot;logicalmechanism/assist&quot;
 version = &quot;main&quot;
@@ -266,7 +266,7 @@ source = &quot;github&quot;
 use assist/count
 </code></pre>
 <h2>Documentation</h2>
-<p>Build the documentation locally with <code>aiken docs</code> or view <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html">documentation</a>.</p>
+<p>Build the documentation locally with <code>aiken docs</code> or view the <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html">documentation</a>.</p>
 
 
       </main>
@@ -339,8 +339,8 @@ use assist/count
       });
     </script>
     <script src="./js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="./js/index.js?v=1684276985"></script>
+    <script src="./js/index.js?v=1684277484"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1684276985"></script>
+    <script src="./search-data.js?v=1684277484"></script>
   </body>
 </html>
