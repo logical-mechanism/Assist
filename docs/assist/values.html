@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/find - aiken-lang/assist</title>
+    <title>assist/values - aiken-lang/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -210,7 +210,7 @@
         
 	  <li><a href="../assist/find.html">
 	  
-	  <strong>assist/find</strong>
+	  assist/find
 	  
 	  </a></li>
         
@@ -234,7 +234,7 @@
         
 	  <li><a href="../assist/values.html">
 	  
-	  assist/values
+	  <strong>assist/values</strong>
 	  
 	  </a></li>
         
@@ -250,22 +250,31 @@
 
 
 
+<h2>Constants</h2>
+<ul>
+  
+  <li><a href="#prefix_100">prefix_100</a></li>
+  
+  <li><a href="#prefix_222">prefix_222</a></li>
+  
+  <li><a href="#prefix_333">prefix_333</a></li>
+  
+  <li><a href="#prefix_444">prefix_444</a></li>
+  
+</ul>
+
 
 
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#first_input_index">first_input_index</a></li>
+  <li><a href="#compute_hash">compute_hash</a></li>
   
-  <li><a href="#first_input_ref">first_input_ref</a></li>
+  <li><a href="#contains">contains</a></li>
   
-  <li><a href="#input_by_ref">input_by_ref</a></li>
+  <li><a href="#multiply">multiply</a></li>
   
-  <li><a href="#output_by_addr">output_by_addr</a></li>
-  
-  <li><a href="#output_datum_by_addr">output_datum_by_addr</a></li>
-  
-  <li><a href="#staking_reward_amount">staking_reward_amount</a></li>
+  <li><a href="#unique_token_name">unique_token_name</a></li>
   
 </ul>
 
@@ -275,15 +284,80 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/find</a>
+  <a href="#module-name">assist/values</a>
 </h1>
-<p>This module includes code finding aspects of a validating
-transaction. </p>
-<p>The amounts are assumed to be exact.</p>
 
 
 
 
+
+<section class="module-members">
+  <h1 id="module-constants" class="module-member-kind">
+    <a href="#module-constants">Constants</a>
+  </h1>
+
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="prefix_100"><pre class="hljs language-aiken">prefix_100: ByteArray = #&quot;2831303029&quot;</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>CIP68 (100) Reference Token Prefix</p>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="prefix_222"><pre class="hljs language-aiken">prefix_222: ByteArray = #&quot;2832323229&quot;</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>CIP68 (222) Non-Fungible Token Prefix</p>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="prefix_333"><pre class="hljs language-aiken">prefix_333: ByteArray = #&quot;2833333329&quot;</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>CIP68 (333) Fungible Token Prefix</p>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="prefix_444"><pre class="hljs language-aiken">prefix_444: ByteArray = #&quot;2834343429&quot;</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>CIP68 (444) Semi-Fungible Token Prefix</p>
+</div>
+  </div>
+  
+</section>
 
 
 
@@ -294,7 +368,7 @@ transaction. </p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="first_input_index"><pre class="hljs language-aiken">first_input_index(inputs: List&lt;Input&gt;) -&gt; Int</pre></h2>
+      <h2 id="compute_hash"><pre class="hljs language-aiken">compute_hash(target: Value) -&gt; ByteArray</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -303,17 +377,16 @@ transaction. </p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the first input’s output reference index.
-Output references have the form TxId#Idx, this function
-extracts the Idx part. If nothing is found then error.</p>
-<pre><code class="language-aiken">find.first_input_index(tx.inputs)
+    <div class="rendered-markdown"><p>Compute the sha3_256 hash of a value by merklizing the policy id, asset
+name, and quantity. Empty values return the empty by string.</p>
+<pre><code class="language-aiken">values.compute_hash(validating_value)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="first_input_ref"><pre class="hljs language-aiken">first_input_ref(inputs: List&lt;Input&gt;) -&gt; ByteArray</pre></h2>
+      <h2 id="contains"><pre class="hljs language-aiken">contains(target: Value, total: Value) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -322,17 +395,17 @@ extracts the Idx part. If nothing is found then error.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the first input’s output reference transaction id hash.
-Output references have the form TxId#Idx, this function
-extracts the TxId part. If nothing is found then error.</p>
-<pre><code class="language-aiken">find.first_input_index(tx.inputs)
+    <div class="rendered-markdown"><p>Prove that the target value is contained inside another value. Each token
+inside the target must exist inside the total value. The quantity of each
+token must be at least the target amount or greater.</p>
+<pre><code class="language-aiken">values.contain(payment_value, output_value)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="input_by_ref"><pre class="hljs language-aiken">input_by_ref(inputs: List&lt;Input&gt;, out_ref: OutputReference) -&gt; Input</pre></h2>
+      <h2 id="multiply"><pre class="hljs language-aiken">multiply(val: Value, n: Int) -&gt; Value</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -341,16 +414,16 @@ extracts the TxId part. If nothing is found then error.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find an input by its output reference else error. Similar to the builtin
-function in stdlib but auto errors.</p>
-<pre><code class="language-aiken">find.input_by_ref(tx.inputs, out_ref)
+    <div class="rendered-markdown"><p>Multiply some value by <code>n</code>. Its just a scaler multiplier to the quantity
+of each token.</p>
+<pre><code class="language-aiken">values.multiply(bundle_value, bundle_size)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="output_by_addr"><pre class="hljs language-aiken">output_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Output</pre></h2>
+      <h2 id="unique_token_name"><pre class="hljs language-aiken">unique_token_name(txid: ByteArray, idx: Int, prefix: ByteArray) -&gt; ByteArray</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -359,48 +432,10 @@ function in stdlib but auto errors.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the first occurrence of an output by a specific address. If nothing
-is found then error. The address here is an exact match, pkh and sc.</p>
-<pre><code class="language-aiken">find.output_by_addr(tx.outputs, your_address)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="output_datum_by_addr"><pre class="hljs language-aiken">output_datum_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Data</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Find the first occurence of output datum by some address. If nothing is
-found then error.</p>
-<pre><code class="language-aiken">expect datum: Datum = find.output_datum_by_addr(tx.outputs, this_address)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="staking_reward_amount"><pre class="hljs language-aiken">staking_reward_amount(
-  withdraws: Dict&lt;StakeCredential, Int&gt;,
-  stake_credential: StakeCredential,
-) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Find the staking reward amount in loveace for some stake credential.
-If no rewards are available then error.</p>
-<pre><code class="language-aiken">find.staking_reward_amount(tx.withdrawals, datum.wallet.sc)
+    <div class="rendered-markdown"><p>Calculate a unique token name from a TxId#Idx and prefix. Can be combined
+with the find module to create unique token names from the first input
+utxo inside the transaction.</p>
+<pre><code class="language-aiken">values.unique_token_name(tx_id, tx_idx, prefix_333)
 </code></pre>
 </div>
   </div>
