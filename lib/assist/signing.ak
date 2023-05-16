@@ -25,19 +25,19 @@ pub fn verify_sig(
 
 test no_signature() {
   let tx =
-    fake_tx.signature_only_tx()
+    fake_tx.test_tx()
   verify_sig(tx, #"") == False
 }
 
 test bad_signature() {
   let tx =
-    fake_tx.signature_only_tx()
+    fake_tx.test_tx()
   verify_sig(tx, #"cafe") == False
 }
 
 test has_signature() {
   let tx =
-    fake_tx.signature_only_tx()
+    fake_tx.test_tx()
   verify_sig(tx, #"acab") == True
 }
 
@@ -79,18 +79,18 @@ fn run_multisig(
 
 test no_multisig() {
   let tx =
-    fake_tx.signature_only_tx()
+    fake_tx.test_tx()
   verify_multisig(tx, [], 1) == False
 }
 
 test bad_multisig() {
   let tx =
-    fake_tx.signature_only_tx()
+    fake_tx.test_tx()
   verify_multisig(tx, [#"acab"], 2) == False
 }
 
 test has_multisig() {
   let tx =
-    fake_tx.signature_only_tx()
+    fake_tx.test_tx()
   verify_multisig(tx, [#"acab", #"beef"], 2) == True
 }
