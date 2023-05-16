@@ -91,6 +91,34 @@ test find_input_by_ref() {
   input_by_ref(inputs, out_ref) == fake_tx.test_input()
 }
 
+/// Find the first occurrence of an input by a specific address. If nothing
+/// is found then error. The address here is an exact match, pkh and sc.
+///
+/// ```aiken
+/// find.input_by_addr(tx.reference_inputs, ref_addr)
+/// ```
+pub fn input_by_addr(inputs: List<Input>, addr: Address) -> Input {
+  when inputs is {
+    [input, ..rest] ->
+      if input.output.address == addr {
+        input
+      } else {
+        input_by_addr(rest, addr)
+      }
+    [] ->
+      error @"No Input Found"
+  }
+}
+
+// can't test for errors yet
+test find_input_by_addr() {
+  let inputs =
+    fake_tx.test_tx().inputs
+  let addr =
+    addresses.create_address(#"acab", #"")
+  input_by_addr(inputs, addr) == fake_tx.test_input()
+}
+
 /// Find the first occurrence of an output by a specific address. If nothing
 /// is found then error. The address here is an exact match, pkh and sc.
 ///

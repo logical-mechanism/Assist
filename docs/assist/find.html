@@ -259,6 +259,8 @@
   
   <li><a href="#first_input_ref">first_input_ref</a></li>
   
+  <li><a href="#input_by_addr">input_by_addr</a></li>
+  
   <li><a href="#input_by_ref">input_by_ref</a></li>
   
   <li><a href="#output_by_addr">output_by_addr</a></li>
@@ -326,6 +328,24 @@ extracts the Idx part. If nothing is found then error.</p>
 Output references have the form TxId#Idx, this function
 extracts the TxId part. If nothing is found then error.</p>
 <pre><code class="language-aiken">find.first_input_index(tx.inputs)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="input_by_addr"><pre class="hljs language-aiken">input_by_addr(inputs: List&lt;Input&gt;, addr: Address) -&gt; Input</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the first occurrence of an input by a specific address. If nothing
+is found then error. The address here is an exact match, pkh and sc.</p>
+<pre><code class="language-aiken">find.input_by_addr(tx.reference_inputs, ref_addr)
 </code></pre>
 </div>
   </div>
@@ -478,8 +498,8 @@ If no rewards are available then error.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/index.js?v=1684277484"></script>
+    <script src="../js/index.js?v=1684280330"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684277484"></script>
+    <script src="../search-data.js?v=1684280330"></script>
   </body>
 </html>
