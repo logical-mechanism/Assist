@@ -243,7 +243,7 @@ test real_token_name() {
 /// ```aiken
 /// values.prove_singluar_token(pointer_pid, validating_value)
 /// ```
-pub fn prove_singular_token(pid: PolicyId, total: Value) {
+pub fn prove_nft(pid: PolicyId, total: Value) {
   let tkns =
     value.tokens(total, pid) |> dict.values()
   let sum =
@@ -258,7 +258,7 @@ test prove_nft_from_policy_id() {
       |> value.add(value.from_asset(#"cafe", #"face", 40))
       |> value.add(value.from_asset(#"beef", #"face", 40))
       |> value.add(value.from_asset(#"face", #"beef", 40))
-  prove_singular_token(#"acab", val) == True
+  prove_nft(#"acab", val) == True
 }
 
 test too_many_nfts() {
@@ -268,7 +268,7 @@ test too_many_nfts() {
       |> value.add(value.from_asset(#"acab", #"face", 1))
       |> value.add(value.from_asset(#"beef", #"face", 40))
       |> value.add(value.from_asset(#"face", #"beef", 40))
-  prove_singular_token(#"acab", val) == False
+  prove_nft(#"acab", val) == False
 }
 
 test missing_nft() {
@@ -278,5 +278,5 @@ test missing_nft() {
       |> value.add(value.from_asset(#"cafe", #"face", 10))
       |> value.add(value.from_asset(#"beef", #"face", 40))
       |> value.add(value.from_asset(#"face", #"beef", 40))
-  prove_singular_token(#"acab", val) == False
+  prove_nft(#"acab", val) == False
 }
