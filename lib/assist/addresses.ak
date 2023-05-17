@@ -1,4 +1,4 @@
-//// This module includes code to help with creating wallet and script addresses.
+//// This module includes code to help create proper wallet and script addresses.
 ////
 //// Empty keys are assumed to be on purpose.
 

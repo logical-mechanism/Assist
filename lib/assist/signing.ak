@@ -53,6 +53,7 @@ pub fn verify_multisig(
   vks: List<Hash<Blake2b_224, VerificationKey>>,
   minimum: Int,
 ) -> Bool {
+  // assume greater than or equal
   run_multisig(transaction, vks, 0) >= minimum
 }
 

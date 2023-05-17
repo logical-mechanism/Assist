@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.1.0 </span>
+          <span>v0.1.1 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.1.0";
+            const currentVersion = "v0.1.1";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -257,7 +257,7 @@
   
   <li><a href="#first_input_index">first_input_index</a></li>
   
-  <li><a href="#first_input_ref">first_input_ref</a></li>
+  <li><a href="#first_input_txid">first_input_txid</a></li>
   
   <li><a href="#input_by_addr">input_by_addr</a></li>
   
@@ -267,7 +267,7 @@
   
   <li><a href="#output_datum_by_addr">output_datum_by_addr</a></li>
   
-  <li><a href="#staking_reward_amount">staking_reward_amount</a></li>
+  <li><a href="#stake_reward_by_sc">stake_reward_by_sc</a></li>
   
 </ul>
 
@@ -279,9 +279,8 @@
 <h1 id="module-name" class="module-name">
   <a href="#module-name">assist/find</a>
 </h1>
-<p>This module includes code finding aspects of a validating
+<p>This module includes code for finding various aspects of a validating
 transaction. </p>
-<p>The amounts are assumed to be exact.</p>
 
 
 
@@ -305,7 +304,7 @@ transaction. </p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the first input’s output reference index.
+    <div class="rendered-markdown"><p>Find the first input output reference index.
 Output references have the form TxId#Idx, this function
 extracts the Idx part. If nothing is found then error.</p>
 <pre><code class="language-aiken">find.first_input_index(tx.inputs)
@@ -315,7 +314,7 @@ extracts the Idx part. If nothing is found then error.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="first_input_ref"><pre class="hljs language-aiken">first_input_ref(inputs: List&lt;Input&gt;) -&gt; ByteArray</pre></h2>
+      <h2 id="first_input_txid"><pre class="hljs language-aiken">first_input_txid(inputs: List&lt;Input&gt;) -&gt; ByteArray</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -324,7 +323,7 @@ extracts the Idx part. If nothing is found then error.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the first input’s output reference transaction id hash.
+    <div class="rendered-markdown"><p>Find the first input output reference transaction id hash.
 Output references have the form TxId#Idx, this function
 extracts the TxId part. If nothing is found then error.</p>
 <pre><code class="language-aiken">find.first_input_index(tx.inputs)
@@ -361,8 +360,9 @@ is found then error. The address here is an exact match, pkh and sc.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find an input by its output reference else error. Similar to the builtin
-function in stdlib but auto errors.</p>
+    <div class="rendered-markdown"><p>Find an input by an output reference. If nothing is found then error. 
+Similar to the builtin function in stdlib but auto errors instead of
+returning an Option.</p>
 <pre><code class="language-aiken">find.input_by_ref(tx.inputs, out_ref)
 </code></pre>
 </div>
@@ -406,7 +406,7 @@ found then error.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="staking_reward_amount"><pre class="hljs language-aiken">staking_reward_amount(
+      <h2 id="stake_reward_by_sc"><pre class="hljs language-aiken">stake_reward_by_sc(
   withdraws: Dict&lt;StakeCredential, Int&gt;,
   stake_credential: StakeCredential,
 ) -&gt; Int</pre></h2>
@@ -419,8 +419,9 @@ found then error.</p>
       
     </div>
     <div class="rendered-markdown"><p>Find the staking reward amount in loveace for some stake credential.
-If no rewards are available then error.</p>
-<pre><code class="language-aiken">find.staking_reward_amount(tx.withdrawals, datum.wallet.sc)
+If no rewards are available then error. This is a great method for
+checking on-chain staking rewards and withdrawal validation.</p>
+<pre><code class="language-aiken">find.stake_reward_by_sc(tx.withdrawals, datum.wallet.sc)
 </code></pre>
 </div>
   </div>
@@ -498,8 +499,8 @@ If no rewards are available then error.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/index.js?v=1684280330"></script>
+    <script src="../js/index.js?v=1684341644"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684280330"></script>
+    <script src="../search-data.js?v=1684341644"></script>
   </body>
 </html>

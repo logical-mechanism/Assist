@@ -14,7 +14,7 @@ use tests/fake_tx
 /// ```aiken
 /// payout.find_exact(wallet_addr, validating_value, tx.outputs)
 /// ```
-pub fn find_exact(
+pub fn exact(
   pay_address: Address,
   pay_value: Value,
   outputs: List<Output>,
@@ -25,7 +25,7 @@ pub fn find_exact(
       if output.address == pay_address && output.value == pay_value {
         True
       } else {
-        find_exact(pay_address, pay_value, rest)
+        exact(pay_address, pay_value, rest)
       }
     [] ->
       False
@@ -39,7 +39,7 @@ test find_exact_payout() {
     addresses.create_address(#"face", #"")
   let val =
     value.from_lovelace(40)
-  find_exact(addr, val, tx.outputs) == True
+  exact(addr, val, tx.outputs) == True
 }
 
 test missing_exact_payout() {
@@ -49,7 +49,7 @@ test missing_exact_payout() {
     addresses.create_address(#"acab", #"")
   let val =
     value.from_lovelace(40)
-  find_exact(addr, val, tx.outputs) == False
+  exact(addr, val, tx.outputs) == False
 }
 
 /// Find the first occurrence of an output that contains at least some specific
@@ -57,9 +57,9 @@ test missing_exact_payout() {
 /// does not search for an exact UTxO match.
 ///
 /// ```aiken
-/// payout.find_token(wallet_addr, just_token_value, tx.outputs)
+/// payout.at_least(wallet_addr, just_token_value, tx.outputs)
 /// ```
-pub fn find_token(
+pub fn at_least(
   pay_address: Address,
   pay_value: Value,
   outputs: List<Output>,
@@ -76,7 +76,7 @@ pub fn find_token(
       
         True
       } else {
-        find_token(pay_address, pay_value, rest)
+        at_least(pay_address, pay_value, rest)
       }
     [] ->
       False
@@ -101,14 +101,14 @@ fn check_all_assets(
   }
 }
 
-test find_token_payout() {
+test at_least_payout() {
   let tx =
     fake_tx.test_tx()
   let addr =
     addresses.create_address(#"acab", #"")
   let val =
     value.from_asset(#"acab", #"beef", 40)
-  find_token(addr, val, tx.outputs) == True
+  at_least(addr, val, tx.outputs) == True
 }
 
 test find_just_enough_token_payout() {
@@ -118,7 +118,7 @@ test find_just_enough_token_payout() {
     addresses.create_address(#"acab", #"")
   let val =
     value.from_asset(#"acab", #"beef", 20)
-  find_token(addr, val, tx.outputs) == True
+  at_least(addr, val, tx.outputs) == True
 }
 
 test missing_token_payout() {
@@ -128,34 +128,34 @@ test missing_token_payout() {
     addresses.create_address(#"acab", #"")
   let val =
     value.from_asset(#"acab", #"beef", 60)
-  find_token(addr, val, tx.outputs) == False
+  at_least(addr, val, tx.outputs) == False
 }
 
 /// Find the first occurrence of an output at some address. If nothing is 
 /// found then return False. This function does not search by value.
 ///
 /// ```aiken
-/// payout.find_cont(that_script_addr, tx.outputs)
+/// payout.cont(that_script_addr, tx.outputs)
 /// ```
-pub fn find_cont(pay_address: Address, outputs: List<Output>) -> Bool {
+pub fn cont(pay_address: Address, outputs: List<Output>) -> Bool {
   when outputs is {
     [output, ..rest] ->
       if output.address == pay_address {
         True
       } else {
-        find_cont(pay_address, rest)
+        cont(pay_address, rest)
       }
     [] ->
       False
   }
 }
 
-test find_cont_payout() {
+test cont_payout() {
   let tx =
     fake_tx.test_tx()
   let addr =
     addresses.create_address(#"acab", #"")
-  find_cont(addr, tx.outputs) == True
+  cont(addr, tx.outputs) == True
 }
 
 test missing_cont_payout() {
@@ -163,5 +163,5 @@ test missing_cont_payout() {
     fake_tx.test_tx()
   let addr =
     addresses.create_address(#"cafe", #"")
-  find_cont(addr, tx.outputs) == False
+  cont(addr, tx.outputs) == False
 }

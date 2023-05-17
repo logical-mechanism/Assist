@@ -1,4 +1,4 @@
-//// This module includes code to help with various maths.
+//// This module includes code for various maths.
 ////
 ////
 
@@ -73,6 +73,10 @@ test simple_base_q() {
   base_q(17232, 4) == [1, 0, 0, 3, 1, 1, 0, 0]
 }
 
+test to_base_256() {
+  base_q(78237623, 256) == [4, 169, 207, 183]
+}
+
 /// Convert a hexadecimal bytearray into its base 10 representation. This
 /// only works with even length bytearrays so arbitrary numbers in hexadecimal
 /// form will not in general work.
@@ -91,6 +95,14 @@ test empty_string_to_int() {
 
 test string_to_int() {
   to_int(#"acab") == 44203
+}
+
+// leaving this for potential future work
+test string_to_list_of_int() {
+  bytearray.foldl(#"acab", fn(byte, acc) { list.push(acc, byte) }, []) == [
+    171, 172,
+  ]
+  // #"acab" == bytearray.foldl(#"acab", flip(list.push), #"")
 }
 
 /// Computes greatest common divisor of two numbers.

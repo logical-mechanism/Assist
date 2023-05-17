@@ -1,4 +1,4 @@
-//// This module includes code to help extracting data from a potential 
+//// This module includes code for extracting data from a potential 
 //// inline datum on either an input or output.
 ////
 

@@ -1,3 +1,7 @@
+//// This module includes code to help with various value manipulations and comparisons.
+//// The prefix for various cip68 tokens are included.
+////
+
 use aiken/bytearray
 use aiken/hash
 use aiken/string
@@ -19,7 +23,7 @@ pub const prefix_333 =
 pub const prefix_444 =
   #"2834343429"
 
-/// Multiply some value by `n`. Its just a scaler multiplier to the quantity
+/// Multiply some value by `n`. Its just a linear multiplier to the quantity
 /// of each token.
 ///
 /// ```aiken
