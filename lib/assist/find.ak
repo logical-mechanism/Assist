@@ -4,7 +4,9 @@
 
 use aiken/dict.{Dict}
 use aiken/list
-use aiken/transaction.{Input, Output, OutputReference, TransactionId}
+use aiken/transaction.{
+  Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend, TransactionId,
+}
 use aiken/transaction/credential.{
   Address, Inline, StakeCredential, VerificationKeyCredential,
 }
@@ -196,4 +198,32 @@ test find_stake_reward_by_sc() {
   let sc =
     Inline(VerificationKeyCredential(#"face"))
   stake_reward_by_sc(withdrawal, sc) == 100
+}
+
+/// Find a redeemer data by an output reference. This is good for finding
+/// if a specific redeemer is being used on some specific UTxO.
+///
+/// ```aiken
+/// find.redeemer_by_ref(tx.redeemers, that_out_ref)
+/// ```
+pub fn redeemer_by_ref(
+  redeemers: Dict<ScriptPurpose, Redeemer>,
+  out_ref: OutputReference,
+) -> Data {
+  // make sure only the spend purpose here
+  when dict.get(redeemers, Spend(out_ref)) is {
+    Some(redeemer) ->
+      redeemer
+    None ->
+      error @"No Spend Redeemer Found"
+  }
+}
+
+// can't test errors yet
+test find_redeemer_by_ref() {
+  let tx =
+    fake_tx.test_tx()
+  expect datum: Int =
+    redeemer_by_ref(tx.redeemers, fake_tx.test_out_ref())
+  datum == 1
 }

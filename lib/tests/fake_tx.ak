@@ -1,7 +1,7 @@
 use aiken/dict
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
 use aiken/transaction.{
-  InlineDatum, Input, NoDatum, Output, OutputReference, Transaction,
+  InlineDatum, Input, NoDatum, Output, OutputReference, Spend, Transaction,
   TransactionId,
 }
 use aiken/transaction/credential.{
@@ -12,6 +12,18 @@ use assist/addresses
 
 pub const test_datum: ByteArray =
   #"acabbeeffacecafe"
+
+pub type DataType =
+  Data
+
+pub fn test_out_ref() -> OutputReference {
+  let out_ref =
+    OutputReference {
+      transaction_id: TransactionId { hash: #"acab" },
+      output_index: 0,
+    }
+  out_ref
+}
 
 /// A fake input used for testing.
 pub fn test_input() -> Input {
@@ -47,17 +59,21 @@ pub fn test_output() -> Output {
 pub fn test_tx() -> Transaction {
   let sc: StakeCredential =
     Inline(VerificationKeyCredential(#"face"))
+  let out_ref =
+    test_out_ref()
   let withdrawal =
     dict.new()
       |> dict.insert(key: sc, value: 100, compare: fn(_, _) { Equal })
+  let d: DataType =
+    1
+  let redeem =
+    dict.new()
+      |> dict.insert(key: Spend(out_ref), value: d, compare: fn(_, _) { Equal })
   let tx =
     Transaction {
       inputs: [
         Input {
-          output_reference: OutputReference {
-            transaction_id: TransactionId { hash: #"acab" },
-            output_index: 0,
-          },
+          output_reference: out_ref,
           output: Output {
             address: addresses.create_address(#"acab", #""),
             value: value.from_lovelace(100),
@@ -126,7 +142,7 @@ pub fn test_tx() -> Transaction {
         },
       },
       extra_signatories: [#"acab", #"beef", #"face"],
-      redeemers: dict.new(),
+      redeemers: redeem,
       datums: dict.new(),
       id: TransactionId { hash: #"" },
     }

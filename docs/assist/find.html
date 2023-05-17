@@ -267,6 +267,8 @@
   
   <li><a href="#output_datum_by_addr">output_datum_by_addr</a></li>
   
+  <li><a href="#redeemer_by_ref">redeemer_by_ref</a></li>
+  
   <li><a href="#stake_reward_by_sc">stake_reward_by_sc</a></li>
   
 </ul>
@@ -406,6 +408,27 @@ found then error.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="redeemer_by_ref"><pre class="hljs language-aiken">redeemer_by_ref(
+  redeemers: Dict&lt;ScriptPurpose, Redeemer&gt;,
+  out_ref: OutputReference,
+) -&gt; Data</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find a redeemer data by an output reference. This is good for finding
+if a specific redeemer is being used on some specific UTxO.</p>
+<pre><code class="language-aiken">find.redeemer_by_ref(tx.redeemers, that_out_ref)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="stake_reward_by_sc"><pre class="hljs language-aiken">stake_reward_by_sc(
   withdraws: Dict&lt;StakeCredential, Int&gt;,
   stake_credential: StakeCredential,
@@ -499,8 +522,8 @@ checking on-chain staking rewards and withdrawal validation.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/index.js?v=1684341644"></script>
+    <script src="../js/index.js?v=1684343827"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684341644"></script>
+    <script src="../search-data.js?v=1684343827"></script>
   </body>
 </html>
