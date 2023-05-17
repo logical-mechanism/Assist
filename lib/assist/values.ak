@@ -210,16 +210,26 @@ pub fn unique_token_name(
   let prepend_prefix =
     bytearray.concat(prefix, prepend_index)
   // slice off the first 32
-  bytearray.slice(prepend_prefix, 0, 32)
+  bytearray.slice(prepend_prefix, 0, 31)
 }
 
 test no_prefix_token_name() {
   // the zero becomes the prefix
-  unique_token_name(#"", 0, #"") == #"00a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+  unique_token_name(#"", 0, #"") == #"00a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f843"
 }
 
 test prefix_222_token_name() {
   let tkn =
     unique_token_name(#"", 0, prefix_222)
   bytearray.take(tkn, 5) == prefix_222
+}
+
+test real_token_name() {
+  let tkn =
+    unique_token_name(
+      #"82fca2f3221cf2d3ef017e8aa76f5c70317df0af32d327c84af4b9b9bddad91f",
+      0,
+      prefix_100,
+    )
+  bytearray.length(tkn) == 32
 }
