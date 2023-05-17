@@ -43,7 +43,7 @@ test find_first_input_index() {
 /// extracts the TxId part. If nothing is found then error.
 ///
 /// ```aiken
-/// find.first_input_index(tx.inputs)
+/// find.first_input_txid(tx.inputs)
 /// ```
 pub fn first_input_txid(inputs: List<Input>) -> ByteArray {
   when list.head(inputs) is {

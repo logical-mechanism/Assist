@@ -12,7 +12,7 @@ use tests/fake_tx
 /// address and value. If nothing is found then return False.
 ///
 /// ```aiken
-/// payout.find_exact(wallet_addr, validating_value, tx.outputs)
+/// payout.exact(wallet_addr, validating_value, tx.outputs)
 /// ```
 pub fn exact(
   pay_address: Address,

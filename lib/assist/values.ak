@@ -241,7 +241,7 @@ test real_token_name() {
 /// NFT. Should be useful to prove that someone is holding a token.
 ///
 /// ```aiken
-/// values.prove_singluar_token(pointer_pid, validating_value)
+/// values.prove_nft(pointer_pid, validating_value)
 /// ```
 pub fn prove_nft(pid: PolicyId, total: Value) {
   let tkns =
