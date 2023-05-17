@@ -3,7 +3,9 @@
 ////
 
 use aiken/bytearray
+use aiken/dict
 use aiken/hash
+use aiken/list
 use aiken/string
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 
@@ -232,4 +234,49 @@ test real_token_name() {
       prefix_100,
     )
   bytearray.length(tkn) == 32
+}
+
+/// Proves that inside some value there is a policy id with a single token
+/// name with an amount equal to 1. This will show that a value contains an
+/// NFT. Should be useful to prove that someone is holding a token.
+///
+/// ```aiken
+/// values.prove_nft(pointer_pid, validating_value)
+/// ```
+pub fn prove_nft(pid: PolicyId, total: Value) {
+  let tkns =
+    value.tokens(total, pid) |> dict.values()
+  let sum =
+    list.foldl(tkns, fn(n, total) { n + total }, 0)
+  list.and([list.length(tkns) == 1, sum == 1])
+}
+
+test prove_nft_from_policy_id() {
+  let val =
+    value.from_lovelace(100)
+      |> value.add(value.from_asset(#"acab", #"beef", 1))
+      |> value.add(value.from_asset(#"cafe", #"face", 40))
+      |> value.add(value.from_asset(#"beef", #"face", 40))
+      |> value.add(value.from_asset(#"face", #"beef", 40))
+  prove_nft(#"acab", val) == True
+}
+
+test too_many_nfts() {
+  let val =
+    value.from_lovelace(100)
+      |> value.add(value.from_asset(#"acab", #"beef", 1))
+      |> value.add(value.from_asset(#"acab", #"face", 1))
+      |> value.add(value.from_asset(#"beef", #"face", 40))
+      |> value.add(value.from_asset(#"face", #"beef", 40))
+  prove_nft(#"acab", val) == False
+}
+
+test missing_nft() {
+  let val =
+    value.from_lovelace(100)
+      |> value.add(value.from_asset(#"acab", #"beef", 10))
+      |> value.add(value.from_asset(#"cafe", #"face", 10))
+      |> value.add(value.from_asset(#"beef", #"face", 40))
+      |> value.add(value.from_asset(#"face", #"beef", 40))
+  prove_nft(#"acab", val) == False
 }
