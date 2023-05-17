@@ -15,6 +15,8 @@ version = "main"
 source = "github"
 ```
 
+Then compile by calling `aiken check`. 
+
 Import the module like:
 
 ```aiken

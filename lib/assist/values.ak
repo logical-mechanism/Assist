@@ -1,3 +1,7 @@
+//// This module includes code to help with various value manipulations and comparisons.
+//// The prefix for various cip68 tokens are included.
+////
+
 use aiken/bytearray
 use aiken/hash
 use aiken/string

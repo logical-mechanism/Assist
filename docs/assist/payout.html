@@ -255,11 +255,11 @@
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#find_cont">find_cont</a></li>
+  <li><a href="#at_least">at_least</a></li>
   
-  <li><a href="#find_exact">find_exact</a></li>
+  <li><a href="#cont">cont</a></li>
   
-  <li><a href="#find_token">find_token</a></li>
+  <li><a href="#exact">exact</a></li>
   
 </ul>
 
@@ -286,51 +286,7 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="find_cont"><pre class="hljs language-aiken">find_cont(pay_address: Address, outputs: List&lt;Output&gt;) -&gt; Bool</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Find the first occurrence of an output at some address. If nothing is 
-found then return False. This function does not search by value.</p>
-<pre><code class="language-aiken">payout.find_cont(that_script_addr, tx.outputs)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="find_exact"><pre class="hljs language-aiken">find_exact(
-  pay_address: Address,
-  pay_value: Value,
-  outputs: List&lt;Output&gt;,
-) -&gt; Bool</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Find the first occurrence of an exact output that matches a specific
-address and value. If nothing is found then return False.</p>
-<pre><code class="language-aiken">payout.find_exact(wallet_addr, validating_value, tx.outputs)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="find_token"><pre class="hljs language-aiken">find_token(
-  pay_address: Address,
-  pay_value: Value,
-  outputs: List&lt;Output&gt;,
-) -&gt; Bool</pre></h2>
+      <h2 id="at_least"><pre class="hljs language-aiken">at_least(pay_address: Address, pay_value: Value, outputs: List&lt;Output&gt;) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -342,7 +298,43 @@ address and value. If nothing is found then return False.</p>
     <div class="rendered-markdown"><p>Find the first occurrence of an output that contains at least some specific
 value at some address. If nothing is found then return False. This function
 does not search for an exact UTxO match.</p>
-<pre><code class="language-aiken">payout.find_token(wallet_addr, just_token_value, tx.outputs)
+<pre><code class="language-aiken">payout.at_least(wallet_addr, just_token_value, tx.outputs)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="cont"><pre class="hljs language-aiken">cont(pay_address: Address, outputs: List&lt;Output&gt;) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the first occurrence of an output at some address. If nothing is 
+found then return False. This function does not search by value.</p>
+<pre><code class="language-aiken">payout.cont(that_script_addr, tx.outputs)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="exact"><pre class="hljs language-aiken">exact(pay_address: Address, pay_value: Value, outputs: List&lt;Output&gt;) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the first occurrence of an exact output that matches a specific
+address and value. If nothing is found then return False.</p>
+<pre><code class="language-aiken">payout.find_exact(wallet_addr, validating_value, tx.outputs)
 </code></pre>
 </div>
   </div>
@@ -420,8 +412,8 @@ does not search for an exact UTxO match.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/index.js?v=1684280330"></script>
+    <script src="../js/index.js?v=1684340544"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684280330"></script>
+    <script src="../search-data.js?v=1684340544"></script>
   </body>
 </html>

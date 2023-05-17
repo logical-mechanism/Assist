@@ -1,7 +1,6 @@
-//// This module includes code finding aspects of a validating
+//// This module includes code for finding various aspects of a validating
 //// transaction. 
 ////
-//// The amounts are assumed to be exact.
 
 use aiken/dict.{Dict}
 use aiken/list
@@ -14,7 +13,7 @@ use assist/data
 // for testing only
 use tests/fake_tx
 
-/// Find the first input's output reference index.
+/// Find the first input output reference index.
 /// Output references have the form TxId#Idx, this function
 /// extracts the Idx part. If nothing is found then error.
 ///
@@ -37,14 +36,14 @@ test find_first_input_index() {
   first_input_index(inputs) == 0
 }
 
-/// Find the first input's output reference transaction id hash.
+/// Find the first input output reference transaction id hash.
 /// Output references have the form TxId#Idx, this function
 /// extracts the TxId part. If nothing is found then error.
 ///
 /// ```aiken
 /// find.first_input_index(tx.inputs)
 /// ```
-pub fn first_input_ref(inputs: List<Input>) -> ByteArray {
+pub fn first_input_txid(inputs: List<Input>) -> ByteArray {
   when list.head(inputs) is {
     Some(input) ->
       input.output_reference.transaction_id.hash
@@ -54,14 +53,15 @@ pub fn first_input_ref(inputs: List<Input>) -> ByteArray {
 }
 
 // can't test for errors yet
-test find_first_input_ref() {
+test find_first_input_txid() {
   let inputs =
     fake_tx.test_tx().inputs
-  first_input_ref(inputs) == #"acab"
+  first_input_txid(inputs) == #"acab"
 }
 
-/// Find an input by its output reference else error. Similar to the builtin
-/// function in stdlib but auto errors.
+/// Find an input by an output reference. If nothing is found then error. 
+/// Similar to the builtin function in stdlib but auto errors instead of
+/// returning an Option.
 ///
 /// ```aiken
 /// find.input_by_ref(tx.inputs, out_ref)
@@ -171,12 +171,13 @@ test find_output_datum_by_addr() {
 }
 
 /// Find the staking reward amount in loveace for some stake credential.
-/// If no rewards are available then error.
+/// If no rewards are available then error. This is a great method for
+/// checking on-chain staking rewards and withdrawal validation.
 ///
 /// ```aiken
-/// find.staking_reward_amount(tx.withdrawals, datum.wallet.sc)
+/// find.stake_reward_by_sc(tx.withdrawals, datum.wallet.sc)
 /// ```
-pub fn staking_reward_amount(
+pub fn stake_reward_by_sc(
   withdraws: Dict<StakeCredential, Int>,
   stake_credential: StakeCredential,
 ) -> Int {
@@ -189,10 +190,10 @@ pub fn staking_reward_amount(
 }
 
 // can't test for errors yet
-test find_staking_reward_amount() {
+test find_stake_reward_by_sc() {
   let withdrawal =
     fake_tx.test_tx().withdrawals
   let sc =
     Inline(VerificationKeyCredential(#"face"))
-  staking_reward_amount(withdrawal, sc) == 100
+  stake_reward_by_sc(withdrawal, sc) == 100
 }
