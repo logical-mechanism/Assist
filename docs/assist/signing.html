@@ -269,7 +269,7 @@
 <h1 id="module-name" class="module-name">
   <a href="#module-name">assist/signing</a>
 </h1>
-<p>This module includes code to help with transaction signatures.</p>
+<p>This module includes code for verifying transaction signatures.</p>
 <p>All signatures are assumed to be verification keys.</p>
 
 
@@ -298,10 +298,9 @@
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Check if the list of signatures inside a transaction for a minimum amount
-of signatures from a list verification keys.</p>
-<pre><code class="language-aiken">signing.verify_multisig(context.transaction, [#&quot;&quot;, #&quot;acab&quot;], 0) == False
-signing.verify_multisig(context.transaction, [#&quot;8f7b0ce283a92df9a3b69ac0b8f10d8bc8bcf8fbd1fe72596ee8bd6c&quot;], 1) == True
+    <div class="rendered-markdown"><p>This counts the number of signatures inside a transaction that are from 
+the list of signers then checks if its at least the minimum amount.</p>
+<pre><code class="language-aiken">signing.verify_multisig(tx, lst_of_sigs, sig_threshold) == True
 </code></pre>
 </div>
   </div>
@@ -322,8 +321,7 @@ signing.verify_multisig(context.transaction, [#&quot;8f7b0ce283a92df9a3b69ac0b8f
     </div>
     <div class="rendered-markdown"><p>Check if the list of signatures inside a transaction contains the
 verification key.</p>
-<pre><code class="language-aiken">signing.verify_sig(context.transaction, #&quot;acab&quot;) == False
-signing.verify_sig(context.transaction, #&quot;8f7b0ce283a92df9a3b69ac0b8f10d8bc8bcf8fbd1fe72596ee8bd6c&quot;) == True
+<pre><code class="language-aiken">signing.verify_sig(context.transaction, wallet_pkh) == True
 </code></pre>
 </div>
   </div>
@@ -401,8 +399,8 @@ signing.verify_sig(context.transaction, #&quot;8f7b0ce283a92df9a3b69ac0b8f10d8bc
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684422920"></script>
+    <script src="../js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684422920"></script>
+    <script src="../search-data.js?v=1684429021"></script>
   </body>
 </html>

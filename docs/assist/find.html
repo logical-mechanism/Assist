@@ -306,9 +306,9 @@ transaction. </p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the first input output reference index.
-Output references have the form TxId#Idx, this function
-extracts the Idx part. If nothing is found then error.</p>
+    <div class="rendered-markdown"><p>Find the first input’s output reference index.
+Output references have the form <code>TxId#Idx</code>, this function
+extracts the <code>Idx</code> part. If nothing is found then error.</p>
 <pre><code class="language-aiken">find.first_input_index(tx.inputs)
 </code></pre>
 </div>
@@ -325,9 +325,9 @@ extracts the Idx part. If nothing is found then error.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Find the first input output reference transaction id hash.
-Output references have the form TxId#Idx, this function
-extracts the TxId part. If nothing is found then error.</p>
+    <div class="rendered-markdown"><p>Find the first input’s output reference transaction id hash.
+Output references have the form <code>TxId#Idx</code>, this function
+extracts the <code>TxId</code> part. If nothing is found then error.</p>
 <pre><code class="language-aiken">find.first_input_txid(tx.inputs)
 </code></pre>
 </div>
@@ -345,7 +345,8 @@ extracts the TxId part. If nothing is found then error.</p>
       
     </div>
     <div class="rendered-markdown"><p>Find the first occurrence of an input by a specific address. If nothing
-is found then error. The address here is an exact match, pkh and sc.</p>
+is found then error. The address here is an exact match, so both the
+pkh and sc need to be correct.</p>
 <pre><code class="language-aiken">find.input_by_addr(tx.reference_inputs, ref_addr)
 </code></pre>
 </div>
@@ -364,7 +365,7 @@ is found then error. The address here is an exact match, pkh and sc.</p>
     </div>
     <div class="rendered-markdown"><p>Find an input by an output reference. If nothing is found then error. 
 Similar to the builtin function in stdlib but auto errors instead of
-returning an Option.</p>
+returning an <code>Option</code>.</p>
 <pre><code class="language-aiken">find.input_by_ref(tx.inputs, out_ref)
 </code></pre>
 </div>
@@ -382,7 +383,7 @@ returning an Option.</p>
       
     </div>
     <div class="rendered-markdown"><p>Find the first occurrence of an output by a specific address. If nothing
-is found then error. The address here is an exact match, pkh and sc.</p>
+is found then error. The address here is an exact match.</p>
 <pre><code class="language-aiken">find.output_by_addr(tx.outputs, your_address)
 </code></pre>
 </div>
@@ -522,8 +523,8 @@ checking on-chain staking rewards and withdrawal validation.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684422920"></script>
+    <script src="../js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684422920"></script>
+    <script src="../search-data.js?v=1684429021"></script>
   </body>
 </html>

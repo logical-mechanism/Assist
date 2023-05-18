@@ -418,7 +418,7 @@ token must be at least the target amount or greater.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Multiply some value by <code>n</code>. Its just a linear multiplier to the quantity
+    <div class="rendered-markdown"><p>Multiply some value by <code>n</code>. This is just a linear scaling to the quantity
 of each token.</p>
 <pre><code class="language-aiken">values.multiply(bundle_value, bundle_size)
 </code></pre>
@@ -437,8 +437,9 @@ of each token.</p>
       
     </div>
     <div class="rendered-markdown"><p>Proves that inside some value there is a policy id with a single token
-name with an amount equal to 1. This will show that a value contains an
-NFT. Should be useful to prove that someone is holding a token.</p>
+name with quantity of 1. This will show that a value contains an
+NFT or something that is nft-like. Should be useful to prove that
+something is holding a token inside a transaction.</p>
 <pre><code class="language-aiken">values.prove_nft(pointer_pid, validating_value)
 </code></pre>
 </div>
@@ -455,8 +456,8 @@ NFT. Should be useful to prove that someone is holding a token.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Calculate a unique token name from a TxId#Idx and prefix. Can be combined
-with the find module to create unique token names from the first input
+    <div class="rendered-markdown"><p>Calculate a unique token name from a <code>TxId#Idx</code> and prefix. Can be combined
+with the <code>find</code> module to create unique token names from the first input
 utxo inside the transaction.</p>
 <pre><code class="language-aiken">values.unique_token_name(tx_id, tx_idx, prefix_333)
 </code></pre>
@@ -536,8 +537,8 @@ utxo inside the transaction.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684422920"></script>
+    <script src="../js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684422920"></script>
+    <script src="../search-data.js?v=1684429021"></script>
   </body>
 </html>

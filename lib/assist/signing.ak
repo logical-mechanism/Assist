@@ -1,4 +1,4 @@
-//// This module includes code to help with transaction signatures.
+//// This module includes code for verifying transaction signatures.
 ////
 //// All signatures are assumed to be verification keys.
 
@@ -13,8 +13,7 @@ use tests/fake_tx
 /// verification key.
 ///
 /// ```aiken
-/// signing.verify_sig(context.transaction, #"acab") == False
-/// signing.verify_sig(context.transaction, #"8f7b0ce283a92df9a3b69ac0b8f10d8bc8bcf8fbd1fe72596ee8bd6c") == True
+/// signing.verify_sig(context.transaction, wallet_pkh) == True
 /// ```
 pub fn verify_sig(
   transaction: Transaction,
@@ -41,12 +40,11 @@ test has_signature() {
   verify_sig(tx, #"acab") == True
 }
 
-/// Check if the list of signatures inside a transaction for a minimum amount
-/// of signatures from a list verification keys.
+/// This counts the number of signatures inside a transaction that are from 
+/// the list of signers then checks if its at least the minimum amount.
 ///
 /// ```aiken
-/// signing.verify_multisig(context.transaction, [#"", #"acab"], 0) == False
-/// signing.verify_multisig(context.transaction, [#"8f7b0ce283a92df9a3b69ac0b8f10d8bc8bcf8fbd1fe72596ee8bd6c"], 1) == True
+/// signing.verify_multisig(tx, lst_of_sigs, sig_threshold) == True
 /// ```
 pub fn verify_multisig(
   transaction: Transaction,

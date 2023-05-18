@@ -269,8 +269,8 @@
 <h1 id="module-name" class="module-name">
   <a href="#module-name">assist/addresses</a>
 </h1>
-<p>This module includes code to help create proper wallet and script addresses.</p>
-<p>Empty keys are assumed to be on purpose.</p>
+<p>This module includes code for creating proper wallet and script addresses.</p>
+<p>Empty keys are assumed to be on purpose. Address subtypes are not mixed.</p>
 
 
 
@@ -299,8 +299,7 @@
     </div>
     <div class="rendered-markdown"><p>Creates a enterprise or base address from the public key hash and stake
 credential. An empty sc means enterpise address by default.</p>
-<pre><code class="language-aiken">addresses.create_address(#&quot;acab&quot;, #&quot;&quot;)
-addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
+<pre><code class="language-aiken">addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 </code></pre>
 </div>
   </div>
@@ -319,11 +318,10 @@ addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Creates an address for a smart contract. The type does not mix address
+    <div class="rendered-markdown"><p>Creates a script address for a smart contract. The type does not mix address
 types. Staked smart contracts are contracts as well. An empty sc is
 assumed to be not staked.</p>
-<pre><code class="language-aiken">addresses.create_script_address(#&quot;acab&quot;, #&quot;&quot;)
-addresses.create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script.sc)
+<pre><code class="language-aiken">addresses.create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script.sc)
 </code></pre>
 </div>
   </div>
@@ -401,8 +399,8 @@ addresses.create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684422920"></script>
+    <script src="../js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684422920"></script>
+    <script src="../search-data.js?v=1684429021"></script>
   </body>
 </html>
