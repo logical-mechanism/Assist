@@ -7,13 +7,13 @@ use aiken/list
 
 /// Calculate `n` to the power of `e` modulo `q` using the exponentiation by 
 /// squaring method. At each multiplication a modulo is calculated, allowing
-/// very large power mods.
+/// very large `n` and `e` values.
 ///
 /// ```aiken
 /// maths.powmod(3, 2, 5)
 /// ```
 pub fn powmod(n: Int, e: Int, q: Int) -> Int {
-  if e < 0 {
+  if e < 0 || q == 0 {
     0
   } else if e == 0 {
     1
@@ -33,17 +33,25 @@ test powmod_3__4_3() {
   powmod(3, -4, 3) == 0
 }
 
-test pow_0_0_0() {
+test pow_0_0_1() {
   // sorry math
-  powmod(0, 0, 0) == 1
+  powmod(0, 0, 1) == 1
 }
 
 test powmod_513_3_7() {
   powmod(513, 3, 7) == 1
 }
 
-/// Convert a number `n` in base 10 into some base `q`. This method
-/// should scale with any number and any logical base.
+test powmod_54_123_0() {
+  powmod(54, 123, 0) == 0
+}
+
+test powmod_54_123_1() {
+  powmod(54, 123, 1) == 0
+}
+
+/// Convert a integer `n` into some base `q`. This method
+/// should scale with any integer and any logical base.
 ///
 /// ```aiken
 /// maths.base_q(123, 7)
@@ -102,7 +110,48 @@ test string_to_list_of_int() {
   bytearray.foldl(#"acab", fn(byte, acc) { list.push(acc, byte) }, []) == [
     171, 172,
   ]
-  // #"acab" == bytearray.foldl(#"acab", flip(list.push), #"")
+}
+
+/// Convert a integer into a hexadecimal bytearray. This works for all integers
+/// but odd length bytearrays will be prefixed with a zero. This function 
+/// combined with the `to_int` function allows a string to represent a number
+/// and still be used for calculations, pushing the `2^64 - 1` integer boundary
+/// to `2^256 - 1`.
+pub fn from_int(self: Int) -> ByteArray {
+  let base_256 =
+    list.reverse(base_q(self, 256))
+  list.foldl(base_256, fn(n, total) { bytearray.push(total, n) }, #"")
+}
+
+test odd_from_int() {
+  let n =
+    46118402439
+  // odd length get prepended with a zero
+  from_int(n) == #"0abcdef987"
+}
+
+test empty_from_int() {
+  let str =
+    #""
+  let n =
+    to_int(str)
+  from_int(n) == str
+}
+
+test simple_from_int() {
+  let str =
+    #"acab"
+  let n =
+    to_int(str)
+  from_int(n) == str
+}
+
+test complex_from_int() {
+  let str =
+    #"acabbeeffacecafe"
+  let n =
+    to_int(str)
+  from_int(n) == str
 }
 
 /// Computes greatest common divisor of two numbers.

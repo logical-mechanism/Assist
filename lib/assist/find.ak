@@ -15,9 +15,9 @@ use assist/data
 // for testing only
 use tests/fake_tx
 
-/// Find the first input output reference index.
-/// Output references have the form TxId#Idx, this function
-/// extracts the Idx part. If nothing is found then error.
+/// Find the first input's output reference index.
+/// Output references have the form `TxId#Idx`, this function
+/// extracts the `Idx` part. If nothing is found then error.
 ///
 /// ```aiken
 /// find.first_input_index(tx.inputs)
@@ -38,9 +38,9 @@ test find_first_input_index() {
   first_input_index(inputs) == 0
 }
 
-/// Find the first input output reference transaction id hash.
-/// Output references have the form TxId#Idx, this function
-/// extracts the TxId part. If nothing is found then error.
+/// Find the first input's output reference transaction id hash.
+/// Output references have the form `TxId#Idx`, this function
+/// extracts the `TxId` part. If nothing is found then error.
 ///
 /// ```aiken
 /// find.first_input_txid(tx.inputs)
@@ -63,7 +63,7 @@ test find_first_input_txid() {
 
 /// Find an input by an output reference. If nothing is found then error. 
 /// Similar to the builtin function in stdlib but auto errors instead of
-/// returning an Option.
+/// returning an `Option`.
 ///
 /// ```aiken
 /// find.input_by_ref(tx.inputs, out_ref)
@@ -94,7 +94,8 @@ test find_input_by_ref() {
 }
 
 /// Find the first occurrence of an input by a specific address. If nothing
-/// is found then error. The address here is an exact match, pkh and sc.
+/// is found then error. The address here is an exact match, so both the
+/// pkh and sc need to be correct.
 ///
 /// ```aiken
 /// find.input_by_addr(tx.reference_inputs, ref_addr)
@@ -122,7 +123,7 @@ test find_input_by_addr() {
 }
 
 /// Find the first occurrence of an output by a specific address. If nothing
-/// is found then error. The address here is an exact match, pkh and sc.
+/// is found then error. The address here is an exact match.
 ///
 /// ```aiken
 /// find.output_by_addr(tx.outputs, your_address)
