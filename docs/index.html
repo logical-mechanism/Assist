@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="./favicon.svg"/>
-    <link rel="stylesheet" href="./css/index.css?v=1.0.5-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.0.5-alpha"/>
+    <link rel="stylesheet" href="./css/index.css?v=1.0.6-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.0.6-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -252,22 +252,42 @@
       <main class="content">
         
 <h1>Aiken Assist Library</h1>
-<p>A library of specialized Aiken functions for smart contracts on Cardano.</p>
-<p>It extends the default library with routines that will assist in quick development.</p>
-<h2>Using the library</h2>
-<p>Add this to the dependency section of the <code>aiken.toml</code> file:</p>
-<pre><code>[[dependencies]]
+<p>The Aiken Assist Library is a collection of specialized Aiken functions designed for smart contracts on Cardano. This library extends the default functionality and provides routines that facilitate quick development.</p>
+<h2>Getting Started</h2>
+<p>To start using the library, follow these steps:</p>
+<ol>
+<li>
+<p>Open your aiken.toml file.</p>
+</li>
+<li>
+<p>Add the following code to the dependency section:</p>
+</li>
+</ol>
+<pre><code class="language-toml">[[dependencies]]
 name = &quot;logicalmechanism/assist&quot;
 version = &quot;main&quot;
 source = &quot;github&quot;
 </code></pre>
-<p>Then compile by calling <code>aiken check</code>. </p>
-<p>Import the module like:</p>
+<ol start="3">
+<li>
+<p>Save the aiken.toml file.</p>
+</li>
+<li>
+<p>Compile your project by running the command <code>aiken check</code> in your project directory.</p>
+</li>
+</ol>
+<h2>Usage</h2>
+<p>To use the Aiken Assist Library in your project, import the desired modules in your code. For example:</p>
 <pre><code class="language-aiken">use assist/signing
 use assist/count
 </code></pre>
+<p>Make sure to adjust the imports based on the specific modules you need.</p>
 <h2>Documentation</h2>
-<p>Build the documentation locally with <code>aiken docs</code> or view the <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html">documentation</a>.</p>
+<p>You can generate the library’s documentation locally by running the command <code>aiken docs</code> in your project directory. Alternatively, you can view the <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html">online documentation</a> for detailed information on the library’s functions and usage.</p>
+<h2>License</h2>
+<p>The Aiken Assist Library is released under the Apache2 License. See the <code>LICENSE</code> file for more details.</p>
+<h2>Contact</h2>
+<p>For any questions or feedback, please contact the project maintainer at <code>logical.mechanism@protonmail.com</code>.</p>
 
 
       </main>
@@ -319,8 +339,8 @@ use assist/count
       </defs>
     </svg>
 
-    <script src="./js/highlight.min.js?v=1.0.5-alpha"></script>
-    <script src="./js/highlightjs-aiken.js?v=1.0.5-alpha"></script>
+    <script src="./js/highlight.min.js?v=1.0.6-alpha"></script>
+    <script src="./js/highlightjs-aiken.js?v=1.0.6-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -339,9 +359,9 @@ use assist/count
 	el.prepend(a);
       });
     </script>
-    <script src="./js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="./js/index.js?v=1684356963"></script>
+    <script src="./js/lunr.min.js?v=1.0.6-alpha"></script>
+    <script src="./js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1684356963"></script>
+    <script src="./search-data.js?v=1684429021"></script>
   </body>
 </html>

@@ -1,4 +1,5 @@
-//// This module includes code to help with payout logic.
+//// This module includes code to help with payout logic. Payout functions
+//// will return a boolean and not an error.
 ////
 
 use aiken/transaction.{Output}
@@ -27,6 +28,7 @@ pub fn exact(
       } else {
         exact(pay_address, pay_value, rest)
       }
+    // nothing was found
     [] ->
       False
   }
@@ -78,6 +80,7 @@ pub fn at_least(
       } else {
         at_least(pay_address, pay_value, rest)
       }
+    // nothing was found
     [] ->
       False
   }

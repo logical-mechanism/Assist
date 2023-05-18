@@ -25,7 +25,7 @@ pub const prefix_333 =
 pub const prefix_444 =
   #"2834343429"
 
-/// Multiply some value by `n`. Its just a linear multiplier to the quantity
+/// Multiply some value by `n`. This is just a linear scaling to the quantity
 /// of each token.
 ///
 /// ```aiken
@@ -190,8 +190,8 @@ test hash_large_value() {
   compute_hash(val) == #"b22cc86ab71b7aba20615b56f07941aacf5445b9089c2d9ec97164a879e1b6b5"
 }
 
-/// Calculate a unique token name from a TxId#Idx and prefix. Can be combined
-/// with the find module to create unique token names from the first input
+/// Calculate a unique token name from a `TxId#Idx` and prefix. Can be combined
+/// with the `find` module to create unique token names from the first input
 /// utxo inside the transaction.
 ///
 /// ```aiken
@@ -237,8 +237,9 @@ test real_token_name() {
 }
 
 /// Proves that inside some value there is a policy id with a single token
-/// name with an amount equal to 1. This will show that a value contains an
-/// NFT. Should be useful to prove that someone is holding a token.
+/// name with quantity of 1. This will show that a value contains an
+/// NFT or something that is nft-like. Should be useful to prove that
+/// something is holding a token inside a transaction.
 ///
 /// ```aiken
 /// values.prove_nft(pointer_pid, validating_value)

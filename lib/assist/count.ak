@@ -14,7 +14,6 @@ use tests/fake_tx
 ///
 /// ```aiken
 /// count.script_inputs(tx.inputs, this_script_addr, 1)
-/// count.script_inputs(tx.inputs, that_script_addr, 2)
 /// ```
 pub fn script_inputs(
   inputs: List<Input>,
@@ -70,7 +69,6 @@ test multiple_script_inputs() {
 ///
 /// ```aiken
 /// count.script_outputs(tx.outputs, this_script_addr, 1)
-/// count.script_outputs(tx.outputs, that_script_addr, 2)
 /// ```
 pub fn script_outputs(
   outputs: List<Output>,

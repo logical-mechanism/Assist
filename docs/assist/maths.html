@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.5-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.5-alpha"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.6-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.6-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -257,11 +257,17 @@
   
   <li><a href="#base_q">base_q</a></li>
   
+  <li><a href="#from_int">from_int</a></li>
+  
   <li><a href="#gcd">gcd</a></li>
+  
+  <li><a href="#legendre_symbol">legendre_symbol</a></li>
   
   <li><a href="#list_powmod">list_powmod</a></li>
   
   <li><a href="#list_product">list_product</a></li>
+  
+  <li><a href="#list_sum">list_sum</a></li>
   
   <li><a href="#powmod">powmod</a></li>
   
@@ -301,9 +307,30 @@
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Convert a number <code>n</code> in base 10 into some base <code>q</code>. This method
-should scale with any number and any logical base.</p>
+    <div class="rendered-markdown"><p>Convert a integer <code>n</code> into some base <code>q</code>. This method
+should scale with any integer and any logical base.</p>
 <pre><code class="language-aiken">maths.base_q(123, 7)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="from_int"><pre class="hljs language-aiken">from_int(self: Int) -&gt; ByteArray</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Convert a integer into a hexadecimal bytearray. This works for all integers
+but odd length bytearrays will be prefixed with a zero. This function 
+combined with the <code>to_int</code> function allows a string to represent a number
+and still be used for calculations, pushing the <code>2^64 - 1</code> integer boundary
+to <code>2^256 - 1</code>.</p>
+<pre><code class="language-aiken">maths.from_int(44203)
 </code></pre>
 </div>
   </div>
@@ -321,6 +348,24 @@ should scale with any number and any logical base.</p>
     </div>
     <div class="rendered-markdown"><p>Computes greatest common divisor of two numbers.</p>
 <pre><code class="language-aiken">maths.gcd(20, 15)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="legendre_symbol"><pre class="hljs language-aiken">legendre_symbol(a: Int, p: Int) -&gt; Int</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Calculate the Legendre symbol (a/p) using the Euler’s criterion.
+This implementation assumes that ‘a’ and ‘p’ are positive integers.</p>
+<pre><code class="language-aiken">maths.legendre_symbol(10, 19)
 </code></pre>
 </div>
   </div>
@@ -361,6 +406,23 @@ should scale with any number and any logical base.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="list_sum"><pre class="hljs language-aiken">list_sum(lst: List&lt;Int&gt;) -&gt; Int</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Computes the sum of a list of integers.</p>
+<pre><code class="language-aiken">maths.list_sum(list_of_integers)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="powmod"><pre class="hljs language-aiken">powmod(n: Int, e: Int, q: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
@@ -372,7 +434,7 @@ should scale with any number and any logical base.</p>
     </div>
     <div class="rendered-markdown"><p>Calculate <code>n</code> to the power of <code>e</code> modulo <code>q</code> using the exponentiation by 
 squaring method. At each multiplication a modulo is calculated, allowing
-very large power mods.</p>
+very large <code>n</code> and <code>e</code> values.</p>
 <pre><code class="language-aiken">maths.powmod(3, 2, 5)
 </code></pre>
 </div>
@@ -449,8 +511,8 @@ form will not in general work.</p>
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.5-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.6-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -469,9 +531,9 @@ form will not in general work.</p>
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/index.js?v=1684356963"></script>
+    <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684356963"></script>
+    <script src="../search-data.js?v=1684429021"></script>
   </body>
 </html>

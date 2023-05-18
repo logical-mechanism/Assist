@@ -1,3 +1,6 @@
+//// This is for testing only
+////
+
 use aiken/dict
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
 use aiken/transaction.{
@@ -10,12 +13,15 @@ use aiken/transaction/credential.{
 use aiken/transaction/value
 use assist/addresses
 
+/// A test datum.
 pub const test_datum: ByteArray =
   #"acabbeeffacecafe"
 
+/// A `Data`data type
 pub type DataType =
   Data
 
+/// Creates an `OutputReference`
 pub fn test_out_ref() -> OutputReference {
   let out_ref =
     OutputReference {

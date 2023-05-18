@@ -1,6 +1,6 @@
-//// This module includes code to help create proper wallet and script addresses.
+//// This module includes code for creating proper wallet and script addresses.
 ////
-//// Empty keys are assumed to be on purpose.
+//// Empty keys are assumed to be on purpose. Address subtypes are not mixed.
 
 use aiken/bytearray
 use aiken/hash.{Blake2b_224, Hash}
@@ -13,7 +13,6 @@ use aiken/transaction/credential.{
 /// credential. An empty sc means enterpise address by default.
 ///
 /// ```aiken
-/// addresses.create_address(#"acab", #"")
 /// addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 /// ```
 pub fn create_address(
@@ -47,12 +46,11 @@ test base_wallet() {
   create_address(#"acab", #"face") == addr
 }
 
-/// Creates an address for a smart contract. The type does not mix address
+/// Creates a script address for a smart contract. The type does not mix address
 /// types. Staked smart contracts are contracts as well. An empty sc is
 /// assumed to be not staked.
 ///
 /// ```aiken
-/// addresses.create_script_address(#"acab", #"")
 /// addresses.create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script.sc)
 /// ```
 pub fn create_script_address(

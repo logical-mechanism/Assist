@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.5-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.5-alpha"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.6-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.6-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -298,7 +298,6 @@ inside a transaction by a specific address.</p>
     <div class="rendered-markdown"><p>Verify that the number of inputs from a specific script is equal the amount
 intended in the contract. The amount must be exact with the counter.</p>
 <pre><code class="language-aiken">count.script_inputs(tx.inputs, this_script_addr, 1)
-count.script_inputs(tx.inputs, that_script_addr, 2)
 </code></pre>
 </div>
   </div>
@@ -317,7 +316,6 @@ count.script_inputs(tx.inputs, that_script_addr, 2)
     <div class="rendered-markdown"><p>Verify that the number of outputs from a specific script is equal the amount
 intended in the contract. The amount must be exact with the counter.</p>
 <pre><code class="language-aiken">count.script_outputs(tx.outputs, this_script_addr, 1)
-count.script_outputs(tx.outputs, that_script_addr, 2)
 </code></pre>
 </div>
   </div>
@@ -374,8 +372,8 @@ count.script_outputs(tx.outputs, that_script_addr, 2)
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.5-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.6-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -394,9 +392,9 @@ count.script_outputs(tx.outputs, that_script_addr, 2)
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/index.js?v=1684356963"></script>
+    <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684356963"></script>
+    <script src="../search-data.js?v=1684429021"></script>
   </body>
 </html>

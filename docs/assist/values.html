@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.5-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.5-alpha"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.6-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.6-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -418,7 +418,7 @@ token must be at least the target amount or greater.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Multiply some value by <code>n</code>. Its just a linear multiplier to the quantity
+    <div class="rendered-markdown"><p>Multiply some value by <code>n</code>. This is just a linear scaling to the quantity
 of each token.</p>
 <pre><code class="language-aiken">values.multiply(bundle_value, bundle_size)
 </code></pre>
@@ -437,8 +437,9 @@ of each token.</p>
       
     </div>
     <div class="rendered-markdown"><p>Proves that inside some value there is a policy id with a single token
-name with an amount equal to 1. This will show that a value contains an
-NFT. Should be useful to prove that someone is holding a token.</p>
+name with quantity of 1. This will show that a value contains an
+NFT or something that is nft-like. Should be useful to prove that
+something is holding a token inside a transaction.</p>
 <pre><code class="language-aiken">values.prove_nft(pointer_pid, validating_value)
 </code></pre>
 </div>
@@ -455,8 +456,8 @@ NFT. Should be useful to prove that someone is holding a token.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Calculate a unique token name from a TxId#Idx and prefix. Can be combined
-with the find module to create unique token names from the first input
+    <div class="rendered-markdown"><p>Calculate a unique token name from a <code>TxId#Idx</code> and prefix. Can be combined
+with the <code>find</code> module to create unique token names from the first input
 utxo inside the transaction.</p>
 <pre><code class="language-aiken">values.unique_token_name(tx_id, tx_idx, prefix_333)
 </code></pre>
@@ -515,8 +516,8 @@ utxo inside the transaction.</p>
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.5-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.6-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -535,9 +536,9 @@ utxo inside the transaction.</p>
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.5-alpha"></script>
-    <script src="../js/index.js?v=1684356963"></script>
+    <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/index.js?v=1684429021"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684356963"></script>
+    <script src="../search-data.js?v=1684429021"></script>
   </body>
 </html>
