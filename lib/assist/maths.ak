@@ -249,3 +249,24 @@ test empty_list_power_mod() {
 test simple_list_power_mod() {
   list_powmod([1, 2, 3], 2, 19) == 7
 }
+
+/// Computes the sum of a list of integers.
+///
+/// ```aiken
+/// maths.list_sum(list_of_integers)
+/// ```
+pub fn list_sum(lst: List<Int>) -> Int {
+  list.foldr(lst, fn(n, total) { total + n }, 0)
+}
+
+test empty_list_sum() {
+  list_sum([]) == 0
+}
+
+test simple_list_sum() {
+  list_sum([1, 2, 3]) == 6
+}
+
+test complex_list_sum() {
+  list_sum([1, 2, 3, -3, -2, -1]) == 0
+}
