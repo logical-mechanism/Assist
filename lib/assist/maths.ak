@@ -117,6 +117,10 @@ test string_to_list_of_int() {
 /// combined with the `to_int` function allows a string to represent a number
 /// and still be used for calculations, pushing the `2^64 - 1` integer boundary
 /// to `2^256 - 1`.
+///
+/// ```aiken
+/// maths.from_int(44203)
+/// ```
 pub fn from_int(self: Int) -> ByteArray {
   let base_256 =
     list.reverse(base_q(self, 256))
@@ -176,8 +180,40 @@ test gcd_124_8() {
   gcd(124, 8) == 4
 }
 
+test gcd_48_18() {
+  gcd(48, 18) == 6
+}
+
 test gcd_0_0() {
   gcd(0, 0) == 0
+}
+
+/// Calculate the Legendre symbol (a/p) using the Euler's criterion.
+/// This implementation assumes that 'a' and 'p' are positive integers.
+///
+/// ```aiken
+/// maths.legendre_symbol(10, 19)
+/// ```
+pub fn legendre_symbol(a: Int, p: Int) -> Int {
+  if a % p == 0 {
+    0
+  } else if powmod(a, ( p - 1 ) / 2, p) == 1 {
+    1
+  } else {
+    -1
+  }
+}
+
+test ls_2_3() {
+  legendre_symbol(2, 3) == -1
+}
+
+test ls_7_7() {
+  legendre_symbol(7, 7) == 0
+}
+
+test ls_7_3() {
+  legendre_symbol(7, 3) == 1
 }
 
 /// Computes the product of a list of integers.
