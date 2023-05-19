@@ -4,6 +4,7 @@
 
 use aiken/bytearray
 use aiken/list
+use aiken/math
 
 /// Calculate `n` to the power of `e` modulo `q` using the exponentiation by 
 /// squaring method. At each multiplication a modulo is calculated, allowing
@@ -269,4 +270,65 @@ test simple_list_sum() {
 
 test complex_list_sum() {
   list_sum([1, 2, 3, -3, -2, -1]) == 0
+}
+
+/// Decay some starting amount logarithmically until zero. The function evaluates
+/// y = a - log(n) and when n >= 2^a the function equals zero but will return
+/// zero whenever the result is less than the scale. This is a great
+/// way to reduce some integer amount of something over time by incrementing n.
+///
+/// ```aiken
+/// maths.decay(start_amount, lovelace_scaling, datum.current_int)
+/// ```
+pub fn decay(start_amt: Int, scale: Int, num: Int) -> Int {
+  let val =
+    ( start_amt - math.log(num, 2) ) * scale
+  if val <= scale {
+    0
+  } else {
+    val
+  }
+}
+
+test no_decay() {
+  decay(18, 1, 0) == 18
+}
+
+test small_decay() {
+  decay(18, 1, 123) == 12
+}
+
+test large_decay() {
+  decay(18, 1, 123456) == 2
+}
+
+test perfect_decay() {
+  decay(18, 1, math.pow(2, 18)) == 0
+}
+
+test total_decay() {
+  decay(18, 1, 1234567) == 0
+}
+
+/// Verify that some integer `n` is greater than the lower bound, `lb`, and
+/// less than or equal to the upper bound, `ub`. The function is exclusive
+/// for `lb` but inclusive for `lb + 1`.
+///
+/// ```aiken
+/// maths.is_in_range(5, 0, 10)
+/// ```
+pub fn is_in_range(n: Int, lb: Int, ub: Int) -> Bool {
+  n > lb && n <= ub
+}
+
+test inclusive_range() {
+  is_in_range(0, 0, 10) == False && is_in_range(10, 0, 10) == True
+}
+
+test it_is_in_range() {
+  is_in_range(123, 0, 1000) == True
+}
+
+test it_is_not_in_range() {
+  is_in_range(123, 0, 100) == False
 }

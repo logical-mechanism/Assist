@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>aiken-lang/assist</title>
+    <title>assist/std - aiken-lang/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
-    <link rel="icon" type="image/svg+xml" sizes="any" href="./favicon.svg"/>
-    <link rel="stylesheet" href="./css/index.css?v=1.0.6-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.0.6-alpha"/>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.6-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.6-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
       "use strict";
-      window.breadcrumbs = '.';
+      window.breadcrumbs = '..';
       const aikenConfig = {
         theme: {
           values: (() => {
@@ -118,7 +118,7 @@
       </button>
 
       <h2>
-        <a href="./">assist</a>
+        <a href="../">assist</a>
         <span id="project-version">
           <span>v0.1.2 </span>
         </span>
@@ -190,61 +190,61 @@
 	
         <ul>
         
-	  <li><a href="./assist/addresses.html">
+	  <li><a href="../assist/addresses.html">
 	  
 	  assist/addresses
 	  
 	  </a></li>
         
-	  <li><a href="./assist/count.html">
+	  <li><a href="../assist/count.html">
 	  
 	  assist/count
 	  
 	  </a></li>
         
-	  <li><a href="./assist/data.html">
+	  <li><a href="../assist/data.html">
 	  
 	  assist/data
 	  
 	  </a></li>
         
-	  <li><a href="./assist/find.html">
+	  <li><a href="../assist/find.html">
 	  
 	  assist/find
 	  
 	  </a></li>
         
-	  <li><a href="./assist/maths.html">
+	  <li><a href="../assist/maths.html">
 	  
 	  assist/maths
 	  
 	  </a></li>
         
-	  <li><a href="./assist/payout.html">
+	  <li><a href="../assist/payout.html">
 	  
 	  assist/payout
 	  
 	  </a></li>
         
-	  <li><a href="./assist/signing.html">
+	  <li><a href="../assist/signing.html">
 	  
 	  assist/signing
 	  
 	  </a></li>
         
-	  <li><a href="./assist/std.html">
+	  <li><a href="../assist/std.html">
 	  
-	  assist/std
+	  <strong>assist/std</strong>
 	  
 	  </a></li>
         
-	  <li><a href="./assist/values.html">
+	  <li><a href="../assist/values.html">
 	  
 	  assist/values
 	  
 	  </a></li>
         
-	  <li><a href="./tests/fake_tx.html">
+	  <li><a href="../tests/fake_tx.html">
 	  
 	  tests/fake_tx
 	  
@@ -253,47 +253,53 @@
         </ul>
 
         
+
+
+
+
+
+<h2>Functions</h2>
+<ul>
+  
+  <li><a href="#out_ref">out_ref</a></li>
+  
+</ul>
+
+
       </nav>
 
       <main class="content">
         
-<h1>Aiken Assist Library</h1>
-<p>The Aiken Assist Library is a collection of specialized Aiken functions designed for smart contracts on Cardano. This library extends the default functionality and provides routines that facilitate quick development.</p>
-<h2>Getting Started</h2>
-<p>To start using the library, follow these steps:</p>
-<ol>
-<li>
-<p>Open your aiken.toml file.</p>
-</li>
-<li>
-<p>Add the following code to the dependency section:</p>
-</li>
-</ol>
-<pre><code class="language-toml">[[dependencies]]
-name = &quot;logicalmechanism/assist&quot;
-version = &quot;main&quot;
-source = &quot;github&quot;
-</code></pre>
-<ol start="3">
-<li>
-<p>Save the aiken.toml file.</p>
-</li>
-<li>
-<p>Compile your project by running the command <code>aiken check</code> in your project directory.</p>
-</li>
-</ol>
-<h2>Usage</h2>
-<p>To use the Aiken Assist Library in your project, import the desired modules in your code. For example:</p>
-<pre><code class="language-aiken">use assist/signing
-use assist/count
-</code></pre>
-<p>Make sure to adjust the imports based on the specific modules you need.</p>
-<h2>Documentation</h2>
-<p>You can generate the library’s documentation locally by running the command <code>aiken docs</code> in your project directory. Alternatively, you can view the <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html">online documentation</a> for detailed information on the library’s functions and usage.</p>
-<h2>License</h2>
-<p>The Aiken Assist Library is released under the Apache2 License. See the <code>LICENSE</code> file for more details.</p>
-<h2>Contact</h2>
-<p>For any questions or feedback, please contact the project maintainer at <code>logical.mechanism@protonmail.com</code>.</p>
+<h1 id="module-name" class="module-name">
+  <a href="#module-name">assist/std</a>
+</h1>
+
+
+
+
+
+
+
+<section class="module-members">
+  <h1 id="module-functions" class="module-member-kind">
+    <a href="#module-functions">Functions</a>
+  </h1>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="out_ref"><pre class="hljs language-aiken">out_ref(tx_id_hash: ByteArray, idx: Int) -&gt; OutputReference</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"></div>
+  </div>
+  
+</section>
 
 
       </main>
@@ -345,8 +351,8 @@ use assist/count
       </defs>
     </svg>
 
-    <script src="./js/highlight.min.js?v=1.0.6-alpha"></script>
-    <script src="./js/highlightjs-aiken.js?v=1.0.6-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.6-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -365,9 +371,9 @@ use assist/count
 	el.prepend(a);
       });
     </script>
-    <script src="./js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="./js/index.js?v=1684513678"></script>
+    <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
+    <script src="../js/index.js?v=1684513678"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1684513678"></script>
+    <script src="../search-data.js?v=1684513678"></script>
   </body>
 </html>
