@@ -106,13 +106,6 @@ test string_to_int() {
   to_int(#"acab") == 44203
 }
 
-// leaving this for potential future work
-test string_to_list_of_int() {
-  bytearray.foldl(#"acab", fn(byte, acc) { list.push(acc, byte) }, []) == [
-    171, 172,
-  ]
-}
-
 /// Convert a integer into a hexadecimal bytearray. This works for all integers
 /// but odd length bytearrays will be prefixed with a zero. This function 
 /// combined with the `to_int` function allows a string to represent a number
@@ -124,8 +117,8 @@ test string_to_list_of_int() {
 /// ```
 pub fn from_int(self: Int) -> ByteArray {
   let base_256 =
-    list.reverse(base_q(self, 256))
-  list.foldl(base_256, fn(n, total) { bytearray.push(total, n) }, #"")
+    base_q(self, 256)
+  list.foldr(base_256, fn(n, total) { bytearray.push(total, n) }, #"")
 }
 
 test odd_from_int() {
@@ -189,7 +182,7 @@ test gcd_0_0() {
   gcd(0, 0) == 0
 }
 
-/// Calculate the Legendre symbol (a/p) using the Euler's criterion.
+/// Calculate the Legendre symbol `(a/p)` using the Euler's criterion.
 /// This implementation assumes that 'a' and 'p' are positive integers.
 ///
 /// ```aiken
@@ -273,9 +266,9 @@ test complex_list_sum() {
 }
 
 /// Decay some starting amount logarithmically until zero. The function evaluates
-/// y = a - log(n) and when n >= 2^a the function equals zero but will return
+/// `y = a - log(n)` and when `n >= 2^a` the function equals zero but will return
 /// zero whenever the result is less than the scale. This is a great
-/// way to reduce some integer amount of something over time by incrementing n.
+/// way to reduce some integer amount of something over time by incrementing `n`.
 ///
 /// ```aiken
 /// maths.decay(start_amount, lovelace_scaling, datum.current_int)

@@ -273,6 +273,7 @@
 <h1 id="module-name" class="module-name">
   <a href="#module-name">assist/std</a>
 </h1>
+<p>This module includes code for various additions to the stdlib.</p>
 
 
 
@@ -296,7 +297,12 @@
       -->
       
     </div>
-    <div class="rendered-markdown"></div>
+    <div class="rendered-markdown"><p>Create an <code>OutputReference</code> from the <code>TxId#Idx</code> information. This is useful
+for building correct output references of specific UTxOs. It can be combined
+with the <code>find</code> module for some very convenient requests.</p>
+<pre><code class="language-aiken">std.out_ref(that_tx_id, that_tx_idx)
+</code></pre>
+</div>
   </div>
   
 </section>
@@ -372,8 +378,8 @@
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684513678"></script>
+    <script src="../js/index.js?v=1684514612"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684513678"></script>
+    <script src="../search-data.js?v=1684514612"></script>
   </body>
 </html>

@@ -336,9 +336,9 @@ should scale with any integer and any logical base.</p>
       
     </div>
     <div class="rendered-markdown"><p>Decay some starting amount logarithmically until zero. The function evaluates
-y = a - log(n) and when n &gt;= 2^a the function equals zero but will return
+<code>y = a - log(n)</code> and when <code>n &gt;= 2^a</code> the function equals zero but will return
 zero whenever the result is less than the scale. This is a great
-way to reduce some integer amount of something over time by incrementing n.</p>
+way to reduce some integer amount of something over time by incrementing <code>n</code>.</p>
 <pre><code class="language-aiken">maths.decay(start_amount, lovelace_scaling, datum.current_int)
 </code></pre>
 </div>
@@ -412,7 +412,7 @@ for <code>lb</code> but inclusive for <code>lb + 1</code>.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Calculate the Legendre symbol (a/p) using the Euler’s criterion.
+    <div class="rendered-markdown"><p>Calculate the Legendre symbol <code>(a/p)</code> using the Euler’s criterion.
 This implementation assumes that ‘a’ and ‘p’ are positive integers.</p>
 <pre><code class="language-aiken">maths.legendre_symbol(10, 19)
 </code></pre>
@@ -581,8 +581,8 @@ form will not in general work.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684513678"></script>
+    <script src="../js/index.js?v=1684514612"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684513678"></script>
+    <script src="../search-data.js?v=1684514612"></script>
   </body>
 </html>
