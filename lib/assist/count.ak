@@ -25,9 +25,11 @@ fn count_inputs_by_datum(inputs: List<Input>, counter: Int) -> Int {
       when input.output.datum is {
         InlineDatum(_) ->
           count_inputs_by_datum(rest, counter + 1)
+        // only count inline datums
         _ ->
           count_inputs_by_datum(rest, counter)
       }
+    // loop the list
     [] ->
       counter
   }
@@ -58,6 +60,7 @@ pub fn inputs_by_addr(inputs: List<Input>, addr: Address, amount: Int) -> Bool {
 fn count_inputs_by_addr(inputs: List<Input>, addr: Address, counter: Int) -> Int {
   when inputs is {
     [input, ..rest] ->
+      // exact address match
       if input.output.address == addr {
         count_inputs_by_addr(rest, addr, counter + 1)
       } else {
@@ -113,11 +116,13 @@ fn count_outputs_by_addr(
 ) -> Int {
   when outputs is {
     [output, ..rest] ->
+      // exact address match
       if output.address == addr {
         count_outputs_by_addr(rest, addr, counter + 1)
       } else {
         count_outputs_by_addr(rest, addr, counter)
       }
+    // loop entire list
     [] ->
       counter
   }
@@ -163,9 +168,11 @@ fn count_outputs_by_datum(outputs: List<Output>, counter: Int) -> Int {
       when output.datum is {
         InlineDatum(_) ->
           count_outputs_by_datum(rest, counter + 1)
+        // only count inline datums
         _ ->
           count_outputs_by_datum(rest, counter)
       }
+    // loop entire list
     [] ->
       counter
   }
