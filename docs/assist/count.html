@@ -255,9 +255,13 @@
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#script_inputs">script_inputs</a></li>
+  <li><a href="#inputs_by_addr">inputs_by_addr</a></li>
   
-  <li><a href="#script_outputs">script_outputs</a></li>
+  <li><a href="#inputs_by_datum">inputs_by_datum</a></li>
+  
+  <li><a href="#outputs_by_addr">outputs_by_addr</a></li>
+  
+  <li><a href="#outputs_by_datum">outputs_by_datum</a></li>
   
 </ul>
 
@@ -286,7 +290,7 @@ inside a transaction by a specific address.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="script_inputs"><pre class="hljs language-aiken">script_inputs(inputs: List&lt;Input&gt;, script_addr: Address, amount: Int) -&gt; Bool</pre></h2>
+      <h2 id="inputs_by_addr"><pre class="hljs language-aiken">inputs_by_addr(inputs: List&lt;Input&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -295,16 +299,34 @@ inside a transaction by a specific address.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Verify that the number of inputs from a specific script is equal the amount
-intended in the contract. The amount must be exact with the counter.</p>
-<pre><code class="language-aiken">count.script_inputs(tx.inputs, this_script_addr, 1)
+    <div class="rendered-markdown"><p>Verify that the number of inputs from a specific script is equal to the
+amount intended in the contract. The amount must be exactly the counter.</p>
+<pre><code class="language-aiken">count.inputs_by_addr(tx.inputs, this_addr, 1)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="script_outputs"><pre class="hljs language-aiken">script_outputs(outputs: List&lt;Output&gt;, script_addr: Address, amount: Int) -&gt; Bool</pre></h2>
+      <h2 id="inputs_by_datum"><pre class="hljs language-aiken">inputs_by_datum(inputs: List&lt;Input&gt;, amount: Int) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Verify that the number of inputs with an inline datum is equal to the
+number intended in the contract. The amount must be exactly the counter.</p>
+<pre><code class="language-aiken">count.inputs_by_datum(tx.inputs, 1)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="outputs_by_addr"><pre class="hljs language-aiken">outputs_by_addr(outputs: List&lt;Output&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -315,7 +337,25 @@ intended in the contract. The amount must be exact with the counter.</p>
     </div>
     <div class="rendered-markdown"><p>Verify that the number of outputs from a specific script is equal the amount
 intended in the contract. The amount must be exact with the counter.</p>
-<pre><code class="language-aiken">count.script_outputs(tx.outputs, this_script_addr, 1)
+<pre><code class="language-aiken">count.outputs_by_addr(tx.outputs, this_addr, 1)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="outputs_by_datum"><pre class="hljs language-aiken">outputs_by_datum(outputs: List&lt;Output&gt;, amount: Int) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Verify that the number of outputs with an inline datum is equal to the
+number intended in the contract. The amount must be exactly the counter.</p>
+<pre><code class="language-aiken">count.outputs_by_datum(tx.outputs, 1)
 </code></pre>
 </div>
   </div>
@@ -393,8 +433,8 @@ intended in the contract. The amount must be exact with the counter.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684429294"></script>
+    <script src="../js/index.js?v=1684510620"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684429294"></script>
+    <script src="../search-data.js?v=1684510620"></script>
   </body>
 </html>
