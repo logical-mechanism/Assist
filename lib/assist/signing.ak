@@ -1,6 +1,6 @@
-//// This module includes code for verifying transaction signatures.
+//// This module contains code for verifying transaction signatures. 
+//// It assumes that all signatures provided are verification keys.
 ////
-//// All signatures are assumed to be verification keys.
 
 use aiken/hash.{Blake2b_224, Hash}
 use aiken/list

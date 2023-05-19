@@ -1,5 +1,4 @@
-//// This module includes code for various maths.
-////
+//// This module incorporates code for various mathematical operations.
 ////
 
 use aiken/bytearray

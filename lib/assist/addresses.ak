@@ -1,6 +1,7 @@
-//// This module includes code for creating proper wallet and script addresses.
+//// This module incorporates code for generating valid wallet and script 
+//// addresses, ensuring their correctness. Empty keys are treated as 
+//// intentional, and address subtypes are not combined or mixed.
 ////
-//// Empty keys are assumed to be on purpose. Address subtypes are not mixed.
 
 use aiken/bytearray
 use aiken/hash.{Blake2b_224, Hash}

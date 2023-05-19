@@ -1,5 +1,5 @@
-//// This module includes code to help with various value manipulations and comparisons.
-//// The prefix for various cip68 tokens are included.
+//// This module contains code that aids in various value 
+//// manipulations and comparisons.
 ////
 
 use aiken/bytearray
@@ -8,22 +8,7 @@ use aiken/hash
 use aiken/list
 use aiken/string
 use aiken/transaction/value.{AssetName, PolicyId, Value}
-
-/// CIP68 (100) Reference Token Prefix
-pub const prefix_100 =
-  #"2831303029"
-
-/// CIP68 (222) Non-Fungible Token Prefix
-pub const prefix_222 =
-  #"2832323229"
-
-/// CIP68 (333) Fungible Token Prefix
-pub const prefix_333 =
-  #"2833333329"
-
-/// CIP68 (444) Semi-Fungible Token Prefix
-pub const prefix_444 =
-  #"2834343429"
+use assist/prefixes
 
 /// Multiply some value by `n`. This is just a linear scaling to the quantity
 /// of each token.
@@ -195,7 +180,7 @@ test hash_large_value() {
 /// utxo inside the transaction.
 ///
 /// ```aiken
-/// values.unique_token_name(tx_id, tx_idx, prefix_333)
+/// values.unique_token_name(tx_id, tx_idx, prefixes.prefix_333)
 /// ```
 pub fn unique_token_name(
   txid: ByteArray,
@@ -222,8 +207,8 @@ test no_prefix_token_name() {
 
 test prefix_222_token_name() {
   let tkn =
-    unique_token_name(#"", 0, prefix_222)
-  bytearray.take(tkn, 5) == prefix_222
+    unique_token_name(#"", 0, prefixes.prefix_222)
+  bytearray.take(tkn, 5) == prefixes.prefix_222
 }
 
 test real_token_name() {
@@ -231,15 +216,16 @@ test real_token_name() {
     unique_token_name(
       #"82fca2f3221cf2d3ef017e8aa76f5c70317df0af32d327c84af4b9b9bddad91f",
       0,
-      prefix_100,
+      prefixes.prefix_100,
     )
   bytearray.length(tkn) == 32
 }
 
 /// Proves that inside some value there is a policy id with a single token
-/// name with quantity of 1. This will show that a value contains an
+/// name that has a quantity of 1. This will show that a value contains an
 /// NFT or something that is nft-like. Should be useful to prove that
-/// something is holding a token inside a transaction.
+/// something is holding a token inside a transaction when the token name
+/// is assumed to be unique.
 ///
 /// ```aiken
 /// values.prove_nft(pointer_pid, validating_value)
