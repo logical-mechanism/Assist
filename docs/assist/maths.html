@@ -232,6 +232,12 @@
 	  
 	  </a></li>
         
+	  <li><a href="../assist/std.html">
+	  
+	  assist/std
+	  
+	  </a></li>
+        
 	  <li><a href="../assist/values.html">
 	  
 	  assist/values
@@ -257,9 +263,13 @@
   
   <li><a href="#base_q">base_q</a></li>
   
+  <li><a href="#decay">decay</a></li>
+  
   <li><a href="#from_int">from_int</a></li>
   
   <li><a href="#gcd">gcd</a></li>
+  
+  <li><a href="#is_in_range">is_in_range</a></li>
   
   <li><a href="#legendre_symbol">legendre_symbol</a></li>
   
@@ -316,6 +326,26 @@ should scale with any integer and any logical base.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="decay"><pre class="hljs language-aiken">decay(start_amt: Int, scale: Int, num: Int) -&gt; Int</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Decay some starting amount logarithmically until zero. The function evaluates
+<code>y = a - log(n)</code> and when <code>n &gt;= 2^a</code> the function equals zero but will return
+zero whenever the result is less than the scale. This is a great
+way to reduce some integer amount of something over time by incrementing <code>n</code>.</p>
+<pre><code class="language-aiken">maths.decay(start_amount, lovelace_scaling, datum.current_int)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="from_int"><pre class="hljs language-aiken">from_int(self: Int) -&gt; ByteArray</pre></h2>
       
       <!-- TODO: support source linking
@@ -354,6 +384,25 @@ to <code>2^256 - 1</code>.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="is_in_range"><pre class="hljs language-aiken">is_in_range(n: Int, lb: Int, ub: Int) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Verify that some integer <code>n</code> is greater than the lower bound, <code>lb</code>, and
+less than or equal to the upper bound, <code>ub</code>. The function is exclusive
+for <code>lb</code> but inclusive for <code>lb + 1</code>.</p>
+<pre><code class="language-aiken">maths.is_in_range(5, 0, 10)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="legendre_symbol"><pre class="hljs language-aiken">legendre_symbol(a: Int, p: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
@@ -363,7 +412,7 @@ to <code>2^256 - 1</code>.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Calculate the Legendre symbol (a/p) using the Euler’s criterion.
+    <div class="rendered-markdown"><p>Calculate the Legendre symbol <code>(a/p)</code> using the Euler’s criterion.
 This implementation assumes that ‘a’ and ‘p’ are positive integers.</p>
 <pre><code class="language-aiken">maths.legendre_symbol(10, 19)
 </code></pre>
@@ -532,8 +581,8 @@ form will not in general work.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684510620"></script>
+    <script src="../js/index.js?v=1684514612"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684510620"></script>
+    <script src="../search-data.js?v=1684514612"></script>
   </body>
 </html>

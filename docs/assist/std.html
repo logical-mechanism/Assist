@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>tests/fake_tx - aiken-lang/assist</title>
+    <title>assist/std - aiken-lang/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -234,7 +234,7 @@
         
 	  <li><a href="../assist/std.html">
 	  
-	  assist/std
+	  <strong>assist/std</strong>
 	  
 	  </a></li>
         
@@ -246,7 +246,7 @@
         
 	  <li><a href="../tests/fake_tx.html">
 	  
-	  <strong>tests/fake_tx</strong>
+	  tests/fake_tx
 	  
 	  </a></li>
         
@@ -254,34 +254,14 @@
 
         
 
-<h2>Types</h2>
-<ul>
-  
-  <li><a href="#DataType">DataType</a></li>
-  
-</ul>
 
-
-
-<h2>Constants</h2>
-<ul>
-  
-  <li><a href="#test_datum">test_datum</a></li>
-  
-</ul>
 
 
 
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#test_input">test_input</a></li>
-  
-  <li><a href="#test_out_ref">test_out_ref</a></li>
-  
-  <li><a href="#test_output">test_output</a></li>
-  
-  <li><a href="#test_tx">test_tx</a></li>
+  <li><a href="#out_ref">out_ref</a></li>
   
 </ul>
 
@@ -291,72 +271,13 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">tests/fake_tx</a>
+  <a href="#module-name">assist/std</a>
 </h1>
-<p>This is for testing only</p>
+<p>This module includes code for various additions to the stdlib.</p>
 
 
 
-<section class="module-members">
-  <h1 id="module-types" class="module-member-kind">
-    <a href="#module-types">Types</a>
-  </h1>
 
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="DataType">
-        <a href="#DataType">
-	  DataType
-        </a>
-      </h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A <code>Data</code>data type</p>
-</div>
-      
-      <h3>Alias</h3>
-      <div class="constructor-row">
-        <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
-        <pre class="constructor-name"><code class="hljs aiken">DataType = Data</code></pre>
-      </div>
-      
-    </div>
-  </div>
-  
-</section>
-
-
-
-<section class="module-members">
-  <h1 id="module-constants" class="module-member-kind">
-    <a href="#module-constants">Constants</a>
-  </h1>
-
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="test_datum"><pre class="hljs language-aiken">test_datum: ByteArray = #&quot;acabbeeffacecafe&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>A test datum.</p>
-</div>
-  </div>
-  
-</section>
 
 
 
@@ -367,7 +288,7 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="test_input"><pre class="hljs language-aiken">test_input() -&gt; Input</pre></h2>
+      <h2 id="out_ref"><pre class="hljs language-aiken">out_ref(tx_id_hash: ByteArray, idx: Int) -&gt; OutputReference</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -376,52 +297,11 @@
       -->
       
     </div>
-    <div class="rendered-markdown"><p>A fake input used for testing.</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="test_out_ref"><pre class="hljs language-aiken">test_out_ref() -&gt; OutputReference</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Creates an <code>OutputReference</code></p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="test_output"><pre class="hljs language-aiken">test_output() -&gt; Output</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>A fake output used for testing.</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="test_tx"><pre class="hljs language-aiken">test_tx() -&gt; Transaction</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>A fake transaction used for testing.</p>
+    <div class="rendered-markdown"><p>Create an <code>OutputReference</code> from the <code>TxId#Idx</code> information. This is useful
+for building correct output references of specific UTxOs. It can be combined
+with the <code>find</code> module for some very convenient requests.</p>
+<pre><code class="language-aiken">std.out_ref(that_tx_id, that_tx_idx)
+</code></pre>
 </div>
   </div>
   
