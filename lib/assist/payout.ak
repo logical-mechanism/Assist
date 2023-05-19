@@ -1,5 +1,5 @@
-//// This module includes code to help with payout logic. Payout functions
-//// will return a boolean and not an error.
+//// This module contains code that assists with payout logic. Payout
+//// functions are designed to return a boolean value instead of an error.
 ////
 
 use aiken/transaction.{Output}

@@ -1,5 +1,5 @@
-//// This module includes code for various additions to the stdlib.
-////
+//// This module incorporates additional code that expands the
+//// functionality of the standard library.
 ////
 
 use aiken/transaction.{OutputReference, TransactionId}

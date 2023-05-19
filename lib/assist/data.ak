@@ -1,5 +1,5 @@
-//// This module includes code for extracting data from a potential 
-//// inline datum on either an input or output.
+//// This module contains code for extracting data from a potential inline 
+//// datum found in either an input or output.
 ////
 
 use aiken/transaction.{InlineDatum, Input, Output}

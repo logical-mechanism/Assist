@@ -1,5 +1,5 @@
-//// This module includes code for finding various aspects of a validating
-//// transaction. 
+//// This module contains code for identifying various aspects of 
+//// a validating transaction.
 ////
 
 use aiken/dict.{Dict}
@@ -201,8 +201,9 @@ test find_stake_reward_by_sc() {
   stake_reward_by_sc(withdrawal, sc) == 100
 }
 
-/// Find a redeemer data by an output reference. This is good for finding
-/// if a specific redeemer is being used on some specific UTxO.
+/// Find a redeemer data by an output reference. This is good for checking
+/// if a specific redeemer is being used on some specific UTxO inside 
+/// the transaction.
 ///
 /// ```aiken
 /// find.redeemer_by_ref(tx.redeemers, that_out_ref)

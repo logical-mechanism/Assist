@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.1.2 </span>
+          <span>v0.1.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.1.2";
+            const currentVersion = "v0.1.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -226,6 +226,12 @@
 	  
 	  </a></li>
         
+	  <li><a href="../assist/prefixes.html">
+	  
+	  assist/prefixes
+	  
+	  </a></li>
+        
 	  <li><a href="../assist/signing.html">
 	  
 	  assist/signing
@@ -256,19 +262,6 @@
 
 
 
-<h2>Constants</h2>
-<ul>
-  
-  <li><a href="#prefix_100">prefix_100</a></li>
-  
-  <li><a href="#prefix_222">prefix_222</a></li>
-  
-  <li><a href="#prefix_333">prefix_333</a></li>
-  
-  <li><a href="#prefix_444">prefix_444</a></li>
-  
-</ul>
-
 
 
 <h2>Functions</h2>
@@ -294,80 +287,12 @@
 <h1 id="module-name" class="module-name">
   <a href="#module-name">assist/values</a>
 </h1>
-<p>This module includes code to help with various value manipulations and comparisons.
-The prefix for various cip68 tokens are included.</p>
+<p>This module contains code that aids in various value 
+manipulations and comparisons.</p>
 
 
 
 
-
-<section class="module-members">
-  <h1 id="module-constants" class="module-member-kind">
-    <a href="#module-constants">Constants</a>
-  </h1>
-
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_100"><pre class="hljs language-aiken">prefix_100: ByteArray = #&quot;2831303029&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>CIP68 (100) Reference Token Prefix</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_222"><pre class="hljs language-aiken">prefix_222: ByteArray = #&quot;2832323229&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>CIP68 (222) Non-Fungible Token Prefix</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_333"><pre class="hljs language-aiken">prefix_333: ByteArray = #&quot;2833333329&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>CIP68 (333) Fungible Token Prefix</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_444"><pre class="hljs language-aiken">prefix_444: ByteArray = #&quot;2834343429&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>CIP68 (444) Semi-Fungible Token Prefix</p>
-</div>
-  </div>
-  
-</section>
 
 
 
@@ -443,9 +368,10 @@ of each token.</p>
       
     </div>
     <div class="rendered-markdown"><p>Proves that inside some value there is a policy id with a single token
-name with quantity of 1. This will show that a value contains an
+name that has a quantity of 1. This will show that a value contains an
 NFT or something that is nft-like. Should be useful to prove that
-something is holding a token inside a transaction.</p>
+something is holding a token inside a transaction when the token name
+is assumed to be unique.</p>
 <pre><code class="language-aiken">values.prove_nft(pointer_pid, validating_value)
 </code></pre>
 </div>
@@ -465,7 +391,7 @@ something is holding a token inside a transaction.</p>
     <div class="rendered-markdown"><p>Calculate a unique token name from a <code>TxId#Idx</code> and prefix. Can be combined
 with the <code>find</code> module to create unique token names from the first input
 utxo inside the transaction.</p>
-<pre><code class="language-aiken">values.unique_token_name(tx_id, tx_idx, prefix_333)
+<pre><code class="language-aiken">values.unique_token_name(tx_id, tx_idx, prefixes.prefix_333)
 </code></pre>
 </div>
   </div>
@@ -543,8 +469,8 @@ utxo inside the transaction.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684514612"></script>
+    <script src="../js/index.js?v=1684516036"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684514612"></script>
+    <script src="../search-data.js?v=1684516036"></script>
   </body>
 </html>

@@ -1,7 +1,6 @@
-//// This module includes code for counting the number of inputs and outputs 
-//// inside a transaction by a specific address.
+//// This module contains code to accurately count the number of inputs and
+//// outputs in a transaction for a specific address, assuming precise amounts.
 ////
-//// The amounts are always assumed to be exact.
 
 use aiken/transaction.{InlineDatum, Input, Output}
 use aiken/transaction/credential.{Address}
