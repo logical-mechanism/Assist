@@ -324,3 +324,147 @@ test it_is_in_range() {
 test it_is_not_in_range() {
   is_in_range(123, 0, 100) == False
 }
+
+/// Calculates the ratio of the amount `amt` by a percentage `pct`. This can
+/// be used to calculate rough percentages. The function `ratio` is just a 
+/// special case of the effective ratio function. 
+///
+/// ```aiken
+/// maths.ratio(123, 40)
+/// ```
+pub fn ratio(amt: Int, pct: Int) -> Int {
+  effective_ratio(amt, pct, 1)
+}
+
+test zero_ratio() {
+  ratio(0, 1) == 0 && ratio(1, 0) == 0
+}
+
+// 2.5%
+test simple_ratio() {
+  ratio(123, 40) == 3
+}
+
+// 25%
+test complex_ratio() {
+  ratio(125000000, 4) == 31250000
+}
+
+/// Calculates the ratio of the amount `amt` multiplied by the scale by the
+/// percentage `pct`. The scale allows for finer calculations.
+///
+/// ```aiken
+/// maths.effective_ratio(123456789, 40, 1000) == 3086419725
+/// ```
+pub fn effective_ratio(amt: Int, pct: Int, scale: Int) -> Int {
+  if pct <= 0 {
+    0
+  } else {
+    scale * amt / pct
+  }
+}
+
+test zero_effective_ratio() {
+  list.and(
+    [
+      effective_ratio(0, 1, 1) == 0,
+      effective_ratio(1, 0, 1) == 0,
+      effective_ratio(1, 1, 0) == 0,
+    ],
+  )
+}
+
+test simple_effective_ratio() {
+  list.and(
+    [
+      effective_ratio(123, 40, 1) == 3,
+      effective_ratio(123, 40, 10) == 30,
+      effective_ratio(123, 40, 100) == 307,
+      effective_ratio(123, 40, 1000) == 3075,
+      effective_ratio(123, 40, 10000) == 30750,
+      effective_ratio(123, 40, 100000) == 307500,
+      effective_ratio(123, 40, 1000000) == 3075000,
+    ],
+  )
+}
+
+test complex_effective_ratio() {
+  effective_ratio(123456789, 40, 1000) == 3086419725
+}
+
+/// Find the optimal scaling for a number such that it
+/// has three trailing zeros. This should be used in combination
+/// with the effective ratio for optimal calculations.
+///
+/// ```aiken
+/// maths.scaling(123, 40)
+/// ```
+pub fn scaling(amt: Int, pct: Int) -> Int {
+  calculate_scale(amt, pct, 1, 3)
+}
+
+test simple_scaling() {
+  scaling(123, 40) == 1000000
+}
+
+test complex_scaling() {
+  scaling(123456789, 40) == 1000000
+}
+
+test even_scaling() {
+  scaling(125000000, 4) == 1
+}
+
+fn calculate_scale(amt: Int, pct: Int, scale: Int, bound: Int) -> Int {
+  let er =
+    effective_ratio(amt, pct, scale)
+  if er == 0 {
+    scale
+  } else {
+    if er % 10 == 0 {
+      if count_zeros(er, 0) >= bound {
+        scale
+      } else {
+        calculate_scale(amt, pct, 10 * scale, bound)
+      }
+    } else {
+      calculate_scale(amt, pct, 10 * scale, bound)
+    }
+  }
+}
+
+test simple_calculate_scale() {
+  calculate_scale(123, 40, 1, 3) == 1000000
+}
+
+test complex_calculate_scale() {
+  calculate_scale(123456789, 40, 1, 5) == 100000000
+}
+
+test even_calculate_scale() {
+  calculate_scale(125000000, 4, 1, 3) == 1
+}
+
+test zero_calculate_scale() {
+  calculate_scale(0, 4, 1, 3) == 1
+}
+
+fn count_zeros(number: Int, counter: Int) -> Int {
+  if number % 10 == 0 {
+    count_zeros(number / 10, counter + 1)
+  } else {
+    counter
+  }
+}
+
+test zero_zeros() {
+  count_zeros(3, 0) == 0
+}
+
+test one_zeros() {
+  count_zeros(30, 0) == 1
+}
+
+test three_zeros() {
+  count_zeros(3075000, 0) == 3
+}
