@@ -153,7 +153,7 @@ test find_output_by_addr() {
 
 /// Find the first output with an inline datum and return the data.
 /// If nothing is found then error. This works great for tx with a
-/// single output and datum. 
+/// single output and datum or where ordering is irrelevant.
 ///
 /// ```aiken
 /// find.first_output_datum(tx.outputs)
@@ -170,6 +170,15 @@ pub fn first_output_datum(outputs: List<Output>) -> Data {
     [] ->
       error @"No Datum Found"
   }
+}
+
+// can't test for errors yet
+test find_first_output_datum() {
+  let outputs =
+    fake_tx.test_tx().outputs
+  expect datum: ByteArray =
+    first_output_datum(outputs)
+  datum == fake_tx.test_datum
 }
 
 /// Find the first occurence of output datum by some address. If nothing is
