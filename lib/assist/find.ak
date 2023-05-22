@@ -5,7 +5,8 @@
 use aiken/dict.{Dict}
 use aiken/list
 use aiken/transaction.{
-  Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend, TransactionId,
+  InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
+  TransactionId,
 }
 use aiken/transaction/credential.{
   Address, Inline, StakeCredential, VerificationKeyCredential,
@@ -148,6 +149,36 @@ test find_output_by_addr() {
   let addr =
     addresses.create_address(#"acab", #"")
   output_by_addr(outputs, addr) == fake_tx.test_output()
+}
+
+/// Find the first output with an inline datum and return the data.
+/// If nothing is found then error. This works great for tx with a
+/// single output and datum or where ordering is irrelevant.
+///
+/// ```aiken
+/// find.first_output_datum(tx.outputs)
+/// ```
+pub fn first_output_datum(outputs: List<Output>) -> Data {
+  when outputs is {
+    [output, ..rest] ->
+      when output.datum is {
+        InlineDatum(outbound_datum) ->
+          outbound_datum
+        _ ->
+          first_output_datum(rest)
+      }
+    [] ->
+      error @"No Datum Found"
+  }
+}
+
+// can't test for errors yet
+test find_first_output_datum() {
+  let outputs =
+    fake_tx.test_tx().outputs
+  expect datum: ByteArray =
+    first_output_datum(outputs)
+  datum == fake_tx.test_datum
 }
 
 /// Find the first occurence of output datum by some address. If nothing is
