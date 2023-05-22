@@ -400,7 +400,7 @@ test complex_effective_ratio() {
 /// maths.scaling(123, 40)
 /// ```
 pub fn scaling(amt: Int, pct: Int) -> Int {
-  calculate_scale(amt, pct, 1, 3)
+  calculate_scale(amt, pct, 1, 3, 0)
 }
 
 test simple_scaling() {
@@ -411,42 +411,73 @@ test complex_scaling() {
   scaling(123456789, 40) == 1000000
 }
 
+test complex_scaling2() {
+  scaling(583872739578289, 4) == 100000
+}
+
 test even_scaling() {
   scaling(125000000, 4) == 1
 }
 
-fn calculate_scale(amt: Int, pct: Int, scale: Int, bound: Int) -> Int {
+test never_ending_scaling() {
+  // 15 here is the max depth
+  scaling(123456789, 39) == math.pow(10, 15)
+}
+
+test never_ending_scaling2() {
+  // 15 here is the max depth
+  scaling(123456789, 13) == math.pow(10, 15)
+}
+
+test simple_digit_count() {
+  math.log(12345, 10) == 5 - 1
+}
+
+test moderate_digit_count() {
+  math.log(123456789, 10) == 9 - 1
+}
+
+fn calculate_scale(
+  amt: Int,
+  pct: Int,
+  scale: Int,
+  bound: Int,
+  depth: Int,
+) -> Int {
   let er =
     effective_ratio(amt, pct, scale)
-  if er == 0 {
+  let max_depth =
+    15
+  // the max depth determines irrationals, largest scaling is then 10^max_depth
+  if er == 0 || depth >= max_depth {
     scale
   } else {
     if er % 10 == 0 {
       if count_zeros(er, 0) >= bound {
         scale
       } else {
-        calculate_scale(amt, pct, 10 * scale, bound)
+        calculate_scale(amt, pct, 10 * scale, bound, depth + 1)
       }
     } else {
-      calculate_scale(amt, pct, 10 * scale, bound)
+      calculate_scale(amt, pct, 10 * scale, bound, depth + 1)
     }
   }
 }
 
 test simple_calculate_scale() {
-  calculate_scale(123, 40, 1, 3) == 1000000
+  calculate_scale(123, 40, 1, 3, 0) == 1000000
 }
 
 test complex_calculate_scale() {
-  calculate_scale(123456789, 40, 1, 5) == 100000000
+  calculate_scale(123456789, 40, 1, 5, 0) == 100000000
 }
 
 test even_calculate_scale() {
-  calculate_scale(125000000, 4, 1, 3) == 1
+  calculate_scale(125000000, 4, 1, 3, 0) == 1
 }
 
 test zero_calculate_scale() {
-  calculate_scale(0, 4, 1, 3) == 1
+  calculate_scale(0, 4, 1, 3, 0) == 1
 }
 
 fn count_zeros(number: Int, counter: Int) -> Int {
