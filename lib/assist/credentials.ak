@@ -19,3 +19,7 @@ pub fn create_stake_credential(
 ) -> Referenced<Credential> {
   Inline(ScriptCredential(sc))
 }
+
+test simple_stake_credential() {
+  create_stake_credential(#"") == Inline(ScriptCredential(#""))
+}
