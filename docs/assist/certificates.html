@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/count - aiken-lang/assist</title>
+    <title>assist/certificates - aiken-lang/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -198,13 +198,13 @@
         
 	  <li><a href="../assist/certificates.html">
 	  
-	  assist/certificates
+	  <strong>assist/certificates</strong>
 	  
 	  </a></li>
         
 	  <li><a href="../assist/count.html">
 	  
-	  <strong>assist/count</strong>
+	  assist/count
 	  
 	  </a></li>
         
@@ -279,13 +279,7 @@
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#inputs_by_addr">inputs_by_addr</a></li>
-  
-  <li><a href="#inputs_by_datum">inputs_by_datum</a></li>
-  
-  <li><a href="#outputs_by_addr">outputs_by_addr</a></li>
-  
-  <li><a href="#outputs_by_datum">outputs_by_datum</a></li>
+  <li><a href="#create_credential_delegation">create_credential_delegation</a></li>
   
 </ul>
 
@@ -295,10 +289,8 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/count</a>
+  <a href="#module-name">assist/certificates</a>
 </h1>
-<p>This module contains code to accurately count the number of inputs and
-outputs in a transaction for a specific address, assuming precise amounts.</p>
 
 
 
@@ -313,7 +305,10 @@ outputs in a transaction for a specific address, assuming precise amounts.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="inputs_by_addr"><pre class="hljs language-aiken">inputs_by_addr(inputs: List&lt;Input&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
+      <h2 id="create_credential_delegation"><pre class="hljs language-aiken">create_credential_delegation(
+  sc: Hash&lt;Blake2b_224, Script&gt;,
+  pool_id: PoolId,
+) -&gt; Certificate</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -322,63 +317,10 @@ outputs in a transaction for a specific address, assuming precise amounts.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Verify that the number of inputs from a specific script is equal to the
-amount intended in the contract. The amount must be exactly the counter.</p>
-<pre><code class="language-aiken">count.inputs_by_addr(tx.inputs, this_addr, 1)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="inputs_by_datum"><pre class="hljs language-aiken">inputs_by_datum(inputs: List&lt;Input&gt;, amount: Int) -&gt; Bool</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Verify that the number of inputs with an inline datum is equal to the
-number intended in the contract. The amount must be exactly the counter.</p>
-<pre><code class="language-aiken">count.inputs_by_datum(tx.inputs, 1)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="outputs_by_addr"><pre class="hljs language-aiken">outputs_by_addr(outputs: List&lt;Output&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Verify that the number of outputs from a specific script is equal the amount
-intended in the contract. The amount must be exact with the counter.</p>
-<pre><code class="language-aiken">count.outputs_by_addr(tx.outputs, this_addr, 1)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="outputs_by_datum"><pre class="hljs language-aiken">outputs_by_datum(outputs: List&lt;Output&gt;, amount: Int) -&gt; Bool</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Verify that the number of outputs with an inline datum is equal to the
-number intended in the contract. The amount must be exactly the counter.</p>
-<pre><code class="language-aiken">count.outputs_by_datum(tx.outputs, 1)
+    <div class="rendered-markdown"><p>Creates a credential delegation for changing the location of the stake.
+This certificate can be used to check if stake is being delegated to
+a specific pool.</p>
+<pre><code class="language-aiken">certificates.create_credential_delegation(datum.stake_contract_hash, datum.pool_id)
 </code></pre>
 </div>
   </div>
