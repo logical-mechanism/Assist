@@ -19,3 +19,12 @@ pub fn create_credential_delegation(
     delegatee: pool_id,
   }
 }
+
+test simple_credential_delegation() {
+  let cred =
+    CredentialDelegation {
+      delegator: credentials.create_stake_credential(#""),
+      delegatee: #"",
+    }
+  create_credential_delegation(#"", #"") == cred
+}

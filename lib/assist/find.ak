@@ -8,10 +8,9 @@ use aiken/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
   TransactionId,
 }
-use aiken/transaction/credential.{
-  Address, Inline, StakeCredential, VerificationKeyCredential,
-}
+use aiken/transaction/credential.{Address, StakeCredential}
 use assist/addresses
+use assist/credentials
 use assist/data
 // for testing only
 use tests/fake_tx
@@ -228,7 +227,7 @@ test find_stake_reward_by_sc() {
   let withdrawal =
     fake_tx.test_tx().withdrawals
   let sc =
-    Inline(VerificationKeyCredential(#"face"))
+    credentials.create_stake_credential(#"face")
   stake_reward_by_sc(withdrawal, sc) == 100
 }
 
