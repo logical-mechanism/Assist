@@ -22,6 +22,7 @@ fn count_inputs_by_datum(inputs: List<Input>, counter: Int) -> Int {
   when inputs is {
     [input, ..rest] ->
       when input.output.datum is {
+        // the actual datum value isn't important here
         InlineDatum(_) ->
           count_inputs_by_datum(rest, counter + 1)
         // only count inline datums
@@ -121,7 +122,7 @@ fn count_outputs_by_addr(
       } else {
         count_outputs_by_addr(rest, addr, counter)
       }
-    // loop entire list
+    // loop entire list then return counter
     [] ->
       counter
   }
@@ -165,13 +166,14 @@ fn count_outputs_by_datum(outputs: List<Output>, counter: Int) -> Int {
   when outputs is {
     [output, ..rest] ->
       when output.datum is {
+        // the actual datum value is not important here
         InlineDatum(_) ->
           count_outputs_by_datum(rest, counter + 1)
         // only count inline datums
         _ ->
           count_outputs_by_datum(rest, counter)
       }
-    // loop entire list
+    // loop entire list then return counter
     [] ->
       counter
   }

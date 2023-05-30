@@ -228,7 +228,7 @@ test real_token_name() {
 /// is assumed to be unique.
 ///
 /// ```aiken
-/// values.prove_nft(pointer_pid, validating_value)
+/// values.prove_nft(pid, this_value)
 /// ```
 pub fn prove_nft(pid: PolicyId, total: Value) {
   let tkns =
@@ -266,4 +266,42 @@ test missing_nft() {
       |> value.add(value.from_asset(#"beef", #"face", 40))
       |> value.add(value.from_asset(#"face", #"beef", 40))
   prove_nft(#"acab", val) == False
+}
+
+/// Proves that inside some value there is a policy id with token
+/// name that has a quantity of 1. This will show that a value contains an
+/// NFT or something that is nft-like. Should be useful to prove that
+/// something is holding a token inside a transaction when the policy id and
+/// token name is known.
+///
+/// ```aiken
+/// values.prove_exact_nft(pid, tkn, that_value)
+/// ```
+pub fn prove_exact_nft(
+  nft_pid: PolicyId,
+  nft_tkn: AssetName,
+  total_value: Value,
+) -> Bool {
+  // exactly 1 token inside a value
+  value.quantity_of(total_value, nft_pid, nft_tkn) == 1
+}
+
+test prove_exact_nft_from_policy_id() {
+  let val =
+    value.from_lovelace(100)
+      |> value.add(value.from_asset(#"acab", #"beef", 1))
+      |> value.add(value.from_asset(#"cafe", #"face", 40))
+      |> value.add(value.from_asset(#"beef", #"face", 40))
+      |> value.add(value.from_asset(#"face", #"beef", 40))
+  prove_exact_nft(#"acab", #"beef", val) == True
+}
+
+test missing_exact_nft() {
+  let val =
+    value.from_lovelace(100)
+      |> value.add(value.from_asset(#"acab", #"beef", 10))
+      |> value.add(value.from_asset(#"cafe", #"face", 10))
+      |> value.add(value.from_asset(#"beef", #"face", 40))
+      |> value.add(value.from_asset(#"face", #"beef", 40))
+  prove_exact_nft(#"acab", #"beef", val) == False
 }

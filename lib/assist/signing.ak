@@ -13,7 +13,7 @@ use tests/fake_tx
 /// verification key.
 ///
 /// ```aiken
-/// signing.verify_sig(context.transaction, wallet_pkh) == True
+/// signing.verify_sig(context.transaction, wallet_pkh)
 /// ```
 pub fn verify_sig(
   transaction: Transaction,
@@ -40,11 +40,19 @@ test has_signature() {
   verify_sig(tx, #"acab") == True
 }
 
+test lots_of_signatures() {
+  let sigs =
+    fake_tx.test_signatories()
+  let tx =
+    fake_tx.test_tx()
+  list.and(list.map(sigs, fn(n) { verify_sig(tx, n) })) == True
+}
+
 /// This counts the number of signatures inside a transaction that are from 
 /// the list of signers then checks if its at least the minimum amount.
 ///
 /// ```aiken
-/// signing.verify_multisig(tx, lst_of_sigs, sig_threshold) == True
+/// signing.verify_multisig(context.transaction, lst_of_sigs, sig_threshold)
 /// ```
 pub fn verify_multisig(
   transaction: Transaction,
@@ -92,4 +100,12 @@ test has_multisig() {
   let tx =
     fake_tx.test_tx()
   verify_multisig(tx, [#"acab", #"beef"], 2) == True
+}
+
+test big_multisig() {
+  let sigs =
+    fake_tx.test_signatories()
+  let tx =
+    fake_tx.test_tx()
+  verify_multisig(tx, sigs, 25) == True
 }

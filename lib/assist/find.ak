@@ -184,7 +184,7 @@ test find_first_output_datum() {
 /// found then error.
 ///
 /// ```aiken
-/// expect datum: Datum = find.output_datum_by_addr(tx.outputs, this_address)
+/// expect datum: Datum = find.output_datum_by_addr(tx.outputs, this_addr)
 /// ```
 pub fn output_datum_by_addr(outputs: List<Output>, addr: Address) -> Data {
   let outbound_output =

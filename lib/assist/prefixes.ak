@@ -1,4 +1,4 @@
-//// This module provides the current CIP68 prefixes.
+//// This module provides the currently accepted token prefixes.
 ////
 
 /// (100) Reference Token Prefix

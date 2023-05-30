@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.1.4 </span>
+          <span>v0.1.5 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.1.4";
+            const currentVersion = "v0.1.5";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -299,6 +299,8 @@
   
   <li><a href="#test_output">test_output</a></li>
   
+  <li><a href="#test_signatories">test_signatories</a></li>
+  
   <li><a href="#test_tx">test_tx</a></li>
   
 </ul>
@@ -430,6 +432,21 @@
   
   <div class="member">
     <div class="member-name">
+      <h2 id="test_signatories"><pre class="hljs language-aiken">test_signatories() -&gt; List&lt;ByteArray&gt;</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>A fake list of tx signers</p>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="test_tx"><pre class="hljs language-aiken">test_tx() -&gt; Transaction</pre></h2>
       
       <!-- TODO: support source linking
@@ -516,8 +533,8 @@
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684883970"></script>
+    <script src="../js/index.js?v=1685487326"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684883970"></script>
+    <script src="../search-data.js?v=1685487326"></script>
   </body>
 </html>
