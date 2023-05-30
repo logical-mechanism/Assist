@@ -12,7 +12,7 @@ use aiken/transaction/credential.{
 /// information inside the transaction of the form Dict<StakeCredential, Int>
 ///
 /// ```aiken
-/// credentials.create_stake_credential(datum.stake_contract_hash)
+/// credentials.create_stake_credential(datum.contract_hash)
 /// ```
 pub fn create_stake_credential(
   sc: Hash<Blake2b_224, Script>,

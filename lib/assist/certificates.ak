@@ -8,7 +8,7 @@ use assist/credentials
 /// a specific pool.
 ///
 /// ```aiken
-/// certificates.create_credential_delegation(datum.stake_contract_hash, datum.pool_id)
+/// certificates.create_credential_delegation(datum.contract_hash, datum.pool_id)
 /// ```
 pub fn create_credential_delegation(
   sc: Hash<Blake2b_224, Script>,
