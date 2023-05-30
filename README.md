@@ -21,6 +21,7 @@ source = "github"
 
 4. Compile your project by running the command `aiken check` in your project directory.
 
+- If Aiken can't build `assist` then delete the `build` folder and run aiken check again.
 
 ## Usage
 
