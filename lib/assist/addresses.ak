@@ -47,12 +47,21 @@ test base_wallet() {
   create_address(#"acab", #"face") == addr
 }
 
+test correct_wallet_sc() {
+  let addr =
+    Address {
+      payment_credential: VerificationKeyCredential(#"acab"),
+      stake_credential: Some(Inline(VerificationKeyCredential(#""))),
+    }
+  create_script_address(#"acab", #"") != addr
+}
+
 /// Creates a script address for a smart contract. The type does not mix address
 /// types. Staked smart contracts are contracts as well. An empty sc is
 /// assumed to be not staked.
 ///
 /// ```aiken
-/// addresses.create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script.sc)
+/// addresses.create_script_address(datum.script.pkh, datum.script.sc)
 /// ```
 pub fn create_script_address(
   pkh: Hash<Blake2b_224, Script>,
@@ -83,4 +92,13 @@ test base_script() {
       stake_credential: Some(Inline(ScriptCredential(#"face"))),
     }
   create_script_address(#"acab", #"face") == script_addr
+}
+
+test correct_script_sc() {
+  let script_addr =
+    Address {
+      payment_credential: ScriptCredential(#"acab"),
+      stake_credential: Some(Inline(ScriptCredential(#""))),
+    }
+  create_script_address(#"acab", #"") != script_addr
 }

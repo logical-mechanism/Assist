@@ -480,6 +480,7 @@ test zero_calculate_scale() {
   calculate_scale(0, 4, 1, 3, 0) == 1
 }
 
+// count the number of zeros at the end of a number
 fn count_zeros(number: Int, counter: Int) -> Int {
   if number % 10 == 0 {
     count_zeros(number / 10, counter + 1)

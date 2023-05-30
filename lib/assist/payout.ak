@@ -16,17 +16,17 @@ use tests/fake_tx
 /// payout.exact(wallet_addr, validating_value, tx.outputs)
 /// ```
 pub fn exact(
-  pay_address: Address,
-  pay_value: Value,
+  payout_address: Address,
+  payout_value: Value,
   outputs: List<Output>,
 ) -> Bool {
   when outputs is {
     [output, ..rest] ->
       // exact address and value
-      if output.address == pay_address && output.value == pay_value {
+      if output.address == payout_address && output.value == payout_value {
         True
       } else {
-        exact(pay_address, pay_value, rest)
+        exact(payout_address, payout_value, rest)
       }
     // nothing was found
     [] ->
@@ -62,23 +62,23 @@ test missing_exact_payout() {
 /// payout.at_least(wallet_addr, just_token_value, tx.outputs)
 /// ```
 pub fn at_least(
-  pay_address: Address,
-  pay_value: Value,
+  payout_address: Address,
+  payout_value: Value,
   outputs: List<Output>,
 ) -> Bool {
   let flattened_value =
-    value.flatten(pay_value)
+    value.flatten(payout_value)
   when outputs is {
     [output, ..rest] ->
       if
-      output.address == pay_address && check_all_assets(
+      output.address == payout_address && check_all_assets(
         output.value,
         flattened_value,
       ) == True{
       
         True
       } else {
-        at_least(pay_address, pay_value, rest)
+        at_least(payout_address, payout_value, rest)
       }
     // nothing was found
     [] ->
@@ -140,13 +140,13 @@ test missing_token_payout() {
 /// ```aiken
 /// payout.cont(that_script_addr, tx.outputs)
 /// ```
-pub fn cont(pay_address: Address, outputs: List<Output>) -> Bool {
+pub fn cont(payout_address: Address, outputs: List<Output>) -> Bool {
   when outputs is {
     [output, ..rest] ->
-      if output.address == pay_address {
+      if output.address == payout_address {
         True
       } else {
-        cont(pay_address, rest)
+        cont(payout_address, rest)
       }
     [] ->
       False
