@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.1.4 </span>
+          <span>v0.1.5 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.1.4";
+            const currentVersion = "v0.1.5";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -346,7 +346,7 @@ credential. An empty sc means enterpise address by default.</p>
     <div class="rendered-markdown"><p>Creates a script address for a smart contract. The type does not mix address
 types. Staked smart contracts are contracts as well. An empty sc is
 assumed to be not staked.</p>
-<pre><code class="language-aiken">addresses.create_script_address(ref_datum.sale_script.pkh, ref_datum.sale_script.sc)
+<pre><code class="language-aiken">addresses.create_script_address(datum.script.pkh, datum.script.sc)
 </code></pre>
 </div>
   </div>
@@ -424,8 +424,8 @@ assumed to be not staked.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1685484150"></script>
+    <script src="../js/index.js?v=1685487326"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1685484150"></script>
+    <script src="../search-data.js?v=1685487326"></script>
   </body>
 </html>
