@@ -60,6 +60,21 @@ pub fn test_output() -> Output {
   output
 }
 
+/// A fake list of tx signers
+pub fn test_signatories() -> List<ByteArray> {
+  [
+    #"acab", #"beef", #"face", #"acba", #"befe", #"faec", #"caab", #"ebef",
+    #"afce", #"acab00", #"beef00", #"face00", #"acba00", #"befe00", #"faec00",
+    #"caab00", #"ebef00", #"afce00", #"acab0011", #"beef0011", #"face0011",
+    #"acba0011", #"befe0011", #"faec0011", #"caab0011", #"ebef0011", #"afce0011",
+    #"acab99", #"beef99", #"face99", #"acba99", #"befe99", #"faec99", #"caab99",
+    #"ebef99", #"afce99", #"acab0099", #"beef0099", #"face0099", #"acba0099",
+    #"befe0099", #"faec0099", #"caab0099", #"ebef0099", #"afce0099",
+    #"acab001199", #"beef001199", #"face001199", #"acba001199", #"befe001199",
+    #"faec001199", #"caab001199", #"ebef001199", #"afce001199",
+  ]
+}
+
 /// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
   let sc: StakeCredential =
@@ -146,7 +161,7 @@ pub fn test_tx() -> Transaction {
           is_inclusive: True,
         },
       },
-      extra_signatories: [#"acab", #"beef", #"face"],
+      extra_signatories: test_signatories(),
       redeemers: redeem,
       datums: dict.new(),
       id: TransactionId { hash: #"" },

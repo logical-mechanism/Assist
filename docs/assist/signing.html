@@ -324,7 +324,7 @@ It assumes that all signatures provided are verification keys.</p>
     </div>
     <div class="rendered-markdown"><p>This counts the number of signatures inside a transaction that are from 
 the list of signers then checks if its at least the minimum amount.</p>
-<pre><code class="language-aiken">signing.verify_multisig(tx, lst_of_sigs, sig_threshold) == True
+<pre><code class="language-aiken">signing.verify_multisig(context.transaction, lst_of_sigs, sig_threshold)
 </code></pre>
 </div>
   </div>
@@ -345,7 +345,7 @@ the list of signers then checks if its at least the minimum amount.</p>
     </div>
     <div class="rendered-markdown"><p>Check if the list of signatures inside a transaction contains the
 verification key.</p>
-<pre><code class="language-aiken">signing.verify_sig(context.transaction, wallet_pkh) == True
+<pre><code class="language-aiken">signing.verify_sig(context.transaction, wallet_pkh)
 </code></pre>
 </div>
   </div>
@@ -423,8 +423,8 @@ verification key.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.6-alpha"></script>
-    <script src="../js/index.js?v=1684883970"></script>
+    <script src="../js/index.js?v=1685484150"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1684883970"></script>
+    <script src="../search-data.js?v=1685484150"></script>
   </body>
 </html>
