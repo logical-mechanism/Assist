@@ -148,7 +148,7 @@ pub fn test_tx() -> Transaction {
         },
       ],
       fee: value.zero(),
-      mint: value.zero(),
+      mint: value.to_minted_value(value.zero()),
       certificates: [],
       withdrawals: withdrawal,
       validity_range: Interval {

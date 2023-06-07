@@ -94,7 +94,7 @@ test to_base_256() {
 /// ```
 pub fn to_int(self: ByteArray) -> Int {
   // base 10 value of a hexadecimal number as a bytearray
-  bytearray.foldl(self, fn(byte, acc) { acc * 256 + byte }, 0)
+  bytearray.foldl(self, 0, fn(byte, acc) { acc * 256 + byte })
 }
 
 test empty_string_to_int() {
@@ -115,39 +115,31 @@ test string_to_int() {
 /// maths.from_int(44203)
 /// ```
 pub fn from_int(self: Int) -> ByteArray {
-  let base_256 =
-    base_q(self, 256)
-  list.foldr(base_256, fn(n, total) { bytearray.push(total, n) }, #"")
+  let base_256 = base_q(self, 256)
+  list.foldr(base_256, #"", fn(n, total) { bytearray.push(total, n) })
 }
 
 test odd_from_int() {
-  let n =
-    46118402439
+  let n = 46118402439
   // odd length get prepended with a zero
   from_int(n) == #"0abcdef987"
 }
 
 test empty_from_int() {
-  let str =
-    #""
-  let n =
-    to_int(str)
+  let str = #""
+  let n = to_int(str)
   from_int(n) == str
 }
 
 test simple_from_int() {
-  let str =
-    #"acab"
-  let n =
-    to_int(str)
+  let str = #"acab"
+  let n = to_int(str)
   from_int(n) == str
 }
 
 test complex_from_int() {
-  let str =
-    #"acabbeeffacecafe"
-  let n =
-    to_int(str)
+  let str = #"acabbeeffacecafe"
+  let n = to_int(str)
   from_int(n) == str
 }
 
@@ -158,10 +150,8 @@ test complex_from_int() {
 /// ```
 pub fn gcd(a: Int, b: Int) -> Int {
   when b is {
-    0 ->
-      a
-    _ ->
-      gcd(b, a % b)
+    0 -> a
+    _ -> gcd(b, a % b)
   }
 }
 
@@ -215,7 +205,7 @@ test ls_7_3() {
 /// maths.list_product([1,2,3])
 /// ```
 pub fn list_product(lst: List<Int>) -> Int {
-  list.foldr(lst, fn(n, total) { n * total }, 1)
+  list.foldr(lst, 1, fn(n, total) { n * total })
 }
 
 test empty_list_product() {
@@ -232,7 +222,7 @@ test simple_list_product() {
 /// maths.list_pow_mod([1,2,3], 2, 19)
 /// ```
 pub fn list_powmod(lst: List<Int>, g: Int, q: Int) -> Int {
-  list.foldr(lst, fn(n, total) { total * powmod(g, n, q) }, 1) % q
+  list.foldr(lst, 1, fn(n, total) { total * powmod(g, n, q) }) % q
 }
 
 test empty_list_power_mod() {
@@ -249,7 +239,7 @@ test simple_list_power_mod() {
 /// maths.list_sum(list_of_integers)
 /// ```
 pub fn list_sum(lst: List<Int>) -> Int {
-  list.foldr(lst, fn(n, total) { total + n }, 0)
+  list.foldr(lst, 0, fn(n, total) { total + n })
 }
 
 test empty_list_sum() {
@@ -273,8 +263,7 @@ test complex_list_sum() {
 /// maths.decay(start_amount, lovelace_scaling, datum.current_int)
 /// ```
 pub fn decay(start_amt: Int, scale: Int, num: Int) -> Int {
-  let val =
-    ( start_amt - math.log(num, 2) ) * scale
+  let val = ( start_amt - math.log(num, 2) ) * scale
   if val <= scale {
     0
   } else {
@@ -444,10 +433,8 @@ fn calculate_scale(
   bound: Int,
   depth: Int,
 ) -> Int {
-  let er =
-    effective_ratio(amt, pct, scale)
-  let max_depth =
-    15
+  let er = effective_ratio(amt, pct, scale)
+  let max_depth = 15
   // the max depth determines irrationals, largest scaling is then 10^max_depth
   if er == 0 || depth >= max_depth {
     scale
