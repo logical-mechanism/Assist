@@ -1,22 +1,20 @@
 //// This is for testing only.
 ////
 
-use aiken/bytearray
-use aiken/dict.{Dict}
+use aiken/dict
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
-use aiken/list
 use aiken/transaction.{
   InlineDatum, Input, NoDatum, Output, OutputReference, Spend, Transaction,
   TransactionId,
 }
 use aiken/transaction/credential.{StakeCredential}
-use aiken/transaction/minted_value.{MintedValue}
-use aiken/transaction/value.{AssetName, PolicyId, Value}
+use aiken/transaction/value
 use assist/addresses
 use assist/credentials
 
 /// A test datum.
-pub const test_datum: ByteArray = #"acabbeeffacecafe"
+pub const test_datum: ByteArray =
+  #"acabbeeffacecafe"
 
 /// A `Data`data type
 pub type DataType =
@@ -79,12 +77,15 @@ pub fn test_signatories() -> List<ByteArray> {
 
 /// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
-  let sc: StakeCredential = credentials.create_stake_credential(#"face")
-  let out_ref = test_out_ref()
+  let sc: StakeCredential =
+    credentials.create_stake_credential(#"face")
+  let out_ref =
+    test_out_ref()
   let withdrawal =
     dict.new()
       |> dict.insert(key: sc, value: 100, compare: fn(_, _) { Equal })
-  let d: DataType = 1
+  let d: DataType =
+    1
   let redeem =
     dict.new()
       |> dict.insert(key: Spend(out_ref), value: d, compare: fn(_, _) { Equal })
@@ -147,7 +148,7 @@ pub fn test_tx() -> Transaction {
         },
       ],
       fee: value.zero(),
-      mint: value.to_dict(value.zero()),
+      mint: value.to_minted_value(value.zero()),
       certificates: [],
       withdrawals: withdrawal,
       validity_range: Interval {
