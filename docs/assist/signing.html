@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.1.6 </span>
+          <span>v0.2.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.1.6";
+            const currentVersion = "v0.2.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -310,7 +310,7 @@ It assumes that all signatures provided are verification keys.</p>
   <div class="member">
     <div class="member-name">
       <h2 id="verify_multisig"><pre class="hljs language-aiken">verify_multisig(
-  transaction: Transaction,
+  sigs: List&lt;Hash&lt;Blake2b_224, VerificationKey&gt;&gt;,
   vks: List&lt;Hash&lt;Blake2b_224, VerificationKey&gt;&gt;,
   minimum: Int,
 ) -&gt; Bool</pre></h2>
@@ -332,7 +332,7 @@ the list of signers then checks if its at least the minimum amount.</p>
   <div class="member">
     <div class="member-name">
       <h2 id="verify_sig"><pre class="hljs language-aiken">verify_sig(
-  transaction: Transaction,
+  vks: List&lt;Hash&lt;Blake2b_224, VerificationKey&gt;&gt;,
   vk: Hash&lt;Blake2b_224, VerificationKey&gt;,
 ) -&gt; Bool</pre></h2>
       
@@ -423,8 +423,8 @@ verification key.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.7-alpha"></script>
-    <script src="../js/index.js?v=1686150205"></script>
+    <script src="../js/index.js?v=1686153362"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1686150205"></script>
+    <script src="../search-data.js?v=1686153362"></script>
   </body>
 </html>
