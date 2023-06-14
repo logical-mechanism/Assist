@@ -186,7 +186,8 @@ test no_prefix_token_name() {
 
 test prefix_222_token_name() {
   let tkn = unique_token_name(#"", 0, prefixes.prefix_222)
-  bytearray.take(tkn, 5) == prefixes.prefix_222
+  // the prefixes all have length 4
+  bytearray.take(tkn, 4) == prefixes.prefix_222
 }
 
 test real_token_name() {
