@@ -12,3 +12,6 @@ pub const prefix_333 = #"0014df10"
 
 /// (444) Rich-Fungible Token Prefix
 pub const prefix_444 = #"001bc280"
+
+/// (555) Pointer Token Prefix, NOT IMPLEMENTED IN CIP68
+pub const prefix_555 = #"0022bfb0"
