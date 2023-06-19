@@ -62,8 +62,9 @@ test empty_exact_mint() {
 
 /// This checks if a specific policy id, prefix, and amount exist inside
 /// the flattened exact value. Instead of searching for exact match, it
-/// checks if the token name has the correct prefix. This works because
-/// every token name will be unique. If found then it returns True else False.
+/// checks if the token name has the correct prefix. This works if
+/// every token name on the policy id is unique. If found then it returns
+/// True else False.
 ///
 pub fn by_prefix(
   flat: List<(ByteArray, ByteArray, Int)>,
@@ -72,6 +73,7 @@ pub fn by_prefix(
   amt: Int,
 ) -> Bool {
   when flat is {
+    // loop all the value for the flat value
     [(policy, token_name, quantity), ..rest] -> {
       // all cip68 prefixes have the same length
       let p = bytearray.take(token_name, 4)
