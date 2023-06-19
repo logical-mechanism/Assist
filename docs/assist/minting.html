@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/certificates - aiken-lang/assist</title>
+    <title>assist/minting - aiken-lang/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -198,7 +198,7 @@
         
 	  <li><a href="../assist/certificates.html">
 	  
-	  <strong>assist/certificates</strong>
+	  assist/certificates
 	  
 	  </a></li>
         
@@ -234,7 +234,7 @@
         
 	  <li><a href="../assist/minting.html">
 	  
-	  assist/minting
+	  <strong>assist/minting</strong>
 	  
 	  </a></li>
         
@@ -285,7 +285,9 @@
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#create_credential_delegation">create_credential_delegation</a></li>
+  <li><a href="#by_prefix">by_prefix</a></li>
+  
+  <li><a href="#exact">exact</a></li>
   
 </ul>
 
@@ -295,7 +297,7 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/certificates</a>
+  <a href="#module-name">assist/minting</a>
 </h1>
 
 
@@ -311,10 +313,12 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="create_credential_delegation"><pre class="hljs language-aiken">create_credential_delegation(
-  sc: Hash&lt;Blake2b_224, Script&gt;,
-  pool_id: PoolId,
-) -&gt; Certificate</pre></h2>
+      <h2 id="by_prefix"><pre class="hljs language-aiken">by_prefix(
+  flat: List&lt;(ByteArray, ByteArray, Int)&gt;,
+  pid: ByteArray,
+  prefix: ByteArray,
+  amt: Int,
+) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -323,11 +327,33 @@
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Creates a credential delegation for changing the location of the stake.
-This certificate can be used to check if stake is being delegated to
-a specific pool.</p>
-<pre><code class="language-aiken">certificates.create_credential_delegation(datum.contract_hash, datum.pool_id)
-</code></pre>
+    <div class="rendered-markdown"><p>This checks if a specific policy id, prefix, and amount exist inside
+the flattened exact value. Instead of searching for exact match, it
+checks if the token name has the correct prefix. This works if
+every token name on the policy id is unique. If found then it returns
+True else False.</p>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="exact"><pre class="hljs language-aiken">exact(
+  flat: List&lt;(ByteArray, ByteArray, Int)&gt;,
+  pid: ByteArray,
+  tkn: ByteArray,
+  amt: Int,
+) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>This checks if a specific policy id, token name, and amount exist inside
+the flattened exact value. It is searching for an exact match. If found
+then it returns True else False.</p>
 </div>
   </div>
   

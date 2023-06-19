@@ -1,3 +1,7 @@
+# v0.2.2
+
+Minting functions for exact mints and by_prefix mints. A experimental cip68 prefix has been added to prefixes.
+
 # v0.2.1
 
 CIP68 prefixes have been fixed. The unique token name function still produces correct names but any length checks needs to be adjusted. New prefix length is now 4.
