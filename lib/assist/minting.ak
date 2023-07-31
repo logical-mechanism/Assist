@@ -7,6 +7,9 @@ use assist/prefixes
 /// the flattened exact value. It is searching for an exact match. If found
 /// then it returns True else False.
 ///
+/// ```aiken
+/// minting.exact(flatten_mint_value, pid, tkn, 1)
+/// ```
 pub fn exact(
   flat: List<(ByteArray, ByteArray, Int)>,
   pid: ByteArray,
@@ -66,6 +69,9 @@ test empty_exact_mint() {
 /// every token name on the policy id is unique. If found then it returns
 /// True else False.
 ///
+/// ```aiken
+/// minting.by_prefix(flatten_mint_value, pid, tkn, 1)
+/// ```
 pub fn by_prefix(
   flat: List<(ByteArray, ByteArray, Int)>,
   pid: ByteArray,
@@ -115,4 +121,49 @@ test bad_by_prefix_burn() {
 test empty_by_prefix_mint() {
   let flat = value.zero() |> value.flatten()
   by_prefix(flat, #"", #"", 0) == False
+}
+
+/// Prove that a transaction is minting something from a specific policy id 
+/// and token name but the amount does not matter. This is great for lock-n-mint
+/// style contracts where some logic just needs to check if a mint is occuring
+/// but not the specifics of the amount being minted or burned. If a mint is
+/// occurring then it will return True else False.
+///
+/// ```aiken
+/// minting.is_occurring(flatten_mint_value, pid, tkn)
+/// ```
+pub fn is_occurring(
+  flat: List<(ByteArray, ByteArray, Int)>,
+  pid: ByteArray,
+  tkn: ByteArray,
+) -> Bool {
+  when flat is {
+    // loop the minted value
+    [(policy, token_name, _), ..rest] ->
+      if list.and([policy == pid, token_name == tkn]) == True {
+        True
+      } else {
+        is_occurring(rest, pid, tkn)
+      }
+    // something wasn't found
+    [] -> False
+  }
+}
+
+test tx_is_empty_minting() {
+  let flat =
+    []
+  is_occurring(flat, #"acab", prefixes.prefix_222) == False
+}
+
+test tx_is_minting() {
+  let flat =
+    value.from_asset(#"acab", prefixes.prefix_222, 1) |> value.flatten()
+  is_occurring(flat, #"acab", prefixes.prefix_222) == True
+}
+
+test tx_is_not_minting() {
+  let flat =
+    value.from_asset(#"acab", prefixes.prefix_222, 1) |> value.flatten()
+  is_occurring(flat, #"acab", prefixes.prefix_333) == False
 }

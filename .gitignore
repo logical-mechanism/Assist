@@ -2,4 +2,4 @@
 artifacts/
 # Aiken's project working directory
 build/
-
+plutus.json
