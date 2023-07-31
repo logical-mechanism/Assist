@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.10-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.10-alpha"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.13-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.13-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.2.2 </span>
+          <span>v0.2.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.2.2";
+            const currentVersion = "v0.2.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -295,6 +295,8 @@
   
   <li><a href="#prove_nft">prove_nft</a></li>
   
+  <li><a href="#total_token_amount">total_token_amount</a></li>
+  
   <li><a href="#unique_token_name">unique_token_name</a></li>
   
 </ul>
@@ -424,6 +426,31 @@ is assumed to be unique.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="total_token_amount"><pre class="hljs language-aiken">total_token_amount(
+  inputs: List&lt;Input&gt;,
+  pid: PolicyId,
+  tkn: AssetName,
+  counter: Int,
+) -&gt; Int</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Calculate the total amount of a token within the set of inputs for the 
+transaction. This function is useful when needing to get a total amount
+of one token inside a given transaction, like estimating if a threshold
+has been met.</p>
+<pre><code class="language-aiken">values.total_token_amount(tx.inputs, datum.pid, datum.tkn, 0)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="unique_token_name"><pre class="hljs language-aiken">unique_token_name(txid: ByteArray, idx: Int, prefix: ByteArray) -&gt; ByteArray</pre></h2>
       
       <!-- TODO: support source linking
@@ -493,8 +520,8 @@ utxo inside the transaction.</p>
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.10-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.10-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.13-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.13-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -513,9 +540,9 @@ utxo inside the transaction.</p>
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.10-alpha"></script>
-    <script src="../js/index.js?v=1687197382"></script>
+    <script src="../js/lunr.min.js?v=1.0.13-alpha"></script>
+    <script src="../js/index.js?v=1690839085"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1687197382"></script>
+    <script src="../search-data.js?v=1690839085"></script>
   </body>
 </html>
