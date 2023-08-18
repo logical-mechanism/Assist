@@ -214,7 +214,10 @@ test real_token_name() {
 pub fn prove_nft(pid: PolicyId, total: Value) {
   let tkns = value.tokens(total, pid) |> dict.values()
   let sum = list.foldl(tkns, 0, fn(n, total) { n + total })
-  list.and([list.length(tkns) == 1, sum == 1])
+  and {
+    list.length(tkns) == 1,
+    sum == 1,
+  }
 }
 
 test prove_nft_from_policy_id() {

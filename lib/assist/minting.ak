@@ -1,5 +1,4 @@
 use aiken/bytearray
-use aiken/list
 use aiken/transaction/value
 use assist/prefixes
 
@@ -19,7 +18,11 @@ pub fn exact(
   when flat is {
     // loop the minted value
     [(policy, token_name, quantity), ..rest] ->
-      if list.and([policy == pid, token_name == tkn, quantity == amt]) == True {
+      if and {
+        policy == pid,
+        token_name == tkn,
+        quantity == amt,
+      } == True {
         True
       } else {
         exact(rest, pid, tkn, amt)
@@ -83,7 +86,11 @@ pub fn by_prefix(
     [(policy, token_name, quantity), ..rest] -> {
       // all cip68 prefixes have the same length
       let p = bytearray.take(token_name, 4)
-      if list.and([policy == pid, prefix == p, quantity == amt]) == True {
+      if and {
+        policy == pid,
+        prefix == p,
+        quantity == amt,
+      } == True {
         True
       } else {
         by_prefix(rest, pid, prefix, amt)
@@ -140,7 +147,10 @@ pub fn is_occurring(
   when flat is {
     // loop the minted value
     [(policy, token_name, _), ..rest] ->
-      if list.and([policy == pid, token_name == tkn]) == True {
+      if and {
+        policy == pid,
+        token_name == tkn,
+      } == True {
         True
       } else {
         is_occurring(rest, pid, tkn)
