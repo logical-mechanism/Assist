@@ -354,27 +354,23 @@ pub fn effective_ratio(amt: Int, pct: Int, scale: Int) -> Int {
 }
 
 test zero_effective_ratio() {
-  list.and(
-    [
-      effective_ratio(0, 1, 1) == 0,
-      effective_ratio(1, 0, 1) == 0,
-      effective_ratio(1, 1, 0) == 0,
-    ],
-  )
+  and {
+    effective_ratio(0, 1, 1) == 0,
+    effective_ratio(1, 0, 1) == 0,
+    effective_ratio(1, 1, 0) == 0,
+  }
 }
 
 test simple_effective_ratio() {
-  list.and(
-    [
-      effective_ratio(123, 40, 1) == 3,
-      effective_ratio(123, 40, 10) == 30,
-      effective_ratio(123, 40, 100) == 307,
-      effective_ratio(123, 40, 1000) == 3075,
-      effective_ratio(123, 40, 10000) == 30750,
-      effective_ratio(123, 40, 100000) == 307500,
-      effective_ratio(123, 40, 1000000) == 3075000,
-    ],
-  )
+  and {
+    effective_ratio(123, 40, 1) == 3,
+    effective_ratio(123, 40, 10) == 30,
+    effective_ratio(123, 40, 100) == 307,
+    effective_ratio(123, 40, 1000) == 3075,
+    effective_ratio(123, 40, 10000) == 30750,
+    effective_ratio(123, 40, 100000) == 307500,
+    effective_ratio(123, 40, 1000000) == 3075000,
+  }
 }
 
 test complex_effective_ratio() {

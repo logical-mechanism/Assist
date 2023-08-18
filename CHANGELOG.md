@@ -1,3 +1,7 @@
+# v0.3.0
+
+- Upgrade to Aiken 1.14 and Stdlib 1.5, list.and and list.or have been removed.
+
 # v0.2.3
 
 - Added in a function to calculate the total amount of some specific token inside all the transaction inputs. 

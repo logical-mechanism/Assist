@@ -38,7 +38,7 @@ test has_signature() {
 
 test lots_of_signatures() {
   let sigs = fake_tx.test_signatories()
-  list.and(list.map(sigs, fn(n) { verify_sig(sigs, n) })) == True
+  list.all(list.map(sigs, fn(n) { verify_sig(sigs, n) }), fn(n) { n == True }) == True
 }
 
 /// This counts the number of signatures inside a transaction that are from 
