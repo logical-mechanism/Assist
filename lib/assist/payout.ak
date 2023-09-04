@@ -4,7 +4,7 @@
 
 use aiken/transaction.{Output}
 use aiken/transaction/credential.{Address}
-use aiken/transaction/value.{AssetName, PolicyId, Value}
+use aiken/transaction/value.{Value}
 use assist/addresses
 use assist/values
 // for testing only
