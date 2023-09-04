@@ -6,12 +6,14 @@ use aiken/dict.{Dict}
 use aiken/list
 use aiken/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
-  TransactionId,
+  TransactionId
 }
 use aiken/transaction/credential.{Address, StakeCredential}
+use aiken/transaction/value.{Value}
 use assist/addresses
 use assist/credentials
 use assist/data
+use assist/values
 // for testing only
 use tests/fake_tx
 
@@ -201,6 +203,73 @@ test find_output_datum_by_addr() {
   expect datum: ByteArray =
     output_datum_by_addr(outputs, addr)
   datum == fake_tx.test_datum
+}
+
+
+/// Return the first occurrence of an output that contains at least some specific
+/// value at some address. If nothing is found then error. This function
+/// does not search for an exact UTxO match.
+///
+/// ```aiken
+/// find.output_by_addr_value(tx.outputs, wallet_addr, just_token_value)
+/// ```
+pub fn output_by_addr_value(
+  outputs: List<Output>,
+  addr: Address,
+  value: Value,
+) -> Output {
+  when outputs is {
+    [output, ..rest] ->
+      if output.address == addr && values.contains(value, output.value) {
+        output
+      } else {
+        output_by_addr_value(rest, addr, value)
+      }
+    // nothing was found
+    [] -> 
+      error @"No Output found"
+  }
+}
+
+// can't test for errors yet
+test find_output_by_addr_value() {
+  let outputs =
+    fake_tx.test_tx().outputs
+  let addr =
+    addresses.create_address(#"acab", #"")
+  let value = 
+    value.from_asset(#"acab", #"beef", 40)
+  output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
+}
+
+/// Return the first occurrence of an output that contains at least some specific
+/// value. If nothing is found then error. This function
+/// does not search for an exact UTxO match.
+///
+/// ```aiken
+/// find.output_by_value(tx.outputs, just_token_value)
+/// ```
+pub fn output_by_value(outputs: List<Output>, value: Value) -> Output {
+  when outputs is {
+    [output, ..rest] ->
+      if values.contains(value, output.value) {
+        output
+      } else {
+        output_by_value(rest, value)
+      }
+    // nothing was found
+    [] -> 
+      error @"No Output found"
+  }
+}
+
+// can't test for errors yet
+test find_output_by_value() {
+  let outputs =
+    fake_tx.test_tx().outputs
+  let value = 
+    value.from_asset(#"acab", #"beef", 10)
+  output_by_value(outputs, value) == fake_tx.test_output()
 }
 
 /// Find the staking reward amount in loveace for some stake credential.
