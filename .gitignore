@@ -3,3 +3,6 @@ artifacts/
 # Aiken's project working directory
 build/
 plutus.json
+# VSCode files & directory
+.vscode/
+*.code-workspace

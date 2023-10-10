@@ -4,8 +4,9 @@
 
 use aiken/transaction.{Output}
 use aiken/transaction/credential.{Address}
-use aiken/transaction/value.{AssetName, PolicyId, Value}
+use aiken/transaction/value.{Value}
 use assist/addresses
+use assist/values
 // for testing only
 use tests/fake_tx
 
@@ -66,16 +67,13 @@ pub fn at_least(
   payout_value: Value,
   outputs: List<Output>,
 ) -> Bool {
-  let flattened_value =
-    value.flatten(payout_value)
   when outputs is {
     [output, ..rest] ->
       if
-      output.address == payout_address && check_all_assets(
-        output.value,
-        flattened_value,
-      ) == True{
-      
+      output.address == payout_address && values.contains(
+        payout_value,
+        output.value
+      ){
         True
       } else {
         at_least(payout_address, payout_value, rest)
@@ -83,24 +81,6 @@ pub fn at_least(
     // nothing was found
     [] ->
       False
-  }
-}
-
-// given a list of tokens check if at least the quantity is in the value.
-fn check_all_assets(
-  out_value: Value,
-  flattened_value: List<(PolicyId, AssetName, Int)>,
-) -> Bool {
-  when flattened_value is {
-    [(policy, token_name, quantity), ..rest] ->
-      if value.quantity_of(out_value, policy, token_name) >= quantity {
-        check_all_assets(out_value, rest)
-      } else {
-        False
-      }
-    // All the tokens exist
-    [] ->
-      True
   }
 }
 
