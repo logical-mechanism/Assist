@@ -49,7 +49,7 @@ test values_multiply_by_4() {
 /// token must be at least the target amount or greater.
 ///
 /// ```aiken
-/// values.contain(payment_value, output_value)
+/// values.contains(payment_value, output_value)
 /// ```
 pub fn contains(target: Value, total: Value) -> Bool {
   let flat: List<(PolicyId, AssetName, Int)> = value.flatten(target)
