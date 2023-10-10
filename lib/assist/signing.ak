@@ -53,10 +53,10 @@ pub fn verify_multisig(
   minimum: Int,
 ) -> Bool {
   // assume greater than or equal
-  run_multisig(sigs, vks, 0) >= minimum
+  do_multisig(sigs, vks, 0) >= minimum
 }
 
-fn run_multisig(
+fn do_multisig(
   sigs: List<Hash<Blake2b_224, VerificationKey>>,
   vks: List<Hash<Blake2b_224, VerificationKey>>,
   counter: Int,
@@ -66,10 +66,10 @@ fn run_multisig(
     [vk, ..rest] ->
       if verify_sig(sigs, vk) == True {
         // signature found
-        run_multisig(sigs, rest, counter + 1)
+        do_multisig(sigs, rest, counter + 1)
       } else {
         // signature not found
-        run_multisig(sigs, rest, counter)
+        do_multisig(sigs, rest, counter)
       }
     // At the end of the list return how many signed
     [] -> counter
