@@ -57,15 +57,15 @@ test powmod_54_123_1() {
 /// maths.base_q(123, 7)
 /// ```
 pub fn base_q(n: Int, q: Int) -> List<Int> {
-  convert_into_base_q(n, q, [])
+  do_base_q(n, q, [])
 }
 
-fn convert_into_base_q(number: Int, base: Int, holder: List<Int>) -> List<Int> {
+fn do_base_q(number: Int, base: Int, holder: List<Int>) -> List<Int> {
   // if the number or base is zero return the holder list
   if number == 0 || base == 0 {
     holder
   } else {
-    convert_into_base_q(number / base, base, list.push(holder, number % base))
+    do_base_q(number / base, base, list.push(holder, number % base))
   }
 }
 
