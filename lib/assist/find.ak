@@ -6,7 +6,7 @@ use aiken/dict.{Dict}
 use aiken/list
 use aiken/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
-  TransactionId
+  TransactionId,
 }
 use aiken/transaction/credential.{Address, StakeCredential}
 use aiken/transaction/value.{Value}
@@ -26,17 +26,14 @@ use tests/fake_tx
 /// ```
 pub fn first_input_index(inputs: List<Input>) -> Int {
   when list.head(inputs) is {
-    Some(input) ->
-      input.output_reference.output_index
-    None ->
-      error @"No Index Found"
+    Some(input) -> input.output_reference.output_index
+    None -> fail @"No Index Found"
   }
 }
 
 // can't test for errors yet
 test find_first_input_index() {
-  let inputs =
-    fake_tx.test_tx().inputs
+  let inputs = fake_tx.test_tx().inputs
   first_input_index(inputs) == 0
 }
 
@@ -49,17 +46,14 @@ test find_first_input_index() {
 /// ```
 pub fn first_input_txid(inputs: List<Input>) -> ByteArray {
   when list.head(inputs) is {
-    Some(input) ->
-      input.output_reference.transaction_id.hash
-    None ->
-      error @"No TxId Found"
+    Some(input) -> input.output_reference.transaction_id.hash
+    None -> fail @"No TxId Found"
   }
 }
 
 // can't test for errors yet
 test find_first_input_txid() {
-  let inputs =
-    fake_tx.test_tx().inputs
+  let inputs = fake_tx.test_tx().inputs
   first_input_txid(inputs) == #"acab"
 }
 
@@ -78,15 +72,13 @@ pub fn input_by_ref(inputs: List<Input>, out_ref: OutputReference) -> Input {
       } else {
         input_by_ref(rest, out_ref)
       }
-    [] ->
-      error @"No Input Found"
+    [] -> fail @"No Input Found"
   }
 }
 
 // can't test for errors yet
 test find_input_by_ref() {
-  let inputs =
-    fake_tx.test_tx().inputs
+  let inputs = fake_tx.test_tx().inputs
   let out_ref =
     OutputReference {
       transaction_id: TransactionId { hash: #"acab" },
@@ -110,17 +102,14 @@ pub fn input_by_addr(inputs: List<Input>, addr: Address) -> Input {
       } else {
         input_by_addr(rest, addr)
       }
-    [] ->
-      error @"No Input Found"
+    [] -> fail @"No Input Found"
   }
 }
 
 // can't test for errors yet
 test find_input_by_addr() {
-  let inputs =
-    fake_tx.test_tx().inputs
-  let addr =
-    addresses.create_address(#"acab", #"")
+  let inputs = fake_tx.test_tx().inputs
+  let addr = addresses.create_address(#"acab", #"")
   input_by_addr(inputs, addr) == fake_tx.test_input()
 }
 
@@ -138,17 +127,14 @@ pub fn output_by_addr(outputs: List<Output>, addr: Address) -> Output {
       } else {
         output_by_addr(rest, addr)
       }
-    [] ->
-      error @"No Output Found"
+    [] -> fail @"No Output Found"
   }
 }
 
 // can't test for errors yet
 test find_output_by_addr() {
-  let outputs =
-    fake_tx.test_tx().outputs
-  let addr =
-    addresses.create_address(#"acab", #"")
+  let outputs = fake_tx.test_tx().outputs
+  let addr = addresses.create_address(#"acab", #"")
   output_by_addr(outputs, addr) == fake_tx.test_output()
 }
 
@@ -163,22 +149,17 @@ pub fn first_output_datum(outputs: List<Output>) -> Data {
   when outputs is {
     [output, ..rest] ->
       when output.datum is {
-        InlineDatum(outbound_datum) ->
-          outbound_datum
-        _ ->
-          first_output_datum(rest)
+        InlineDatum(outbound_datum) -> outbound_datum
+        _ -> first_output_datum(rest)
       }
-    [] ->
-      error @"No Datum Found"
+    [] -> fail @"No Datum Found"
   }
 }
 
 // can't test for errors yet
 test find_first_output_datum() {
-  let outputs =
-    fake_tx.test_tx().outputs
-  expect datum: ByteArray =
-    first_output_datum(outputs)
+  let outputs = fake_tx.test_tx().outputs
+  expect datum: ByteArray = first_output_datum(outputs)
   datum == fake_tx.test_datum
 }
 
@@ -189,22 +170,17 @@ test find_first_output_datum() {
 /// expect datum: Datum = find.output_datum_by_addr(tx.outputs, this_addr)
 /// ```
 pub fn output_datum_by_addr(outputs: List<Output>, addr: Address) -> Data {
-  let outbound_output =
-    output_by_addr(outputs, addr)
+  let outbound_output = output_by_addr(outputs, addr)
   data.output_datum(outbound_output)
 }
 
 // can't test for errors yet
 test find_output_datum_by_addr() {
-  let outputs =
-    fake_tx.test_tx().outputs
-  let addr =
-    addresses.create_address(#"acab", #"")
-  expect datum: ByteArray =
-    output_datum_by_addr(outputs, addr)
+  let outputs = fake_tx.test_tx().outputs
+  let addr = addresses.create_address(#"acab", #"")
+  expect datum: ByteArray = output_datum_by_addr(outputs, addr)
   datum == fake_tx.test_datum
 }
-
 
 /// Return the first occurrence of an output that contains at least some specific
 /// value at some address. If nothing is found then error. This function
@@ -226,19 +202,15 @@ pub fn output_by_addr_value(
         output_by_addr_value(rest, addr, value)
       }
     // nothing was found
-    [] -> 
-      error @"No Output found"
+    [] -> fail @"No Output Found"
   }
 }
 
 // can't test for errors yet
 test find_output_by_addr_value() {
-  let outputs =
-    fake_tx.test_tx().outputs
-  let addr =
-    addresses.create_address(#"acab", #"")
-  let value = 
-    value.from_asset(#"acab", #"beef", 40)
+  let outputs = fake_tx.test_tx().outputs
+  let addr = addresses.create_address(#"acab", #"")
+  let value = value.from_asset(#"acab", #"beef", 40)
   output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
 }
 
@@ -258,17 +230,14 @@ pub fn output_by_value(outputs: List<Output>, value: Value) -> Output {
         output_by_value(rest, value)
       }
     // nothing was found
-    [] -> 
-      error @"No Output found"
+    [] -> fail @"No Output Found"
   }
 }
 
 // can't test for errors yet
 test find_output_by_value() {
-  let outputs =
-    fake_tx.test_tx().outputs
-  let value = 
-    value.from_asset(#"acab", #"beef", 10)
+  let outputs = fake_tx.test_tx().outputs
+  let value = value.from_asset(#"acab", #"beef", 10)
   output_by_value(outputs, value) == fake_tx.test_output()
 }
 
@@ -284,19 +253,15 @@ pub fn stake_reward_by_sc(
   stake_credential: StakeCredential,
 ) -> Int {
   when dict.get(withdraws, stake_credential) is {
-    Some(reward) ->
-      reward
-    None ->
-      error @"No Staking Rewards Available"
+    Some(reward) -> reward
+    None -> fail @"No Staking Rewards Available"
   }
 }
 
 // can't test for errors yet
 test find_stake_reward_by_sc() {
-  let withdrawal =
-    fake_tx.test_tx().withdrawals
-  let sc =
-    credentials.create_stake_credential(#"face")
+  let withdrawal = fake_tx.test_tx().withdrawals
+  let sc = credentials.create_stake_credential(#"face")
   stake_reward_by_sc(withdrawal, sc) == 100
 }
 
@@ -313,18 +278,14 @@ pub fn redeemer_by_ref(
 ) -> Data {
   // make sure only the spend purpose here
   when dict.get(redeemers, Spend(out_ref)) is {
-    Some(redeemer) ->
-      redeemer
-    None ->
-      error @"No Spend Redeemer Found"
+    Some(redeemer) -> redeemer
+    None -> fail @"No Spend Redeemer Found"
   }
 }
 
 // can't test errors yet
 test find_redeemer_by_ref() {
-  let tx =
-    fake_tx.test_tx()
-  expect datum: Int =
-    redeemer_by_ref(tx.redeemers, fake_tx.test_out_ref())
+  let tx = fake_tx.test_tx()
+  expect datum: Int = redeemer_by_ref(tx.redeemers, fake_tx.test_out_ref())
   datum == 1
 }

@@ -1,6 +1,14 @@
+# v0.3.1
+
+- Upgrade to aiken 1.19 and stdlib 1.6.
+- `prefixes.prefix_555` is removed.
+- @nikhils9 added in `output_by_addr_value` and `output_by_value`
+- `payout.atleast` is refactored using `value.contains`
+- pub fn that are wrappers now use the do_fn syntax to align with stdlib
+
 # v0.3.0
 
-- Upgrade to Aiken 1.14 and Stdlib 1.5, list.and and list.or have been removed.
+- Upgrade to Aiken 1.14 and stdlib 1.5, list.and and list.or have been removed.
 
 # v0.2.3
 
