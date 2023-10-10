@@ -19,16 +19,16 @@ use tests/fake_tx
 /// values.multiply(bundle_value, bundle_size)
 /// ```
 pub fn multiply(val: Value, n: Int) -> Value {
-  multiply_value(value.zero(), val, n)
+  do_multiply(value.zero(), val, n)
 }
 
-fn multiply_value(total: Value, add_val: Value, n: Int) -> Value {
+fn do_multiply(total: Value, add_val: Value, n: Int) -> Value {
   // 4 * v = v + v + v + v 
   if n <= 0 {
     total
   } else {
     // add to total
-    multiply_value(value.merge(total, add_val), add_val, n - 1)
+    do_multiply(value.merge(total, add_val), add_val, n - 1)
   }
 }
 
@@ -53,17 +53,14 @@ test values_multiply_by_4() {
 /// ```
 pub fn contains(target: Value, total: Value) -> Bool {
   let flat: List<(PolicyId, AssetName, Int)> = value.flatten(target)
-  does_value_exist_in_value(flat, total)
+  do_contains(flat, total)
 }
 
-fn does_value_exist_in_value(
-  flat: List<(PolicyId, AssetName, Int)>,
-  total: Value,
-) -> Bool {
+fn do_contains(flat: List<(PolicyId, AssetName, Int)>, total: Value) -> Bool {
   when flat is {
     [(pid, tkn, amt), ..rest] ->
       if value.quantity_of(total, pid, tkn) >= amt {
-        does_value_exist_in_value(rest, total)
+        do_contains(rest, total)
       } else {
         // something is missing
         False
@@ -113,10 +110,10 @@ test value_contains_nothing() {
 /// ```
 pub fn compute_hash(target: Value) -> ByteArray {
   let flat: List<(PolicyId, AssetName, Int)> = value.flatten(target)
-  compute_hash_helper(flat, #"")
+  do_compute_hash(flat, #"")
 }
 
-fn compute_hash_helper(
+fn do_compute_hash(
   flat: List<(PolicyId, AssetName, Int)>,
   total: ByteArray,
 ) -> ByteArray {
@@ -128,13 +125,14 @@ fn compute_hash_helper(
           |> bytearray.concat(hashed_amt)
           |> bytearray.concat(total)
       let next = hash.sha3_256(concatted)
-      compute_hash_helper(rest, next)
+      do_compute_hash(rest, next)
     }
     [] -> total
   }
 }
 
-// sha3 256 the integer
+// Private function to sha3 256 an integer into a bytearray.
+// Internal only
 fn int_to_hash(num: Int) -> ByteArray {
   hash.sha3_256(bytearray.from_string(string.from_int(num)))
 }
