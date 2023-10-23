@@ -30,6 +30,16 @@ pub fn test_out_ref() -> OutputReference {
   out_ref
 }
 
+/// Creates an `OutputReference`
+pub fn test_bad_out_ref() -> OutputReference {
+  let out_ref =
+    OutputReference {
+      transaction_id: TransactionId { hash: #"fade" },
+      output_index: 1,
+    }
+  out_ref
+}
+
 /// A fake input used for testing.
 pub fn test_inputs(amt: Int) -> List<Input> {
   let input =
@@ -66,6 +76,24 @@ pub fn test_input() -> Input {
   input
 }
 
+/// A fake input without datum used for testing.
+pub fn test_bad_input() -> Input {
+  let input =
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"acab" },
+        output_index: 0,
+      },
+      output: Output {
+        address: addresses.create_address(#"acab", #""),
+        value: value.from_lovelace(100),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    }
+  input
+}
+
 /// A fake output used for testing.
 pub fn test_output() -> Output {
   let output =
@@ -73,6 +101,18 @@ pub fn test_output() -> Output {
       address: addresses.create_address(#"acab", #""),
       value: value.from_asset(#"acab", #"beef", 40),
       datum: InlineDatum(test_datum),
+      reference_script: None,
+    }
+  output
+}
+
+/// A fake output without datum used for testing.
+pub fn test_bad_output() -> Output {
+  let output =
+    Output {
+      address: addresses.create_address(#"acab", #""),
+      value: value.from_asset(#"acab", #"beef", 40),
+      datum: NoDatum,
       reference_script: None,
     }
   output

@@ -31,9 +31,15 @@ pub fn first_input_index(inputs: List<Input>) -> Int {
   }
 }
 
-// can't test for errors yet
 test find_first_input_index() {
   let inputs = fake_tx.test_tx().inputs
+  first_input_index(inputs) == 0
+}
+
+test cant_find_first_input_index() fail {
+  let inputs =
+    []
+  // this will fail
   first_input_index(inputs) == 0
 }
 
@@ -51,9 +57,15 @@ pub fn first_input_txid(inputs: List<Input>) -> ByteArray {
   }
 }
 
-// can't test for errors yet
 test find_first_input_txid() {
   let inputs = fake_tx.test_tx().inputs
+  first_input_txid(inputs) == #"acab"
+}
+
+test cant_find_first_input_txid() fail {
+  let inputs =
+    []
+  // this will fail
   first_input_txid(inputs) == #"acab"
 }
 
@@ -76,7 +88,6 @@ pub fn input_by_ref(inputs: List<Input>, out_ref: OutputReference) -> Input {
   }
 }
 
-// can't test for errors yet
 test find_input_by_ref() {
   let inputs = fake_tx.test_tx().inputs
   let out_ref =
@@ -84,6 +95,18 @@ test find_input_by_ref() {
       transaction_id: TransactionId { hash: #"acab" },
       output_index: 0,
     }
+  input_by_ref(inputs, out_ref) == fake_tx.test_input()
+}
+
+test cant_find_input_by_ref() fail {
+  let inputs =
+    []
+  let out_ref =
+    OutputReference {
+      transaction_id: TransactionId { hash: #"acab" },
+      output_index: 0,
+    }
+  // this will fail
   input_by_ref(inputs, out_ref) == fake_tx.test_input()
 }
 
@@ -106,10 +129,17 @@ pub fn input_by_addr(inputs: List<Input>, addr: Address) -> Input {
   }
 }
 
-// can't test for errors yet
 test find_input_by_addr() {
   let inputs = fake_tx.test_tx().inputs
   let addr = addresses.create_address(#"acab", #"")
+  input_by_addr(inputs, addr) == fake_tx.test_input()
+}
+
+test cant_find_input_by_addr() fail {
+  let inputs =
+    []
+  let addr = addresses.create_address(#"acab", #"")
+  // this will fail
   input_by_addr(inputs, addr) == fake_tx.test_input()
 }
 
@@ -131,10 +161,17 @@ pub fn output_by_addr(outputs: List<Output>, addr: Address) -> Output {
   }
 }
 
-// can't test for errors yet
 test find_output_by_addr() {
   let outputs = fake_tx.test_tx().outputs
   let addr = addresses.create_address(#"acab", #"")
+  output_by_addr(outputs, addr) == fake_tx.test_output()
+}
+
+test cant_find_output_by_addr() fail {
+  let outputs =
+    []
+  let addr = addresses.create_address(#"acab", #"")
+  // this will fail
   output_by_addr(outputs, addr) == fake_tx.test_output()
 }
 
@@ -156,10 +193,17 @@ pub fn first_output_datum(outputs: List<Output>) -> Data {
   }
 }
 
-// can't test for errors yet
 test find_first_output_datum() {
   let outputs = fake_tx.test_tx().outputs
   expect datum: ByteArray = first_output_datum(outputs)
+  datum == fake_tx.test_datum
+}
+
+test cant_find_first_output_datum() fail {
+  let outputs =
+    []
+  expect datum: ByteArray = first_output_datum(outputs)
+  // this will fail
   datum == fake_tx.test_datum
 }
 
@@ -174,11 +218,19 @@ pub fn output_datum_by_addr(outputs: List<Output>, addr: Address) -> Data {
   data.output_datum(outbound_output)
 }
 
-// can't test for errors yet
 test find_output_datum_by_addr() {
   let outputs = fake_tx.test_tx().outputs
   let addr = addresses.create_address(#"acab", #"")
   expect datum: ByteArray = output_datum_by_addr(outputs, addr)
+  datum == fake_tx.test_datum
+}
+
+test cant_find_output_datum_by_addr() fail {
+  let outputs =
+    []
+  let addr = addresses.create_address(#"acab", #"")
+  expect datum: ByteArray = output_datum_by_addr(outputs, addr)
+  // this will fail
   datum == fake_tx.test_datum
 }
 
@@ -206,11 +258,19 @@ pub fn output_by_addr_value(
   }
 }
 
-// can't test for errors yet
 test find_output_by_addr_value() {
   let outputs = fake_tx.test_tx().outputs
   let addr = addresses.create_address(#"acab", #"")
   let value = value.from_asset(#"acab", #"beef", 40)
+  output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
+}
+
+test cant_find_output_by_addr_value() fail {
+  let outputs =
+    []
+  let addr = addresses.create_address(#"acab", #"")
+  let value = value.from_asset(#"acab", #"beef", 40)
+  // this will fail
   output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
 }
 
@@ -234,10 +294,17 @@ pub fn output_by_value(outputs: List<Output>, value: Value) -> Output {
   }
 }
 
-// can't test for errors yet
 test find_output_by_value() {
   let outputs = fake_tx.test_tx().outputs
   let value = value.from_asset(#"acab", #"beef", 10)
+  output_by_value(outputs, value) == fake_tx.test_output()
+}
+
+test cant_find_output_by_value() fail {
+  let outputs =
+    []
+  let value = value.from_asset(#"acab", #"beef", 10)
+  // this will fail
   output_by_value(outputs, value) == fake_tx.test_output()
 }
 
@@ -258,11 +325,17 @@ pub fn stake_reward_by_sc(
   }
 }
 
-// can't test for errors yet
 test find_stake_reward_by_sc() {
   let withdrawal = fake_tx.test_tx().withdrawals
   let sc = credentials.create_stake_credential(#"face")
   stake_reward_by_sc(withdrawal, sc) == 100
+}
+
+test cant_find_stake_reward_by_sc() fail {
+  let withdrawal = dict.new()
+  let sc = credentials.create_stake_credential(#"face")
+  // this will fail
+  stake_reward_by_sc(withdrawal, sc) == 0
 }
 
 /// Find a redeemer data by an output reference. This is good for checking
@@ -283,9 +356,15 @@ pub fn redeemer_by_ref(
   }
 }
 
-// can't test errors yet
 test find_redeemer_by_ref() {
   let tx = fake_tx.test_tx()
   expect datum: Int = redeemer_by_ref(tx.redeemers, fake_tx.test_out_ref())
+  datum == 1
+}
+
+test cant_find_redeemer_by_ref() fail {
+  let tx = fake_tx.test_tx()
+  // this will fails
+  expect datum: Int = redeemer_by_ref(tx.redeemers, fake_tx.test_bad_out_ref())
   datum == 1
 }
