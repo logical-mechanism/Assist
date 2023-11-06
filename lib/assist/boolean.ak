@@ -11,19 +11,19 @@ pub fn and_(x: Int, y: Int) -> Int {
   x * y
 }
 
-test zero_zero_add() {
+test zero_zero_and() {
   and_(0, 0) == 0
 }
 
-test zero_one_add() {
+test zero_one_and() {
   and_(0, 1) == 0
 }
 
-test one_zero_add() {
+test one_zero_and() {
   and_(1, 0) == 0
 }
 
-test one_one_add() {
+test one_one_and() {
   and_(1, 1) == 1
 }
 
@@ -101,13 +101,106 @@ test one_one_xor() {
   xor_(1, 1) == 0
 }
 
-test complete_set() {
-  let a = 1
-  let b = 0
-  let c = 1
-  let d = 1
-  let r = and_(a, b)
-  let n = not_(c)
-  let o = or_(r, n)
-  xor_(o, d) == 1
+/// Performs a logical NAND operation on two integer values.
+/// Returns 1 if at least one input is 0, otherwise returns 0.
+/// 
+/// ```aiken
+/// boolean.nand_(1, 1)
+/// ```
+pub fn nand_(x: Int, y: Int) -> Int {
+  and_(x, y) |> not_
+}
+
+test zero_zero_nand() {
+  nand_(0, 0) == 1
+}
+
+test zero_one_nand() {
+  nand_(0, 1) == 1
+}
+
+test one_zero_nand() {
+  nand_(1, 0) == 1
+}
+
+test one_one_nand() {
+  nand_(1, 1) == 0
+}
+
+/// Performs a logical NOR operation on two integer values.
+/// Returns 1 if both inputs are 0, otherwise returns 0.
+/// 
+/// ```aiken
+/// boolean.nor(0, 0)
+/// ```
+pub fn nor_(x: Int, y: Int) -> Int {
+  or_(x, y) |> not_
+}
+
+test zero_zero_nor() {
+  nor_(0, 0) == 1
+}
+
+test zero_one_nor() {
+  nor_(0, 1) == 0
+}
+
+test one_zero_nor() {
+  nor_(1, 0) == 0
+}
+
+test one_one_nor() {
+  nor_(1, 1) == 0
+}
+
+/// Performs a logical XNOR operation on two integer values.
+/// Returns 1 if the inputs are the same, otherwise returns 0.
+/// 
+/// ```aiken
+/// boolean.xnor(1, 1)
+/// ```
+pub fn xnor_(x: Int, y: Int) -> Int {
+  xor_(x, y) |> not_
+}
+
+test zero_zero_xnor() {
+  xnor_(0, 0) == 1
+}
+
+test zero_one_xnor() {
+  xnor_(0, 1) == 0
+}
+
+test one_zero_xnor() {
+  xnor_(1, 0) == 0
+}
+
+test one_one_xnor() {
+  xnor_(1, 1) == 1
+}
+
+/// Performs a logical implication operation on two integer values.
+/// Returns 1 if the first input is false or both inputs are true, otherwise returns 0.
+/// 
+/// ```aiken
+/// boolean.imply_(1, 0)
+/// ```
+pub fn imply_(x: Int, y: Int) -> Int {
+  not_(x) |> or_(y)
+}
+
+test zero_zero_imply() {
+  imply_(0, 0) == 1
+}
+
+test zero_one_imply() {
+  imply_(0, 1) == 1
+}
+
+test one_zero_imply() {
+  imply_(1, 0) == 0
+}
+
+test one_one_imply() {
+  imply_(1, 1) == 1
 }
