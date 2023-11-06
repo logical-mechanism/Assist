@@ -299,11 +299,17 @@ test total_decay() {
 /// maths.is_in_range(5, 0, 10)
 /// ```
 pub fn is_in_range(n: Int, lb: Int, ub: Int) -> Bool {
-  n > lb && n <= ub
+  and {
+    n > lb,
+    n <= ub,
+  }
 }
 
 test inclusive_range() {
-  is_in_range(0, 0, 10) == False && is_in_range(10, 0, 10) == True
+  and {
+    is_in_range(0, 0, 10) == False,
+    is_in_range(10, 0, 10) == True,
+  }
 }
 
 test it_is_in_range() {
@@ -326,7 +332,10 @@ pub fn ratio(amt: Int, pct: Int) -> Int {
 }
 
 test zero_ratio() {
-  ratio(0, 1) == 0 && ratio(1, 0) == 0
+  and {
+    ratio(0, 1) == 0,
+    ratio(1, 0) == 0,
+  }
 }
 
 // 2.5%

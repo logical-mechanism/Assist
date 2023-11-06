@@ -1,10 +1,17 @@
+# v0.3.2
+
+- Functions that fail now have tests that check for fails.
+- Using `and` instead of `&&` inside `if-else` control flows.
+- Improved the README.
+- Upgrade to aiken 1.20.
+
 # v0.3.1
 
 - Upgrade to aiken 1.19 and stdlib 1.6.
 - `prefixes.prefix_555` is removed.
 - @nikhils9 added in `output_by_addr_value` and `output_by_value`
 - `payout.atleast` is refactored using `value.contains`
-- pub fn that are wrappers now use the do_fn syntax to align with stdlib
+- pub fn that are wrappers now use the do_fn syntax to align with stdlib.
 
 # v0.3.0
 
