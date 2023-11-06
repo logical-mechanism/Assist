@@ -248,7 +248,10 @@ pub fn output_by_addr_value(
 ) -> Output {
   when outputs is {
     [output, ..rest] ->
-      if output.address == addr && values.contains(value, output.value) {
+      if and {
+        output.address == addr,
+        values.contains(value, output.value),
+      } {
         output
       } else {
         output_by_addr_value(rest, addr, value)

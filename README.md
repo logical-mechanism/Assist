@@ -1,14 +1,14 @@
 # Aiken Assist Library
 
-The Aiken Assist Library is a collection of specialized Aiken functions designed for smart contracts on Cardano. This library extends the default functionality and provides routines that facilitate quick development.
+The **Aiken Assist Library** is a collection of specialized Aiken functions designed for smart contracts on Cardano. This library extends the default functionality and provides routines that facilitate quick development.
 
 ## Getting Started
 
 To start using the library, follow these steps:
 
-1. Open your aiken.toml file.
+1. Open your `aiken.toml` file.
 
-2. Add the following code to the dependency section:
+2. Add the following code to bottom of the `aiken.toml` file:
 
 ```toml
 [[dependencies]]
@@ -17,15 +17,15 @@ version = "main"
 source = "github"
 ```
 
-3. Save the aiken.toml file.
+3. Save the `aiken.toml` file.
 
 4. Compile your project by running the command `aiken check` in your project directory.
 
-- If Aiken can't build `assist` then delete the `build` folder and run aiken check again.
+- If Aiken can't build `assist` then delete the `build` folder and run `aiken check` again.
 
 ## Usage
 
-To use the Aiken Assist Library in your project, import the desired modules in your code. For example:
+To use the **Aiken Assist Library** in your project, import the desired modules in your code. For example:
 
 ```aiken
 use assist/signing
@@ -40,7 +40,7 @@ You can generate the library's documentation locally by running the command `aik
 
 ## License
 
-The Aiken Assist Library is released under the Apache2 License. See the `LICENSE` file for more details.
+The **Aiken Assist Library** is released under the Apache2 License. See the `LICENSE` file for more details.
 
 ## Contact
 

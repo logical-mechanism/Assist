@@ -213,6 +213,7 @@ pub fn prove_nft(pid: PolicyId, total: Value) {
   let tkns = value.tokens(total, pid) |> dict.values()
   let sum = list.foldl(tkns, 0, fn(n, total) { n + total })
   and {
+    // must have only one asset name
     list.length(tkns) == 1,
     sum == 1,
   }
