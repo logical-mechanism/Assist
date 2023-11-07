@@ -144,14 +144,6 @@ test xor_inversion() {
   xor_(x, x, p) == x + x - 2 * x * x + p
 }
 
-// An equation can now be built out of the functions
-test a_simple_circuit() {
-  let p = 44203
-  let x = 172
-  let y = 256
-  or_(x, y, p) + not_(x, p) == xor_(x, y, p) + 2 * and_(x, y, p)
-}
-
 /// Performs a logical NAND operation on two integer values within an arithmetic circuit.
 /// 
 /// ```aiken
@@ -283,4 +275,19 @@ test no_commutative_imply() {
 test boundary_imply() {
   let p = 44203
   imply_(0, p - 1, p) == 1
+}
+
+// An equation can now be built out of the functions
+test a_simple_circuit() {
+  let p = 44203
+  let x = 172
+  let y = 256
+  or_(x, y, p) + not_(x, p) == xor_(x, y, p) + 2 * and_(x, y, p)
+}
+
+test a_moderate_circuit() {
+  let p = 44203
+  let x = 8860
+  let y = 9047
+  not_(x, p) == not_(x, y) * not_(x, y)
 }
