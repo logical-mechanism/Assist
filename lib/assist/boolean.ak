@@ -1,5 +1,8 @@
-//// This module contains code to do simple boolean logic on integers.
+//// This module contains code to do boolean logic on integers.
+//// Boolean logic here is the special case of arithmetic circuit logic with p = 2.
 ////
+
+use assist/circuits
 
 /// Performs a logical AND operation on two integer values.
 /// Expects both inputs as binary (0 or 1) and returns 1 if both are 1, otherwise returns 0.
@@ -8,7 +11,7 @@
 /// boolean.and_(1, 1)
 /// ```
 pub fn and_(x: Int, y: Int) -> Int {
-  x * y
+  circuits.and_(x, y, 2)
 }
 
 test zero_zero_and() {
@@ -34,11 +37,7 @@ test one_one_and() {
 /// boolean.or_(0, 1)
 /// ```
 pub fn or_(x: Int, y: Int) -> Int {
-  if x + y > 0 {
-    1
-  } else {
-    0
-  }
+  circuits.or_(x, y, 2)
 }
 
 test zero_zero_or() {
@@ -64,7 +63,7 @@ test one_one_or() {
 /// boolean.not_(1)
 /// ```
 pub fn not_(x: Int) -> Int {
-  1 - x
+  circuits.not_(x, 2)
 }
 
 test zero_not() {
@@ -82,7 +81,7 @@ test one_not() {
 /// boolean.xor_(0, 1)
 /// ```
 pub fn xor_(x: Int, y: Int) {
-  ( x + y ) % 2
+  circuits.xor_(x, y, 2)
 }
 
 test zero_zero_xor() {
