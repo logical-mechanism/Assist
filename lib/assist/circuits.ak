@@ -18,6 +18,13 @@ test identity_and() {
   and_(x, 1, p) == x
 }
 
+// Same tests
+test same_operands_and() {
+  let p = 44203
+  let x = 123
+  and_(x, x, p) == x * x
+}
+
 // Nullification tests
 test nullification_and() {
   let p = 44203
