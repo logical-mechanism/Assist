@@ -49,11 +49,29 @@ test boundary_and() {
 /// ```
 pub fn or_(x: Int, y: Int, p: Int) -> Int {
   let r = x + y - x * y
+  do_or_(r, p)
+}
+
+// the value must be between [0, p-1]
+fn do_or_(r: Int, p: Int) -> Int {
   if r < 0 {
-    r + p
+    do_or_(r + p, p)
   } else {
     r % p
   }
+}
+
+// this can get expensive
+test do_or_test1() {
+  let r = -1975180248
+  let p = 44203
+  do_or_(r, p) == r + 44685 * p
+}
+
+test do_or_test2() {
+  let r = -15
+  let p = 44203
+  do_or_(r, p) == r + 1 * p
 }
 
 // Identity and Dominance tests
@@ -282,7 +300,11 @@ test a_simple_circuit() {
   let p = 44203
   let x = 172
   let y = 256
-  or_(x, y, p) + not_(x, p) == xor_(x, y, p) + 2 * and_(x, y, p)
+  // the first statement reduces to 1 = and_(x, y+1, p)
+  and {
+    or_(x, y, p) + not_(x, p) == xor_(x, y, p) + 2 * and_(x, y, p),
+    1 == and_(x, y + 1, p),
+  }
 }
 
 test a_moderate_circuit() {
