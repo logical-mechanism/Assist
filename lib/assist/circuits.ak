@@ -151,3 +151,136 @@ test a_simple_circuit() {
   let y = 256
   or_(x, y, p) + not_(x, p) == xor_(x, y, p) + 2 * and_(x, y, p)
 }
+
+/// Performs a logical NAND operation on two integer values within an arithmetic circuit.
+/// 
+/// ```aiken
+/// circuits.nand_(1, 1, p)
+/// ```
+pub fn nand_(x: Int, y: Int, p: Int) -> Int {
+  and_(x, y, p) |> not_(p)
+}
+
+// Identity and tests
+test identity_nand() {
+  let p = 44203
+  let x = 123
+  nand_(x, 1, p) == not_(x, p)
+}
+
+// Nullification tests
+test nullification_nand() {
+  let p = 44203
+  let x = 123
+  nand_(x, 0, p) == not_(0, p)
+}
+
+// Commutative property test
+test commutative_nand() {
+  let p = 44203
+  let x = 123
+  let y = 321
+  nand_(x, y, p) == nand_(y, x, p)
+}
+
+// Boundary tests
+test boundary_nand() {
+  let p = 44203
+  and {
+    nand_(0, p - 1, p) == 1,
+    nand_(p - 1, p - 1, p) == 0,
+  }
+}
+
+/// Performs a logical NOR operation on two integer values within an arithmetic circuit.
+/// 
+/// ```aiken
+/// circuits.nor(0, 0, p)
+/// ```
+pub fn nor_(x: Int, y: Int, p: Int) -> Int {
+  or_(x, y, p) |> not_(p)
+}
+
+// Identity and Dominance tests
+test identity_nor() {
+  let p = 44203
+  let x = 123
+  nor_(x, 0, p) == not_(x, p)
+}
+
+test dominance_nor() {
+  let p = 44203
+  let x = 123
+  nor_(x, 1, p) == not_(1, p)
+}
+
+// Commutative property test
+test commutative_nor() {
+  let p = 44203
+  let x = 123
+  let y = 321
+  nor_(x, y, p) == nor_(y, x, p)
+}
+
+// Boundary tests
+test boundary_nor() {
+  let p = 44203
+  or {
+    nor_(0, p - 1, p) == not_(p - 1, p),
+    nor_(p - 1, p - 1, p) == not_(p - 1, p),
+  }
+}
+
+// Tests with both operands being the same
+test same_operands_nor() {
+  let p = 44203
+  let x = 123
+  nor_(x, x, p) == not_(x + x - x * x + p, p)
+}
+
+/// Performs a logical XNOR operation on two integer values within an arithmetic circuit.
+/// 
+/// ```aiken
+/// circuits.xnor(1, 1, p)
+/// ```
+pub fn xnor_(x: Int, y: Int, p: Int) -> Int {
+  xor_(x, y, p) |> not_(p)
+}
+
+// Commutative property test
+test commutative_xnor() {
+  let p = 44203
+  let x = 123
+  let y = 321
+  xnor_(x, y, p) == xnor_(y, x, p)
+}
+
+// Test for inverting the XOR operation with the same number
+test xnor_inversion() {
+  let p = 44203
+  let x = 123
+  xnor_(x, x, p) == not_(x + x - 2 * x * x + p, p)
+}
+
+/// Performs a logical implication operation on two integer values within an arithmetic circuit.
+/// 
+/// ```aiken
+/// circuits.imply_(1, 0, p)
+/// ```
+pub fn imply_(x: Int, y: Int, p: Int) -> Int {
+  not_(x, p) |> or_(y, p)
+}
+
+// Commutative property test
+test no_commutative_imply() {
+  let p = 44203
+  let x = 123
+  let y = 321
+  imply_(x, y, p) != imply_(y, x, p)
+}
+
+// Boundary tests
+test boundary_imply() {
+  let p = 44203
+  imply_(0, p - 1, p) == 1
+}
