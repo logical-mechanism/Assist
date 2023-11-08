@@ -1,6 +1,6 @@
 # v0.3.3
 
-- Added arithmetic circuit logic
+- Added arithmetic circuit and boolean logic
 
 # v0.3.2
 
