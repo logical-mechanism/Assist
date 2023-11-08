@@ -1,3 +1,7 @@
+# v0.3.3
+
+- Added arithmetic circuit and boolean logic
+
 # v0.3.2
 
 - Functions that fail now have tests that check for fails.
