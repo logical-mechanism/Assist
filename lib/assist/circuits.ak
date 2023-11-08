@@ -2,6 +2,18 @@
 //// All values are assumed to be positive and p is a prime.
 ////
 
+/// The value must be between [0, p-1]. Sometimes the value is a large negative.
+/// It takes the value r and keeps adding p until its greater than zero then
+/// finishes by doing value mod p.
+/// 
+fn do_pos_shift(r: Int, p: Int) -> Int {
+  if r < 0 {
+    do_pos_shift(r + p, p)
+  } else {
+    r % p
+  }
+}
+
 /// Performs a logical AND operation on two integer values within an arithmetic circuit.
 ///
 /// ```aiken
@@ -56,29 +68,20 @@ test boundary_and() {
 /// ```
 pub fn or_(x: Int, y: Int, p: Int) -> Int {
   let r = x + y - x * y
-  do_or_(r, p)
-}
-
-// the value must be between [0, p-1]
-fn do_or_(r: Int, p: Int) -> Int {
-  if r < 0 {
-    do_or_(r + p, p)
-  } else {
-    r % p
-  }
+  do_pos_shift(r, p)
 }
 
 // this can get expensive
-test do_or_test1() {
+test do_pos_shift_test1() {
   let r = -1975180248
   let p = 44203
-  do_or_(r, p) == r + 44685 * p
+  do_pos_shift(r, p) == r + 44685 * p
 }
 
-test do_or_test2() {
+test do_pos_shift_test2() {
   let r = -15
   let p = 44203
-  do_or_(r, p) == r + 1 * p
+  do_pos_shift(r, p) == r + 1 * p
 }
 
 // Identity and Dominance tests
@@ -147,11 +150,7 @@ test not_inversion() {
 /// ```
 pub fn xor_(x: Int, y: Int, p: Int) -> Int {
   let r = x + y - 2 * x * y
-  if r < 0 {
-    r + p
-  } else {
-    r % p
-  }
+  do_pos_shift(r, p)
 }
 
 // Commutative property test
@@ -309,7 +308,7 @@ test a_simple_circuit() {
   let y = 256
   // the first statement reduces to 1 = and_(x, y+1, p)
   and {
-    or_(x, y, p) + not_(x, p) == xor_(x, y, p) + 2 * and_(x, y, p),
+    ( or_(x, y, p) + not_(x, p) ) % p == ( xor_(x, y, p) + 2 * and_(x, y, p) ) % p,
     1 == and_(x, y + 1, p),
   }
 }
