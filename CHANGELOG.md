@@ -1,6 +1,8 @@
 # v0.3.3
 
 - Added arithmetic circuit and boolean logic
+- Added input / output datum by hash functions
+- Upgraded aiken to 1.21
 
 # v0.3.2
 
