@@ -5,8 +5,8 @@ use aiken/dict
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
 use aiken/list
 use aiken/transaction.{
-  InlineDatum, Input, NoDatum, Output, OutputReference, Spend, Transaction,
-  TransactionId,
+  DatumHash, InlineDatum, Input, NoDatum, Output, OutputReference, Spend,
+  Transaction, TransactionId,
 }
 use aiken/transaction/credential.{StakeCredential}
 use aiken/transaction/value
@@ -76,6 +76,24 @@ pub fn test_input() -> Input {
   input
 }
 
+/// A fake input with a datum hash.
+pub fn test_input_with_datum_hash() {
+  let input =
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"acab" },
+        output_index: 0,
+      },
+      output: Output {
+        address: addresses.create_address(#"acab", #""),
+        value: value.from_lovelace(100),
+        datum: DatumHash(test_datum),
+        reference_script: None,
+      },
+    }
+  input
+}
+
 /// A fake input without datum used for testing.
 pub fn test_bad_input() -> Input {
   let input =
@@ -101,6 +119,18 @@ pub fn test_output() -> Output {
       address: addresses.create_address(#"acab", #""),
       value: value.from_asset(#"acab", #"beef", 40),
       datum: InlineDatum(test_datum),
+      reference_script: None,
+    }
+  output
+}
+
+// A fake output with a datum hash used for testing.
+pub fn test_output_with_datum_hash() -> Output {
+  let output =
+    Output {
+      address: addresses.create_address(#"acab", #""),
+      value: value.from_asset(#"acab", #"beef", 40),
+      datum: DatumHash(test_datum),
       reference_script: None,
     }
   output
