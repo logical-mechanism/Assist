@@ -129,3 +129,30 @@ pub fn output_datum_by_hash(
     _ -> fail @"No Output Datum"
   }
 }
+
+test find_output_datum_hash() {
+  let output = fake_tx.test_output_with_datum_hash()
+  let datums =
+    dict.new()
+      |> dict.insert(
+           key: fake_tx.test_datum,
+           value: builtin.i_data(1),
+           compare: bytearray.compare,
+         )
+  expect datum: Int = output_datum_by_hash(output, datums)
+  datum == 1
+}
+
+test cant_find_output_datum_hash() fail {
+  let output = fake_tx.test_output_with_datum_hash()
+  let datums =
+    dict.new()
+      |> dict.insert(
+           key: #"acab",
+           value: builtin.i_data(1),
+           compare: bytearray.compare,
+         )
+  expect datum: Int = output_datum_by_hash(output, datums)
+  // this will fail
+  datum == 1
+}

@@ -124,6 +124,18 @@ pub fn test_output() -> Output {
   output
 }
 
+// A fake output with a datum hash used for testing.
+pub fn test_output_with_datum_hash() -> Output {
+  let output =
+    Output {
+      address: addresses.create_address(#"acab", #""),
+      value: value.from_asset(#"acab", #"beef", 40),
+      datum: DatumHash(test_datum),
+      reference_script: None,
+    }
+  output
+}
+
 /// A fake output without datum used for testing.
 pub fn test_bad_output() -> Output {
   let output =
