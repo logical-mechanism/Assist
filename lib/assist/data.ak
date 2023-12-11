@@ -51,7 +51,7 @@ pub fn input_datum_by_hash(
     DatumHash(inbound_datum_hash) ->
       when dict.get(datums, inbound_datum_hash) is {
         Some(inbound_datum) -> inbound_datum
-        _ -> fail @"No Datum Attached"
+        _ -> fail @"No Input Datum Attached"
       }
     _ -> fail @"No Input Datum"
   }
@@ -85,7 +85,7 @@ test cant_find_input_datum_hash() fail {
 }
 
 /// Find the datum data on an output or error. The data is assumed
-/// to be an inline datum first then it will seek the datum hash.
+/// to be an inline datum.
 ///
 /// ```aiken
 /// expect datum: Datum = data.output_datum(that_output)
@@ -108,4 +108,24 @@ test cant_find_output_datum() fail {
   expect datum: ByteArray = output_datum(output)
   // this will fail
   datum == fake_tx.test_datum
+}
+
+/// Find the datum data on an output or error. The data is assumed
+/// to be embedded.
+///
+/// ```aiken
+/// expect datum: Datum = data.output_datum_by_hash(that_output, these_datums)
+/// ```
+pub fn output_datum_by_hash(
+  possible_output: Output,
+  datums: Dict<Hash<Blake2b_256, Data>, Data>,
+) -> Data {
+  when possible_output.datum is {
+    DatumHash(outbound_datum_hash) ->
+      when dict.get(datums, outbound_datum_hash) is {
+        Some(outbound_datum) -> outbound_datum
+        _ -> fail @"No Output Datum Attached"
+      }
+    _ -> fail @"No Output Datum"
+  }
 }
