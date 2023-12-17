@@ -2,6 +2,7 @@
 
 - Added arithmetic circuit and boolean logic
 - Added input / output datum by hash functions
+- Added more functionality to the fake tx for testing.
 - Upgraded aiken to 1.21
 
 # v0.3.2

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/maths - aiken-lang/assist</title>
+    <title>assist/boolean - aiken-lang/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -198,7 +198,7 @@
         
 	  <li><a href="../assist/boolean.html">
 	  
-	  assist/boolean
+	  <strong>assist/boolean</strong>
 	  
 	  </a></li>
         
@@ -240,7 +240,7 @@
         
 	  <li><a href="../assist/maths.html">
 	  
-	  <strong>assist/maths</strong>
+	  assist/maths
 	  
 	  </a></li>
         
@@ -297,33 +297,21 @@
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#base_q">base_q</a></li>
+  <li><a href="#and_">and_</a></li>
   
-  <li><a href="#decay">decay</a></li>
+  <li><a href="#imply_">imply_</a></li>
   
-  <li><a href="#effective_ratio">effective_ratio</a></li>
+  <li><a href="#nand_">nand_</a></li>
   
-  <li><a href="#from_int">from_int</a></li>
+  <li><a href="#nor_">nor_</a></li>
   
-  <li><a href="#gcd">gcd</a></li>
+  <li><a href="#not_">not_</a></li>
   
-  <li><a href="#is_in_range">is_in_range</a></li>
+  <li><a href="#or_">or_</a></li>
   
-  <li><a href="#legendre_symbol">legendre_symbol</a></li>
+  <li><a href="#xnor_">xnor_</a></li>
   
-  <li><a href="#list_powmod">list_powmod</a></li>
-  
-  <li><a href="#list_product">list_product</a></li>
-  
-  <li><a href="#list_sum">list_sum</a></li>
-  
-  <li><a href="#powmod">powmod</a></li>
-  
-  <li><a href="#ratio">ratio</a></li>
-  
-  <li><a href="#scaling">scaling</a></li>
-  
-  <li><a href="#to_int">to_int</a></li>
+  <li><a href="#xor_">xor_</a></li>
   
 </ul>
 
@@ -333,9 +321,10 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/maths</a>
+  <a href="#module-name">assist/boolean</a>
 </h1>
-<p>This module incorporates code for various mathematical operations.</p>
+<p>This module contains code to do boolean logic on integers.
+Boolean logic here is the special case of arithmetic circuit logic with p = 2.</p>
 
 
 
@@ -350,7 +339,7 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="base_q"><pre class="hljs language-aiken">base_q(n: Int, q: Int) -&gt; List&lt;Int&gt;</pre></h2>
+      <h2 id="and_"><pre class="hljs language-aiken">and_(x: Int, y: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -359,16 +348,16 @@
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Convert a integer <code>n</code> into some base <code>q</code>. This method
-should scale with any integer and any logical base.</p>
-<pre><code class="language-aiken">maths.base_q(123, 7)
+    <div class="rendered-markdown"><p>Performs a logical AND operation on two integer values.
+Expects both inputs as binary (0 or 1) and returns 1 if both are 1, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.and_(1, 1)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="decay"><pre class="hljs language-aiken">decay(start_amt: Int, scale: Int, num: Int) -&gt; Int</pre></h2>
+      <h2 id="imply_"><pre class="hljs language-aiken">imply_(x: Int, y: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -377,18 +366,16 @@ should scale with any integer and any logical base.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Decay some starting amount logarithmically until zero. The function evaluates
-<code>y = a - log(n)</code> and when <code>n &gt;= 2^a</code> the function equals zero but will return
-zero whenever the result is less than the scale. This is a great
-way to reduce some integer amount of something over time by incrementing <code>n</code>.</p>
-<pre><code class="language-aiken">maths.decay(start_amount, lovelace_scaling, datum.current_int)
+    <div class="rendered-markdown"><p>Performs a logical implication operation on two integer values.
+Returns 1 if the first input is false or both inputs are true, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.imply_(1, 0)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="effective_ratio"><pre class="hljs language-aiken">effective_ratio(amt: Int, pct: Int, scale: Int) -&gt; Int</pre></h2>
+      <h2 id="nand_"><pre class="hljs language-aiken">nand_(x: Int, y: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -397,16 +384,16 @@ way to reduce some integer amount of something over time by incrementing <code>n
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Calculates the ratio of the amount <code>amt</code> multiplied by the scale by the
-percentage <code>pct</code>. The scale allows for finer calculations.</p>
-<pre><code class="language-aiken">maths.effective_ratio(123456789, 40, 1000) == 3086419725
+    <div class="rendered-markdown"><p>Performs a logical NAND operation on two integer values.
+Returns 1 if at least one input is 0, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.nand_(1, 1)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="from_int"><pre class="hljs language-aiken">from_int(self: Int) -&gt; ByteArray</pre></h2>
+      <h2 id="nor_"><pre class="hljs language-aiken">nor_(x: Int, y: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -415,19 +402,16 @@ percentage <code>pct</code>. The scale allows for finer calculations.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Convert a integer into a hexadecimal bytearray. This works for all integers
-but odd length bytearrays will be prefixed with a zero. This function 
-combined with the <code>to_int</code> function allows a string to represent a number
-and still be used for calculations, pushing the <code>2^64 - 1</code> integer boundary
-to <code>2^256 - 1</code>.</p>
-<pre><code class="language-aiken">maths.from_int(44203)
+    <div class="rendered-markdown"><p>Performs a logical NOR operation on two integer values.
+Returns 1 if both inputs are 0, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.nor(0, 0)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="gcd"><pre class="hljs language-aiken">gcd(a: Int, b: Int) -&gt; Int</pre></h2>
+      <h2 id="not_"><pre class="hljs language-aiken">not_(x: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -436,15 +420,16 @@ to <code>2^256 - 1</code>.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Computes greatest common divisor of two numbers.</p>
-<pre><code class="language-aiken">maths.gcd(20, 15)
+    <div class="rendered-markdown"><p>Performs a logical NOT operation on an integer value.
+Expects the input as binary (0 or 1) and returns the inverse (1 becomes 0, 0 becomes 1).</p>
+<pre><code class="language-aiken">boolean.not_(1)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="is_in_range"><pre class="hljs language-aiken">is_in_range(n: Int, lb: Int, ub: Int) -&gt; Bool</pre></h2>
+      <h2 id="or_"><pre class="hljs language-aiken">or_(x: Int, y: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -453,17 +438,16 @@ to <code>2^256 - 1</code>.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Verify that some integer <code>n</code> is greater than the lower bound, <code>lb</code>, and
-less than or equal to the upper bound, <code>ub</code>. The function is exclusive
-for <code>lb</code> but inclusive for <code>lb + 1</code>.</p>
-<pre><code class="language-aiken">maths.is_in_range(5, 0, 10)
+    <div class="rendered-markdown"><p>Performs a logical OR operation on two integer values.
+Expects both inputs as binary (0 or 1) and returns 1 if at least one input is 1, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.or_(0, 1)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="legendre_symbol"><pre class="hljs language-aiken">legendre_symbol(a: Int, p: Int) -&gt; Int</pre></h2>
+      <h2 id="xnor_"><pre class="hljs language-aiken">xnor_(x: Int, y: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -472,16 +456,16 @@ for <code>lb</code> but inclusive for <code>lb + 1</code>.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Calculate the Legendre symbol <code>(a/p)</code> using the Euler’s criterion.
-This implementation assumes that ‘a’ and ‘p’ are positive integers.</p>
-<pre><code class="language-aiken">maths.legendre_symbol(10, 19)
+    <div class="rendered-markdown"><p>Performs a logical XNOR operation on two integer values.
+Returns 1 if the inputs are the same, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.xnor(1, 1)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="list_powmod"><pre class="hljs language-aiken">list_powmod(lst: List&lt;Int&gt;, g: Int, q: Int) -&gt; Int</pre></h2>
+      <h2 id="xor_"><pre class="hljs language-aiken">xor_(x: Int, y: Int) -&gt; Int</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -490,118 +474,9 @@ This implementation assumes that ‘a’ and ‘p’ are positive integers.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Computes the power mod product of a list of integers.</p>
-<pre><code class="language-aiken">maths.list_pow_mod([1,2,3], 2, 19)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="list_product"><pre class="hljs language-aiken">list_product(lst: List&lt;Int&gt;) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Computes the product of a list of integers.</p>
-<pre><code class="language-aiken">maths.list_product([1,2,3])
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="list_sum"><pre class="hljs language-aiken">list_sum(lst: List&lt;Int&gt;) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Computes the sum of a list of integers.</p>
-<pre><code class="language-aiken">maths.list_sum(list_of_integers)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="powmod"><pre class="hljs language-aiken">powmod(n: Int, e: Int, q: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Calculate <code>n</code> to the power of <code>e</code> modulo <code>q</code> using the exponentiation by 
-squaring method. At each multiplication a modulo is calculated, allowing
-very large <code>n</code> and <code>e</code> values.</p>
-<pre><code class="language-aiken">maths.powmod(3, 2, 5)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="ratio"><pre class="hljs language-aiken">ratio(amt: Int, pct: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Calculates the ratio of the amount <code>amt</code> by a percentage <code>pct</code>. This can
-be used to calculate rough percentages. The function <code>ratio</code> is just a 
-special case of the effective ratio function. </p>
-<pre><code class="language-aiken">maths.ratio(123, 40)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="scaling"><pre class="hljs language-aiken">scaling(amt: Int, pct: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Find the optimal scaling for a number such that it
-has three trailing zeros. This should be used in combination
-with the effective ratio for optimal calculations.</p>
-<pre><code class="language-aiken">maths.scaling(123, 40)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="to_int"><pre class="hljs language-aiken">to_int(self: ByteArray) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Convert a hexadecimal bytearray into its base 10 representation. This
-only works with even length bytearrays so arbitrary numbers in hexadecimal
-form will not in general work.</p>
-<pre><code class="language-aiken">maths.to_int(#&quot;acab&quot;)
+    <div class="rendered-markdown"><p>Performs a logical XOR operation on two integer values.
+Expects both inputs as binary (0 or 1) and returns 1 if the inputs are different, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.xor_(0, 1)
 </code></pre>
 </div>
   </div>
