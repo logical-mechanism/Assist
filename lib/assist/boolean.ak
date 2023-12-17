@@ -130,7 +130,7 @@ test one_one_nand() {
 /// Returns 1 if both inputs are 0, otherwise returns 0.
 /// 
 /// ```aiken
-/// boolean.nor(0, 0)
+/// boolean.nor_(0, 0)
 /// ```
 pub fn nor_(x: Int, y: Int) -> Int {
   or_(x, y) |> not_
@@ -156,7 +156,7 @@ test one_one_nor() {
 /// Returns 1 if the inputs are the same, otherwise returns 0.
 /// 
 /// ```aiken
-/// boolean.xnor(1, 1)
+/// boolean.xnor_(1, 1)
 /// ```
 pub fn xnor_(x: Int, y: Int) -> Int {
   xor_(x, y) |> not_

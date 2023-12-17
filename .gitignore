@@ -3,6 +3,7 @@ artifacts/
 # Aiken's project working directory
 build/
 plutus.json
+aiken.lock
 # VSCode files & directory
 .vscode/
 *.code-workspace

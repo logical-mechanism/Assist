@@ -211,7 +211,7 @@ test boundary_nand() {
 /// Performs a logical NOR operation on two integer values within an arithmetic circuit.
 /// 
 /// ```aiken
-/// circuits.nor(0, 0, p)
+/// circuits.nor_(0, 0, p)
 /// ```
 pub fn nor_(x: Int, y: Int, p: Int) -> Int {
   or_(x, y, p) |> not_(p)
@@ -257,7 +257,7 @@ test same_operands_nor() {
 /// Performs a logical XNOR operation on two integer values within an arithmetic circuit.
 /// 
 /// ```aiken
-/// circuits.xnor(1, 1, p)
+/// circuits.xnor_(1, 1, p)
 /// ```
 pub fn xnor_(x: Int, y: Int, p: Int) -> Int {
   xor_(x, y, p) |> not_(p)
