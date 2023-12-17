@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.20-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.20-alpha"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.21-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.21-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.3.2 </span>
+          <span>v0.3.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.3.2";
+            const currentVersion = "v0.3.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -196,9 +196,21 @@
 	  
 	  </a></li>
         
+	  <li><a href="../assist/boolean.html">
+	  
+	  assist/boolean
+	  
+	  </a></li>
+        
 	  <li><a href="../assist/certificates.html">
 	  
 	  assist/certificates
+	  
+	  </a></li>
+        
+	  <li><a href="../assist/circuits.html">
+	  
+	  assist/circuits
 	  
 	  </a></li>
         
@@ -287,7 +299,11 @@
   
   <li><a href="#input_datum">input_datum</a></li>
   
+  <li><a href="#input_datum_by_hash">input_datum_by_hash</a></li>
+  
   <li><a href="#output_datum">output_datum</a></li>
+  
+  <li><a href="#output_datum_by_hash">output_datum_by_hash</a></li>
   
 </ul>
 
@@ -333,6 +349,28 @@ to be an inline datum.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="input_datum_by_hash"><pre class="hljs language-aiken">input_datum_by_hash(
+  possible_input: Input,
+  datums: Dict&lt;Hash&lt;Blake2b_256, Data&gt;, Data&gt;,
+) -&gt; Data</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the datum data on a input by the datum hash or error. The
+data is assumed to be embedded data and must be referenced by
+its hash.</p>
+<pre><code class="language-aiken">expect datum: Datum = data.input_datum_by_hash(this_input, these_datums)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="output_datum"><pre class="hljs language-aiken">output_datum(possible_output: Output) -&gt; Data</pre></h2>
       
       <!-- TODO: support source linking
@@ -345,6 +383,27 @@ to be an inline datum.</p>
     <div class="rendered-markdown"><p>Find the datum data on an output or error. The data is assumed
 to be an inline datum.</p>
 <pre><code class="language-aiken">expect datum: Datum = data.output_datum(that_output)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="output_datum_by_hash"><pre class="hljs language-aiken">output_datum_by_hash(
+  possible_output: Output,
+  datums: Dict&lt;Hash&lt;Blake2b_256, Data&gt;, Data&gt;,
+) -&gt; Data</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the datum data on an output or error. The data is assumed
+to be embedded.</p>
+<pre><code class="language-aiken">expect datum: Datum = data.output_datum_by_hash(that_output, these_datums)
 </code></pre>
 </div>
   </div>
@@ -401,8 +460,8 @@ to be an inline datum.</p>
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.20-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.20-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.21-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.21-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -421,9 +480,9 @@ to be an inline datum.</p>
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.20-alpha"></script>
-    <script src="../js/index.js?v=1699289423"></script>
+    <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
+    <script src="../js/index.js?v=1702824760"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1699289423"></script>
+    <script src="../search-data.js?v=1702824760"></script>
   </body>
 </html>
