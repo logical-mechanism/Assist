@@ -18,6 +18,7 @@ pub fn inputs_by_datum(inputs: List<Input>, amount: Int) -> Bool {
   do_inputs_by_datum(inputs, 0) == amount
 }
 
+// Internal only
 fn do_inputs_by_datum(inputs: List<Input>, counter: Int) -> Int {
   when inputs is {
     [input, ..rest] ->
@@ -60,6 +61,10 @@ test not_enough_input_datum_hashes() {
   inputs_by_datum([input], 2) == False
 }
 
+test empty_input_datums() {
+  inputs_by_datum([], 0) == True
+}
+
 /// Verify that the number of inputs from a specific script is equal to the
 /// amount intended in the contract. The amount must be exactly the counter.
 ///
@@ -70,6 +75,7 @@ pub fn inputs_by_addr(inputs: List<Input>, addr: Address, amount: Int) -> Bool {
   do_inputs_by_addr(inputs, addr, 0) == amount
 }
 
+// Internal only
 fn do_inputs_by_addr(inputs: List<Input>, addr: Address, counter: Int) -> Int {
   when inputs is {
     [input, ..rest] ->
@@ -101,6 +107,11 @@ test multiple_inputs_by_addr() {
   inputs_by_addr(tx.inputs, addr, 2) == True
 }
 
+test empty_input_addr() {
+  let addr = addresses.create_address(#"acab", #"")
+  inputs_by_addr([], addr, 0) == True
+}
+
 /// Verify that the number of outputs from a specific script is equal the amount
 /// intended in the contract. The amount must be exact with the counter.
 ///
@@ -115,6 +126,7 @@ pub fn outputs_by_addr(
   do_outputs_by_addr(outputs, addr, 0) == amount
 }
 
+// Internal only
 fn do_outputs_by_addr(outputs: List<Output>, addr: Address, counter: Int) -> Int {
   when outputs is {
     [output, ..rest] ->
@@ -147,6 +159,11 @@ test multiple_outputs_by_addr() {
   outputs_by_addr(tx.outputs, addr, 2) == True
 }
 
+test empty_output_addr() {
+  let addr = addresses.create_address(#"acab", #"")
+  outputs_by_addr([], addr, 0) == True
+}
+
 /// Verify that the number of outputs with an inline datum or datum hash is equal to the
 /// number intended in the contract. The amount must be exactly the counter.
 ///
@@ -157,6 +174,7 @@ pub fn outputs_by_datum(outputs: List<Output>, amount: Int) -> Bool {
   do_outputs_by_datum(outputs, 0) == amount
 }
 
+// Internal only
 fn do_outputs_by_datum(outputs: List<Output>, counter: Int) -> Int {
   when outputs is {
     [output, ..rest] ->
@@ -197,4 +215,8 @@ test single_output_with_mixed_datums() {
 test not_enough_output_datum_hashes() {
   let output = fake_tx.test_output_with_datum_hash()
   outputs_by_datum([output], 2) == False
+}
+
+test empty_output_datums() {
+  outputs_by_datum([], 0) == True
 }
