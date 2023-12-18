@@ -2,10 +2,11 @@
 //// All values are assumed to be positive and p is a prime.
 ////
 
-/// The value must be between [0, p-1]. Sometimes the value is a large negative.
-/// It takes the value r and keeps adding p until its greater than zero then
-/// finishes by doing value mod p.
-/// 
+// The value must be between [0, p-1]. Sometimes the value is a large negative.
+// It takes the value r and keeps adding p until its greater than zero then
+// finishes by doing value mod p.
+// Internal only
+// 
 fn do_pos_shift(r: Int, p: Int) -> Int {
   if r < 0 {
     do_pos_shift(r + p, p)
@@ -14,7 +15,7 @@ fn do_pos_shift(r: Int, p: Int) -> Int {
   }
 }
 
-/// Performs a logical AND operation on two integer values within an arithmetic circuit.
+/// Performs a logical `AND` operation on two integer values within an arithmetic circuit.
 ///
 /// ```aiken
 /// circuits.and_(1, 1, p)
@@ -61,7 +62,7 @@ test boundary_and() {
   }
 }
 
-/// Performs a logical OR operation on two integer values within an arithmetic circuit..
+/// Performs a logical `OR` operation on two integer values within an arithmetic circuit..
 /// 
 /// ```aiken
 /// circuits.or_(0, 1, p)
@@ -121,7 +122,7 @@ test same_operands_or() {
   or_(x, x, p) == x + x - x * x + p
 }
 
-/// Performs a logical NOT operation on an integer value within an arithmetic circuit.
+/// Performs a logical `NOT` operation on an integer value within an arithmetic circuit.
 ///
 /// ```aiken
 /// circuits.not_(1, p)
@@ -143,7 +144,7 @@ test not_inversion() {
   not_(not_(x, p), p) == x
 }
 
-/// Performs a logical XOR operation on two integer values within an arithmetic circuit.
+/// Performs a logical `XOR` operation on two integer values within an arithmetic circuit.
 ///
 /// ```aiken
 /// circuits.xor_(0, 1, p)
@@ -168,7 +169,7 @@ test xor_inversion() {
   xor_(x, x, p) == x + x - 2 * x * x + p
 }
 
-/// Performs a logical NAND operation on two integer values within an arithmetic circuit.
+/// Performs a logical `NAND` operation on two integer values within an arithmetic circuit.
 /// 
 /// ```aiken
 /// circuits.nand_(1, 1, p)
@@ -208,7 +209,7 @@ test boundary_nand() {
   }
 }
 
-/// Performs a logical NOR operation on two integer values within an arithmetic circuit.
+/// Performs a logical `NOR` operation on two integer values within an arithmetic circuit.
 /// 
 /// ```aiken
 /// circuits.nor_(0, 0, p)
@@ -254,7 +255,7 @@ test same_operands_nor() {
   nor_(x, x, p) == not_(x + x - x * x + p, p)
 }
 
-/// Performs a logical XNOR operation on two integer values within an arithmetic circuit.
+/// Performs a logical `XNOR` operation on two integer values within an arithmetic circuit.
 /// 
 /// ```aiken
 /// circuits.xnor_(1, 1, p)

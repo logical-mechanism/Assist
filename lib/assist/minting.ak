@@ -1,3 +1,6 @@
+//// This module incorporates code for various minting and burning validations.
+////
+
 use aiken/bytearray
 use aiken/transaction/value
 use assist/prefixes

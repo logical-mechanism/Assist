@@ -9,7 +9,7 @@ use aiken/transaction/credential.{
 
 /// Creates a stake credential from the hex encoding of a stake key.
 /// This can be used to find the reward amount from the withdrawals 
-/// information inside the transaction of the form Dict<StakeCredential, Int>
+/// information inside the transaction of the form `Dict<StakeCredential, Int>`.
 ///
 /// ```aiken
 /// credentials.create_stake_credential(datum.contract_hash)
