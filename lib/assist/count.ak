@@ -1,14 +1,14 @@
 //// This module contains code to accurately count the number of inputs and
-//// outputs in a transaction for a specific address, assuming precise amounts.
+//// outputs in a transaction containing an address or a datum.
 ////
 
-use aiken/transaction.{InlineDatum, Input, Output}
+use aiken/transaction.{DatumHash, InlineDatum, Input, Output}
 use aiken/transaction/credential.{Address}
 use assist/addresses
 // for testing only
 use tests/fake_tx
 
-/// Verify that the number of inputs with an inline datum is equal to the
+/// Verify that the number of inputs with an inline datum or datum hash is equal to the
 /// number intended in the contract. The amount must be exactly the counter.
 ///
 /// ```aiken
@@ -24,7 +24,9 @@ fn do_inputs_by_datum(inputs: List<Input>, counter: Int) -> Int {
       when input.output.datum is {
         // the actual datum value isn't important here
         InlineDatum(_) -> do_inputs_by_datum(rest, counter + 1)
-        // only count inline datums
+        // the actual datum hash isn't important here
+        DatumHash(_) -> do_inputs_by_datum(rest, counter + 1)
+        // anything else just keep going
         _ -> do_inputs_by_datum(rest, counter)
       }
     // loop the list
@@ -37,9 +39,25 @@ test single_input_datum() {
   inputs_by_datum(tx.inputs, 1) == True
 }
 
+test single_input_datum_hash() {
+  let input = fake_tx.test_input_with_datum_hash()
+  inputs_by_datum([input], 1) == True
+}
+
+test single_input_with_mixed_datums() {
+  let input1 = fake_tx.test_input_with_datum_hash()
+  let input2 = fake_tx.test_input()
+  inputs_by_datum([input1, input2], 2) == True
+}
+
 test not_enough_input_datums() {
   let tx = fake_tx.test_tx()
   inputs_by_datum(tx.inputs, 2) == False
+}
+
+test not_enough_input_datum_hashes() {
+  let input = fake_tx.test_input_with_datum_hash()
+  inputs_by_datum([input], 2) == False
 }
 
 /// Verify that the number of inputs from a specific script is equal to the
@@ -129,7 +147,7 @@ test multiple_outputs_by_addr() {
   outputs_by_addr(tx.outputs, addr, 2) == True
 }
 
-/// Verify that the number of outputs with an inline datum is equal to the
+/// Verify that the number of outputs with an inline datum or datum hash is equal to the
 /// number intended in the contract. The amount must be exactly the counter.
 ///
 /// ```aiken
@@ -145,7 +163,9 @@ fn do_outputs_by_datum(outputs: List<Output>, counter: Int) -> Int {
       when output.datum is {
         // the actual datum value is not important here
         InlineDatum(_) -> do_outputs_by_datum(rest, counter + 1)
-        // only count inline datums
+        // the actual datum hash is not important here
+        DatumHash(_) -> do_outputs_by_datum(rest, counter + 1)
+        // anything else just keep going
         _ -> do_outputs_by_datum(rest, counter)
       }
     // loop entire list then return counter
@@ -161,4 +181,20 @@ test single_output_datum() {
 test not_enough_output_datums() {
   let tx = fake_tx.test_tx()
   outputs_by_datum(tx.outputs, 2) == False
+}
+
+test single_output_datum_hash() {
+  let output = fake_tx.test_output_with_datum_hash()
+  outputs_by_datum([output], 1) == True
+}
+
+test single_output_with_mixed_datums() {
+  let output1 = fake_tx.test_output_with_datum_hash()
+  let output2 = fake_tx.test_output()
+  outputs_by_datum([output1, output2], 2) == True
+}
+
+test not_enough_output_datum_hashes() {
+  let output = fake_tx.test_output_with_datum_hash()
+  outputs_by_datum([output], 2) == False
 }
