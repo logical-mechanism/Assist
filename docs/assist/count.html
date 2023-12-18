@@ -316,7 +316,7 @@
   <a href="#module-name">assist/count</a>
 </h1>
 <p>This module contains code to accurately count the number of inputs and
-outputs in a transaction for a specific address, assuming precise amounts.</p>
+outputs in a transaction containing an address or a datum.</p>
 
 
 
@@ -358,7 +358,7 @@ amount intended in the contract. The amount must be exactly the counter.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Verify that the number of inputs with an inline datum is equal to the
+    <div class="rendered-markdown"><p>Verify that the number of inputs with an inline datum or datum hash is equal to the
 number intended in the contract. The amount must be exactly the counter.</p>
 <pre><code class="language-aiken">count.inputs_by_datum(tx.inputs, 1)
 </code></pre>
@@ -394,7 +394,7 @@ intended in the contract. The amount must be exact with the counter.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Verify that the number of outputs with an inline datum is equal to the
+    <div class="rendered-markdown"><p>Verify that the number of outputs with an inline datum or datum hash is equal to the
 number intended in the contract. The amount must be exactly the counter.</p>
 <pre><code class="language-aiken">count.outputs_by_datum(tx.outputs, 1)
 </code></pre>
@@ -474,8 +474,8 @@ number intended in the contract. The amount must be exactly the counter.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1702825671"></script>
+    <script src="../js/index.js?v=1702934185"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1702825671"></script>
+    <script src="../search-data.js?v=1702934185"></script>
   </body>
 </html>

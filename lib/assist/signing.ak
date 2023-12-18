@@ -56,6 +56,7 @@ pub fn verify_multisig(
   do_multisig(sigs, vks, 0) >= minimum
 }
 
+// Internal only
 fn do_multisig(
   sigs: List<Hash<Blake2b_224, VerificationKey>>,
   vks: List<Hash<Blake2b_224, VerificationKey>>,

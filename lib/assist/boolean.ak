@@ -4,7 +4,7 @@
 
 use assist/circuits
 
-/// Performs a logical AND operation on two integer values.
+/// Performs a logical `AND` operation on two integer values.
 /// Expects both inputs as binary (0 or 1) and returns 1 if both are 1, otherwise returns 0.
 ///
 /// ```aiken
@@ -30,7 +30,7 @@ test one_one_and() {
   and_(1, 1) == 1
 }
 
-/// Performs a logical OR operation on two integer values.
+/// Performs a logical `OR` operation on two integer values.
 /// Expects both inputs as binary (0 or 1) and returns 1 if at least one input is 1, otherwise returns 0.
 /// 
 /// ```aiken
@@ -56,7 +56,7 @@ test one_one_or() {
   or_(1, 1) == 1
 }
 
-/// Performs a logical NOT operation on an integer value.
+/// Performs a logical `NOT` operation on an integer value.
 /// Expects the input as binary (0 or 1) and returns the inverse (1 becomes 0, 0 becomes 1).
 ///
 /// ```aiken
@@ -74,7 +74,7 @@ test one_not() {
   not_(1) == 0
 }
 
-/// Performs a logical XOR operation on two integer values.
+/// Performs a logical `XOR` operation on two integer values.
 /// Expects both inputs as binary (0 or 1) and returns 1 if the inputs are different, otherwise returns 0.
 ///
 /// ```aiken
@@ -100,7 +100,7 @@ test one_one_xor() {
   xor_(1, 1) == 0
 }
 
-/// Performs a logical NAND operation on two integer values.
+/// Performs a logical `NAND` operation on two integer values.
 /// Returns 1 if at least one input is 0, otherwise returns 0.
 /// 
 /// ```aiken
@@ -126,7 +126,7 @@ test one_one_nand() {
   nand_(1, 1) == 0
 }
 
-/// Performs a logical NOR operation on two integer values.
+/// Performs a logical `NOR` operation on two integer values.
 /// Returns 1 if both inputs are 0, otherwise returns 0.
 /// 
 /// ```aiken
@@ -152,7 +152,7 @@ test one_one_nor() {
   nor_(1, 1) == 0
 }
 
-/// Performs a logical XNOR operation on two integer values.
+/// Performs a logical `XNOR` operation on two integer values.
 /// Returns 1 if the inputs are the same, otherwise returns 0.
 /// 
 /// ```aiken

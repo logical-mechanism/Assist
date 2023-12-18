@@ -1,6 +1,6 @@
 //// This module incorporates code for generating valid wallet and script 
 //// addresses, ensuring their correctness. Empty keys are treated as 
-//// intentional, and address subtypes are not combined or mixed.
+//// intentional, and address subtypes are not combined nor mixed.
 ////
 
 use aiken/bytearray

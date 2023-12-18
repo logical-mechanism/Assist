@@ -1,4 +1,4 @@
-//// This module contains code for identifying various aspects of 
+//// This module contains code for finding various aspects of 
 //// a validating transaction.
 ////
 
