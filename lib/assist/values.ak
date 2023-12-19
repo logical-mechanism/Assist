@@ -22,6 +22,7 @@ pub fn multiply(val: Value, n: Int) -> Value {
   do_multiply(value.zero(), val, n)
 }
 
+// Internal only
 fn do_multiply(total: Value, add_val: Value, n: Int) -> Value {
   // 4 * v = v + v + v + v 
   if n <= 0 {
@@ -56,6 +57,7 @@ pub fn contains(target: Value, total: Value) -> Bool {
   do_contains(flat, total)
 }
 
+// Internal only
 fn do_contains(flat: List<(PolicyId, AssetName, Int)>, total: Value) -> Bool {
   when flat is {
     [(pid, tkn, amt), ..rest] ->
@@ -113,6 +115,7 @@ pub fn compute_hash(target: Value) -> ByteArray {
   do_compute_hash(flat, #"")
 }
 
+// Internal only
 fn do_compute_hash(
   flat: List<(PolicyId, AssetName, Int)>,
   total: ByteArray,

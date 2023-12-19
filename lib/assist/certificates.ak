@@ -1,3 +1,7 @@
+//// This module incorporates code for generating valid certificates,
+//// ensuring their correctness. 
+////
+
 use aiken/hash.{Blake2b_224, Hash}
 use aiken/transaction/certificate.{Certificate, CredentialDelegation}
 use aiken/transaction/credential.{PoolId, Script}

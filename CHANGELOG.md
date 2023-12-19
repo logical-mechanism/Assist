@@ -1,3 +1,8 @@
+# v0.3.4
+
+- Improved the counting functions to account for datum hashes.
+- Improved documentation.
+
 # v0.3.3
 
 - Added arithmetic circuit and boolean logic

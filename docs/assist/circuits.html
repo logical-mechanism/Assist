@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.3.3 </span>
+          <span>v0.3.4 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.3.3";
+            const currentVersion = "v0.3.4";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -348,7 +348,7 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical AND operation on two integer values within an arithmetic circuit.</p>
+    <div class="rendered-markdown"><p>Performs a logical <code>AND</code> operation on two integer values within an arithmetic circuit.</p>
 <pre><code class="language-aiken">circuits.and_(1, 1, p)
 </code></pre>
 </div>
@@ -382,7 +382,7 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical NAND operation on two integer values within an arithmetic circuit.</p>
+    <div class="rendered-markdown"><p>Performs a logical <code>NAND</code> operation on two integer values within an arithmetic circuit.</p>
 <pre><code class="language-aiken">circuits.nand_(1, 1, p)
 </code></pre>
 </div>
@@ -399,7 +399,7 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical NOR operation on two integer values within an arithmetic circuit.</p>
+    <div class="rendered-markdown"><p>Performs a logical <code>NOR</code> operation on two integer values within an arithmetic circuit.</p>
 <pre><code class="language-aiken">circuits.nor_(0, 0, p)
 </code></pre>
 </div>
@@ -416,7 +416,7 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical NOT operation on an integer value within an arithmetic circuit.</p>
+    <div class="rendered-markdown"><p>Performs a logical <code>NOT</code> operation on an integer value within an arithmetic circuit.</p>
 <pre><code class="language-aiken">circuits.not_(1, p)
 </code></pre>
 </div>
@@ -433,7 +433,7 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical OR operation on two integer values within an arithmetic circuit..</p>
+    <div class="rendered-markdown"><p>Performs a logical <code>OR</code> operation on two integer values within an arithmetic circuit..</p>
 <pre><code class="language-aiken">circuits.or_(0, 1, p)
 </code></pre>
 </div>
@@ -450,7 +450,7 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical XNOR operation on two integer values within an arithmetic circuit.</p>
+    <div class="rendered-markdown"><p>Performs a logical <code>XNOR</code> operation on two integer values within an arithmetic circuit.</p>
 <pre><code class="language-aiken">circuits.xnor_(1, 1, p)
 </code></pre>
 </div>
@@ -467,7 +467,7 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical XOR operation on two integer values within an arithmetic circuit.</p>
+    <div class="rendered-markdown"><p>Performs a logical <code>XOR</code> operation on two integer values within an arithmetic circuit.</p>
 <pre><code class="language-aiken">circuits.xor_(0, 1, p)
 </code></pre>
 </div>
@@ -546,8 +546,8 @@ All values are assumed to be positive and p is a prime.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1702825671"></script>
+    <script src="../js/index.js?v=1702994576"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1702825671"></script>
+    <script src="../search-data.js?v=1702994576"></script>
   </body>
 </html>

@@ -60,6 +60,7 @@ pub fn base_q(n: Int, q: Int) -> List<Int> {
   do_base_q(n, q, [])
 }
 
+// Internal only
 fn do_base_q(number: Int, base: Int, holder: List<Int>) -> List<Int> {
   // if the number or base is zero return the holder list
   if number == 0 || base == 0 {
@@ -108,8 +109,7 @@ test string_to_int() {
 /// Convert a integer into a hexadecimal bytearray. This works for all integers
 /// but odd length bytearrays will be prefixed with a zero. This function 
 /// combined with the `to_int` function allows a string to represent a number
-/// and still be used for calculations, pushing the `2^64 - 1` integer boundary
-/// to `2^256 - 1`.
+/// and still be used for calculations, pushing the `2^64 - 1` integer boundary.
 ///
 /// ```aiken
 /// maths.from_int(44203)
@@ -431,6 +431,7 @@ test moderate_digit_count() {
   math.log(123456789, 10) == 9 - 1
 }
 
+// Internal only
 fn calculate_scale(
   amt: Int,
   pct: Int,
@@ -473,6 +474,7 @@ test zero_calculate_scale() {
 }
 
 // count the number of zeros at the end of a number
+// Internal only
 fn count_zeros(number: Int, counter: Int) -> Int {
   if number % 10 == 0 {
     count_zeros(number / 10, counter + 1)
