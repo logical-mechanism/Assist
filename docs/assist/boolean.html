@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.3.3 </span>
+          <span>v0.3.4 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.3.3";
+            const currentVersion = "v0.3.4";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -384,7 +384,7 @@ Returns 1 if the first input is false or both inputs are true, otherwise returns
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical NAND operation on two integer values.
+    <div class="rendered-markdown"><p>Performs a logical <code>NAND</code> operation on two integer values.
 Returns 1 if at least one input is 0, otherwise returns 0.</p>
 <pre><code class="language-aiken">boolean.nand_(1, 1)
 </code></pre>
@@ -402,7 +402,7 @@ Returns 1 if at least one input is 0, otherwise returns 0.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical NOR operation on two integer values.
+    <div class="rendered-markdown"><p>Performs a logical <code>NOR</code> operation on two integer values.
 Returns 1 if both inputs are 0, otherwise returns 0.</p>
 <pre><code class="language-aiken">boolean.nor_(0, 0)
 </code></pre>
@@ -420,7 +420,7 @@ Returns 1 if both inputs are 0, otherwise returns 0.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical NOT operation on an integer value.
+    <div class="rendered-markdown"><p>Performs a logical <code>NOT</code> operation on an integer value.
 Expects the input as binary (0 or 1) and returns the inverse (1 becomes 0, 0 becomes 1).</p>
 <pre><code class="language-aiken">boolean.not_(1)
 </code></pre>
@@ -456,7 +456,7 @@ Expects both inputs as binary (0 or 1) and returns 1 if at least one input is 1,
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical XNOR operation on two integer values.
+    <div class="rendered-markdown"><p>Performs a logical <code>XNOR</code> operation on two integer values.
 Returns 1 if the inputs are the same, otherwise returns 0.</p>
 <pre><code class="language-aiken">boolean.xnor_(1, 1)
 </code></pre>
@@ -474,7 +474,7 @@ Returns 1 if the inputs are the same, otherwise returns 0.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical XOR operation on two integer values.
+    <div class="rendered-markdown"><p>Performs a logical <code>XOR</code> operation on two integer values.
 Expects both inputs as binary (0 or 1) and returns 1 if the inputs are different, otherwise returns 0.</p>
 <pre><code class="language-aiken">boolean.xor_(0, 1)
 </code></pre>
@@ -554,8 +554,8 @@ Expects both inputs as binary (0 or 1) and returns 1 if the inputs are different
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1702934185"></script>
+    <script src="../js/index.js?v=1702994576"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1702934185"></script>
+    <script src="../search-data.js?v=1702994576"></script>
   </body>
 </html>
