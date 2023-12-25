@@ -1,3 +1,6 @@
+# v0.4.0
+
+
 # v0.3.4
 
 - Improved the counting functions to account for datum hashes.
