@@ -5,6 +5,7 @@
 use aiken/list
 use aiken/transaction.{Input, OutputReference}
 use aiken/transaction/credential
+use aiken/transaction/value.{AssetName, PolicyId}
 use assist/std
 use assist/types.{ValidatorHash}
 use tests/fake_tx
@@ -85,4 +86,66 @@ test something_being_spent_from() {
   let vks: List<ValidatorHash> =
     [#"acab"]
   not_being_spent_from(vks, inputs) == False
+}
+
+/// Calculate the total amount of a token within the set of inputs for the 
+/// transaction. This function is useful when needing to get a total amount
+/// of one token inside a given transaction, like estimating if a threshold
+/// has been met.
+///
+/// ```aiken
+/// values.total_token_amount(tx.inputs, datum.pid, datum.tkn, datum.threshold)
+/// ```
+pub fn total_token_amount(
+  inputs: List<Input>,
+  pid: PolicyId,
+  tkn: AssetName,
+  threshold: Int,
+) -> Bool {
+  do_total_token_amount(inputs, pid, tkn, 0) >= threshold
+}
+
+fn do_total_token_amount(
+  inputs: List<Input>,
+  pid: PolicyId,
+  tkn: AssetName,
+  counter: Int,
+) -> Int {
+  when inputs is {
+    [input, ..rest] -> {
+      let amt = value.quantity_of(input.output.value, pid, tkn)
+      do_total_token_amount(rest, pid, tkn, counter + amt)
+    }
+    [] -> counter
+  }
+}
+
+test count_pid1() {
+  let amt = 1
+  let inputs = fake_tx.test_inputs(amt)
+  total_token_amount(inputs, #"acab", #"beef", amt * 100)
+}
+
+test count_pid2() {
+  let amt = 2
+  let inputs = fake_tx.test_inputs(amt)
+  total_token_amount(inputs, #"acab", #"beef", amt * 100)
+}
+
+test count_pid3() {
+  let amt = 4
+  let inputs = fake_tx.test_inputs(amt)
+  total_token_amount(inputs, #"acab", #"beef", amt * 100)
+}
+
+test count_pid4() {
+  let amt = 8
+  let inputs = fake_tx.test_inputs(amt)
+  total_token_amount(inputs, #"acab", #"beef", amt * 100)
+}
+
+test count_pid5() {
+  let amt = 16
+  let inputs = fake_tx.test_inputs(amt)
+  total_token_amount(inputs, #"acab", #"beef", amt * 100)
 }
