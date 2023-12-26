@@ -10,7 +10,13 @@ use aiken/string
 use aiken/transaction.{Input}
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/prefixes
+use assist/types.{Token}
 use tests/fake_tx
+
+/// Creates a Value type from a token type.
+pub fn from_token(token: Token) -> Value {
+  value.from_asset(token.pid, token.tkn, token.amt)
+}
 
 /// Multiply some value by `n`. This is just a linear scaling to the quantity
 /// of each token.

@@ -76,6 +76,24 @@ pub fn test_input() -> Input {
   input
 }
 
+/// A fake input used for testing.
+pub fn test_script_input() -> Input {
+  let input =
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"acab" },
+        output_index: 0,
+      },
+      output: Output {
+        address: addresses.create_script_address(#"acab", #""),
+        value: value.from_lovelace(100),
+        datum: InlineDatum(test_datum),
+        reference_script: None,
+      },
+    }
+  input
+}
+
 /// A fake input with a datum hash.
 pub fn test_input_with_datum_hash() {
   let input =
