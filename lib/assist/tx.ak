@@ -1,0 +1,88 @@
+//// This module contains code that aids in various transaction
+//// checks and comparisons.
+////
+
+use aiken/list
+use aiken/transaction.{Input, OutputReference}
+use aiken/transaction/credential
+use assist/std
+use assist/types.{ValidatorHash}
+use tests/fake_tx
+
+/// Check if a specific input by output reference is being spent. This is useful
+/// when a minting script requires a utxo to be spent but doesn't need any specific
+/// information about that input.
+///
+/// ```aiken
+/// tx.is_spending_input(tx.inputs, output_reference)
+/// ```
+pub fn is_spending_input(inputs: List<Input>, out_ref: OutputReference) -> Bool {
+  // loop the inputs and find the output reference
+  when inputs is {
+    [input, ..rest] ->
+      if input.output_reference == out_ref {
+        // it is being spent
+        True
+      } else {
+        is_spending_input(rest, out_ref)
+      }
+    // nothing is found so fail
+    [] -> fail @"Input Not Spent"
+  }
+}
+
+test found_spending_input() {
+  let input: Input = fake_tx.test_input()
+  let out_ref: OutputReference = std.out_ref(#"acab", 0)
+  is_spending_input([input], out_ref) == True
+}
+
+test cant_found_spending_input() fail {
+  let input: Input = fake_tx.test_input()
+  let out_ref: OutputReference = std.out_ref(#"", 0)
+  is_spending_input([input], out_ref) == False
+}
+
+/// Given a set of validator hashes prove that none of them are being spent. Assume
+/// every address is not staked and that the is list is complete.
+pub fn not_being_spent_from(
+  validator_hashes: List<ValidatorHash>,
+  inputs: List<Input>,
+) -> Bool {
+  when validator_hashes is {
+    [vh, ..vhs] -> {
+      // check if validator hash exist as an address inside the set of inputs
+      let outcome =
+        list.any(
+          inputs,
+          // may be cheaper to do ValidatorHash equality then Address equality?
+          // either build up the address or break down the address
+          fn(input) { input.output.address == credential.from_script(vh) },
+        )
+      // if true then not true else continue to the next validator hash
+      if outcome {
+        !outcome
+      } else {
+        not_being_spent_from(vhs, inputs)
+      }
+    }
+    // if nothing ever hit then nothing is being spent
+    [] -> True
+  }
+}
+
+test nothing_being_spent_from() {
+  let inputs: List<Input> =
+    [fake_tx.test_script_input()]
+  let vks: List<ValidatorHash> =
+    [#""]
+  not_being_spent_from(vks, inputs) == True
+}
+
+test something_being_spent_from() {
+  let inputs: List<Input> =
+    [fake_tx.test_script_input()]
+  let vks: List<ValidatorHash> =
+    [#"acab"]
+  not_being_spent_from(vks, inputs) == False
+}

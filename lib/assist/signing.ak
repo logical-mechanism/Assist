@@ -2,9 +2,8 @@
 //// It assumes that all signatures provided are verification keys.
 ////
 
-use aiken/hash.{Blake2b_224, Hash}
 use aiken/list
-use aiken/transaction/credential.{VerificationKey}
+use assist/types.{PublicKeyHash}
 // for testing only
 use tests/fake_tx
 
@@ -14,10 +13,7 @@ use tests/fake_tx
 /// ```aiken
 /// signing.verify_sig(context.transaction, wallet_pkh)
 /// ```
-pub fn verify_sig(
-  vks: List<Hash<Blake2b_224, VerificationKey>>,
-  vk: Hash<Blake2b_224, VerificationKey>,
-) -> Bool {
+pub fn verify_sig(vks: List<PublicKeyHash>, vk: PublicKeyHash) -> Bool {
   list.has(vks, vk)
 }
 
@@ -48,8 +44,8 @@ test lots_of_signatures() {
 /// signing.verify_multisig(context.transaction, lst_of_sigs, sig_threshold)
 /// ```
 pub fn verify_multisig(
-  sigs: List<Hash<Blake2b_224, VerificationKey>>,
-  vks: List<Hash<Blake2b_224, VerificationKey>>,
+  sigs: List<PublicKeyHash>,
+  vks: List<PublicKeyHash>,
   minimum: Int,
 ) -> Bool {
   // assume greater than or equal
@@ -58,8 +54,8 @@ pub fn verify_multisig(
 
 // Internal only
 fn do_multisig(
-  sigs: List<Hash<Blake2b_224, VerificationKey>>,
-  vks: List<Hash<Blake2b_224, VerificationKey>>,
+  sigs: List<PublicKeyHash>,
+  vks: List<PublicKeyHash>,
   counter: Int,
 ) -> Int {
   // loop who has to sign tx, count how many signatures have signed.
