@@ -89,9 +89,7 @@ test something_being_spent_from() {
 }
 
 /// Calculate the total amount of a token within the set of inputs for the 
-/// transaction. This function is useful when needing to get a total amount
-/// of one token inside a given transaction, like estimating if a threshold
-/// has been met.
+/// transaction and check if it is at least equal to the provided threshold.
 ///
 /// ```aiken
 /// values.total_token_amount(tx.inputs, datum.pid, datum.tkn, datum.threshold)
