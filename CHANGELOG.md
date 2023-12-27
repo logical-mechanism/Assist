@@ -5,6 +5,7 @@
 - General data types from assist are now used in function definitions. See `types.ak`.
 - `from_wallet` and `from_token` are now in addresses and values respectively
 - Added `is_spending_input` to check if an output reference is being spent.
+- `total_token_amount` is moved to `tx.ak` and refactored.
 
 # v0.3.4
 

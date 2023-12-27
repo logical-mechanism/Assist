@@ -4,11 +4,10 @@
 ////
 
 use aiken/bytearray
-use aiken/hash.{Blake2b_224, Hash}
 use aiken/transaction/credential.{
-  Address, Inline, Script, ScriptCredential, VerificationKeyCredential,
+  Address, Inline, ScriptCredential, VerificationKeyCredential,
 }
-use assist/types.{PublicKeyHash, Wallet}
+use assist/types.{PublicKeyHash, ValidatorHash, Wallet}
 
 /// Creates an address from the wallet type.
 ///
@@ -69,10 +68,7 @@ test correct_wallet_sc() {
 /// ```aiken
 /// addresses.create_script_address(datum.script.pkh, datum.script.sc)
 /// ```
-pub fn create_script_address(
-  pkh: Hash<Blake2b_224, Script>,
-  sc: Hash<Blake2b_224, Script>,
-) -> Address {
+pub fn create_script_address(pkh: ValidatorHash, sc: ValidatorHash) -> Address {
   // empty bytearrays means dont add the sc to the pkh
   if bytearray.is_empty(sc) {
     credential.from_script(pkh)

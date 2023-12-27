@@ -2,10 +2,10 @@
 //// ensuring their correctness. 
 ////
 
-use aiken/hash.{Blake2b_224, Hash}
 use aiken/transaction/certificate.{Certificate, CredentialDelegation}
-use aiken/transaction/credential.{PoolId, Script}
+use aiken/transaction/credential.{PoolId}
 use assist/credentials
+use assist/types.{ValidatorHash}
 
 /// Creates a credential delegation for changing the location of the stake.
 /// This certificate can be used to check if stake is being delegated to
@@ -15,7 +15,7 @@ use assist/credentials
 /// certificates.create_credential_delegation(datum.contract_hash, datum.pool_id)
 /// ```
 pub fn create_credential_delegation(
-  sc: Hash<Blake2b_224, Script>,
+  sc: ValidatorHash,
   pool_id: PoolId,
 ) -> Certificate {
   CredentialDelegation {

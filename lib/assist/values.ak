@@ -7,11 +7,9 @@ use aiken/dict
 use aiken/hash
 use aiken/list
 use aiken/string
-use aiken/transaction.{Input}
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/prefixes
 use assist/types.{Token}
-use tests/fake_tx
 
 /// Creates a Value type from a token type.
 pub fn from_token(token: Token) -> Value {
@@ -294,57 +292,4 @@ test missing_exact_nft() {
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
   prove_exact_nft(#"acab", #"beef", val) == False
-}
-
-/// Calculate the total amount of a token within the set of inputs for the 
-/// transaction. This function is useful when needing to get a total amount
-/// of one token inside a given transaction, like estimating if a threshold
-/// has been met.
-///
-/// ```aiken
-/// values.total_token_amount(tx.inputs, datum.pid, datum.tkn, 0)
-/// ```
-pub fn total_token_amount(
-  inputs: List<Input>,
-  pid: PolicyId,
-  tkn: AssetName,
-  counter: Int,
-) -> Int {
-  when inputs is {
-    [input, ..rest] -> {
-      let amt = value.quantity_of(input.output.value, pid, tkn)
-      total_token_amount(rest, pid, tkn, counter + amt)
-    }
-    [] -> counter
-  }
-}
-
-test count_pid1() {
-  let amt = 1
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid2() {
-  let amt = 2
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid3() {
-  let amt = 4
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid4() {
-  let amt = 8
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid5() {
-  let amt = 16
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
 }
