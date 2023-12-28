@@ -88,7 +88,7 @@ pub fn by_prefix(
     // loop all the value for the flat value
     [(policy, token_name, quantity), ..rest] -> {
       // all cip68 prefixes have the same length
-      let p = bytearray.take(token_name, 4)
+      let p: ByteArray = bytearray.take(token_name, 4)
       if and {
         policy == pid,
         prefix == p,

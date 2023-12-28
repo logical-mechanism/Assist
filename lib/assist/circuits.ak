@@ -68,7 +68,7 @@ test boundary_and() {
 /// circuits.or_(0, 1, p)
 /// ```
 pub fn or_(x: Int, y: Int, p: Int) -> Int {
-  let r = x + y - x * y
+  let r: Int = x + y - x * y
   do_pos_shift(r, p)
 }
 
@@ -150,7 +150,7 @@ test not_inversion() {
 /// circuits.xor_(0, 1, p)
 /// ```
 pub fn xor_(x: Int, y: Int, p: Int) -> Int {
-  let r = x + y - 2 * x * y
+  let r: Int = x + y - 2 * x * y
   do_pos_shift(r, p)
 }
 

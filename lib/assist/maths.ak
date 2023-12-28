@@ -63,7 +63,10 @@ pub fn base_q(n: Int, q: Int) -> List<Int> {
 // Internal only
 fn do_base_q(number: Int, base: Int, holder: List<Int>) -> List<Int> {
   // if the number or base is zero return the holder list
-  if number == 0 || base == 0 {
+  if or {
+    number == 0,
+    base == 0,
+  } {
     holder
   } else {
     do_base_q(number / base, base, list.push(holder, number % base))
@@ -115,7 +118,7 @@ test string_to_int() {
 /// maths.from_int(44203)
 /// ```
 pub fn from_int(self: Int) -> ByteArray {
-  let base_256 = base_q(self, 256)
+  let base_256: List<Int> = base_q(self, 256)
   list.foldr(base_256, #"", fn(n, total) { bytearray.push(total, n) })
 }
 
@@ -263,7 +266,7 @@ test complex_list_sum() {
 /// maths.decay(start_amount, lovelace_scaling, datum.current_int)
 /// ```
 pub fn decay(start_amt: Int, scale: Int, num: Int) -> Int {
-  let val = ( start_amt - math.log(num, 2) ) * scale
+  let val: Int = ( start_amt - math.log(num, 2) ) * scale
   if val <= scale {
     0
   } else {
@@ -439,10 +442,13 @@ fn calculate_scale(
   bound: Int,
   depth: Int,
 ) -> Int {
-  let er = effective_ratio(amt, pct, scale)
-  let max_depth = 15
+  let er: Int = effective_ratio(amt, pct, scale)
+  let max_depth: Int = 15
   // the max depth determines irrationals, largest scaling is then 10^max_depth
-  if er == 0 || depth >= max_depth {
+  if or {
+    er == 0,
+    depth >= max_depth,
+  } {
     scale
   } else {
     if er % 10 == 0 {

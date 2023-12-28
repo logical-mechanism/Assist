@@ -9,7 +9,7 @@ use aiken/list
 use aiken/string
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/prefixes
-use assist/types.{Token}
+use assist/types.{Token, TxHash}
 
 /// Creates a Value type from a token type.
 pub fn from_token(token: Token) -> Value {
@@ -126,12 +126,12 @@ fn do_compute_hash(
 ) -> ByteArray {
   when flat is {
     [(pid, tkn, amt), ..rest] -> {
-      let hashed_amt = int_to_hash(amt)
-      let concatted =
+      let hashed_amt: ByteArray = int_to_hash(amt)
+      let concatted: ByteArray =
         bytearray.concat(pid, tkn)
           |> bytearray.concat(hashed_amt)
           |> bytearray.concat(total)
-      let next = hash.sha3_256(concatted)
+      let next: ByteArray = hash.sha3_256(concatted)
       do_compute_hash(rest, next)
     }
     [] -> total
@@ -141,7 +141,7 @@ fn do_compute_hash(
 // Private function to sha3 256 an integer into a bytearray.
 // Internal only
 fn int_to_hash(num: Int) -> ByteArray {
-  hash.sha3_256(bytearray.from_string(string.from_int(num)))
+  string.from_int(num) |> bytearray.from_string() |> hash.sha3_256()
 }
 
 test hash_empty_value() {
@@ -171,17 +171,13 @@ test hash_large_value() {
 /// ```aiken
 /// values.unique_token_name(tx_id, tx_idx, prefixes.prefix_333)
 /// ```
-pub fn unique_token_name(
-  txid: ByteArray,
-  idx: Int,
-  prefix: ByteArray,
-) -> ByteArray {
+pub fn unique_token_name(txid: TxHash, idx: Int, prefix: ByteArray) -> AssetName {
   // sha3_256 hash of the tx id
-  let txid_hash = hash.sha3_256(txid)
+  let txid_hash: ByteArray = hash.sha3_256(txid)
   // prefix the txid hash with the index
-  let prepend_index = bytearray.push(txid_hash, idx)
+  let prepend_index: ByteArray = bytearray.push(txid_hash, idx)
   // concat the prefix
-  let prepend_prefix = bytearray.concat(prefix, prepend_index)
+  let prepend_prefix: ByteArray = bytearray.concat(prefix, prepend_index)
   // slice off the first 32
   bytearray.slice(prepend_prefix, 0, 31)
 }
@@ -217,8 +213,8 @@ test real_token_name() {
 /// values.prove_nft(pid, this_value)
 /// ```
 pub fn prove_nft(pid: PolicyId, total: Value) {
-  let tkns = value.tokens(total, pid) |> dict.values()
-  let sum = list.foldl(tkns, 0, fn(n, total) { n + total })
+  let tkns: List<Int> = value.tokens(total, pid) |> dict.values()
+  let sum: Int = list.foldl(tkns, 0, fn(n, total) { n + total })
   and {
     // must have only one asset name
     list.length(tkns) == 1,
