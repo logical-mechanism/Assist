@@ -2,7 +2,7 @@
 ////
 
 use aiken/bytearray
-use aiken/transaction/value
+use aiken/transaction/value.{AssetName, PolicyId}
 use assist/prefixes
 
 /// This checks if a specific policy id, token name, and amount exist inside
@@ -13,9 +13,9 @@ use assist/prefixes
 /// minting.exact(flatten_mint_value, pid, tkn, 1)
 /// ```
 pub fn exact(
-  flat: List<(ByteArray, ByteArray, Int)>,
-  pid: ByteArray,
-  tkn: ByteArray,
+  flat: List<(PolicyId, AssetName, Int)>,
+  pid: PolicyId,
+  tkn: AssetName,
   amt: Int,
 ) -> Bool {
   when flat is {
@@ -79,16 +79,16 @@ test empty_exact_mint() {
 /// minting.by_prefix(flatten_mint_value, pid, tkn, 1)
 /// ```
 pub fn by_prefix(
-  flat: List<(ByteArray, ByteArray, Int)>,
-  pid: ByteArray,
-  prefix: ByteArray,
+  flat: List<(PolicyId, AssetName, Int)>,
+  pid: PolicyId,
+  prefix: AssetName,
   amt: Int,
 ) -> Bool {
   when flat is {
     // loop all the value for the flat value
     [(policy, token_name, quantity), ..rest] -> {
       // all cip68 prefixes have the same length
-      let p = bytearray.take(token_name, 4)
+      let p: ByteArray = bytearray.take(token_name, 4)
       if and {
         policy == pid,
         prefix == p,
@@ -143,9 +143,9 @@ test empty_by_prefix_mint() {
 /// minting.is_occurring(flatten_mint_value, pid, tkn)
 /// ```
 pub fn is_occurring(
-  flat: List<(ByteArray, ByteArray, Int)>,
-  pid: ByteArray,
-  tkn: ByteArray,
+  flat: List<(PolicyId, AssetName, Int)>,
+  pid: PolicyId,
+  tkn: AssetName,
 ) -> Bool {
   when flat is {
     // loop the minted value

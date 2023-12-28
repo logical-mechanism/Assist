@@ -27,7 +27,7 @@ use tests/fake_tx
 pub fn first_input_index(inputs: List<Input>) -> Int {
   when list.head(inputs) is {
     Some(input) -> input.output_reference.output_index
-    None -> fail @"No Index Found"
+    None -> fail @"No First Input Index Found"
   }
 }
 
@@ -53,7 +53,7 @@ test cant_find_first_input_index() fail {
 pub fn first_input_txid(inputs: List<Input>) -> ByteArray {
   when list.head(inputs) is {
     Some(input) -> input.output_reference.transaction_id.hash
-    None -> fail @"No TxId Found"
+    None -> fail @"No First Input TxId Found"
   }
 }
 
@@ -84,7 +84,7 @@ pub fn input_by_ref(inputs: List<Input>, out_ref: OutputReference) -> Input {
       } else {
         input_by_ref(rest, out_ref)
       }
-    [] -> fail @"No Input Found"
+    [] -> fail @"No Input Found By Output Reference"
   }
 }
 
@@ -125,7 +125,7 @@ pub fn input_by_addr(inputs: List<Input>, addr: Address) -> Input {
       } else {
         input_by_addr(rest, addr)
       }
-    [] -> fail @"No Input Found"
+    [] -> fail @"No Input Found By Address"
   }
 }
 
@@ -157,7 +157,7 @@ pub fn output_by_addr(outputs: List<Output>, addr: Address) -> Output {
       } else {
         output_by_addr(rest, addr)
       }
-    [] -> fail @"No Output Found"
+    [] -> fail @"No Output Found By Address"
   }
 }
 
@@ -189,7 +189,7 @@ pub fn first_output_datum(outputs: List<Output>) -> Data {
         InlineDatum(outbound_datum) -> outbound_datum
         _ -> first_output_datum(rest)
       }
-    [] -> fail @"No Datum Found"
+    [] -> fail @"No First Output Datum Found"
   }
 }
 
@@ -214,7 +214,7 @@ test cant_find_first_output_datum() fail {
 /// expect datum: Datum = find.output_datum_by_addr(tx.outputs, this_addr)
 /// ```
 pub fn output_datum_by_addr(outputs: List<Output>, addr: Address) -> Data {
-  let outbound_output = output_by_addr(outputs, addr)
+  let outbound_output: Output = output_by_addr(outputs, addr)
   data.output_datum(outbound_output)
 }
 
@@ -257,7 +257,7 @@ pub fn output_by_addr_value(
         output_by_addr_value(rest, addr, value)
       }
     // nothing was found
-    [] -> fail @"No Output Found"
+    [] -> fail @"No Output Found By Address And Value"
   }
 }
 
@@ -293,7 +293,7 @@ pub fn output_by_value(outputs: List<Output>, value: Value) -> Output {
         output_by_value(rest, value)
       }
     // nothing was found
-    [] -> fail @"No Output Found"
+    [] -> fail @"No Output Found By Value"
   }
 }
 

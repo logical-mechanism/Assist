@@ -4,10 +4,18 @@
 ////
 
 use aiken/bytearray
-use aiken/hash.{Blake2b_224, Hash}
 use aiken/transaction/credential.{
-  Address, Inline, Script, ScriptCredential, VerificationKey,
-  VerificationKeyCredential,
+  Address, Inline, ScriptCredential, VerificationKeyCredential,
+}
+use assist/types.{PublicKeyHash, ValidatorHash, Wallet}
+
+/// Creates an address from the wallet type.
+///
+/// ```aiken
+/// let addr: Address = types.from_wallet(this_wallet)
+/// ```
+pub fn from_wallet(wallet: Wallet) -> Address {
+  create_address(wallet.pkh, wallet.sc)
 }
 
 /// Creates a enterprise or base address from the public key hash and stake
@@ -16,10 +24,7 @@ use aiken/transaction/credential.{
 /// ```aiken
 /// addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 /// ```
-pub fn create_address(
-  pkh: Hash<Blake2b_224, VerificationKey>,
-  sc: Hash<Blake2b_224, VerificationKey>,
-) -> Address {
+pub fn create_address(pkh: PublicKeyHash, sc: PublicKeyHash) -> Address {
   // empty bytearrays means dont add the sc to the pkh
   if bytearray.is_empty(sc) {
     credential.from_verification_key(pkh)
@@ -63,10 +68,7 @@ test correct_wallet_sc() {
 /// ```aiken
 /// addresses.create_script_address(datum.script.pkh, datum.script.sc)
 /// ```
-pub fn create_script_address(
-  pkh: Hash<Blake2b_224, Script>,
-  sc: Hash<Blake2b_224, Script>,
-) -> Address {
+pub fn create_script_address(pkh: ValidatorHash, sc: ValidatorHash) -> Address {
   // empty bytearrays means dont add the sc to the pkh
   if bytearray.is_empty(sc) {
     credential.from_script(pkh)

@@ -7,10 +7,14 @@ use aiken/dict
 use aiken/hash
 use aiken/list
 use aiken/string
-use aiken/transaction.{Input}
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/prefixes
-use tests/fake_tx
+use assist/types.{Token, TxHash}
+
+/// Creates a Value type from a token type.
+pub fn from_token(token: Token) -> Value {
+  value.from_asset(token.pid, token.tkn, token.amt)
+}
 
 /// Multiply some value by `n`. This is just a linear scaling to the quantity
 /// of each token.
@@ -122,12 +126,12 @@ fn do_compute_hash(
 ) -> ByteArray {
   when flat is {
     [(pid, tkn, amt), ..rest] -> {
-      let hashed_amt = int_to_hash(amt)
-      let concatted =
+      let hashed_amt: ByteArray = int_to_hash(amt)
+      let concatted: ByteArray =
         bytearray.concat(pid, tkn)
           |> bytearray.concat(hashed_amt)
           |> bytearray.concat(total)
-      let next = hash.sha3_256(concatted)
+      let next: ByteArray = hash.sha3_256(concatted)
       do_compute_hash(rest, next)
     }
     [] -> total
@@ -137,7 +141,7 @@ fn do_compute_hash(
 // Private function to sha3 256 an integer into a bytearray.
 // Internal only
 fn int_to_hash(num: Int) -> ByteArray {
-  hash.sha3_256(bytearray.from_string(string.from_int(num)))
+  string.from_int(num) |> bytearray.from_string() |> hash.sha3_256()
 }
 
 test hash_empty_value() {
@@ -167,17 +171,13 @@ test hash_large_value() {
 /// ```aiken
 /// values.unique_token_name(tx_id, tx_idx, prefixes.prefix_333)
 /// ```
-pub fn unique_token_name(
-  txid: ByteArray,
-  idx: Int,
-  prefix: ByteArray,
-) -> ByteArray {
+pub fn unique_token_name(txid: TxHash, idx: Int, prefix: ByteArray) -> AssetName {
   // sha3_256 hash of the tx id
-  let txid_hash = hash.sha3_256(txid)
+  let txid_hash: ByteArray = hash.sha3_256(txid)
   // prefix the txid hash with the index
-  let prepend_index = bytearray.push(txid_hash, idx)
+  let prepend_index: ByteArray = bytearray.push(txid_hash, idx)
   // concat the prefix
-  let prepend_prefix = bytearray.concat(prefix, prepend_index)
+  let prepend_prefix: ByteArray = bytearray.concat(prefix, prepend_index)
   // slice off the first 32
   bytearray.slice(prepend_prefix, 0, 31)
 }
@@ -213,8 +213,8 @@ test real_token_name() {
 /// values.prove_nft(pid, this_value)
 /// ```
 pub fn prove_nft(pid: PolicyId, total: Value) {
-  let tkns = value.tokens(total, pid) |> dict.values()
-  let sum = list.foldl(tkns, 0, fn(n, total) { n + total })
+  let tkns: List<Int> = value.tokens(total, pid) |> dict.values()
+  let sum: Int = list.foldl(tkns, 0, fn(n, total) { n + total })
   and {
     // must have only one asset name
     list.length(tkns) == 1,
@@ -288,57 +288,4 @@ test missing_exact_nft() {
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
   prove_exact_nft(#"acab", #"beef", val) == False
-}
-
-/// Calculate the total amount of a token within the set of inputs for the 
-/// transaction. This function is useful when needing to get a total amount
-/// of one token inside a given transaction, like estimating if a threshold
-/// has been met.
-///
-/// ```aiken
-/// values.total_token_amount(tx.inputs, datum.pid, datum.tkn, 0)
-/// ```
-pub fn total_token_amount(
-  inputs: List<Input>,
-  pid: PolicyId,
-  tkn: AssetName,
-  counter: Int,
-) -> Int {
-  when inputs is {
-    [input, ..rest] -> {
-      let amt = value.quantity_of(input.output.value, pid, tkn)
-      total_token_amount(rest, pid, tkn, counter + amt)
-    }
-    [] -> counter
-  }
-}
-
-test count_pid1() {
-  let amt = 1
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid2() {
-  let amt = 2
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid3() {
-  let amt = 4
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid4() {
-  let amt = 8
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
-}
-
-test count_pid5() {
-  let amt = 16
-  let inputs = fake_tx.test_inputs(amt)
-  total_token_amount(inputs, #"acab", #"beef", 0) == amt * 100
 }

@@ -1,3 +1,16 @@
+# v0.4.0
+
+*This version is contains breaking changes.*
+
+- General data types from assist are now used in function definitions. See `types.ak`.
+- Refactored how assist types are used in functions.
+- `from_wallet` and `from_token` are now in addresses and values respectively.
+- Added `is_spending_input` to check if an output reference is being spent.
+- `total_token_amount` is moved to `tx.ak` and refactored.
+- Fail messages are more specific to the function.
+- All `&&` and `||` are now `and` and `or`.
+- Added `metadata` to find data from a cip68 metadatum type.
+
 # v0.3.4
 
 - Improved the counting functions to account for datum hashes.

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/circuits - logicalmechanism/assist</title>
+    <title>assist/tx - logicalmechanism/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -210,7 +210,7 @@
         
 	  <li><a href="../assist/circuits.html">
 	  
-	  <strong>assist/circuits</strong>
+	  assist/circuits
 	  
 	  </a></li>
         
@@ -276,7 +276,7 @@
         
 	  <li><a href="../assist/tx.html">
 	  
-	  assist/tx
+	  <strong>assist/tx</strong>
 	  
 	  </a></li>
         
@@ -309,21 +309,11 @@
 <h2>Functions</h2>
 <ul>
   
-  <li><a href="#and_">and_</a></li>
+  <li><a href="#is_spending_input">is_spending_input</a></li>
   
-  <li><a href="#imply_">imply_</a></li>
+  <li><a href="#not_being_spent_from">not_being_spent_from</a></li>
   
-  <li><a href="#nand_">nand_</a></li>
-  
-  <li><a href="#nor_">nor_</a></li>
-  
-  <li><a href="#not_">not_</a></li>
-  
-  <li><a href="#or_">or_</a></li>
-  
-  <li><a href="#xnor_">xnor_</a></li>
-  
-  <li><a href="#xor_">xor_</a></li>
+  <li><a href="#total_token_amount">total_token_amount</a></li>
   
 </ul>
 
@@ -333,10 +323,10 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/circuits</a>
+  <a href="#module-name">assist/tx</a>
 </h1>
-<p>This module contains code to do arithmetic circuit logic on integers.
-All values are assumed to be positive and p is a prime.</p>
+<p>This module contains code that aids in various transaction
+checks and comparisons.</p>
 
 
 
@@ -351,7 +341,7 @@ All values are assumed to be positive and p is a prime.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="and_"><pre class="hljs language-aiken">and_(x: Int, y: Int, p: Int) -&gt; Int</pre></h2>
+      <h2 id="is_spending_input"><pre class="hljs language-aiken">is_spending_input(inputs: List&lt;Input&gt;, out_ref: OutputReference) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -360,15 +350,20 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical <code>AND</code> operation on two integer values within an arithmetic circuit.</p>
-<pre><code class="language-aiken">circuits.and_(1, 1, p)
+    <div class="rendered-markdown"><p>Check if a specific input by output reference is being spent. This is useful
+when a minting script requires a utxo to be spent but doesn’t need any specific
+information about that input.</p>
+<pre><code class="language-aiken">tx.is_spending_input(tx.inputs, output_reference)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="imply_"><pre class="hljs language-aiken">imply_(x: Int, y: Int, p: Int) -&gt; Int</pre></h2>
+      <h2 id="not_being_spent_from"><pre class="hljs language-aiken">not_being_spent_from(
+  validator_hashes: List&lt;ValidatorHash&gt;,
+  inputs: List&lt;Input&gt;,
+) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -377,15 +372,19 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical implication operation on two integer values within an arithmetic circuit.</p>
-<pre><code class="language-aiken">circuits.imply_(1, 0, p)
-</code></pre>
+    <div class="rendered-markdown"><p>Given a set of validator hashes prove that none of them are being spent. Assume
+every address is not staked and that the is list is complete.</p>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="nand_"><pre class="hljs language-aiken">nand_(x: Int, y: Int, p: Int) -&gt; Int</pre></h2>
+      <h2 id="total_token_amount"><pre class="hljs language-aiken">total_token_amount(
+  inputs: List&lt;Input&gt;,
+  pid: PolicyId,
+  tkn: AssetName,
+  threshold: Int,
+) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -394,93 +393,9 @@ All values are assumed to be positive and p is a prime.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Performs a logical <code>NAND</code> operation on two integer values within an arithmetic circuit.</p>
-<pre><code class="language-aiken">circuits.nand_(1, 1, p)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="nor_"><pre class="hljs language-aiken">nor_(x: Int, y: Int, p: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Performs a logical <code>NOR</code> operation on two integer values within an arithmetic circuit.</p>
-<pre><code class="language-aiken">circuits.nor_(0, 0, p)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="not_"><pre class="hljs language-aiken">not_(x: Int, p: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Performs a logical <code>NOT</code> operation on an integer value within an arithmetic circuit.</p>
-<pre><code class="language-aiken">circuits.not_(1, p)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="or_"><pre class="hljs language-aiken">or_(x: Int, y: Int, p: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Performs a logical <code>OR</code> operation on two integer values within an arithmetic circuit..</p>
-<pre><code class="language-aiken">circuits.or_(0, 1, p)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="xnor_"><pre class="hljs language-aiken">xnor_(x: Int, y: Int, p: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Performs a logical <code>XNOR</code> operation on two integer values within an arithmetic circuit.</p>
-<pre><code class="language-aiken">circuits.xnor_(1, 1, p)
-</code></pre>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="xor_"><pre class="hljs language-aiken">xor_(x: Int, y: Int, p: Int) -&gt; Int</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>Performs a logical <code>XOR</code> operation on two integer values within an arithmetic circuit.</p>
-<pre><code class="language-aiken">circuits.xor_(0, 1, p)
+    <div class="rendered-markdown"><p>Calculate the total amount of a token within the set of inputs for the 
+transaction and check if it is at least equal to the provided threshold.</p>
+<pre><code class="language-aiken">values.total_token_amount(tx.inputs, datum.pid, datum.tkn, datum.threshold)
 </code></pre>
 </div>
   </div>
