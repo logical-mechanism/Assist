@@ -22,7 +22,7 @@ pub type DataType =
 
 /// Creates an `OutputReference`
 pub fn test_out_ref() -> OutputReference {
-  let out_ref =
+  let out_ref: OutputReference =
     OutputReference {
       transaction_id: TransactionId { hash: #"acab" },
       output_index: 0,
@@ -32,7 +32,7 @@ pub fn test_out_ref() -> OutputReference {
 
 /// Creates an `OutputReference`
 pub fn test_bad_out_ref() -> OutputReference {
-  let out_ref =
+  let out_ref: OutputReference =
     OutputReference {
       transaction_id: TransactionId { hash: #"fade" },
       output_index: 1,
@@ -42,7 +42,7 @@ pub fn test_bad_out_ref() -> OutputReference {
 
 /// A fake input used for testing.
 pub fn test_inputs(amt: Int) -> List<Input> {
-  let input =
+  let input: Input =
     Input {
       output_reference: OutputReference {
         transaction_id: TransactionId { hash: #"acab" },
@@ -60,7 +60,7 @@ pub fn test_inputs(amt: Int) -> List<Input> {
 
 /// A fake input used for testing.
 pub fn test_input() -> Input {
-  let input =
+  let input: Input =
     Input {
       output_reference: OutputReference {
         transaction_id: TransactionId { hash: #"acab" },
@@ -78,7 +78,7 @@ pub fn test_input() -> Input {
 
 /// A fake input used for testing.
 pub fn test_script_input() -> Input {
-  let input =
+  let input: Input =
     Input {
       output_reference: OutputReference {
         transaction_id: TransactionId { hash: #"acab" },
@@ -96,7 +96,7 @@ pub fn test_script_input() -> Input {
 
 /// A fake input with a datum hash.
 pub fn test_input_with_datum_hash() {
-  let input =
+  let input: Input =
     Input {
       output_reference: OutputReference {
         transaction_id: TransactionId { hash: #"acab" },
@@ -114,7 +114,7 @@ pub fn test_input_with_datum_hash() {
 
 /// A fake input without datum used for testing.
 pub fn test_bad_input() -> Input {
-  let input =
+  let input: Input =
     Input {
       output_reference: OutputReference {
         transaction_id: TransactionId { hash: #"acab" },
@@ -132,7 +132,7 @@ pub fn test_bad_input() -> Input {
 
 /// A fake output used for testing.
 pub fn test_output() -> Output {
-  let output =
+  let output: Output =
     Output {
       address: addresses.create_address(#"acab", #""),
       value: value.from_asset(#"acab", #"beef", 40),
@@ -144,7 +144,7 @@ pub fn test_output() -> Output {
 
 // A fake output with a datum hash used for testing.
 pub fn test_output_with_datum_hash() -> Output {
-  let output =
+  let output: Output =
     Output {
       address: addresses.create_address(#"acab", #""),
       value: value.from_asset(#"acab", #"beef", 40),
@@ -156,7 +156,7 @@ pub fn test_output_with_datum_hash() -> Output {
 
 /// A fake output without datum used for testing.
 pub fn test_bad_output() -> Output {
-  let output =
+  let output: Output =
     Output {
       address: addresses.create_address(#"acab", #""),
       value: value.from_asset(#"acab", #"beef", 40),
@@ -184,7 +184,7 @@ pub fn test_signatories() -> List<ByteArray> {
 /// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
   let sc: StakeCredential = credentials.create_stake_credential(#"face")
-  let out_ref = test_out_ref()
+  let out_ref: OutputReference = test_out_ref()
   let withdrawal =
     dict.new()
       |> dict.insert(key: sc, value: 100, compare: fn(_, _) { Equal })

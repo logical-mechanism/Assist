@@ -53,7 +53,7 @@ pub fn not_being_spent_from(
   when validator_hashes is {
     [vh, ..vhs] -> {
       // check if validator hash exist as an address inside the set of inputs
-      let outcome =
+      let outcome: Bool =
         list.any(
           inputs,
           // may be cheaper to do ValidatorHash equality then Address equality?
@@ -111,7 +111,7 @@ fn do_total_token_amount(
 ) -> Int {
   when inputs is {
     [input, ..rest] -> {
-      let amt = value.quantity_of(input.output.value, pid, tkn)
+      let amt: Int = value.quantity_of(input.output.value, pid, tkn)
       do_total_token_amount(rest, pid, tkn, counter + amt)
     }
     [] -> counter

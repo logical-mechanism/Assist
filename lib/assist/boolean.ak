@@ -107,7 +107,7 @@ test one_one_xor() {
 /// boolean.nand_(1, 1)
 /// ```
 pub fn nand_(x: Int, y: Int) -> Int {
-  and_(x, y) |> not_
+  and_(x, y) |> not_()
 }
 
 test zero_zero_nand() {
@@ -133,7 +133,7 @@ test one_one_nand() {
 /// boolean.nor_(0, 0)
 /// ```
 pub fn nor_(x: Int, y: Int) -> Int {
-  or_(x, y) |> not_
+  or_(x, y) |> not_()
 }
 
 test zero_zero_nor() {
@@ -159,7 +159,7 @@ test one_one_nor() {
 /// boolean.xnor_(1, 1)
 /// ```
 pub fn xnor_(x: Int, y: Int) -> Int {
-  xor_(x, y) |> not_
+  xor_(x, y) |> not_()
 }
 
 test zero_zero_xnor() {
