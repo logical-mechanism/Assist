@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/addresses - aiken-lang/assist</title>
+    <title>assist/addresses - logicalmechanism/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.3.4 </span>
+          <span>v0.4.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.3.4";
+            const currentVersion = "v0.4.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -274,6 +274,18 @@
 	  
 	  </a></li>
         
+	  <li><a href="../assist/tx.html">
+	  
+	  assist/tx
+	  
+	  </a></li>
+        
+	  <li><a href="../assist/types.html">
+	  
+	  assist/types
+	  
+	  </a></li>
+        
 	  <li><a href="../assist/values.html">
 	  
 	  assist/values
@@ -300,6 +312,8 @@
   <li><a href="#create_address">create_address</a></li>
   
   <li><a href="#create_script_address">create_script_address</a></li>
+  
+  <li><a href="#from_wallet">from_wallet</a></li>
   
 </ul>
 
@@ -328,10 +342,7 @@ intentional, and address subtypes are not combined nor mixed.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="create_address"><pre class="hljs language-aiken">create_address(
-  pkh: Hash&lt;Blake2b_224, VerificationKey&gt;,
-  sc: Hash&lt;Blake2b_224, VerificationKey&gt;,
-) -&gt; Address</pre></h2>
+      <h2 id="create_address"><pre class="hljs language-aiken">create_address(pkh: PublicKeyHash, sc: PublicKeyHash) -&gt; Address</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -349,10 +360,7 @@ credential. An empty sc means enterpise address by default.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="create_script_address"><pre class="hljs language-aiken">create_script_address(
-  pkh: Hash&lt;Blake2b_224, Script&gt;,
-  sc: Hash&lt;Blake2b_224, Script&gt;,
-) -&gt; Address</pre></h2>
+      <h2 id="create_script_address"><pre class="hljs language-aiken">create_script_address(pkh: ValidatorHash, sc: ValidatorHash) -&gt; Address</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -365,6 +373,23 @@ credential. An empty sc means enterpise address by default.</p>
 types. Staked smart contracts are contracts as well. An empty sc is
 assumed to be not staked.</p>
 <pre><code class="language-aiken">addresses.create_script_address(datum.script.pkh, datum.script.sc)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="from_wallet"><pre class="hljs language-aiken">from_wallet(wallet: Wallet) -&gt; Address</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Creates an address from the wallet type.</p>
+<pre><code class="language-aiken">let addr: Address = types.from_wallet(this_wallet)
 </code></pre>
 </div>
   </div>
@@ -442,8 +467,8 @@ assumed to be not staked.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1702994576"></script>
+    <script src="../js/index.js?v=1703789625"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1702994576"></script>
+    <script src="../search-data.js?v=1703789625"></script>
   </body>
 </html>

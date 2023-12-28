@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/data - aiken-lang/assist</title>
+    <title>assist/data - logicalmechanism/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.3.4 </span>
+          <span>v0.4.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.3.4";
+            const currentVersion = "v0.4.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -274,6 +274,18 @@
 	  
 	  </a></li>
         
+	  <li><a href="../assist/tx.html">
+	  
+	  assist/tx
+	  
+	  </a></li>
+        
+	  <li><a href="../assist/types.html">
+	  
+	  assist/types
+	  
+	  </a></li>
+        
 	  <li><a href="../assist/values.html">
 	  
 	  assist/values
@@ -300,6 +312,8 @@
   <li><a href="#input_datum">input_datum</a></li>
   
   <li><a href="#input_datum_by_hash">input_datum_by_hash</a></li>
+  
+  <li><a href="#metadata">metadata</a></li>
   
   <li><a href="#output_datum">output_datum</a></li>
   
@@ -365,6 +379,25 @@ to be an inline datum.</p>
 data is assumed to be embedded data and must be referenced by
 its hash.</p>
 <pre><code class="language-aiken">expect datum: Datum = data.input_datum_by_hash(this_input, these_datums)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="metadata"><pre class="hljs language-aiken">metadata(metadata: Dict&lt;Data, Data&gt;, key: Data) -&gt; Data</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find some data from the metadata or fail. The key and value can be 
+arbitrary data. This function is designed to work on the CIP68 generic
+type.</p>
+<pre><code class="language-aiken">expect datum: Data = data.metadata(cip68.metadatum, datum.data_key)
 </code></pre>
 </div>
   </div>
@@ -481,8 +514,8 @@ to be embedded.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1702994576"></script>
+    <script src="../js/index.js?v=1703789625"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1702994576"></script>
+    <script src="../search-data.js?v=1703789625"></script>
   </body>
 </html>
