@@ -44,4 +44,4 @@ The **Aiken Assist Library** is released under the Apache2 License. See the `LIC
 
 ## Contact
 
-For any questions or feedback, please contact the project maintainer at `logical.mechanism@protonmail.com`.
+For any questions or feedback, please contact the project maintainer at `support@logicalmechanism.io`.
