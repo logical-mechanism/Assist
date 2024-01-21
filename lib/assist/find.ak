@@ -9,7 +9,7 @@ use aiken/transaction.{
   TransactionId,
 }
 use aiken/transaction/credential.{Address, StakeCredential}
-use aiken/transaction/value.{Value}
+use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/addresses
 use assist/credentials
 use assist/data
@@ -370,4 +370,44 @@ test cant_find_redeemer_by_ref() fail {
   // this will fails
   expect datum: Int = redeemer_by_ref(tx.redeemers, fake_tx.test_bad_out_ref())
   datum == 1
+}
+
+/// Find the first occurance of an inline datum on an output with a value 
+/// that contains a specific nft.
+pub fn output_datum_by_nft(
+  outputs: List<Output>,
+  pid: PolicyId,
+  tkn: AssetName,
+) -> Data {
+  when outputs is {
+    [output, ..rest] ->
+      if values.prove_exact_nft(pid, tkn, output.value) {
+        when output.datum is {
+          // inline and holding the nft
+          InlineDatum(outbound_datum) -> outbound_datum
+          _ -> fail @"No Datum On Output"
+        }
+      } else {
+        output_datum_by_nft(rest, pid, tkn)
+      }
+    [] -> fail @"No Datum Found In Outputs"
+  }
+}
+
+test find_output_datum_by_nft() {
+  let outputs: List<Output> = fake_tx.test_bad_outputs()
+  expect outcome: ByteArray = output_datum_by_nft(outputs, #"fade", #"cafe")
+  outcome == fake_tx.test_datum
+}
+
+test cant_find_output_datum_by_nft1() fail {
+  let outputs: List<Output> = fake_tx.test_bad_outputs()
+  expect outcome: ByteArray = output_datum_by_nft(outputs, #"fadebeef", #"cafe")
+  outcome == fake_tx.test_datum
+}
+
+test cant_find_output_datum_by_nft2() fail {
+  let outputs: List<Output> = fake_tx.test_bad_outputs()
+  expect outcome: ByteArray = output_datum_by_nft(outputs, #"fade", #"fade")
+  outcome == fake_tx.test_datum
 }

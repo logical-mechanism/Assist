@@ -166,6 +166,41 @@ pub fn test_bad_output() -> Output {
   output
 }
 
+pub fn test_bad_outputs() -> List<Output> {
+  [
+    Output {
+      address: addresses.create_address(#"acab", #""),
+      value: value.from_asset(#"acab", #"beef", 40),
+      datum: InlineDatum(test_datum),
+      reference_script: None,
+    },
+    Output {
+      address: addresses.create_address(#"face", #""),
+      value: value.from_lovelace(40),
+      datum: NoDatum,
+      reference_script: None,
+    },
+    Output {
+      address: addresses.create_address(#"face", #""),
+      value: value.from_lovelace(60),
+      datum: NoDatum,
+      reference_script: None,
+    },
+    Output {
+      address: addresses.create_address(#"beef", #"beef"),
+      value: value.from_asset(#"fade", #"cafe", 1),
+      datum: InlineDatum(test_datum),
+      reference_script: None,
+    },
+    Output {
+      address: addresses.create_address(#"cafe", #"beef"),
+      value: value.from_asset(#"fade", #"fade", 1),
+      datum: NoDatum,
+      reference_script: None,
+    },
+  ]
+}
+
 /// A fake list of tx signers
 pub fn test_signatories() -> List<ByteArray> {
   [
