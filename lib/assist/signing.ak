@@ -18,22 +18,22 @@ pub fn verify_sig(vks: List<PublicKeyHash>, vk: PublicKeyHash) -> Bool {
 }
 
 test no_signature() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   verify_sig(sigs, #"") == False
 }
 
 test bad_signature() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   verify_sig(sigs, #"cafe") == False
 }
 
 test has_signature() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   verify_sig(sigs, #"acab") == True
 }
 
 test lots_of_signatures() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   list.all(list.map(sigs, fn(n) { verify_sig(sigs, n) }), fn(n) { n == True }) == True
 }
 
@@ -61,7 +61,7 @@ fn do_multisig(
   // loop who has to sign tx, count how many signatures have signed.
   when vks is {
     [vk, ..rest] ->
-      if verify_sig(sigs, vk) == True {
+      if verify_sig(sigs, vk) {
         // signature found
         do_multisig(sigs, rest, counter + 1)
       } else {
@@ -74,21 +74,21 @@ fn do_multisig(
 }
 
 test no_multisig() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   verify_multisig(sigs, [], 1) == False
 }
 
 test bad_multisig() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   verify_multisig(sigs, [#"acab"], 2) == False
 }
 
 test has_multisig() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   verify_multisig(sigs, [#"acab", #"beef"], 2) == True
 }
 
 test big_multisig() {
-  let sigs = fake_tx.test_signatories()
+  let sigs: List<PublicKeyHash> = fake_tx.test_signatories()
   verify_multisig(sigs, sigs, 25) == True
 }

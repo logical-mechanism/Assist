@@ -123,26 +123,26 @@ pub fn from_int(self: Int) -> ByteArray {
 }
 
 test odd_from_int() {
-  let n = 46118402439
+  let n: Int = 46118402439
   // odd length get prepended with a zero
   from_int(n) == #"0abcdef987"
 }
 
 test empty_from_int() {
-  let str = #""
-  let n = to_int(str)
+  let str: ByteArray = #""
+  let n: Int = to_int(str)
   from_int(n) == str
 }
 
 test simple_from_int() {
-  let str = #"acab"
-  let n = to_int(str)
+  let str: ByteArray = #"acab"
+  let n: Int = to_int(str)
   from_int(n) == str
 }
 
 test complex_from_int() {
-  let str = #"acabbeeffacecafe"
-  let n = to_int(str)
+  let str: ByteArray = #"acabbeeffacecafe"
+  let n: Int = to_int(str)
   from_int(n) == str
 }
 

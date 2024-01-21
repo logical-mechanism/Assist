@@ -19,11 +19,11 @@ pub fn out_ref(tx_id_hash: ByteArray, idx: Int) -> OutputReference {
 }
 
 test correct_out_ref() {
-  let correct_out_ref = fake_tx.test_out_ref()
+  let correct_out_ref: OutputReference = fake_tx.test_out_ref()
   out_ref(#"acab", 0) == correct_out_ref
 }
 
 test bad_out_ref() {
-  let correct_out_ref = fake_tx.test_out_ref()
+  let correct_out_ref: OutputReference = fake_tx.test_out_ref()
   out_ref(#"", 0) != correct_out_ref
 }

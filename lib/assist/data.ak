@@ -24,13 +24,13 @@ pub fn input_datum(possible_input: Input) -> Data {
 }
 
 test find_input_datum() {
-  let input = fake_tx.test_input()
+  let input: Input = fake_tx.test_input()
   expect datum: ByteArray = input_datum(input)
   datum == fake_tx.test_datum
 }
 
 test cant_find_input_datum() fail {
-  let input = fake_tx.test_bad_input()
+  let input: Input = fake_tx.test_bad_input()
   expect datum: ByteArray = input_datum(input)
   // this will fail
   datum == fake_tx.test_datum
@@ -58,8 +58,8 @@ pub fn input_datum_by_hash(
 }
 
 test find_input_datum_hash() {
-  let input = fake_tx.test_input_with_datum_hash()
-  let datums =
+  let input: Input = fake_tx.test_input_with_datum_hash()
+  let datums: Dict<ByteArray, Data> =
     dict.new()
       |> dict.insert(
            key: fake_tx.test_datum,
@@ -71,8 +71,8 @@ test find_input_datum_hash() {
 }
 
 test cant_find_input_datum_hash() fail {
-  let input = fake_tx.test_input_with_datum_hash()
-  let datums =
+  let input: Input = fake_tx.test_input_with_datum_hash()
+  let datums: Dict<ByteArray, Data> =
     dict.new()
       |> dict.insert(
            key: #"acab",
@@ -98,13 +98,13 @@ pub fn output_datum(possible_output: Output) -> Data {
 }
 
 test find_output_datum() {
-  let output = fake_tx.test_output()
+  let output: Output = fake_tx.test_output()
   expect datum: ByteArray = output_datum(output)
   datum == fake_tx.test_datum
 }
 
 test cant_find_output_datum() fail {
-  let output = fake_tx.test_bad_output()
+  let output: Output = fake_tx.test_bad_output()
   expect datum: ByteArray = output_datum(output)
   // this will fail
   datum == fake_tx.test_datum
@@ -131,8 +131,8 @@ pub fn output_datum_by_hash(
 }
 
 test find_output_datum_hash() {
-  let output = fake_tx.test_output_with_datum_hash()
-  let datums =
+  let output: Output = fake_tx.test_output_with_datum_hash()
+  let datums: Dict<ByteArray, Data> =
     dict.new()
       |> dict.insert(
            key: fake_tx.test_datum,
@@ -144,8 +144,8 @@ test find_output_datum_hash() {
 }
 
 test cant_find_output_datum_hash() fail {
-  let output = fake_tx.test_output_with_datum_hash()
-  let datums =
+  let output: Output = fake_tx.test_output_with_datum_hash()
+  let datums: Dict<ByteArray, Data> =
     dict.new()
       |> dict.insert(
            key: #"acab",
@@ -173,7 +173,7 @@ pub fn metadata(metadata: Dict<Data, Data>, key: Data) -> Data {
 
 test find_metadata() {
   let key: ByteArray = #"acab"
-  let cip68_metadata =
+  let cip68_metadata: Dict<Data, Data> =
     dict.new()
       |> dict.insert(
            key: builtin.b_data(key),
@@ -187,7 +187,7 @@ test find_metadata() {
 test cant_find_metadata() fail {
   let key: ByteArray = #"acab"
   let bad_key: ByteArray = #""
-  let cip68_metadata =
+  let cip68_metadata: Dict<Data, Data> =
     dict.new()
       |> dict.insert(
            key: builtin.b_data(key),

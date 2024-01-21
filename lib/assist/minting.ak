@@ -25,7 +25,7 @@ pub fn exact(
         policy == pid,
         token_name == tkn,
         quantity == amt,
-      } == True {
+      } {
         True
       } else {
         exact(rest, pid, tkn, amt)
@@ -93,7 +93,7 @@ pub fn by_prefix(
         policy == pid,
         prefix == p,
         quantity == amt,
-      } == True {
+      } {
         True
       } else {
         by_prefix(rest, pid, prefix, amt)
@@ -153,7 +153,7 @@ pub fn is_occurring(
       if and {
         policy == pid,
         token_name == tkn,
-      } == True {
+      } {
         True
       } else {
         is_occurring(rest, pid, tkn)

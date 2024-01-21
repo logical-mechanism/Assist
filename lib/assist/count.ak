@@ -3,7 +3,7 @@
 ////
 
 use aiken/list
-use aiken/transaction.{DatumHash, InlineDatum, Input, Output}
+use aiken/transaction.{DatumHash, InlineDatum, Input, Output, Transaction}
 use aiken/transaction/credential.{Address}
 use assist/addresses
 // for testing only
@@ -37,28 +37,28 @@ fn do_inputs_by_datum(inputs: List<Input>, counter: Int) -> Int {
 }
 
 test single_input_datum() {
-  let tx = fake_tx.test_tx()
+  let tx: Transaction = fake_tx.test_tx()
   inputs_by_datum(tx.inputs, 1) == True
 }
 
 test single_input_datum_hash() {
-  let input = fake_tx.test_input_with_datum_hash()
+  let input: Input = fake_tx.test_input_with_datum_hash()
   inputs_by_datum([input], 1) == True
 }
 
 test single_input_with_mixed_datums() {
-  let input1 = fake_tx.test_input_with_datum_hash()
-  let input2 = fake_tx.test_input()
+  let input1: Input = fake_tx.test_input_with_datum_hash()
+  let input2: Input = fake_tx.test_input()
   inputs_by_datum([input1, input2], 2) == True
 }
 
 test not_enough_input_datums() {
-  let tx = fake_tx.test_tx()
+  let tx: Transaction = fake_tx.test_tx()
   inputs_by_datum(tx.inputs, 2) == False
 }
 
 test not_enough_input_datum_hashes() {
-  let input = fake_tx.test_input_with_datum_hash()
+  let input: Input = fake_tx.test_input_with_datum_hash()
   inputs_by_datum([input], 2) == False
 }
 
@@ -91,25 +91,25 @@ fn do_inputs_by_addr(inputs: List<Input>, addr: Address, counter: Int) -> Int {
 }
 
 test single_script_input() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
   inputs_by_addr(tx.inputs, addr, 1) == True
 }
 
 test not_enough_inputs_by_addr() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
   inputs_by_addr(tx.inputs, addr, 2) == False
 }
 
 test multiple_inputs_by_addr() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"face", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"face", #"")
   inputs_by_addr(tx.inputs, addr, 2) == True
 }
 
 test empty_input_addr() {
-  let addr = addresses.create_address(#"acab", #"")
+  let addr: Address = addresses.create_address(#"acab", #"")
   inputs_by_addr([], addr, 0) == True
 }
 
@@ -143,25 +143,25 @@ fn do_outputs_by_addr(outputs: List<Output>, addr: Address, counter: Int) -> Int
 }
 
 test single_script_output() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
   outputs_by_addr(tx.outputs, addr, 1) == True
 }
 
 test not_enough_outputs_by_addr() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
   outputs_by_addr(tx.outputs, addr, 2) == False
 }
 
 test multiple_outputs_by_addr() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"face", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"face", #"")
   outputs_by_addr(tx.outputs, addr, 2) == True
 }
 
 test empty_output_addr() {
-  let addr = addresses.create_address(#"acab", #"")
+  let addr: Address = addresses.create_address(#"acab", #"")
   outputs_by_addr([], addr, 0) == True
 }
 
@@ -193,17 +193,17 @@ fn do_outputs_by_datum(outputs: List<Output>, counter: Int) -> Int {
 }
 
 test single_output_datum() {
-  let tx = fake_tx.test_tx()
+  let tx: Transaction = fake_tx.test_tx()
   outputs_by_datum(tx.outputs, 1) == True
 }
 
 test not_enough_output_datums() {
-  let tx = fake_tx.test_tx()
+  let tx: Transaction = fake_tx.test_tx()
   outputs_by_datum(tx.outputs, 2) == False
 }
 
 test single_output_datum_hash() {
-  let output = fake_tx.test_output_with_datum_hash()
+  let output: Output = fake_tx.test_output_with_datum_hash()
   outputs_by_datum([output], 1) == True
 }
 
@@ -214,7 +214,7 @@ test single_output_with_mixed_datums() {
 }
 
 test not_enough_output_datum_hashes() {
-  let output = fake_tx.test_output_with_datum_hash()
+  let output: Output = fake_tx.test_output_with_datum_hash()
   outputs_by_datum([output], 2) == False
 }
 
@@ -284,8 +284,8 @@ fn do_single_input_with_bypass(
 }
 
 test single_input_with_no_bypass() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
   single_input_with_bypass(tx.inputs, addr, []) == True
 }
 

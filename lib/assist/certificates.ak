@@ -25,7 +25,7 @@ pub fn create_credential_delegation(
 }
 
 test simple_credential_delegation() {
-  let cred =
+  let cred: Certificate =
     CredentialDelegation {
       delegator: credentials.create_stake_credential(#""),
       delegatee: #"",
