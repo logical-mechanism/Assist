@@ -2,7 +2,7 @@
 //// functions are designed to return a boolean value instead of an error.
 ////
 
-use aiken/transaction.{Output}
+use aiken/transaction.{Output, Transaction}
 use aiken/transaction/credential.{Address}
 use aiken/transaction/value.{Value}
 use assist/addresses
@@ -38,16 +38,16 @@ pub fn exact(
 }
 
 test find_exact_payout() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"face", #"")
-  let val = value.from_lovelace(40)
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"face", #"")
+  let val: Value = value.from_lovelace(40)
   exact(addr, val, tx.outputs) == True
 }
 
 test missing_exact_payout() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
-  let val = value.from_lovelace(40)
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let val: Value = value.from_lovelace(40)
   exact(addr, val, tx.outputs) == False
 }
 
@@ -79,23 +79,23 @@ pub fn at_least(
 }
 
 test at_least_payout() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
-  let val = value.from_asset(#"acab", #"beef", 40)
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let val: Value = value.from_asset(#"acab", #"beef", 40)
   at_least(addr, val, tx.outputs) == True
 }
 
 test find_just_enough_token_payout() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
-  let val = value.from_asset(#"acab", #"beef", 20)
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let val: Value = value.from_asset(#"acab", #"beef", 20)
   at_least(addr, val, tx.outputs) == True
 }
 
 test missing_token_payout() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
-  let val = value.from_asset(#"acab", #"beef", 60)
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let val: Value = value.from_asset(#"acab", #"beef", 60)
   at_least(addr, val, tx.outputs) == False
 }
 
@@ -118,13 +118,13 @@ pub fn cont(payout_address: Address, outputs: List<Output>) -> Bool {
 }
 
 test cont_payout() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"acab", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
   cont(addr, tx.outputs) == True
 }
 
 test missing_cont_payout() {
-  let tx = fake_tx.test_tx()
-  let addr = addresses.create_address(#"cafe", #"")
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"cafe", #"")
   cont(addr, tx.outputs) == False
 }

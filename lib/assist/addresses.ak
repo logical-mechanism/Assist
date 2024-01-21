@@ -36,7 +36,7 @@ pub fn create_address(pkh: PublicKeyHash, sc: PublicKeyHash) -> Address {
 }
 
 test enterprise_wallet() {
-  let addr =
+  let addr: Address =
     Address {
       payment_credential: VerificationKeyCredential(#"acab"),
       stake_credential: None,
@@ -45,7 +45,7 @@ test enterprise_wallet() {
 }
 
 test base_wallet() {
-  let addr =
+  let addr: Address =
     Address {
       payment_credential: VerificationKeyCredential(#"acab"),
       stake_credential: Some(Inline(VerificationKeyCredential(#"face"))),
@@ -54,7 +54,7 @@ test base_wallet() {
 }
 
 test correct_wallet_sc() {
-  let addr =
+  let addr: Address =
     Address {
       payment_credential: VerificationKeyCredential(#"acab"),
       stake_credential: Some(Inline(VerificationKeyCredential(#""))),
@@ -80,7 +80,7 @@ pub fn create_script_address(pkh: ValidatorHash, sc: ValidatorHash) -> Address {
 }
 
 test enterprise_script() {
-  let script_addr =
+  let script_addr: Address =
     Address {
       payment_credential: ScriptCredential(#"acab"),
       stake_credential: None,
@@ -89,7 +89,7 @@ test enterprise_script() {
 }
 
 test base_script() {
-  let script_addr =
+  let script_addr: Address =
     Address {
       payment_credential: ScriptCredential(#"acab"),
       stake_credential: Some(Inline(ScriptCredential(#"face"))),
@@ -98,7 +98,7 @@ test base_script() {
 }
 
 test correct_script_sc() {
-  let script_addr =
+  let script_addr: Address =
     Address {
       payment_credential: ScriptCredential(#"acab"),
       stake_credential: Some(Inline(ScriptCredential(#""))),

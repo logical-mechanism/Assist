@@ -119,31 +119,31 @@ fn do_total_token_amount(
 }
 
 test count_pid1() {
-  let amt = 1
-  let inputs = fake_tx.test_inputs(amt)
+  let amt: Int = 1
+  let inputs: List<Input> = fake_tx.test_inputs(amt)
   total_token_amount(inputs, #"acab", #"beef", amt * 100)
 }
 
 test count_pid2() {
-  let amt = 2
-  let inputs = fake_tx.test_inputs(amt)
+  let amt: Int = 2
+  let inputs: List<Input> = fake_tx.test_inputs(amt)
   total_token_amount(inputs, #"acab", #"beef", amt * 100)
 }
 
 test count_pid3() {
-  let amt = 4
-  let inputs = fake_tx.test_inputs(amt)
+  let amt: Int = 4
+  let inputs: List<Input> = fake_tx.test_inputs(amt)
   total_token_amount(inputs, #"acab", #"beef", amt * 100)
 }
 
 test count_pid4() {
-  let amt = 8
-  let inputs = fake_tx.test_inputs(amt)
+  let amt: Int = 8
+  let inputs: List<Input> = fake_tx.test_inputs(amt)
   total_token_amount(inputs, #"acab", #"beef", amt * 100)
 }
 
 test count_pid5() {
-  let amt = 16
-  let inputs = fake_tx.test_inputs(amt)
+  let amt: Int = 16
+  let inputs: List<Input> = fake_tx.test_inputs(amt)
   total_token_amount(inputs, #"acab", #"beef", amt * 100)
 }

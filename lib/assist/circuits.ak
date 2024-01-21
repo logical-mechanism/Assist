@@ -26,36 +26,36 @@ pub fn and_(x: Int, y: Int, p: Int) -> Int {
 
 // Identity and tests
 test identity_and() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   and_(x, 1, p) == x
 }
 
 // Same tests
 test same_operands_and() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   and_(x, x, p) == x * x
 }
 
 // Nullification tests
 test nullification_and() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   and_(x, 0, p) == 0
 }
 
 // Commutative property test
 test commutative_and() {
-  let p = 44203
-  let x = 123
-  let y = 321
+  let p: Int = 44203
+  let x: Int = 123
+  let y: Int = 321
   and_(x, y, p) == and_(y, x, p)
 }
 
 // Boundary tests
 test boundary_and() {
-  let p = 44203
+  let p: Int = 44203
   and {
     and_(0, p - 1, p) == 0,
     and_(p - 1, p - 1, p) == 1,
@@ -75,40 +75,40 @@ pub fn or_(x: Int, y: Int, p: Int) -> Int {
 // this can get expensive
 test do_pos_shift_test1() {
   let r = -1975180248
-  let p = 44203
+  let p: Int = 44203
   do_pos_shift(r, p) == r + 44685 * p
 }
 
 test do_pos_shift_test2() {
   let r = -15
-  let p = 44203
+  let p: Int = 44203
   do_pos_shift(r, p) == r + 1 * p
 }
 
 // Identity and Dominance tests
 test identity_or() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   or_(x, 0, p) == x
 }
 
 test dominance_or() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   or_(x, 1, p) == 1
 }
 
 // Commutative property test
 test commutative_or() {
-  let p = 44203
-  let x = 123
-  let y = 321
+  let p: Int = 44203
+  let x: Int = 123
+  let y: Int = 321
   or_(x, y, p) == or_(y, x, p)
 }
 
 // Boundary tests
 test boundary_or() {
-  let p = 44203
+  let p: Int = 44203
   or {
     or_(0, p - 1, p) == p - 1,
     or_(p - 1, p - 1, p) == p - 1,
@@ -117,8 +117,8 @@ test boundary_or() {
 
 // Tests with both operands being the same
 test same_operands_or() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   or_(x, x, p) == x + x - x * x + p
 }
 
@@ -133,14 +133,14 @@ pub fn not_(x: Int, p: Int) -> Int {
 
 // Boundary test for maximum value
 test not_max() {
-  let p = 44203
+  let p: Int = 44203
   not_(p - 1, p) == ( p + 1 - ( p - 1 ) ) % p
 }
 
 // Test for inverting the NOT operation
 test not_inversion() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   not_(not_(x, p), p) == x
 }
 
@@ -156,16 +156,16 @@ pub fn xor_(x: Int, y: Int, p: Int) -> Int {
 
 // Commutative property test
 test commutative_xor() {
-  let p = 44203
-  let x = 123
-  let y = 321
+  let p: Int = 44203
+  let x: Int = 123
+  let y: Int = 321
   xor_(x, y, p) == xor_(y, x, p)
 }
 
 // Test for inverting the XOR operation with the same number
 test xor_inversion() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   xor_(x, x, p) == x + x - 2 * x * x + p
 }
 
@@ -180,29 +180,29 @@ pub fn nand_(x: Int, y: Int, p: Int) -> Int {
 
 // Identity and tests
 test identity_nand() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   nand_(x, 1, p) == not_(x, p)
 }
 
 // Nullification tests
 test nullification_nand() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   nand_(x, 0, p) == not_(0, p)
 }
 
 // Commutative property test
 test commutative_nand() {
-  let p = 44203
-  let x = 123
-  let y = 321
+  let p: Int = 44203
+  let x: Int = 123
+  let y: Int = 321
   nand_(x, y, p) == nand_(y, x, p)
 }
 
 // Boundary tests
 test boundary_nand() {
-  let p = 44203
+  let p: Int = 44203
   and {
     nand_(0, p - 1, p) == 1,
     nand_(p - 1, p - 1, p) == 0,
@@ -220,28 +220,28 @@ pub fn nor_(x: Int, y: Int, p: Int) -> Int {
 
 // Identity and Dominance tests
 test identity_nor() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   nor_(x, 0, p) == not_(x, p)
 }
 
 test dominance_nor() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   nor_(x, 1, p) == not_(1, p)
 }
 
 // Commutative property test
 test commutative_nor() {
-  let p = 44203
-  let x = 123
-  let y = 321
+  let p: Int = 44203
+  let x: Int = 123
+  let y: Int = 321
   nor_(x, y, p) == nor_(y, x, p)
 }
 
 // Boundary tests
 test boundary_nor() {
-  let p = 44203
+  let p: Int = 44203
   or {
     nor_(0, p - 1, p) == not_(p - 1, p),
     nor_(p - 1, p - 1, p) == not_(p - 1, p),
@@ -250,8 +250,8 @@ test boundary_nor() {
 
 // Tests with both operands being the same
 test same_operands_nor() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   nor_(x, x, p) == not_(x + x - x * x + p, p)
 }
 
@@ -266,16 +266,16 @@ pub fn xnor_(x: Int, y: Int, p: Int) -> Int {
 
 // Commutative property test
 test commutative_xnor() {
-  let p = 44203
-  let x = 123
-  let y = 321
+  let p: Int = 44203
+  let x: Int = 123
+  let y: Int = 321
   xnor_(x, y, p) == xnor_(y, x, p)
 }
 
 // Test for inverting the XOR operation with the same number
 test xnor_inversion() {
-  let p = 44203
-  let x = 123
+  let p: Int = 44203
+  let x: Int = 123
   xnor_(x, x, p) == not_(x + x - 2 * x * x + p, p)
 }
 
@@ -290,23 +290,23 @@ pub fn imply_(x: Int, y: Int, p: Int) -> Int {
 
 // Commutative property test
 test no_commutative_imply() {
-  let p = 44203
-  let x = 123
-  let y = 321
+  let p: Int = 44203
+  let x: Int = 123
+  let y: Int = 321
   imply_(x, y, p) != imply_(y, x, p)
 }
 
 // Boundary tests
 test boundary_imply() {
-  let p = 44203
+  let p: Int = 44203
   imply_(0, p - 1, p) == 1
 }
 
 // An equation can now be built out of the functions
 test a_simple_circuit() {
-  let p = 44203
-  let x = 172
-  let y = 256
+  let p: Int = 44203
+  let x: Int = 172
+  let y: Int = 256
   // the first statement reduces to 1 = and_(x, y+1, p)
   and {
     ( or_(x, y, p) + not_(x, p) ) % p == ( xor_(x, y, p) + 2 * and_(x, y, p) ) % p,
@@ -315,8 +315,8 @@ test a_simple_circuit() {
 }
 
 test a_moderate_circuit() {
-  let p = 44203
-  let x = 8860
-  let y = 9047
+  let p: Int = 44203
+  let x: Int = 8860
+  let y: Int = 9047
   not_(x, p) == not_(x, y) * not_(x, y)
 }

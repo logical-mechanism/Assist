@@ -2,6 +2,7 @@
 
 - Refactored types to prevent future name collisions
 - Added `output_datum_by_nft` to the find submodule.
+- All tests should be type annotated.
 
 # v0.4.0
 
