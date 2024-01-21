@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.0 </span>
+          <span>v0.4.1 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.0";
+            const currentVersion = "v0.4.1";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -280,9 +280,33 @@
 	  
 	  </a></li>
         
-	  <li><a href="../assist/types.html">
+	  <li><a href="../assist/types/cip68.html">
 	  
-	  assist/types
+	  assist/types/cip68
+	  
+	  </a></li>
+        
+	  <li><a href="../assist/types/hashes.html">
+	  
+	  assist/types/hashes
+	  
+	  </a></li>
+        
+	  <li><a href="../assist/types/moment.html">
+	  
+	  assist/types/moment
+	  
+	  </a></li>
+        
+	  <li><a href="../assist/types/token.html">
+	  
+	  assist/types/token
+	  
+	  </a></li>
+        
+	  <li><a href="../assist/types/wallet.html">
+	  
+	  assist/types/wallet
 	  
 	  </a></li>
         
@@ -326,6 +350,8 @@
   <li><a href="#output_by_value">output_by_value</a></li>
   
   <li><a href="#output_datum_by_addr">output_datum_by_addr</a></li>
+  
+  <li><a href="#output_datum_by_nft">output_datum_by_nft</a></li>
   
   <li><a href="#redeemer_by_ref">redeemer_by_ref</a></li>
   
@@ -530,6 +556,26 @@ found then error.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="output_datum_by_nft"><pre class="hljs language-aiken">output_datum_by_nft(
+  outputs: List&lt;Output&gt;,
+  pid: PolicyId,
+  tkn: AssetName,
+) -&gt; Data</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Find the first occurance of an inline datum on an output with a value 
+that contains a specific nft.</p>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="redeemer_by_ref"><pre class="hljs language-aiken">redeemer_by_ref(
   redeemers: Dict&lt;ScriptPurpose, Redeemer&gt;,
   out_ref: OutputReference,
@@ -645,8 +691,8 @@ checking on-chain staking rewards and withdrawal validation.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1703789625"></script>
+    <script src="../js/index.js?v=1705877441"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1703789625"></script>
+    <script src="../search-data.js?v=1705877441"></script>
   </body>
 </html>
