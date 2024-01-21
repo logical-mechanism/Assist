@@ -1,3 +1,8 @@
+# v0.4.1
+
+- Refactored types to prevent future name collisions
+- Added `output_datum_by_nft` to the find submodule.
+
 # v0.4.0
 
 *This version is contains breaking changes.*
