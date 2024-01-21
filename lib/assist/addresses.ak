@@ -7,7 +7,8 @@ use aiken/bytearray
 use aiken/transaction/credential.{
   Address, Inline, ScriptCredential, VerificationKeyCredential,
 }
-use assist/types.{PublicKeyHash, ValidatorHash, Wallet}
+use assist/types/hashes.{PublicKeyHash, ValidatorHash}
+use assist/types/wallet.{Wallet}
 
 /// Creates an address from the wallet type.
 ///

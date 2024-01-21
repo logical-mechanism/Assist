@@ -9,7 +9,8 @@ use aiken/list
 use aiken/string
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/prefixes
-use assist/types.{Token, TxHash}
+use assist/types/hashes.{TxHash}
+use assist/types/token.{Token}
 
 /// Creates a Value type from a token type.
 pub fn from_token(token: Token) -> Value {

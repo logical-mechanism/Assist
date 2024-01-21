@@ -3,7 +3,7 @@
 ////
 
 use aiken/list
-use assist/types.{PublicKeyHash}
+use assist/types/hashes.{PublicKeyHash}
 // for testing only
 use tests/fake_tx
 

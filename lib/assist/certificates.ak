@@ -5,7 +5,7 @@
 use aiken/transaction/certificate.{Certificate, CredentialDelegation}
 use aiken/transaction/credential.{PoolId}
 use assist/credentials
-use assist/types.{ValidatorHash}
+use assist/types/hashes.{ValidatorHash}
 
 /// Creates a credential delegation for changing the location of the stake.
 /// This certificate can be used to check if stake is being delegated to
