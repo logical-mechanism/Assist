@@ -5,7 +5,7 @@
 use aiken/transaction/credential.{
   Credential, Inline, Referenced, ScriptCredential,
 }
-use assist/types.{ValidatorHash}
+use assist/types/hashes.{ValidatorHash}
 
 /// Creates a stake credential from the hex encoding of a stake key.
 /// This can be used to find the reward amount from the withdrawals 

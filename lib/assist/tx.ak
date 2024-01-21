@@ -7,7 +7,7 @@ use aiken/transaction.{Input, OutputReference}
 use aiken/transaction/credential
 use aiken/transaction/value.{AssetName, PolicyId}
 use assist/std
-use assist/types.{ValidatorHash}
+use assist/types/hashes.{ValidatorHash}
 use tests/fake_tx
 
 /// Check if a specific input by output reference is being spent. This is useful
