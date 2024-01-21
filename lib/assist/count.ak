@@ -2,6 +2,7 @@
 //// outputs in a transaction containing an address or a datum.
 ////
 
+use aiken/list
 use aiken/transaction.{DatumHash, InlineDatum, Input, Output}
 use aiken/transaction/credential.{Address}
 use assist/addresses
@@ -219,4 +220,84 @@ test not_enough_output_datum_hashes() {
 
 test empty_output_datums() {
   outputs_by_datum([], 0) == True
+}
+
+/// The contract can only be spent by itself or along side some list of know 
+/// addresses. Loop all the inputs and count how many datums belong to this 
+/// address. If any of those addresses exists then pass right over them but if 
+/// anything else is found then fail. This should prevent unregulated contracts
+/// from being spent along side this script.
+///
+/// count.single_input_with_bypass(this_tx.inputs, this_addr, [that_addr])
+///
+pub fn single_input_with_bypass(
+  inputs: List<Input>,
+  this_addr: Address,
+  those_addrs: List<Address>,
+) -> Bool {
+  do_single_input_with_bypass(inputs, 0, this_addr, those_addrs)
+}
+
+// Internal only
+fn do_single_input_with_bypass(
+  inputs: List<Input>,
+  counter: Int,
+  this_addr: Address,
+  those_addrs: List<Address>,
+) -> Bool {
+  when inputs is {
+    [input, ..rest] ->
+      when input.output.datum is {
+        // the actual datum value isn't important here
+        InlineDatum(_) ->
+          if input.output.address == this_addr {
+            do_single_input_with_bypass(
+              rest,
+              counter + 1,
+              this_addr,
+              those_addrs,
+            )
+          } else if list.any(those_addrs, fn(n) { input.output.address == n }) {
+            do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
+          } else {
+            fail @"Not An Allowed Address On Inline Datum"
+          }
+        // the actual datum hash isn't important here
+        DatumHash(_) ->
+          if input.output.address == this_addr {
+            do_single_input_with_bypass(
+              rest,
+              counter + 1,
+              this_addr,
+              those_addrs,
+            )
+          } else if list.any(those_addrs, fn(n) { input.output.address == n }) {
+            do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
+          } else {
+            fail @"Not An Allowed Address On Datum Hash"
+          }
+        _ -> do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
+      }
+    // there can be only this address and any amount of those addresses but nothing else
+    [] -> counter == 1
+  }
+}
+
+test single_input_with_no_bypass() {
+  let tx = fake_tx.test_tx()
+  let addr = addresses.create_address(#"acab", #"")
+  single_input_with_bypass(tx.inputs, addr, []) == True
+}
+
+test single_input_with_a_bypass() {
+  let this_inputs: List<Input> = fake_tx.test_bad_inputs()
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let that_addr: Address = addresses.create_address(#"cafe", #"")
+  single_input_with_bypass(this_inputs, addr, [that_addr]) == True
+}
+
+test single_input_with_a_bad_bypass() fail {
+  let this_inputs: List<Input> = fake_tx.test_bad_inputs()
+  let addr: Address = addresses.create_address(#"acab", #"")
+  single_input_with_bypass(this_inputs, addr, []) == True
 }

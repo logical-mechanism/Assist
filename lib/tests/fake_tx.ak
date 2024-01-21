@@ -130,6 +130,59 @@ pub fn test_bad_input() -> Input {
   input
 }
 
+pub fn test_bad_inputs() -> List<Input> {
+  [
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
+      output: Output {
+        address: addresses.create_address(#"acab", #""),
+        value: value.from_lovelace(100),
+        datum: InlineDatum(test_datum),
+        reference_script: None,
+      },
+    },
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
+      output: Output {
+        address: addresses.create_address(#"face", #""),
+        value: value.from_lovelace(5),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    },
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
+      output: Output {
+        address: addresses.create_address(#"face", #""),
+        value: value.from_lovelace(5),
+        datum: NoDatum,
+        reference_script: None,
+      },
+    },
+    Input {
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
+      output: Output {
+        address: addresses.create_address(#"cafe", #""),
+        value: value.from_lovelace(100),
+        datum: InlineDatum(test_datum),
+        reference_script: None,
+      },
+    },
+  ]
+}
+
 /// A fake output used for testing.
 pub fn test_output() -> Output {
   let output: Output =
