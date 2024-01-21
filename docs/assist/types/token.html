@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/types - logicalmechanism/assist</title>
+    <title>assist/types/token - logicalmechanism/assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
-    <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.21-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.21-alpha"/>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg"/>
+    <link rel="stylesheet" href="../../css/index.css?v=1.0.21-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../../css/atom-one-light.min.css?v=1.0.21-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
       "use strict";
-      window.breadcrumbs = '..';
+      window.breadcrumbs = '../..';
       const aikenConfig = {
         theme: {
           values: (() => {
@@ -118,15 +118,15 @@
       </button>
 
       <h2>
-        <a href="../">assist</a>
+        <a href="../../">assist</a>
         <span id="project-version">
-          <span>v0.4.0 </span>
+          <span>v0.4.1 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.0";
+            const currentVersion = "v0.4.1";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -190,109 +190,133 @@
 	
         <ul>
         
-	  <li><a href="../assist/addresses.html">
+	  <li><a href="../../assist/addresses.html">
 	  
 	  assist/addresses
 	  
 	  </a></li>
         
-	  <li><a href="../assist/boolean.html">
+	  <li><a href="../../assist/boolean.html">
 	  
 	  assist/boolean
 	  
 	  </a></li>
         
-	  <li><a href="../assist/certificates.html">
+	  <li><a href="../../assist/certificates.html">
 	  
 	  assist/certificates
 	  
 	  </a></li>
         
-	  <li><a href="../assist/circuits.html">
+	  <li><a href="../../assist/circuits.html">
 	  
 	  assist/circuits
 	  
 	  </a></li>
         
-	  <li><a href="../assist/count.html">
+	  <li><a href="../../assist/count.html">
 	  
 	  assist/count
 	  
 	  </a></li>
         
-	  <li><a href="../assist/credentials.html">
+	  <li><a href="../../assist/credentials.html">
 	  
 	  assist/credentials
 	  
 	  </a></li>
         
-	  <li><a href="../assist/data.html">
+	  <li><a href="../../assist/data.html">
 	  
 	  assist/data
 	  
 	  </a></li>
         
-	  <li><a href="../assist/find.html">
+	  <li><a href="../../assist/find.html">
 	  
 	  assist/find
 	  
 	  </a></li>
         
-	  <li><a href="../assist/maths.html">
+	  <li><a href="../../assist/maths.html">
 	  
 	  assist/maths
 	  
 	  </a></li>
         
-	  <li><a href="../assist/minting.html">
+	  <li><a href="../../assist/minting.html">
 	  
 	  assist/minting
 	  
 	  </a></li>
         
-	  <li><a href="../assist/payout.html">
+	  <li><a href="../../assist/payout.html">
 	  
 	  assist/payout
 	  
 	  </a></li>
         
-	  <li><a href="../assist/prefixes.html">
+	  <li><a href="../../assist/prefixes.html">
 	  
 	  assist/prefixes
 	  
 	  </a></li>
         
-	  <li><a href="../assist/signing.html">
+	  <li><a href="../../assist/signing.html">
 	  
 	  assist/signing
 	  
 	  </a></li>
         
-	  <li><a href="../assist/std.html">
+	  <li><a href="../../assist/std.html">
 	  
 	  assist/std
 	  
 	  </a></li>
         
-	  <li><a href="../assist/tx.html">
+	  <li><a href="../../assist/tx.html">
 	  
 	  assist/tx
 	  
 	  </a></li>
         
-	  <li><a href="../assist/types.html">
+	  <li><a href="../../assist/types/cip68.html">
 	  
-	  <strong>assist/types</strong>
+	  assist/types/cip68
 	  
 	  </a></li>
         
-	  <li><a href="../assist/values.html">
+	  <li><a href="../../assist/types/hashes.html">
+	  
+	  assist/types/hashes
+	  
+	  </a></li>
+        
+	  <li><a href="../../assist/types/moment.html">
+	  
+	  assist/types/moment
+	  
+	  </a></li>
+        
+	  <li><a href="../../assist/types/token.html">
+	  
+	  <strong>assist/types/token</strong>
+	  
+	  </a></li>
+        
+	  <li><a href="../../assist/types/wallet.html">
+	  
+	  assist/types/wallet
+	  
+	  </a></li>
+        
+	  <li><a href="../../assist/values.html">
 	  
 	  assist/values
 	  
 	  </a></li>
         
-	  <li><a href="../tests/fake_tx.html">
+	  <li><a href="../../tests/fake_tx.html">
 	  
 	  tests/fake_tx
 	  
@@ -305,17 +329,9 @@
 <h2>Types</h2>
 <ul>
   
-  <li><a href="#CIP68">CIP68</a></li>
-  
-  <li><a href="#PublicKeyHash">PublicKeyHash</a></li>
-  
   <li><a href="#Token">Token</a></li>
   
-  <li><a href="#TxHash">TxHash</a></li>
-  
-  <li><a href="#ValidatorHash">ValidatorHash</a></li>
-  
-  <li><a href="#Wallet">Wallet</a></li>
+  <li><a href="#Tokens">Tokens</a></li>
   
 </ul>
 
@@ -323,15 +339,21 @@
 
 
 
+<h2>Functions</h2>
+<ul>
+  
+  <li><a href="#add_token_to_value">add_token_to_value</a></li>
+  
+</ul>
+
 
       </nav>
 
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/types</a>
+  <a href="#module-name">assist/types/token</a>
 </h1>
-<p>General data types for smart contracts.</p>
 
 
 
@@ -340,71 +362,6 @@
     <a href="#module-types">Types</a>
   </h1>
 
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="CIP68">
-        <a href="#CIP68">
-	  CIP68
-        </a>
-      </h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>The generic CIP68 metadatum type as defined in the CIP at
-https://cips.cardano.org/cips/cip68/.</p>
-</div>
-      
-      <h3>Constructors</h3>
-      <ul class="constructor-list">
-        
-        <li class="constructor-item">
-          <div class="constructor-row">
-            <svg class="icon icon-box"><use xlink:href="#icon-box"></use></svg>
-            <pre class="constructor-name"><code class="hljs aiken">CIP68 { metadata: Dict&lt;Data, Data&gt;, version: Int }</code></pre>
-          </div>
-	  
-        </li>
-        
-      </ul>
-      
-    </div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="PublicKeyHash">
-        <a href="#PublicKeyHash">
-	  PublicKeyHash
-        </a>
-      </h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>The public key hash, vkey, of an wallet address. Expected to be length 56 and
-is network agnostic. This is a non-smart contract hash. </p>
-</div>
-      
-      <h3>Alias</h3>
-      <div class="constructor-row">
-        <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
-        <pre class="constructor-name"><code class="hljs aiken">PublicKeyHash = Hash&lt;Blake2b_224, VerificationKey&gt;</code></pre>
-      </div>
-      
-    </div>
-  </div>
   
   <div class="member">
     <div class="member-name">
@@ -443,9 +400,9 @@ is network agnostic. This is a non-smart contract hash. </p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="TxHash">
-        <a href="#TxHash">
-	  TxHash
+      <h2 id="Tokens">
+        <a href="#Tokens">
+	  Tokens
         </a>
       </h2>
       
@@ -457,78 +414,14 @@ is network agnostic. This is a non-smart contract hash. </p>
       
     </div>
     <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>The transaction hash. Its the blake2b 256 of a tx body.</p>
+      <div class="rendered-markdown"><p>A tokens type for a safe value as a list of Tokens.</p>
 </div>
       
       <h3>Alias</h3>
       <div class="constructor-row">
         <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
-        <pre class="constructor-name"><code class="hljs aiken">TxHash = Hash&lt;Blake2b_256, Transaction&gt;</code></pre>
+        <pre class="constructor-name"><code class="hljs aiken">Tokens = List&lt;Token&gt;</code></pre>
       </div>
-      
-    </div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="ValidatorHash">
-        <a href="#ValidatorHash">
-	  ValidatorHash
-        </a>
-      </h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>The validator hash of a smart contract. Expected to be length 56 and
-is network agnostic. This is a smart contract hash. </p>
-</div>
-      
-      <h3>Alias</h3>
-      <div class="constructor-row">
-        <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
-        <pre class="constructor-name"><code class="hljs aiken">ValidatorHash = Hash&lt;Blake2b_224, Script&gt;</code></pre>
-      </div>
-      
-    </div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="Wallet">
-        <a href="#Wallet">
-	  Wallet
-        </a>
-      </h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A wallet type for a non-smart contract address.</p>
-</div>
-      
-      <h3>Constructors</h3>
-      <ul class="constructor-list">
-        
-        <li class="constructor-item">
-          <div class="constructor-row">
-            <svg class="icon icon-box"><use xlink:href="#icon-box"></use></svg>
-            <pre class="constructor-name"><code class="hljs aiken">Wallet { pkh: PublicKeyHash, sc: PublicKeyHash }</code></pre>
-          </div>
-	  
-        </li>
-        
-      </ul>
       
     </div>
   </div>
@@ -538,6 +431,32 @@ is network agnostic. This is a smart contract hash. </p>
 
 
 
+
+<section class="module-members">
+  <h1 id="module-functions" class="module-member-kind">
+    <a href="#module-functions">Functions</a>
+  </h1>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="add_token_to_value"><pre class="hljs language-aiken">add_token_to_value(the_value: Value, token: Token) -&gt; Value</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Add a Token type to a Value type. This should be a very safe way to
+increment a value on a UTxO. The other option is having the redeemer be 
+the general Value type and potentially allow badly formed values to be used.</p>
+<pre><code class="language-aiken">add_token_to_value(token, this_value)
+</code></pre>
+</div>
+  </div>
+  
+</section>
 
 
       </main>
@@ -589,8 +508,8 @@ is network agnostic. This is a smart contract hash. </p>
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.21-alpha"></script>
+    <script src="../../js/highlight.min.js?v=1.0.21-alpha"></script>
+    <script src="../../js/highlightjs-aiken.js?v=1.0.21-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -609,9 +528,9 @@ is network agnostic. This is a smart contract hash. </p>
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1703789625"></script>
+    <script src="../../js/lunr.min.js?v=1.0.21-alpha"></script>
+    <script src="../../js/index.js?v=1705877441"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1703789625"></script>
+    <script src="../../search-data.js?v=1705877441"></script>
   </body>
 </html>

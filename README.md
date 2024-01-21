@@ -10,10 +10,11 @@ To start using the library, follow these steps:
 
 2. Add the following code to bottom of the `aiken.toml` file:
 
+
 ```toml
 [[dependencies]]
 name = "logicalmechanism/assist"
-version = "main"
+version = "0.4.1"
 source = "github"
 ```
 
@@ -22,6 +23,8 @@ source = "github"
 4. Compile your project by running the command `aiken check` in your project directory.
 
 - If Aiken can't build `assist` then delete the `build` folder and run `aiken check` again.
+
+- Update the version to the newest tag, `0.4.1` -> `0.4.x`.
 
 ## Usage
 

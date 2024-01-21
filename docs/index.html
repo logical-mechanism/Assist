@@ -120,13 +120,13 @@
       <h2>
         <a href="./">assist</a>
         <span id="project-version">
-          <span>v0.4.0 </span>
+          <span>v0.4.1 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.0";
+            const currentVersion = "v0.4.1";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -280,9 +280,33 @@
 	  
 	  </a></li>
         
-	  <li><a href="./assist/types.html">
+	  <li><a href="./assist/types/cip68.html">
 	  
-	  assist/types
+	  assist/types/cip68
+	  
+	  </a></li>
+        
+	  <li><a href="./assist/types/hashes.html">
+	  
+	  assist/types/hashes
+	  
+	  </a></li>
+        
+	  <li><a href="./assist/types/moment.html">
+	  
+	  assist/types/moment
+	  
+	  </a></li>
+        
+	  <li><a href="./assist/types/token.html">
+	  
+	  assist/types/token
+	  
+	  </a></li>
+        
+	  <li><a href="./assist/types/wallet.html">
+	  
+	  assist/types/wallet
 	  
 	  </a></li>
         
@@ -319,7 +343,7 @@
 </ol>
 <pre><code class="language-toml">[[dependencies]]
 name = &quot;logicalmechanism/assist&quot;
-version = &quot;main&quot;
+version = &quot;0.4.1&quot;
 source = &quot;github&quot;
 </code></pre>
 <ol start="3">
@@ -331,7 +355,12 @@ source = &quot;github&quot;
 </li>
 </ol>
 <ul>
-<li>If Aiken can’t build <code>assist</code> then delete the <code>build</code> folder and run <code>aiken check</code> again.</li>
+<li>
+<p>If Aiken can’t build <code>assist</code> then delete the <code>build</code> folder and run <code>aiken check</code> again.</p>
+</li>
+<li>
+<p>Update the version to the newest tag, <code>0.4.1</code> -&gt; <code>0.4.x</code>.</p>
+</li>
 </ul>
 <h2>Usage</h2>
 <p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired modules in your code. For example:</p>
@@ -344,7 +373,7 @@ use assist/count
 <h2>License</h2>
 <p>The <strong>Aiken Assist Library</strong> is released under the Apache2 License. See the <code>LICENSE</code> file for more details.</p>
 <h2>Contact</h2>
-<p>For any questions or feedback, please contact the project maintainer at <code>logical.mechanism@protonmail.com</code>.</p>
+<p>For any questions or feedback, please contact the project maintainer at <code>support@logicalmechanism.io</code>.</p>
 
 
       </main>
@@ -417,8 +446,8 @@ use assist/count
       });
     </script>
     <script src="./js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="./js/index.js?v=1703789625"></script>
+    <script src="./js/index.js?v=1705877441"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1703789625"></script>
+    <script src="./search-data.js?v=1705877441"></script>
   </body>
 </html>

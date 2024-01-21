@@ -1,8 +1,12 @@
 # v0.4.1
 
+*This version is contains breaking changes.*
+
 - Refactored types to prevent future name collisions
 - Added `output_datum_by_nft` to the find submodule.
 - All tests should be type annotated.
+- Use stdlib 1.7.0 and not `main` branch.
+- Readme suggests using tag versions instead of `main` branch.
 
 # v0.4.0
 
