@@ -13,7 +13,7 @@ To start using the library, follow these steps:
 ```toml
 [[dependencies]]
 name = "logicalmechanism/assist"
-version = "v0.4.1"
+version = "v0.4.2"
 source = "github"
 ```
 
@@ -26,7 +26,7 @@ rm -fr build || true
 aiken check
 ```
 
-- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.1` -> `v0.4.x`.
+- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.2` -> `v0.4.x`.
 
 ## Usage
 

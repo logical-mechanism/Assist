@@ -32,7 +32,7 @@
 
    Please add an entry into [CHANGELOG.md](./CHANGELOG.md) when submitting changes. New entries should go into the top `# v0.x.y` section. This let's us keep track of unreleased changes for use in release notes.
 
-   Once a release is ready `# v0.x.y` gets replaced with a version number, i.e. `# v0.4.2`. Usually the maintainers will handle the section renaming along with creating a new empty `# v0.x.y` section at the top of the changelog.
+   Once a release is ready `# v0.x.y` gets replaced with a version number, i.e. `# v0.4.0`. Usually the maintainers will handle the section renaming along with creating a new empty `# v0.x.y` section at the top of the changelog.
 
    Example: 
 

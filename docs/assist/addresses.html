@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.1 </span>
+          <span>v0.4.2 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.1";
+            const currentVersion = "v0.4.2";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -376,7 +376,8 @@ intentional, and address subtypes are not combined nor mixed.</p>
       
     </div>
     <div class="rendered-markdown"><p>Creates a enterprise or base address from the public key hash and stake
-credential. An empty sc means enterpise address by default.</p>
+credential. An empty sc means enterpise address by default. This function
+assumes proper key lengths for <code>pkh</code> and <code>sc</code>.</p>
 <pre><code class="language-aiken">addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 </code></pre>
 </div>
@@ -384,7 +385,7 @@ credential. An empty sc means enterpise address by default.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="create_script_address"><pre class="hljs language-aiken">create_script_address(pkh: ValidatorHash, sc: ValidatorHash) -&gt; Address</pre></h2>
+      <h2 id="create_script_address"><pre class="hljs language-aiken">create_script_address(vkh: ValidatorHash, sc: ValidatorHash) -&gt; Address</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -395,8 +396,9 @@ credential. An empty sc means enterpise address by default.</p>
     </div>
     <div class="rendered-markdown"><p>Creates a script address for a smart contract. The type does not mix address
 types. Staked smart contracts are contracts as well. An empty sc is
-assumed to be not staked.</p>
-<pre><code class="language-aiken">addresses.create_script_address(datum.script.pkh, datum.script.sc)
+assumed to be not staked. This function assumes proper key lengths for <code>vkh</code>
+and <code>sc</code>.</p>
+<pre><code class="language-aiken">addresses.create_script_address(datum.script.vkh, datum.script.sc)
 </code></pre>
 </div>
   </div>
@@ -491,8 +493,8 @@ assumed to be not staked.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1705877441"></script>
+    <script src="../js/index.js?v=1705952101"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1705877441"></script>
+    <script src="../search-data.js?v=1705952101"></script>
   </body>
 </html>
