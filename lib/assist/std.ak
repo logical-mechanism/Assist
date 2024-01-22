@@ -2,6 +2,7 @@
 //// functionality of the standard library.
 ////
 
+use aiken/builtin.{serialise_data}
 use aiken/transaction.{OutputReference, TransactionId}
 // used for testing
 use tests/fake_tx
@@ -26,4 +27,16 @@ test correct_out_ref() {
 test bad_out_ref() {
   let correct_out_ref: OutputReference = fake_tx.test_out_ref()
   out_ref(#"", 0) != correct_out_ref
+}
+
+test data_structure() {
+  // this can be anything in aiken
+  let tx_id: TransactionId = TransactionId { hash: #"acab" }
+  let test_data_structure =
+    OutputReference { transaction_id: tx_id, output_index: 0 }
+  // now show the cbor
+  let cbor_representation =
+    test_data_structure
+      |> serialise_data
+  cbor_representation == #"d8799fd8799f42acabff00ff"
 }
