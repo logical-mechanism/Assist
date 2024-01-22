@@ -99,6 +99,13 @@ test missing_token_payout() {
   at_least(addr, val, tx.outputs) == False
 }
 
+test negative_token_payout() {
+  let tx: Transaction = fake_tx.test_tx()
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let val: Value = value.from_asset(#"acab", #"beef", -20)
+  at_least(addr, val, tx.outputs) == True
+}
+
 /// Find the first occurrence of an output at some address. If nothing is 
 /// found then return False. This function does not search by value.
 ///
