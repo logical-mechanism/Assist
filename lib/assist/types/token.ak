@@ -11,6 +11,41 @@ pub type Token {
 pub type Tokens =
   List<Token>
 
+/// Check that each token is greater than zero in a list tokens.
+///
+/// ```aiken
+/// token.addition_only(redeemer.tokens)
+/// ```
+pub fn addition_only(tokens: Tokens) -> Bool {
+  when tokens is {
+    // take a token and add it to the value
+    [tkn, ..tkns] ->
+      if tkn.amt > 0 {
+        addition_only(tkns)
+      } else {
+        // something is less than or equal to zero
+        False
+      }
+    // everything is positive
+    [] -> True
+  }
+}
+
+test empty_tokens_is_positive() {
+  addition_only([]) == True
+}
+
+test everything_is_positive() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 1 }
+  addition_only([token, token, token]) == True
+}
+
+test everything_is_positive_but_one() {
+  let token1: Token = Token { pid: #"", tkn: #"", amt: 1 }
+  let token2: Token = Token { pid: #"", tkn: #"", amt: -1 }
+  addition_only([token1, token1, token2]) == False
+}
+
 /// Add a Token type to a Value type. This should be a very safe way to
 /// increment a value on a UTxO. The other option is having the redeemer be 
 /// the general Value type and potentially allow badly formed values to be used.
