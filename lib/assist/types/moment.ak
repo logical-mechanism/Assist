@@ -37,7 +37,7 @@ test a_valid_moment() {
   is_logical(m) == True
 }
 
-/// Check if a moment is contained within some validity range of a tx.
+/// Check if a validity range is contained within some moment.
 /// This assumes inclusivity.
 ///
 /// ```aiken
@@ -54,10 +54,10 @@ pub fn is_contained(m: Moment, vr: ValidityRange) -> Bool {
         NegativeInfinity -> False
         // get the upper bound int
         Finite(upper_bound) -> and {
-            // the lower bound is less than or equal the start of the momement
-            lower_bound <= m.start,
-            // the upper bound is greater or equal to the end of the momment
-            upper_bound >= m.end,
+            // the lower bound is greater than or equal the start of the moment
+            m.start <= lower_bound,
+            // the upper bound is less or equal to the end of the moment
+            upper_bound <= m.end,
           }
         // must be finite
         PositiveInfinity -> False
@@ -67,7 +67,7 @@ pub fn is_contained(m: Moment, vr: ValidityRange) -> Bool {
   }
 }
 
-test an_empty_moment_is_not_contained_in_infinty() {
+test infinite_bounds_not_allowed() {
   let vr: ValidityRange =
     Interval {
       lower_bound: IntervalBound {
@@ -84,21 +84,31 @@ test an_empty_moment_is_not_contained_in_infinty() {
   is_contained(m, vr) == False
 }
 
-test an_empty_moment_is_contained_in_a_finite_range() {
+test an_empty_validity_range_inside_a_moment() {
   let vr: ValidityRange =
     Interval {
-      lower_bound: IntervalBound { bound_type: Finite(-10), is_inclusive: True },
-      upper_bound: IntervalBound { bound_type: Finite(10), is_inclusive: True },
+      lower_bound: IntervalBound { bound_type: Finite(1), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(1), is_inclusive: True },
     }
-  let m: Moment = Moment { start: 0, end: 0 }
+  let m: Moment = Moment { start: 0, end: 10 }
   is_contained(m, vr) == True
 }
 
-test a_moment_is_contained_in_the_validity_range() {
+test a_moment_and_validity_range_are_equal() {
   let vr: ValidityRange =
     Interval {
       lower_bound: IntervalBound { bound_type: Finite(0), is_inclusive: True },
       upper_bound: IntervalBound { bound_type: Finite(10), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 0, end: 10 }
+  is_contained(m, vr) == True
+}
+
+test a_validity_range_inside_a_moment() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(3), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(5), is_inclusive: True },
     }
   let m: Moment = Moment { start: 0, end: 10 }
   is_contained(m, vr) == True
