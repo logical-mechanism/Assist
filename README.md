@@ -43,10 +43,14 @@ Assist modules can be found in the documentation.
 
 You can generate the library's documentation locally by running the command `aiken docs` in your project directory. Alternatively, you can view the [online documentation](https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html) for detailed information on the library's functions and usage.
 
-## License
+## Contributing
 
-The **Aiken Assist Library** is released under the Apache2 License. See the `LICENSE` file for more details.
+Want to contribute? See [CONTRIBUTING.md](./CONTRIBUTING.md) to know how.
 
 ## Contact
 
 For any questions or feedback, please contact the project maintainer at `support@logicalmechanism.io`.
+
+## License
+
+The **Aiken Assist Library** is released under the Apache2 License. See the `LICENSE` file for more details.
