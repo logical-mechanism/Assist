@@ -1,5 +1,7 @@
 # v0.x.y
 
+# v0.4.2
+
 - Updated moment `is_contained` to check if a validity range is inside a moment.
 - Wrote additional tests for moment and payout
 - Updated README

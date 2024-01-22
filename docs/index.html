@@ -120,13 +120,13 @@
       <h2>
         <a href="./">assist</a>
         <span id="project-version">
-          <span>v0.4.1 </span>
+          <span>v0.4.2 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.1";
+            const currentVersion = "v0.4.2";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -343,7 +343,7 @@
 </ol>
 <pre><code class="language-toml">[[dependencies]]
 name = &quot;logicalmechanism/assist&quot;
-version = &quot;0.4.1&quot;
+version = &quot;v0.4.2&quot;
 source = &quot;github&quot;
 </code></pre>
 <ol start="3">
@@ -354,26 +354,26 @@ source = &quot;github&quot;
 <p>Compile your project by running the command <code>aiken check</code> in your project directory.</p>
 </li>
 </ol>
+<pre><code class="language-bash">rm -fr build || true
+aiken check
+</code></pre>
 <ul>
-<li>
-<p>If Aiken can’t build <code>assist</code> then delete the <code>build</code> folder and run <code>aiken check</code> again.</p>
-</li>
-<li>
-<p>Update the version to the newest tag, <code>0.4.1</code> -&gt; <code>0.4.x</code>.</p>
-</li>
+<li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.4.2</code> -&gt; <code>v0.4.x</code>.</li>
 </ul>
 <h2>Usage</h2>
-<p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired modules in your code. For example:</p>
+<p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired submodules into your <code>.ak</code> file. For example:</p>
 <pre><code class="language-aiken">use assist/signing
 use assist/count
 </code></pre>
-<p>Make sure to adjust the imports based on the specific modules you need.</p>
+<p>Assist modules can be found in the documentation.</p>
 <h2>Documentation</h2>
 <p>You can generate the library’s documentation locally by running the command <code>aiken docs</code> in your project directory. Alternatively, you can view the <a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html">online documentation</a> for detailed information on the library’s functions and usage.</p>
-<h2>License</h2>
-<p>The <strong>Aiken Assist Library</strong> is released under the Apache2 License. See the <code>LICENSE</code> file for more details.</p>
+<h2>Contributing</h2>
+<p>Want to contribute? See <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a> to know how.</p>
 <h2>Contact</h2>
 <p>For any questions or feedback, please contact the project maintainer at <code>support@logicalmechanism.io</code>.</p>
+<h2>License</h2>
+<p>The <strong>Aiken Assist Library</strong> is released under the Apache2 License. See the <code>LICENSE</code> file for more details.</p>
 
 
       </main>
@@ -446,8 +446,8 @@ use assist/count
       });
     </script>
     <script src="./js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="./js/index.js?v=1705877441"></script>
+    <script src="./js/index.js?v=1705952101"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1705877441"></script>
+    <script src="./search-data.js?v=1705952101"></script>
   </body>
 </html>
