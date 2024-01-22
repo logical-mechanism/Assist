@@ -14,7 +14,7 @@ To start using the library, follow these steps:
 ```toml
 [[dependencies]]
 name = "logicalmechanism/assist"
-version = "0.4.1"
+version = "v0.4.1"
 source = "github"
 ```
 
