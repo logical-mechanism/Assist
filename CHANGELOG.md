@@ -1,9 +1,10 @@
-# v0.4.2
+# v0.x.y
 
 - Updated moment `is_contained` to check if a validity range is inside a moment.
 - Wrote additional tests for moment and payout
 - Updated README
 - Added `addition_only` to the token submodule.
+- Added `CONTRIBUTING.md`
 
 # v0.4.1
 
