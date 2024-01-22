@@ -40,6 +40,8 @@ test a_valid_moment() {
 /// Check if a validity range is contained within some moment.
 /// This assumes inclusivity.
 ///
+/// |start--|lower----upper|--end|
+///
 /// ```aiken
 /// moment.is_contained(datum.moment, this_tx.validity_range)
 /// ```
@@ -114,8 +116,20 @@ test a_validity_range_inside_a_moment() {
   is_contained(m, vr) == True
 }
 
+test a_validity_range_outside_a_moment() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(13), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(15), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 0, end: 10 }
+  is_contained(m, vr) == False
+}
+
 /// Check if a validity range of a tx is after a moment.
 /// This assumes exclusivity.
+///
+/// |start----end|--|lower----upper|
 ///
 /// ```aiken
 /// moment.is_after(datum.moment, this_tx.validity_range)
@@ -153,6 +167,8 @@ test a_validity_range_is_not_after_a_moment() {
 
 /// Check if a validity range of a tx is before a moment.
 /// This assumes exclusivity.
+///
+/// |lower----upper|--|start----end|
 ///
 /// ```aiken
 /// moment.is_before(datum.moment, this_tx.validity_range)

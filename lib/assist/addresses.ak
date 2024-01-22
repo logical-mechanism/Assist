@@ -20,7 +20,8 @@ pub fn from_wallet(wallet: Wallet) -> Address {
 }
 
 /// Creates a enterprise or base address from the public key hash and stake
-/// credential. An empty sc means enterpise address by default.
+/// credential. An empty sc means enterpise address by default. This function
+/// assumes proper key lengths for `pkh` and `sc`.
 ///
 /// ```aiken
 /// addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
@@ -64,17 +65,18 @@ test correct_wallet_sc() {
 
 /// Creates a script address for a smart contract. The type does not mix address
 /// types. Staked smart contracts are contracts as well. An empty sc is
-/// assumed to be not staked.
+/// assumed to be not staked. This function assumes proper key lengths for `vkh`
+/// and `sc`.
 ///
 /// ```aiken
-/// addresses.create_script_address(datum.script.pkh, datum.script.sc)
+/// addresses.create_script_address(datum.script.vkh, datum.script.sc)
 /// ```
-pub fn create_script_address(pkh: ValidatorHash, sc: ValidatorHash) -> Address {
+pub fn create_script_address(vkh: ValidatorHash, sc: ValidatorHash) -> Address {
   // empty bytearrays means dont add the sc to the pkh
   if bytearray.is_empty(sc) {
-    credential.from_script(pkh)
+    credential.from_script(vkh)
   } else {
-    credential.from_script(pkh)
+    credential.from_script(vkh)
       |> credential.with_delegation_script(sc)
   }
 }

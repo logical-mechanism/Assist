@@ -10,7 +10,6 @@ To start using the library, follow these steps:
 
 2. Add the following code to bottom of the `aiken.toml` file:
 
-
 ```toml
 [[dependencies]]
 name = "logicalmechanism/assist"
@@ -22,20 +21,23 @@ source = "github"
 
 4. Compile your project by running the command `aiken check` in your project directory.
 
-- If Aiken can't build `assist` then delete the `build` folder and run `aiken check` again.
+```bash
+rm -fr build || true
+aiken check
+```
 
-- Update the version to the newest tag, `0.4.1` -> `0.4.x`.
+- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.1` -> `v0.4.x`.
 
 ## Usage
 
-To use the **Aiken Assist Library** in your project, import the desired modules in your code. For example:
+To use the **Aiken Assist Library** in your project, import the desired submodules into your `.ak` file. For example:
 
 ```aiken
 use assist/signing
 use assist/count
 ```
 
-Make sure to adjust the imports based on the specific modules you need.
+Assist modules can be found in the documentation.
 
 ## Documentation
 
