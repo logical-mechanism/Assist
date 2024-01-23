@@ -4,6 +4,8 @@
 - Changed `add_tokens_to_value` from private to public.
 - Added `multiply` and `subtraction_only` to the token submodule.
 - Added a `Moments` type to the moment submodule.
+- Added `inputs_by_vkh` and `outputs_by_vkh` in count sub module.
+- Updated `single_input_with_bypass` to check for vkh equality.
 
 # v0.4.2
 
