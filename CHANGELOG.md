@@ -1,5 +1,10 @@
 # v0.x.y
 
+- Added `is_valid` to the wallet submodule.
+- Changed `add_tokens_to_value` from private to public.
+- Added `multiply` and `subtraction_only` to the token submodule.
+- Added a `Moments` type to the moment submodule.
+
 # v0.4.2
 
 - Updated moment `is_contained` to check if a validity range is inside a moment.

@@ -9,6 +9,10 @@ pub type Moment {
   end: Int,
 }
 
+/// A finite list of moments of time.
+pub type Moments =
+  List<Moment>
+
 /// Check if a moment data structure is logical. 
 ///
 /// ```aiken
