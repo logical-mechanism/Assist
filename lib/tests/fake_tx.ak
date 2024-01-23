@@ -138,7 +138,7 @@ pub fn test_bad_inputs() -> List<Input> {
         output_index: 1,
       },
       output: Output {
-        address: addresses.create_address(#"acab", #""),
+        address: addresses.create_script_address(#"acab", #""),
         value: value.from_lovelace(100),
         datum: InlineDatum(test_datum),
         reference_script: None,

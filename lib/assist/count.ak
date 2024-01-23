@@ -88,9 +88,9 @@ fn do_inputs_by_vkh(inputs: List<Input>, counter: Int) -> Int {
   }
 }
 
-test single_vkh_script_input() {
+test double_vkh_script_input() {
   let this_inputs: List<Input> = fake_tx.test_bad_inputs()
-  inputs_by_vkh(this_inputs, 1) == True
+  inputs_by_vkh(this_inputs, 2) == True
 }
 
 test no_vkh_script_input() {
@@ -302,6 +302,29 @@ pub fn single_input_with_bypass(
   do_single_input_with_bypass(inputs, 0, this_addr, those_addrs)
 }
 
+fn vkh_addr_eq(a: Address, b: Address) -> Bool {
+  when a.payment_credential is {
+    ScriptCredential(avkh) ->
+      when b.payment_credential is {
+        ScriptCredential(bvkh) -> avkh == bvkh
+        _ -> False
+      }
+    _ -> False
+  }
+}
+
+test vkh_addr_eq_works1() {
+  let a: Address = addresses.create_script_address(#"acab", #"")
+  let b: Address = addresses.create_script_address(#"acab", #"")
+  vkh_addr_eq(a, b)
+}
+
+test vkh_addr_eq_works2() {
+  let a: Address = addresses.create_address(#"acab", #"")
+  let b: Address = addresses.create_address(#"acab", #"")
+  vkh_addr_eq(a, b) == False
+}
+
 // Internal only
 fn do_single_input_with_bypass(
   inputs: List<Input>,
@@ -314,31 +337,41 @@ fn do_single_input_with_bypass(
       when input.output.datum is {
         // the actual datum value isn't important here
         InlineDatum(_) ->
-          if input.output.address == this_addr {
+          if vkh_addr_eq(input.output.address, this_addr) {
+            // count it
             do_single_input_with_bypass(
               rest,
               counter + 1,
               this_addr,
               those_addrs,
             )
-          } else if list.any(those_addrs, fn(n) { input.output.address == n }) {
+          } else if list.any(
+            those_addrs,
+            fn(n) { vkh_addr_eq(input.output.address, n) },
+          ) {
+            // all good
             do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
           } else {
-            fail @"Not An Allowed Address On Inline Datum"
+            False
           }
         // the actual datum hash isn't important here
         DatumHash(_) ->
-          if input.output.address == this_addr {
+          if vkh_addr_eq(input.output.address, this_addr) {
+            // count it
             do_single_input_with_bypass(
               rest,
               counter + 1,
               this_addr,
               those_addrs,
             )
-          } else if list.any(those_addrs, fn(n) { input.output.address == n }) {
+          } else if list.any(
+            those_addrs,
+            fn(n) { vkh_addr_eq(input.output.address, n) },
+          ) {
+            // all good
             do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
           } else {
-            fail @"Not An Allowed Address On Datum Hash"
+            False
           }
         _ -> do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
       }
@@ -348,20 +381,14 @@ fn do_single_input_with_bypass(
 }
 
 test single_input_with_no_bypass() {
-  let tx: Transaction = fake_tx.test_tx()
-  let addr: Address = addresses.create_address(#"acab", #"")
-  single_input_with_bypass(tx.inputs, addr, []) == True
+  let this_inputs: List<Input> = fake_tx.test_bad_inputs()
+  let addr1: Address = addresses.create_script_address(#"acab", #"")
+  let addr2: Address = addresses.create_script_address(#"cafe", #"acab")
+  single_input_with_bypass(this_inputs, addr1, [addr2]) == True
 }
 
-test single_input_with_a_bypass() {
+test single_input_with_a_bad_bypass() {
   let this_inputs: List<Input> = fake_tx.test_bad_inputs()
-  let addr: Address = addresses.create_address(#"acab", #"")
-  let that_addr: Address = addresses.create_script_address(#"cafe", #"acab")
-  single_input_with_bypass(this_inputs, addr, [that_addr]) == True
-}
-
-test single_input_with_a_bad_bypass() fail {
-  let this_inputs: List<Input> = fake_tx.test_bad_inputs()
-  let addr: Address = addresses.create_address(#"acab", #"")
-  single_input_with_bypass(this_inputs, addr, []) == True
+  let addr: Address = addresses.create_script_address(#"acab", #"")
+  single_input_with_bypass(this_inputs, addr, []) == False
 }
