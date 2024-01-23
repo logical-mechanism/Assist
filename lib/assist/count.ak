@@ -4,7 +4,7 @@
 
 use aiken/list
 use aiken/transaction.{DatumHash, InlineDatum, Input, Output, Transaction}
-use aiken/transaction/credential.{Address}
+use aiken/transaction/credential.{Address, ScriptCredential}
 use assist/addresses
 // for testing only
 use tests/fake_tx
@@ -64,6 +64,70 @@ test not_enough_input_datum_hashes() {
 
 test empty_input_datums() {
   inputs_by_datum([], 0) == True
+}
+
+/// Count the number of inputs with a payment credential that is a script.
+/// This does not take in an address but is a general count of validator hashes.
+///
+/// ```aiken
+/// count.inputs_by_vkh(tx.inputs, 1)
+/// ```
+pub fn inputs_by_vkh(inputs: List<Input>, amount: Int) -> Bool {
+  do_inputs_by_vkh(inputs, 0) == amount
+}
+
+fn do_inputs_by_vkh(inputs: List<Input>, counter: Int) -> Int {
+  when inputs is {
+    [input, ..rest] ->
+      // exact address match
+      when input.output.address.payment_credential is {
+        ScriptCredential(_) -> do_inputs_by_vkh(rest, counter + 1)
+        _ -> do_inputs_by_vkh(rest, counter)
+      }
+    [] -> counter
+  }
+}
+
+test single_vkh_script_input() {
+  let this_inputs: List<Input> = fake_tx.test_bad_inputs()
+  inputs_by_vkh(this_inputs, 1) == True
+}
+
+test no_vkh_script_input() {
+  let tx: Transaction = fake_tx.test_tx()
+  inputs_by_vkh(tx.inputs, 1) == False
+}
+
+/// Count the number of outputs with a payment credential that is a script.
+/// This does not take in an address but is a general count of validator hashes.
+///
+/// ```aiken
+/// count.outputs_by_vkh(tx.outputs, 1)
+/// ```
+pub fn outputs_by_vkh(outputs: List<Output>, amount: Int) -> Bool {
+  do_outputs_by_vkh(outputs, 0) == amount
+}
+
+fn do_outputs_by_vkh(outputs: List<Output>, counter: Int) -> Int {
+  when outputs is {
+    [output, ..rest] ->
+      // exact address match
+      when output.address.payment_credential is {
+        ScriptCredential(_) -> do_outputs_by_vkh(rest, counter + 1)
+        _ -> do_outputs_by_vkh(rest, counter)
+      }
+    [] -> counter
+  }
+}
+
+test single_vkh_script_output() {
+  let this_outputs: List<Output> = fake_tx.test_bad_outputs()
+  outputs_by_vkh(this_outputs, 1) == True
+}
+
+test no_vkh_script_output() {
+  let tx: Transaction = fake_tx.test_tx()
+  outputs_by_vkh(tx.outputs, 1) == False
 }
 
 /// Verify that the number of inputs from a specific script is equal to the
@@ -292,7 +356,7 @@ test single_input_with_no_bypass() {
 test single_input_with_a_bypass() {
   let this_inputs: List<Input> = fake_tx.test_bad_inputs()
   let addr: Address = addresses.create_address(#"acab", #"")
-  let that_addr: Address = addresses.create_address(#"cafe", #"")
+  let that_addr: Address = addresses.create_script_address(#"cafe", #"acab")
   single_input_with_bypass(this_inputs, addr, [that_addr]) == True
 }
 
