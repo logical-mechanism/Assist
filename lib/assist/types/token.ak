@@ -11,6 +11,64 @@ pub type Token {
 pub type Tokens =
   List<Token>
 
+/// Linearly scale a token by some factor n.
+///
+/// ```aiken
+/// token.multiply(that_token, 4)
+/// ```
+pub fn multiply(token: Token, n: Int) -> Token {
+  Token { pid: token.pid, tkn: token.tkn, amt: n * token.amt }
+}
+
+test multiply_by_zero() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  let expected: Token = Token { pid: #"", tkn: #"", amt: 0 }
+  multiply(token, 0) == expected
+}
+
+test multiply_by_one() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  let expected: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  multiply(token, 1) == expected
+}
+
+test multiply_by_two() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  let expected: Token = Token { pid: #"", tkn: #"", amt: 20 }
+  multiply(token, 2) == expected
+}
+
+/// Check that each token is greater than zero in a list tokens.
+///
+/// ```aiken
+/// token.subtraction_only(redeemer.tokens)
+/// ```
+pub fn subtraction_only(tokens: Tokens) -> Bool {
+  when tokens is {
+    // take a token and add it to the value
+    [tkn, ..tkns] ->
+      if tkn.amt < 0 {
+        subtraction_only(tkns)
+      } else {
+        // something is greater than or equal to zero
+        False
+      }
+    // everything is negative
+    [] -> True
+  }
+}
+
+test everything_is_negative() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: -1 }
+  subtraction_only([token, token, token]) == True
+}
+
+test everything_is_negative_but_one() {
+  let token1: Token = Token { pid: #"", tkn: #"", amt: -1 }
+  let token2: Token = Token { pid: #"", tkn: #"", amt: 1 }
+  subtraction_only([token1, token1, token2]) == False
+}
+
 /// Check that each token is greater than zero in a list tokens.
 ///
 /// ```aiken
@@ -32,7 +90,10 @@ pub fn addition_only(tokens: Tokens) -> Bool {
 }
 
 test empty_tokens_is_positive() {
-  addition_only([]) == True
+  and {
+    addition_only([]) == True,
+    subtraction_only([]) == True,
+  }
 }
 
 test everything_is_positive() {
