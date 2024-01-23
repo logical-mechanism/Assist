@@ -85,7 +85,7 @@ test add_and_subtract_token_to_value() {
 /// ```aiken
 /// add_tokens_to_value(redeemer.tokens, this_value)
 /// ```
-fn add_tokens_to_value(the_value: Value, tokens: Tokens) -> Value {
+pub fn add_tokens_to_value(the_value: Value, tokens: Tokens) -> Value {
   when tokens is {
     // take a token and add it to the value
     [tkn, ..rest] ->
