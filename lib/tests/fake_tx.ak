@@ -174,7 +174,7 @@ pub fn test_bad_inputs() -> List<Input> {
         output_index: 1,
       },
       output: Output {
-        address: addresses.create_address(#"cafe", #""),
+        address: addresses.create_script_address(#"cafe", #"acab"),
         value: value.from_lovelace(100),
         datum: InlineDatum(test_datum),
         reference_script: None,
@@ -240,7 +240,7 @@ pub fn test_bad_outputs() -> List<Output> {
       reference_script: None,
     },
     Output {
-      address: addresses.create_address(#"beef", #"beef"),
+      address: addresses.create_script_address(#"beef", #"beef"),
       value: value.from_asset(#"fade", #"cafe", 1),
       datum: InlineDatum(test_datum),
       reference_script: None,
