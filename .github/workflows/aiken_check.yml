@@ -10,8 +10,15 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set execute permission on Aiken
-      run: chmod +x ./.github/workflows/aiken
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        profile: minimal
+        override: true
+
+    - name: Install Aiken from GitHub Source
+      run: cargo install --git https://github.com/aiken-lang/aiken.git
 
     - name: Run Aiken Check
-      run: ./.github/workflows/aiken check
+      run: aiken check
