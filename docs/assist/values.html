@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.2 </span>
+          <span>v0.4.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.2";
+            const currentVersion = "v0.4.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -339,6 +339,8 @@
   
   <li><a href="#from_token">from_token</a></li>
   
+  <li><a href="#from_tokens">from_tokens</a></li>
+  
   <li><a href="#multiply">multiply</a></li>
   
   <li><a href="#prove_exact_nft">prove_exact_nft</a></li>
@@ -419,7 +421,26 @@ token must be at least the target amount or greater.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Creates a Value type from a token type.</p>
+    <div class="rendered-markdown"><p>Creates a Value type from a token.</p>
+<pre><code class="language-aiken">values.from_token(this_token)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="from_tokens"><pre class="hljs language-aiken">from_tokens(tokens: Tokens) -&gt; Value</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Creates a Value type from a list of tokens.</p>
+<pre><code class="language-aiken">values.from_tokens(redeemer.tokens)
+</code></pre>
 </div>
   </div>
   
@@ -579,8 +600,8 @@ utxo inside the transaction.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1705952101"></script>
+    <script src="../js/index.js?v=1706058210"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1705952101"></script>
+    <script src="../search-data.js?v=1706058210"></script>
   </body>
 </html>

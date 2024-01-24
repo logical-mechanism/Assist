@@ -1,5 +1,7 @@
 # v0.x.y
 
+# v0.4.3
+
 - Added `is_valid` to the wallet submodule.
 - Changed `add_tokens_to_value` from private to public in the token type submodule.
 - Added `multiply` and `subtraction_only` to the token type submodule.

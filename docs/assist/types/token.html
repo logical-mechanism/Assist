@@ -120,13 +120,13 @@
       <h2>
         <a href="../../">assist</a>
         <span id="project-version">
-          <span>v0.4.2 </span>
+          <span>v0.4.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.2";
+            const currentVersion = "v0.4.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -344,7 +344,19 @@
   
   <li><a href="#add_token_to_value">add_token_to_value</a></li>
   
+  <li><a href="#add_tokens_to_value">add_tokens_to_value</a></li>
+  
   <li><a href="#addition_only">addition_only</a></li>
+  
+  <li><a href="#divide">divide</a></li>
+  
+  <li><a href="#multiply">multiply</a></li>
+  
+  <li><a href="#negate">negate</a></li>
+  
+  <li><a href="#negative">negative</a></li>
+  
+  <li><a href="#subtraction_only">subtraction_only</a></li>
   
 </ul>
 
@@ -356,6 +368,10 @@
 <h1 id="module-name" class="module-name">
   <a href="#module-name">assist/types/token</a>
 </h1>
+<p>A Token is a safe type for some asset on Cardano. A Token can be combined
+with another Token to form Tokens, a list of Token.  This should be a safe
+and clean way to build out the value type inside of datums and redeemers 
+instead of building out the value type directly which could be harmful.</p>
 
 
 
@@ -460,6 +476,25 @@ the general Value type and potentially allow badly formed values to be used.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="add_tokens_to_value"><pre class="hljs language-aiken">add_tokens_to_value(the_value: Value, tokens: Tokens) -&gt; Value</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Add a list of Token types to a Value type. This should be a very safe way to
+increment a value on a UTxO. The other option is having the redeemer be 
+the general Value type and potentially allow badly formed values to be used.</p>
+<pre><code class="language-aiken">add_tokens_to_value(redeemer.tokens, this_value)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="addition_only"><pre class="hljs language-aiken">addition_only(tokens: Tokens) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
@@ -471,6 +506,94 @@ the general Value type and potentially allow badly formed values to be used.</p>
     </div>
     <div class="rendered-markdown"><p>Check that each token is greater than zero in a list tokens.</p>
 <pre><code class="language-aiken">token.addition_only(redeemer.tokens)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="divide"><pre class="hljs language-aiken">divide(token: Token, n: Int) -&gt; Token</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Divide a token by some integer. The divisor must be positive. This is
+integer division so the token amount will be rounded towards negative 
+infinity.</p>
+<pre><code class="language-aiken">token.divide(that_token, 2)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="multiply"><pre class="hljs language-aiken">multiply(token: Token, n: Int) -&gt; Token</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Multiply a token by some integer. This linearly scales the token amount
+on the token.</p>
+<pre><code class="language-aiken">token.multiply(that_token, 4)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="negate"><pre class="hljs language-aiken">negate(tokens: Tokens) -&gt; Tokens</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Negate all the tokens in the list.</p>
+<pre><code class="language-aiken">token.negate(these_tokens)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="negative"><pre class="hljs language-aiken">negative(tkn: Token) -&gt; Token</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Give the negative of a token.</p>
+<pre><code class="language-aiken">token.negative(this_token)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="subtraction_only"><pre class="hljs language-aiken">subtraction_only(tokens: Tokens) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Check that each token is less than zero in a list tokens.</p>
+<pre><code class="language-aiken">token.subtraction_only(redeemer.tokens)
 </code></pre>
 </div>
   </div>
@@ -548,8 +671,8 @@ the general Value type and potentially allow badly formed values to be used.</p>
       });
     </script>
     <script src="../../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../../js/index.js?v=1705952101"></script>
+    <script src="../../js/index.js?v=1706058210"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../../search-data.js?v=1705952101"></script>
+    <script src="../../search-data.js?v=1706058210"></script>
   </body>
 </html>
