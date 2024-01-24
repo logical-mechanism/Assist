@@ -10,11 +10,46 @@ use aiken/string
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/prefixes
 use assist/types/hashes.{TxHash}
-use assist/types/token.{Token}
+use assist/types/token.{Token, Tokens}
 
-/// Creates a Value type from a token type.
+/// Creates a Value type from a token.
+///
+/// ```aiken
+/// values.from_token(this_token)
+/// ```
 pub fn from_token(token: Token) -> Value {
   value.from_asset(token.pid, token.tkn, token.amt)
+}
+
+test token_to_value() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  let expected: Value = value.from_lovelace(10)
+  from_token(token) == expected
+}
+
+/// Creates a Value type from a list of tokens.
+///
+/// ```aiken
+/// values.from_tokens(redeemer.tokens)
+/// ```
+pub fn from_tokens(tokens: Tokens) -> Value {
+  do_from_tokens(value.zero(), tokens)
+}
+
+test tokens_to_value() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  let expected: Value = value.from_lovelace(20)
+  from_tokens([token, token]) == expected
+}
+
+fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
+  when tokens is {
+    // take a token and add it to the value
+    [tkn, ..tkns] ->
+      val |> value.add(tkn.pid, tkn.tkn, tkn.amt) |> do_from_tokens(tkns)
+    // everything is negative
+    [] -> val
+  }
 }
 
 /// Multiply some value by `n`. This is just a linear scaling to the quantity
