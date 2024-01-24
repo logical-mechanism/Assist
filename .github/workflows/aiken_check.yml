@@ -17,8 +17,8 @@ jobs:
         profile: minimal
         override: true
 
-    - name: Install Aiken
-      run: cargo install aiken
+    - name: Install Aiken from GitHub Source
+      run: cargo install --git https://github.com/aiken-lang/aiken.git
 
     - name: Run Aiken Check
       run: aiken check
