@@ -1,0 +1,24 @@
+name: Aiken Check Workflow
+
+on: [push, pull_request]
+
+jobs:
+  aiken_check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        profile: minimal
+        override: true
+
+    - name: Install Aiken
+      run: cargo install aiken
+
+    - name: Run Aiken Check
+      run: aiken check
