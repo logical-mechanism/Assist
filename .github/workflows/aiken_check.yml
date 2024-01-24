@@ -1,6 +1,6 @@
 name: Aiken Check Workflow
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   aiken_check:
