@@ -120,13 +120,13 @@
       <h2>
         <a href="../../">assist</a>
         <span id="project-version">
-          <span>v0.4.2 </span>
+          <span>v0.4.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.2";
+            const currentVersion = "v0.4.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -337,6 +337,13 @@
 
 
 
+<h2>Functions</h2>
+<ul>
+  
+  <li><a href="#is_valid">is_valid</a></li>
+  
+</ul>
+
 
       </nav>
 
@@ -394,6 +401,32 @@
 
 
 
+
+<section class="module-members">
+  <h1 id="module-functions" class="module-member-kind">
+    <a href="#module-functions">Functions</a>
+  </h1>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="is_valid"><pre class="hljs language-aiken">is_valid(wallet: Wallet) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Check if a wallet has a bad form and needs to be bypassed.
+The pkh must be the length 56 hex string and the sc is either empty or
+it is also a length 56 hex string.</p>
+<pre><code class="language-aiken">wallet.is_valid(datum.wallet)
+</code></pre>
+</div>
+  </div>
+  
+</section>
 
 
       </main>
@@ -466,8 +499,8 @@
       });
     </script>
     <script src="../../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../../js/index.js?v=1705952101"></script>
+    <script src="../../js/index.js?v=1706058210"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../../search-data.js?v=1705952101"></script>
+    <script src="../../search-data.js?v=1706058210"></script>
   </body>
 </html>

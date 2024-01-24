@@ -120,13 +120,13 @@
       <h2>
         <a href="../../">assist</a>
         <span id="project-version">
-          <span>v0.4.2 </span>
+          <span>v0.4.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.2";
+            const currentVersion = "v0.4.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -331,6 +331,8 @@
   
   <li><a href="#Moment">Moment</a></li>
   
+  <li><a href="#Moments">Moments</a></li>
+  
 </ul>
 
 
@@ -398,6 +400,34 @@
         </li>
         
       </ul>
+      
+    </div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="Moments">
+        <a href="#Moments">
+	  Moments
+        </a>
+      </h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="custom-type-constructors">
+      <div class="rendered-markdown"><p>A finite list of moments of time.</p>
+</div>
+      
+      <h3>Alias</h3>
+      <div class="constructor-row">
+        <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
+        <pre class="constructor-name"><code class="hljs aiken">Moments = List&lt;Moment&gt;</code></pre>
+      </div>
       
     </div>
   </div>
@@ -560,8 +590,8 @@ This assumes inclusivity.</p>
       });
     </script>
     <script src="../../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../../js/index.js?v=1705952101"></script>
+    <script src="../../js/index.js?v=1706058210"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../../search-data.js?v=1705952101"></script>
+    <script src="../../search-data.js?v=1706058210"></script>
   </body>
 </html>

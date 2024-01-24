@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.2 </span>
+          <span>v0.4.3 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.2";
+            const currentVersion = "v0.4.3";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -337,9 +337,13 @@
   
   <li><a href="#inputs_by_datum">inputs_by_datum</a></li>
   
+  <li><a href="#inputs_by_vkh">inputs_by_vkh</a></li>
+  
   <li><a href="#outputs_by_addr">outputs_by_addr</a></li>
   
   <li><a href="#outputs_by_datum">outputs_by_datum</a></li>
+  
+  <li><a href="#outputs_by_vkh">outputs_by_vkh</a></li>
   
   <li><a href="#single_input_with_bypass">single_input_with_bypass</a></li>
   
@@ -405,6 +409,24 @@ number intended in the contract. The amount must be exactly the counter.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="inputs_by_vkh"><pre class="hljs language-aiken">inputs_by_vkh(inputs: List&lt;Input&gt;, amount: Int) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Count the number of inputs with a payment credential that is a script.
+This does not take in an address but is a general count of validator hashes.</p>
+<pre><code class="language-aiken">count.inputs_by_vkh(tx.inputs, 1)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="outputs_by_addr"><pre class="hljs language-aiken">outputs_by_addr(outputs: List&lt;Output&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
@@ -435,6 +457,24 @@ intended in the contract. The amount must be exact with the counter.</p>
     <div class="rendered-markdown"><p>Verify that the number of outputs with an inline datum or datum hash is equal to the
 number intended in the contract. The amount must be exactly the counter.</p>
 <pre><code class="language-aiken">count.outputs_by_datum(tx.outputs, 1)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="outputs_by_vkh"><pre class="hljs language-aiken">outputs_by_vkh(outputs: List&lt;Output&gt;, amount: Int) -&gt; Bool</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Count the number of outputs with a payment credential that is a script.
+This does not take in an address but is a general count of validator hashes.</p>
+<pre><code class="language-aiken">count.outputs_by_vkh(tx.outputs, 1)
 </code></pre>
 </div>
   </div>
@@ -536,8 +576,8 @@ from being spent along side this script.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.21-alpha"></script>
-    <script src="../js/index.js?v=1705952101"></script>
+    <script src="../js/index.js?v=1706058210"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1705952101"></script>
+    <script src="../search-data.js?v=1706058210"></script>
   </body>
 </html>
