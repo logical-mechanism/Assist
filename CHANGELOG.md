@@ -1,11 +1,13 @@
 # v0.x.y
 
 - Added `is_valid` to the wallet submodule.
-- Changed `add_tokens_to_value` from private to public.
-- Added `multiply` and `subtraction_only` to the token submodule.
+- Changed `add_tokens_to_value` from private to public in the token type submodule.
+- Added `multiply` and `subtraction_only` to the token type submodule.
 - Added a `Moments` type to the moment submodule.
 - Added `inputs_by_vkh` and `outputs_by_vkh` in count sub module.
-- Updated `single_input_with_bypass` to check for vkh equality.
+- Updated `single_input_with_bypass` to check for vkh equality in the count sub module.
+- Added additional functions to the token type submodule
+- Added `from_tokens` to the value sub module.
 
 # v0.4.2
 

@@ -1,3 +1,10 @@
+//// A Token is a safe type for some asset on Cardano. A Token can be combined
+//// with another Token to form Tokens, a list of Token.  This should be a safe
+//// and clean way to build out the value type inside of datums and redeemers 
+//// instead of building out the value type directly which could be harmful.
+////
+
+use aiken/list
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 
 /// A token type for a safe single policy id and asset name value.
@@ -11,7 +18,65 @@ pub type Token {
 pub type Tokens =
   List<Token>
 
-/// Linearly scale a token by some factor n.
+/// Give the negative of a token.
+///
+/// ```aiken
+/// token.negative(this_token)
+/// ```
+pub fn negative(tkn: Token) {
+  Token { pid: tkn.pid, tkn: tkn.tkn, amt: -tkn.amt }
+}
+
+test its_negative() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  let expected: Token = Token { pid: #"", tkn: #"", amt: -10 }
+  negative(token) == expected
+}
+
+/// Negate all the tokens in the list.
+///
+/// ```aiken
+/// token.negate(these_tokens)
+/// ```
+pub fn negate(tokens: Tokens) -> Tokens {
+  do_negate([], tokens)
+}
+
+fn do_negate(negated: Tokens, tokens: Tokens) -> Tokens {
+  when tokens is {
+    // take a token and add it to the value
+    [tkn, ..tkns] ->
+      negated
+        |> list.push(Token { pid: tkn.pid, tkn: tkn.tkn, amt: -tkn.amt })
+        |> do_negate(tkns)
+    // everything is negative
+    [] -> negated
+  }
+}
+
+test all_tokens_negated() {
+  let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
+  let expected: Token = Token { pid: #"", tkn: #"", amt: -10 }
+  negate([token, token]) == [expected, expected]
+}
+
+/// Divide a token by some integer. The divisor must be positive. This is
+/// integer division so the token amount will be rounded towards negative 
+/// infinity.
+///
+/// ```aiken
+/// token.divide(that_token, 2)
+/// ```
+pub fn divide(token: Token, n: Int) -> Token {
+  if n <= 0 {
+    fail @"Invalid Divisor"
+  } else {
+    Token { pid: token.pid, tkn: token.tkn, amt: token.amt / n }
+  }
+}
+
+/// Multiply a token by some integer. This linearly scales the token amount
+/// on the token.
 ///
 /// ```aiken
 /// token.multiply(that_token, 4)
@@ -38,7 +103,7 @@ test multiply_by_two() {
   multiply(token, 2) == expected
 }
 
-/// Check that each token is greater than zero in a list tokens.
+/// Check that each token is less than zero in a list tokens.
 ///
 /// ```aiken
 /// token.subtraction_only(redeemer.tokens)
