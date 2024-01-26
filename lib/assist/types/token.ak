@@ -4,6 +4,7 @@
 //// instead of building out the value type directly which could be harmful.
 ////
 
+use aiken/dict
 use aiken/list
 use aiken/transaction/value.{AssetName, PolicyId, Value}
 
@@ -238,4 +239,48 @@ test add_and_subtract_tokens_to_value() {
   let token1: Token = Token { pid: #"", tkn: #"", amt: 10 }
   let token2: Token = Token { pid: #"", tkn: #"", amt: -10 }
   add_tokens_to_value(zero, [token1, token2]) == zero
+}
+
+/// Convert a value into a list of tokens. This conversation is a fast way
+/// to be able to do multiplication on a value.
+///
+/// ```aiken
+/// token.from_value(this_value)
+/// ```
+pub fn from_value(v: Value) -> Tokens {
+  value.to_dict(v)
+    |> dict.foldl(
+         [],
+         fn(pid, assets, tokens) {
+           dict.foldl(
+             assets,
+             tokens,
+             fn(tkn, amt, tokens) { list.push(tokens, Token { pid, tkn, amt }) },
+           )
+         },
+       )
+}
+
+test from_zero_value() {
+  let v: Value = value.zero()
+  let e: Tokens =
+    []
+  from_value(v) == e
+}
+
+test from_lovelace_value() {
+  let v: Value = value.from_lovelace(123)
+  let e: Tokens =
+    [Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 123 }]
+  from_value(v) == e
+}
+
+test from_general_value() {
+  let v: Value = value.from_lovelace(123) |> value.add(#"acab", #"cafe", 41)
+  let e: Tokens =
+    [
+      Token { pid: #"acab", tkn: #"cafe", amt: 41 },
+      Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 123 },
+    ]
+  from_value(v) == e
 }

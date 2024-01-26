@@ -42,6 +42,7 @@ test tokens_to_value() {
   from_tokens([token, token]) == expected
 }
 
+// Internal only
 fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
   when tokens is {
     // take a token and add it to the value
@@ -59,17 +60,22 @@ fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
 /// values.multiply(bundle_value, bundle_size)
 /// ```
 pub fn multiply(val: Value, n: Int) -> Value {
-  do_multiply(value.zero(), val, n)
+  // convert the Value to Tokens
+  let ts: Tokens = token.from_value(val)
+  // do the math on the Tokens then map it back to a Value
+  do_multiply([], ts, n) |> from_tokens()
 }
 
 // Internal only
-fn do_multiply(total: Value, add_val: Value, n: Int) -> Value {
-  // 4 * v = v + v + v + v 
-  if n <= 0 {
-    total
-  } else {
-    // add to total
-    do_multiply(value.merge(total, add_val), add_val, n - 1)
+fn do_multiply(ans: Tokens, ts: Tokens, n: Int) -> Tokens {
+  when ts is {
+    // take a token and add it to the value
+    [tkn, ..tkns] ->
+      ans
+        |> list.push(Token { pid: tkn.pid, tkn: tkn.tkn, amt: n * tkn.amt })
+        |> do_multiply(tkns, n)
+    // everything is negative
+    [] -> ans
   }
 }
 
@@ -83,6 +89,12 @@ test values_multiply_by_4() {
   let val: Value = value.from_lovelace(100)
   let ans: Value = value.from_lovelace(400)
   multiply(val, 4) == ans
+}
+
+test values_multiply_by_52314523() {
+  let val: Value = value.from_lovelace(2)
+  let ans: Value = value.from_lovelace(104629046)
+  multiply(val, 52314523) == ans
 }
 
 /// Prove that the target value is contained inside another value. Each token
