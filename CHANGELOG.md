@@ -1,6 +1,8 @@
 # v0.x.y
 
 - Documentation is now hosted at logicalmechanism.io
+- Added `from_value` to the token submodule.
+- Updated `values.multiply`, it should be must faster now.
 
 # v0.4.3
 

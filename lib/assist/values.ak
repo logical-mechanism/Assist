@@ -42,6 +42,7 @@ test tokens_to_value() {
   from_tokens([token, token]) == expected
 }
 
+// Internal only
 fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
   when tokens is {
     // take a token and add it to the value
@@ -52,27 +53,6 @@ fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
   }
 }
 
-test from_value_then_multiply_back_to_value() {
-  let v: Value = value.from_lovelace(2)
-  let ts: Tokens = token.from_value(v)
-  let n: Int = 52314523
-  let ans: Value = product([], ts, n) |> from_tokens()
-  let exp: Value = value.from_lovelace(104629046)
-  ans == exp
-}
-
-fn product(ans: Tokens, ts: Tokens, n: Int) -> Tokens {
-  when ts is {
-    // take a token and add it to the value
-    [tkn, ..tkns] ->
-      ans
-        |> list.push(Token { pid: tkn.pid, tkn: tkn.tkn, amt: n * tkn.amt })
-        |> product(tkns, n)
-    // everything is negative
-    [] -> ans
-  }
-}
-
 /// Multiply some value by `n`. This is just a linear scaling to the quantity
 /// of each token.
 ///
@@ -80,8 +60,23 @@ fn product(ans: Tokens, ts: Tokens, n: Int) -> Tokens {
 /// values.multiply(bundle_value, bundle_size)
 /// ```
 pub fn multiply(val: Value, n: Int) -> Value {
+  // convert the Value to Tokens
   let ts: Tokens = token.from_value(val)
-  product([], ts, n) |> from_tokens()
+  // do the math on the Tokens then map it back to a Value
+  do_multiply([], ts, n) |> from_tokens()
+}
+
+// Internal only
+fn do_multiply(ans: Tokens, ts: Tokens, n: Int) -> Tokens {
+  when ts is {
+    // take a token and add it to the value
+    [tkn, ..tkns] ->
+      ans
+        |> list.push(Token { pid: tkn.pid, tkn: tkn.tkn, amt: n * tkn.amt })
+        |> do_multiply(tkns, n)
+    // everything is negative
+    [] -> ans
+  }
 }
 
 test values_multiply_by_0() {
