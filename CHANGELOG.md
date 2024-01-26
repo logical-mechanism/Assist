@@ -1,5 +1,7 @@
 # v0.x.y
 
+- Documentation is now hosted at logicalmechanism.io
+
 # v0.4.3
 
 - Added `is_valid` to the wallet submodule.

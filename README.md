@@ -41,7 +41,7 @@ Assist modules can be found in the documentation.
 
 ## Documentation
 
-You can generate the library's documentation locally by running the command `aiken docs` in your project directory. Alternatively, you can view the [online documentation](https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html) for detailed information on the library's functions and usage.
+You can generate the library's documentation locally by running the command `aiken docs` in your project directory. Alternatively, you can view the [online documentation](https://www.logicalmechanism.io/docs/index.html) for detailed information on the library's functions and usage.
 
 ## Contributing
 
