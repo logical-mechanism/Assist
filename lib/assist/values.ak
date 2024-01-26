@@ -52,6 +52,27 @@ fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
   }
 }
 
+test from_value_then_multiply_back_to_value() {
+  let v: Value = value.from_lovelace(2)
+  let ts: Tokens = token.from_value(v)
+  let n: Int = 52314523
+  let ans: Value = product([], ts, n) |> from_tokens()
+  let exp: Value = value.from_lovelace(104629046)
+  ans == exp
+}
+
+fn product(ans: Tokens, ts: Tokens, n: Int) -> Tokens {
+  when ts is {
+    // take a token and add it to the value
+    [tkn, ..tkns] ->
+      ans
+        |> list.push(Token { pid: tkn.pid, tkn: tkn.tkn, amt: n * tkn.amt })
+        |> product(tkns, n)
+    // everything is negative
+    [] -> ans
+  }
+}
+
 /// Multiply some value by `n`. This is just a linear scaling to the quantity
 /// of each token.
 ///
@@ -59,18 +80,8 @@ fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
 /// values.multiply(bundle_value, bundle_size)
 /// ```
 pub fn multiply(val: Value, n: Int) -> Value {
-  do_multiply(value.zero(), val, n)
-}
-
-// Internal only
-fn do_multiply(total: Value, add_val: Value, n: Int) -> Value {
-  // 4 * v = v + v + v + v 
-  if n <= 0 {
-    total
-  } else {
-    // add to total
-    do_multiply(value.merge(total, add_val), add_val, n - 1)
-  }
+  let ts: Tokens = token.from_value(val)
+  product([], ts, n) |> from_tokens()
 }
 
 test values_multiply_by_0() {
@@ -83,6 +94,12 @@ test values_multiply_by_4() {
   let val: Value = value.from_lovelace(100)
   let ans: Value = value.from_lovelace(400)
   multiply(val, 4) == ans
+}
+
+test values_multiply_by_52314523() {
+  let val: Value = value.from_lovelace(2)
+  let ans: Value = value.from_lovelace(104629046)
+  multiply(val, 52314523) == ans
 }
 
 /// Prove that the target value is contained inside another value. Each token
