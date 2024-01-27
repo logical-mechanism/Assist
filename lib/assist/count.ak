@@ -292,7 +292,9 @@ test empty_output_datums() {
 /// anything else is found then fail. This should prevent unregulated contracts
 /// from being spent along side this script.
 ///
+/// ```aiken
 /// count.single_input_with_bypass(this_tx.inputs, this_addr, [that_addr])
+/// ```
 ///
 pub fn single_input_with_bypass(
   inputs: List<Input>,
