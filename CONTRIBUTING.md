@@ -10,9 +10,7 @@
 
 2. **Documentation**
 
-   Any updates, typo fixes, or expansion of the documentation is more than welcome. At the moment,
-   we are using [github html preview](https://htmlpreview.github.io/?https://raw.githubusercontent.com/logicalmechanism/assist/main/docs/index.html).
-   That can be considered to be the library documentation.
+   Any updates, typo fixes, or expansion of the documentation is more than welcome. Please refer to the [online documentation](https://www.logicalmechanism.io/docs/index.html). That can be considered to be the library documentation.
 
 3. **Code**
 
@@ -32,9 +30,7 @@
 
    Please add an entry into [CHANGELOG.md](./CHANGELOG.md) when submitting changes. New entries should go into the top `# v0.x.y` section. This let's us keep track of unreleased changes for use in release notes.
 
-   Once a release is ready `# v0.x.y` gets replaced with a version number, i.e. `# v0.4.0`. Usually the maintainers will handle the section renaming along with creating a new empty `# v0.x.y` section at the top of the changelog.
-
-   Example: 
+   Example Contributions: 
 
    ```md
    # v0.x.y
@@ -42,6 +38,14 @@
    - some new thing
    - fixed or updated something
    - something is gone now
+   ```
+
+   Once a release is ready `# v0.x.y` gets replaced with a version number, i.e. `# v0.4.0`. Usually the maintainers will handle the section renaming along with creating a new empty `# v0.x.y` section at the top of the changelog. When releasing a new version the version number needs to be updated inside `README.md`, `aiken.toml`, and the `CHANGELOG.md`. Run the command below to do a fresh test and rebuild the docs for the final push.
+
+   ```bash
+   rm -fr build docs
+   aiken check
+   aiken docs
    ```
 
 4. **Donation**

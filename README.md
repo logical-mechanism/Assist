@@ -13,7 +13,7 @@ To start using the library, follow these steps:
 ```toml
 [[dependencies]]
 name = "logicalmechanism/assist"
-version = "v0.4.3"
+version = "v0.4.4"
 source = "github"
 ```
 
