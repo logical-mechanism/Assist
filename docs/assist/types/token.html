@@ -120,13 +120,13 @@
       <h2>
         <a href="../../">assist</a>
         <span id="project-version">
-          <span>v0.4.3 </span>
+          <span>v0.4.4 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.3";
+            const currentVersion = "v0.4.4";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -350,6 +350,8 @@
   
   <li><a href="#divide">divide</a></li>
   
+  <li><a href="#from_value">from_value</a></li>
+  
   <li><a href="#multiply">multiply</a></li>
   
   <li><a href="#negate">negate</a></li>
@@ -531,6 +533,24 @@ infinity.</p>
   
   <div class="member">
     <div class="member-name">
+      <h2 id="from_value"><pre class="hljs language-aiken">from_value(v: Value) -&gt; Tokens</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Convert a value into a list of tokens. This conversation is a fast way
+to be able to do multiplication on a value.</p>
+<pre><code class="language-aiken">token.from_value(this_value)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
       <h2 id="multiply"><pre class="hljs language-aiken">multiply(token: Token, n: Int) -&gt; Token</pre></h2>
       
       <!-- TODO: support source linking
@@ -671,8 +691,8 @@ on the token.</p>
       });
     </script>
     <script src="../../js/lunr.min.js?v=1.0.23-alpha"></script>
-    <script src="../../js/index.js?v=1706230438"></script>
+    <script src="../../js/index.js?v=1706570529"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../../search-data.js?v=1706230438"></script>
+    <script src="../../search-data.js?v=1706570529"></script>
   </body>
 </html>

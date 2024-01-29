@@ -1,8 +1,11 @@
 # v0.x.y
 
+# v0.4.4
+
 - Documentation is now hosted at logicalmechanism.io
 - Added `from_value` to the token submodule.
 - Updated `values.multiply`, it should be must faster now.
+- Tested against Aiken 1.0.23
 
 # v0.4.3
 

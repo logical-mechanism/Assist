@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.3 </span>
+          <span>v0.4.4 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.3";
+            const currentVersion = "v0.4.4";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -499,7 +499,8 @@ addresses. Loop all the inputs and count how many datums belong to this
 address. If any of those addresses exists then pass right over them but if 
 anything else is found then fail. This should prevent unregulated contracts
 from being spent along side this script.</p>
-<p>count.single_input_with_bypass(this_tx.inputs, this_addr, [that_addr])</p>
+<pre><code class="language-aiken">count.single_input_with_bypass(this_tx.inputs, this_addr, [that_addr])
+</code></pre>
 </div>
   </div>
   
@@ -576,8 +577,8 @@ from being spent along side this script.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.23-alpha"></script>
-    <script src="../js/index.js?v=1706230438"></script>
+    <script src="../js/index.js?v=1706570529"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1706230438"></script>
+    <script src="../search-data.js?v=1706570529"></script>
   </body>
 </html>
