@@ -1,10 +1,53 @@
 use aiken/bytearray
+use aiken/list
 use assist/types/hashes.{PublicKeyHash}
 
 /// A wallet type for a non-smart contract address.
 pub type Wallet {
   pkh: PublicKeyHash,
   sc: PublicKeyHash,
+}
+
+/// A list of wallets for non-smart contract addresses.
+pub type Wallets =
+  List<Wallet>
+
+/// Convert a list of wallets into a list of public key hashes. This is useful
+/// when doing multisig validation. The output order respects the input order.
+///
+/// ```aiken
+/// wallet.to_vks(datum.wallets)
+/// ```
+pub fn to_vks(wallets: Wallets) -> List<PublicKeyHash> {
+  list.map(wallets, fn(w) { w.pkh })
+}
+
+test empty_to_vks() {
+  to_vks([]) == []
+}
+
+test single_to_vks() {
+  let w: Wallet =
+    Wallet {
+      pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+      sc: #"",
+    }
+  to_vks([w]) == [#"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01"]
+}
+
+test multiple_to_vks() {
+  let w: Wallet =
+    Wallet {
+      pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+      sc: #"",
+    }
+  let expected: List<PublicKeyHash> =
+    [
+      #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+      #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+      #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    ]
+  to_vks([w, w, w]) == expected
 }
 
 /// Check if a wallet has a bad form and needs to be bypassed.
