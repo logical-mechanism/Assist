@@ -13,6 +13,33 @@ pub type Moment {
 pub type Moments =
   List<Moment>
 
+/// Shifts a moment by some integer amount. This is great for incrementing
+/// a fixed moment of time, maybe like an epoch boundary by five days.
+///
+/// ```aiken
+/// moment.shift(this_moment, a_day)
+/// ```
+pub fn shift(m: Moment, t: Int) -> Moment {
+  Moment { start: m.start + t, end: m.end + t }
+}
+
+test no_shift() {
+  let m: Moment = Moment { start: 0, end: 0 }
+  shift(m, 0) == m
+}
+
+test positive_shift() {
+  let m1: Moment = Moment { start: 1, end: 5 }
+  let m2: Moment = Moment { start: 11, end: 15 }
+  shift(m1, 10) == m2
+}
+
+test negative_shift() {
+  let m1: Moment = Moment { start: 11, end: 15 }
+  let m2: Moment = Moment { start: 1, end: 5 }
+  shift(m1, -10) == m2
+}
+
 /// Check if a moment data structure is logical. 
 ///
 /// ```aiken
