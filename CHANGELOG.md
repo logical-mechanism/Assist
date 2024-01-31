@@ -1,7 +1,8 @@
 # v0.x.y
 
 - Added the `Wallets` type and `to_vks`  to the wallet submodule.
-- Added `get` and `version` to the cip68 types submodule.
+- Added `get` and `version` to the cip68 submodule.
+- Addded `shift` to the moment submodule.
 
 # v0.4.4
 
