@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg"/>
-    <link rel="stylesheet" href="../../css/index.css?v=1.0.23-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../../css/atom-one-light.min.css?v=1.0.23-alpha"/>
+    <link rel="stylesheet" href="../../css/index.css?v=1.0.24-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../../css/atom-one-light.min.css?v=1.0.24-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -188,137 +188,139 @@
 
         <h2>Modules</h2>
 	
+	<h3 class="modules-prefix">assist/</h3>
+	
         <ul>
         
 	  <li><a href="../../assist/addresses.html">
 	  
-	  assist/addresses
+	  addresses
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/boolean.html">
 	  
-	  assist/boolean
+	  boolean
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/certificates.html">
 	  
-	  assist/certificates
+	  certificates
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/circuits.html">
 	  
-	  assist/circuits
+	  circuits
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/count.html">
 	  
-	  assist/count
+	  count
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/credentials.html">
 	  
-	  assist/credentials
+	  credentials
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/data.html">
 	  
-	  assist/data
+	  data
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/find.html">
 	  
-	  assist/find
+	  find
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/maths.html">
 	  
-	  assist/maths
+	  maths
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/minting.html">
 	  
-	  assist/minting
+	  minting
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/payout.html">
 	  
-	  assist/payout
+	  payout
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/prefixes.html">
 	  
-	  assist/prefixes
+	  prefixes
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/signing.html">
 	  
-	  assist/signing
+	  signing
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/std.html">
 	  
-	  assist/std
+	  std
+	  
+	  </a></li>
+        
+	  <li><a href="../../assist/tests/fake_tx.html">
+	  
+	  tests/fake_tx
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/tx.html">
 	  
-	  assist/tx
+	  tx
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/types/cip68.html">
 	  
-	  <strong>assist/types/cip68</strong>
+	  <strong>types/cip68</strong>
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/types/hashes.html">
 	  
-	  assist/types/hashes
+	  types/hashes
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/types/moment.html">
 	  
-	  assist/types/moment
+	  types/moment
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/types/token.html">
 	  
-	  assist/types/token
+	  types/token
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/types/wallet.html">
 	  
-	  assist/types/wallet
+	  types/wallet
 	  
 	  </a></li>
         
 	  <li><a href="../../assist/values.html">
 	  
-	  assist/values
-	  
-	  </a></li>
-        
-	  <li><a href="../../tests/fake_tx.html">
-	  
-	  tests/fake_tx
+	  values
 	  
 	  </a></li>
         
@@ -336,6 +338,15 @@
 
 
 
+
+<h2>Functions</h2>
+<ul>
+  
+  <li><a href="#get">get</a></li>
+  
+  <li><a href="#version">version</a></li>
+  
+</ul>
 
 
       </nav>
@@ -396,6 +407,48 @@ https://cips.cardano.org/cips/cip68/.</p>
 
 
 
+<section class="module-members">
+  <h1 id="module-functions" class="module-member-kind">
+    <a href="#module-functions">Functions</a>
+  </h1>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="get"><pre class="hljs language-aiken">get(cip68: CIP68, key: Data) -&gt; Data</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Attempt to find a data structure by a key inside the cip68 metadatum. If
+nothing is found then fail.</p>
+<pre><code class="language-aiken">cip68.get(datum, some_key)
+</code></pre>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="version"><pre class="hljs language-aiken">version(metadata: CIP68) -&gt; Int</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Return the version of the metadata.</p>
+<pre><code class="language-aiken">datum |&gt; cip68.version
+</code></pre>
+</div>
+  </div>
+  
+</section>
+
 
       </main>
       <div class="search-overlay"></div>
@@ -446,8 +499,8 @@ https://cips.cardano.org/cips/cip68/.</p>
       </defs>
     </svg>
 
-    <script src="../../js/highlight.min.js?v=1.0.23-alpha"></script>
-    <script src="../../js/highlightjs-aiken.js?v=1.0.23-alpha"></script>
+    <script src="../../js/highlight.min.js?v=1.0.24-alpha"></script>
+    <script src="../../js/highlightjs-aiken.js?v=1.0.24-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -466,9 +519,9 @@ https://cips.cardano.org/cips/cip68/.</p>
 	el.prepend(a);
       });
     </script>
-    <script src="../../js/lunr.min.js?v=1.0.23-alpha"></script>
-    <script src="../../js/index.js?v=1706571404"></script>
+    <script src="../../js/lunr.min.js?v=1.0.24-alpha"></script>
+    <script src="../../js/index.js?v=1706754710"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../../search-data.js?v=1706571404"></script>
+    <script src="../../search-data.js?v=1706754710"></script>
   </body>
 </html>

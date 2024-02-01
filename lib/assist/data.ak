@@ -8,7 +8,7 @@ use aiken/dict.{Dict}
 use aiken/hash.{Blake2b_256, Hash}
 use aiken/transaction.{DatumHash, InlineDatum, Input, Output}
 // for testing only
-use tests/fake_tx
+use assist/tests/fake_tx
 
 /// Find the datum data on an input or error. The data is assumed
 /// to be an inline datum.

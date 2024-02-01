@@ -15,9 +15,9 @@ use aiken/transaction/value.{AssetName, PolicyId, Value}
 use assist/addresses
 use assist/credentials
 use assist/data
-use assist/values
 // for testing only
-use tests/fake_tx
+use assist/tests/fake_tx
+use assist/values
 
 /// Find the first input's output reference index.
 /// Output references have the form `TxId#Idx`, this function
