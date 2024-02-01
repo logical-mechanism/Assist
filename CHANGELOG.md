@@ -3,6 +3,7 @@
 - Added the `Wallets` type and `to_vks`  to the wallet submodule.
 - Added `get` and `version` to the cip68 submodule.
 - Addded `shift` to the moment submodule.
+- `tests/fake_tx` are now apart of `assist`.
 
 # v0.4.4
 
