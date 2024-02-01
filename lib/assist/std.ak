@@ -3,9 +3,9 @@
 ////
 
 use aiken/builtin.{serialise_data}
-use aiken/transaction.{OutputReference, TransactionId}
 // used for testing
-use tests/fake_tx
+use assist/tests/fake_tx
+use aiken/transaction.{OutputReference, TransactionId}
 
 /// Create an `OutputReference` from the `TxId#Idx` information. This is useful
 /// for building correct output references of specific UTxOs. It can be combined

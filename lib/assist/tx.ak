@@ -7,8 +7,8 @@ use aiken/transaction.{Input, OutputReference}
 use aiken/transaction/credential
 use aiken/transaction/value.{AssetName, PolicyId}
 use assist/std
+use assist/tests/fake_tx
 use assist/types/hashes.{ValidatorHash}
-use tests/fake_tx
 
 /// Check if a specific input by output reference is being spent. This is useful
 /// when a minting script requires a utxo to be spent but doesn't need any specific

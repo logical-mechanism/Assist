@@ -3,11 +3,11 @@
 ////
 
 use aiken/list
+// for testing only
+use assist/tests/fake_tx
 use aiken/transaction.{DatumHash, InlineDatum, Input, Output, Transaction}
 use aiken/transaction/credential.{Address, ScriptCredential}
 use assist/addresses
-// for testing only
-use tests/fake_tx
 
 /// Verify that the number of inputs with an inline datum or datum hash is equal to the
 /// number intended in the contract. The amount must be exactly the counter.

@@ -2,13 +2,13 @@
 //// functions are designed to return a boolean value instead of an error.
 ////
 
+// for testing only
+use assist/tests/fake_tx
 use aiken/transaction.{Output, Transaction}
 use aiken/transaction/credential.{Address}
 use aiken/transaction/value.{Value}
 use assist/addresses
 use assist/values
-// for testing only
-use tests/fake_tx
 
 /// Find the first occurrence of an exact output that matches a specific
 /// address and value. If nothing is found then return False.

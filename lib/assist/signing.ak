@@ -3,9 +3,9 @@
 ////
 
 use aiken/list
-use assist/types/hashes.{PublicKeyHash}
 // for testing only
-use tests/fake_tx
+use assist/tests/fake_tx
+use assist/types/hashes.{PublicKeyHash}
 
 /// Check if the list of signatures inside a transaction contains the
 /// verification key.
