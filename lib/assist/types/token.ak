@@ -284,3 +284,85 @@ test from_general_value() {
     ]
   from_value(v) == e
 }
+
+/// Check if a Token exists in a list of Tokens. The amount has to be greater
+/// than or equal to the target.
+///
+/// ```aiken
+/// token.exists(target_token, total_tokens)
+/// ```
+pub fn exists(target: Token, total: Tokens) -> Bool {
+  when total is {
+    [] -> False
+    [tkn, ..tkns] ->
+      if and {
+        target.pid == tkn.pid,
+        target.tkn == tkn.tkn,
+        tkn.amt >= target.amt,
+      } {
+        True
+      } else {
+        exists(target, tkns)
+      }
+  }
+}
+
+/// Check if a target list of tokens exist inside another list of tokens.
+/// The token amount must be greater than or equal to the target amount. If
+/// nothing is found then it returns False.
+///
+/// ```aiken
+/// token.contains(target, total)
+/// ```
+pub fn contains(target: Tokens, total: Tokens) -> Bool {
+  when target is {
+    [] -> True
+    [t, ..ts] ->
+      if exists(t, total) {
+        contains(ts, total)
+      } else {
+        False
+      }
+  }
+}
+
+test tokens_contains_lovelace() {
+  let target: Tokens =
+    [Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 100 }]
+  let total: Tokens =
+    [Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 100 }]
+  contains(target, total) == True
+}
+
+test tokens_contains_tokens() {
+  let target: Tokens =
+    [Token { pid: #"acab", tkn: #"beef", amt: 10 }]
+  let total: Tokens =
+    [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
+  contains(target, total) == True
+}
+
+test tokens_contains_both() {
+  let target: Tokens =
+    [
+      Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 10 },
+      Token { pid: #"acab", tkn: #"beef", amt: 2 },
+      Token { pid: #"cafe", tkn: #"face", amt: 10 },
+    ]
+  let total: Tokens =
+    [
+      Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 100 },
+      Token { pid: #"acab", tkn: #"beef", amt: 20 },
+      Token { pid: #"cafe", tkn: #"face", amt: 100 },
+    ]
+
+  contains(target, total) == True
+}
+
+test tokens_contains_nothing() {
+  let target: Tokens =
+    [Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 100 }]
+  let total: Tokens =
+    [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
+  contains(target, total) == False
+}
