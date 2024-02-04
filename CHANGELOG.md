@@ -1,9 +1,12 @@
 # v0.x.y
 
+# v0.4.5
+
 - Added the `Wallets` type and `to_vks`  to the wallet submodule.
 - Added `get` and `version` to the cip68 submodule.
-- Addded `shift` to the moment submodule.
+- Added `shift` to the moment submodule.
 - `tests/fake_tx` are now apart of `assist`.
+- Added `contains` to the token submodule.
 
 # v0.4.4
 
