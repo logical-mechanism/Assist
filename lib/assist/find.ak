@@ -414,3 +414,29 @@ test cant_find_output_datum_by_nft2() fail {
   expect outcome: ByteArray = output_datum_by_nft(outputs, #"fade", #"fade")
   outcome == fake_tx.test_datum
 }
+
+/// Find the first occurance of an inline datum on an output with a value 
+/// that contains a specific nft.
+pub fn input_by_nft(inputs: List<Input>, pid: PolicyId, tkn: AssetName) -> Input {
+  when inputs is {
+    [input, ..rest] ->
+      if values.prove_exact_nft(pid, tkn, input.output.value) {
+        input
+      } else {
+        input_by_nft(rest, pid, tkn)
+      }
+    [] -> fail @"No Input Found In Inputs"
+  }
+}
+
+test cant_find_input_by_nft() fail {
+  let inputs: List<Input> = fake_tx.test_bad_inputs()
+  let input: Input = input_by_nft(inputs, #"acab", #"beef")
+  input == fake_tx.test_one_lovelace_input()
+}
+
+test can_find_input_by_nft() {
+  let inputs: List<Input> = fake_tx.test_bad_inputs()
+  let input: Input = input_by_nft(inputs, #"", #"")
+  input == fake_tx.test_one_lovelace_input()
+}

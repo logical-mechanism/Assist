@@ -130,6 +130,21 @@ pub fn test_bad_input() -> Input {
   input
 }
 
+pub fn test_one_lovelace_input() -> Input {
+  Input {
+    output_reference: OutputReference {
+      transaction_id: TransactionId { hash: #"" },
+      output_index: 1,
+    },
+    output: Output {
+      address: addresses.create_address(#"face", #""),
+      value: value.from_lovelace(1),
+      datum: NoDatum,
+      reference_script: None,
+    },
+  }
+}
+
 pub fn test_bad_inputs() -> List<Input> {
   [
     Input {
@@ -163,7 +178,7 @@ pub fn test_bad_inputs() -> List<Input> {
       },
       output: Output {
         address: addresses.create_address(#"face", #""),
-        value: value.from_lovelace(5),
+        value: value.from_lovelace(1),
         datum: NoDatum,
         reference_script: None,
       },
