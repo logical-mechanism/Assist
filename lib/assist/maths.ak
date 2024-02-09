@@ -5,6 +5,9 @@ use aiken/bytearray
 use aiken/list
 use aiken/math
 
+pub const large_prime: Int =
+  0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
+
 /// Calculate `n` to the power of `e` modulo `q` using the exponentiation by 
 /// squaring method. At each multiplication a modulo is calculated, allowing
 /// very large `n` and `e` values.
@@ -50,6 +53,13 @@ test powmod_54_123_1() {
   powmod(54, 123, 1) == 0
 }
 
+test powmod_very_large() {
+  let q =
+    0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
+
+  powmod(2, 31565052264044690, q) == 2372285326153189929528332103442483377705667947278803297593729812983050665252776619156384486056106192189240939340047
+}
+
 /// Convert a integer `n` into some base `q`. This method
 /// should scale with any integer and any logical base.
 ///
@@ -87,6 +97,16 @@ test simple_base_q() {
 
 test to_base_256() {
   base_q(78237623, 256) == [4, 169, 207, 183]
+}
+
+test to_base_large() {
+  base_q(powmod(2, 15383577435643450949, large_prime), 15) == [
+    12, 9, 14, 13, 5, 2, 11, 13, 5, 13, 10, 8, 5, 11, 10, 4, 7, 5, 11, 0, 10, 8,
+    8, 8, 11, 6, 13, 3, 4, 14, 11, 10, 0, 12, 10, 11, 10, 0, 11, 8, 2, 3, 8, 13,
+    0, 1, 5, 13, 0, 8, 13, 3, 10, 6, 4, 12, 14, 3, 7, 1, 11, 3, 7, 3, 14, 6, 8,
+    4, 14, 3, 2, 7, 10, 14, 13, 10, 6, 8, 1, 7, 6, 13, 11, 10, 9, 12, 2, 13, 4,
+    5, 14, 8, 5, 13, 3, 12, 12,
+  ]
 }
 
 /// Convert a hexadecimal bytearray into its base 10 representation. This

@@ -1,5 +1,7 @@
 # v0.x.y
 
+- Added `input_by_nft` to the find submodule.
+
 # v0.4.5
 
 - Added the `Wallets` type and `to_vks`  to the wallet submodule.
