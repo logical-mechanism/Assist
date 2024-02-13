@@ -5,6 +5,7 @@ use aiken/bytearray
 use aiken/list
 use aiken/math
 
+/// A large prime number. The value is near 4 x 10^114.
 pub const large_prime: Int =
   0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
 
@@ -16,13 +17,24 @@ pub const large_prime: Int =
 /// maths.powmod(3, 2, 5)
 /// ```
 pub fn powmod(n: Int, e: Int, q: Int) -> Int {
-  if e < 0 || q == 0 {
+  if or {
+    e < 0,
+    q == 0,
+  } {
+    // negative exponents and zero mod here
+    // we can't handle this case so call it all zero
     0
   } else if e == 0 {
+    // defined to be one, x^0 = 1 if x not zero but
+    // when x is zero then you 0^0 = Nan, and one 
+    // more validation check to run so to make it
+    // cheaper just call it one
     1
   } else if e % 2 == 0 {
-    powmod(n * n % q, e / 2, q) % q
+    // even case
+    powmod(n * n % q, e / 2, q)
   } else {
+    // odd case
     n * powmod(n * n % q, ( e - 1 ) / 2, q) % q
   }
 }
@@ -53,11 +65,20 @@ test powmod_54_123_1() {
   powmod(54, 123, 1) == 0
 }
 
-test powmod_very_large() {
-  let q =
-    0x1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab
+test powmod_very_large1() {
+  powmod(2, 6298875231651707927, large_prime) == 619257508790463606920652988927719175328304037643924550063346200106231201391121814124765664556886167107742014416823
+}
 
-  powmod(2, 31565052264044690, q) == 2372285326153189929528332103442483377705667947278803297593729812983050665252776619156384486056106192189240939340047
+test powmod_very_large2() {
+  powmod(11024141354654159834, 6298875231651707927, large_prime) == 1281252237043588814874358657648283885922247063951636571913626407612926025965286114877878077927294143587983649997167
+}
+
+test powmod_very_large3() {
+  powmod(
+    1281252237043588814874358657648283885922247063951636571913626407612926025965286114877878077927294143587983649997167,
+    6298875231651707927,
+    large_prime,
+  ) == 1375787197462284242586537174662214468532791477308429144007255343030157255268351835798245451858532190874833597636080
 }
 
 /// Convert a integer `n` into some base `q`. This method
@@ -164,6 +185,22 @@ test complex_from_int() {
   let str: ByteArray = #"acabbeeffacecafe"
   let n: Int = to_int(str)
   from_int(n) == str
+}
+
+test from_big_int() {
+  let str: ByteArray =
+    #"0f69bd90956d98ace782567be7bb23ce2aecf6a525ba451795d21feb13220703b48b295a42cc7a86776cc9ad543f610f"
+  let n: Int =
+    2372285326153189929528332103442483377705667947278803297593729812983050665252776619156384486056106192189240939340047
+  from_int(n) == str
+}
+
+test to_big_int() {
+  let str: ByteArray =
+    #"0f69bd90956d98ace782567be7bb23ce2aecf6a525ba451795d21feb13220703b48b295a42cc7a86776cc9ad543f610f"
+  let n: Int =
+    2372285326153189929528332103442483377705667947278803297593729812983050665252776619156384486056106192189240939340047
+  to_int(str) == n
 }
 
 /// Computes greatest common divisor of two numbers.

@@ -1,6 +1,8 @@
 # v0.x.y
 
 - Added `input_by_nft` to the find submodule.
+- Added additional power mod tests.
+- A large prime number has been added to maths.
 
 # v0.4.5
 
