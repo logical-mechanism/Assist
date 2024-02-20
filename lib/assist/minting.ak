@@ -3,7 +3,7 @@
 
 use aiken/bytearray
 use aiken/transaction/value.{AssetName, PolicyId}
-use assist/prefixes
+use assist/types/cip68
 
 /// This checks if a specific policy id, token name, and amount exist inside
 /// the flattened exact value. It is searching for an exact match. If found
@@ -105,27 +105,23 @@ pub fn by_prefix(
 }
 
 test good_by_prefix_mint() {
-  let flat =
-    value.from_asset(#"acab", prefixes.prefix_222, 1) |> value.flatten()
-  by_prefix(flat, #"acab", prefixes.prefix_222, 1) == True
+  let flat = value.from_asset(#"acab", cip68.prefix_222, 1) |> value.flatten()
+  by_prefix(flat, #"acab", cip68.prefix_222, 1) == True
 }
 
 test good_by_prefix_burn() {
-  let flat =
-    value.from_asset(#"acab", prefixes.prefix_222, -1) |> value.flatten()
-  by_prefix(flat, #"acab", prefixes.prefix_222, -1) == True
+  let flat = value.from_asset(#"acab", cip68.prefix_222, -1) |> value.flatten()
+  by_prefix(flat, #"acab", cip68.prefix_222, -1) == True
 }
 
 test bad_by_prefix_mint() {
-  let flat =
-    value.from_asset(#"acab", prefixes.prefix_333, 1) |> value.flatten()
-  by_prefix(flat, #"acab", prefixes.prefix_222, 1) == False
+  let flat = value.from_asset(#"acab", cip68.prefix_333, 1) |> value.flatten()
+  by_prefix(flat, #"acab", cip68.prefix_222, 1) == False
 }
 
 test bad_by_prefix_burn() {
-  let flat =
-    value.from_asset(#"acab", prefixes.prefix_333, -1) |> value.flatten()
-  by_prefix(flat, #"acab", prefixes.prefix_222, -1) == False
+  let flat = value.from_asset(#"acab", cip68.prefix_333, -1) |> value.flatten()
+  by_prefix(flat, #"acab", cip68.prefix_222, -1) == False
 }
 
 test empty_by_prefix_mint() {
@@ -166,17 +162,15 @@ pub fn is_occurring(
 test tx_is_empty_minting() {
   let flat =
     []
-  is_occurring(flat, #"acab", prefixes.prefix_222) == False
+  is_occurring(flat, #"acab", cip68.prefix_222) == False
 }
 
 test tx_is_minting() {
-  let flat =
-    value.from_asset(#"acab", prefixes.prefix_222, 1) |> value.flatten()
-  is_occurring(flat, #"acab", prefixes.prefix_222) == True
+  let flat = value.from_asset(#"acab", cip68.prefix_222, 1) |> value.flatten()
+  is_occurring(flat, #"acab", cip68.prefix_222) == True
 }
 
 test tx_is_not_minting() {
-  let flat =
-    value.from_asset(#"acab", prefixes.prefix_222, 1) |> value.flatten()
-  is_occurring(flat, #"acab", prefixes.prefix_333) == False
+  let flat = value.from_asset(#"acab", cip68.prefix_222, 1) |> value.flatten()
+  is_occurring(flat, #"acab", cip68.prefix_333) == False
 }

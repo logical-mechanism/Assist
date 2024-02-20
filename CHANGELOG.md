@@ -3,6 +3,8 @@
 - Added `input_by_nft` to the find submodule.
 - Added additional power mod tests.
 - A large prime number has been added to maths.
+- Prefixes are now placed where they belong, the cip68 labels are now in cip68 sub type and prefixes are now custom prefixes.
+- Added `seed` prefix.
 
 # v0.4.5
 
