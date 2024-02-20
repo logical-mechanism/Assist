@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.5 </span>
+          <span>v0.4.6 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.5";
+            const currentVersion = "v0.4.6";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -333,17 +333,11 @@
 <h2>Constants</h2>
 <ul>
   
-  <li><a href="#prefix_100">prefix_100</a></li>
+  <li><a href="#callable">callable</a></li>
   
-  <li><a href="#prefix_222">prefix_222</a></li>
+  <li><a href="#database">database</a></li>
   
-  <li><a href="#prefix_333">prefix_333</a></li>
-  
-  <li><a href="#prefix_444">prefix_444</a></li>
-  
-  <li><a href="#prefix_callable">prefix_callable</a></li>
-  
-  <li><a href="#prefix_database">prefix_database</a></li>
+  <li><a href="#seed">seed</a></li>
   
 </ul>
 
@@ -357,7 +351,7 @@
 <h1 id="module-name" class="module-name">
   <a href="#module-name">assist/prefixes</a>
 </h1>
-<p>This module provides the currently accepted token prefixes.</p>
+<p>This module provides token prefixes for labeling unique tokens.</p>
 
 
 
@@ -371,67 +365,7 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="prefix_100"><pre class="hljs language-aiken">prefix_100: ByteArray = #&quot;000643b0&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>(100) Reference Token Prefix</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_222"><pre class="hljs language-aiken">prefix_222: ByteArray = #&quot;000de140&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>(222) Non-Fungible Token Prefix</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_333"><pre class="hljs language-aiken">prefix_333: ByteArray = #&quot;0014df10&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>(333) Fungible Token Prefix</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_444"><pre class="hljs language-aiken">prefix_444: ByteArray = #&quot;001bc280&quot;</pre></h2>
-      
-      <!-- TODO: support source linking
-      <a class="member-source" alt="View Source" title="View Source" href="#todo">
-        &lt;/&gt;
-      </a>
-      -->
-      
-    </div>
-    <div class="rendered-markdown"><p>(444) Rich-Fungible Token Prefix</p>
-</div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="prefix_callable"><pre class="hljs language-aiken">prefix_callable: ByteArray = #&quot;ca11ab1e&quot;</pre></h2>
+      <h2 id="callable"><pre class="hljs language-aiken">callable: ByteArray = #&quot;ca11ab1e&quot;</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -446,7 +380,7 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="prefix_database"><pre class="hljs language-aiken">prefix_database: ByteArray = #&quot;da7aba5e&quot;</pre></h2>
+      <h2 id="database"><pre class="hljs language-aiken">database: ByteArray = #&quot;da7aba5e&quot;</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -456,6 +390,21 @@
       
     </div>
     <div class="rendered-markdown"><p>Database Token Prefix</p>
+</div>
+  </div>
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="seed"><pre class="hljs language-aiken">seed: ByteArray = #&quot;5eed0e1f&quot;</pre></h2>
+      
+      <!-- TODO: support source linking
+      <a class="member-source" alt="View Source" title="View Source" href="#todo">
+        &lt;/&gt;
+      </a>
+      -->
+      
+    </div>
+    <div class="rendered-markdown"><p>Seed Token Prefix</p>
 </div>
   </div>
   
@@ -534,8 +483,8 @@
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.24-alpha"></script>
-    <script src="../js/index.js?v=1707079769"></script>
+    <script src="../js/index.js?v=1708391002"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1707079769"></script>
+    <script src="../search-data.js?v=1708391002"></script>
   </body>
 </html>
