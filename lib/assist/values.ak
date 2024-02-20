@@ -8,7 +8,7 @@ use aiken/hash
 use aiken/list
 use aiken/string
 use aiken/transaction/value.{AssetName, PolicyId, Value}
-use assist/prefixes
+use assist/types/cip68
 use assist/types/hashes.{TxHash}
 use assist/types/token.{Token, Tokens}
 
@@ -217,7 +217,7 @@ test hash_large_value() {
 /// utxo inside the transaction.
 ///
 /// ```aiken
-/// values.unique_token_name(tx_id, tx_idx, prefixes.prefix_333)
+/// values.unique_token_name(tx_id, tx_idx, cip68.prefix_333)
 /// ```
 pub fn unique_token_name(txid: TxHash, idx: Int, prefix: ByteArray) -> AssetName {
   // sha3_256 hash of the tx id
@@ -236,9 +236,9 @@ test no_prefix_token_name() {
 }
 
 test prefix_222_token_name() {
-  let tkn: AssetName = unique_token_name(#"", 0, prefixes.prefix_222)
+  let tkn: AssetName = unique_token_name(#"", 0, cip68.prefix_222)
   // the prefixes all have length 4
-  bytearray.take(tkn, 4) == prefixes.prefix_222
+  bytearray.take(tkn, 4) == cip68.prefix_222
 }
 
 test real_token_name() {
@@ -246,7 +246,7 @@ test real_token_name() {
     unique_token_name(
       #"82fca2f3221cf2d3ef017e8aa76f5c70317df0af32d327c84af4b9b9bddad91f",
       0,
-      prefixes.prefix_100,
+      cip68.prefix_100,
     )
   bytearray.length(tkn) == 32
 }
