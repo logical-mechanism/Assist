@@ -8,10 +8,9 @@ use aiken/transaction.{
   DatumHash, InlineDatum, Input, NoDatum, Output, OutputReference, Spend,
   Transaction,
 }
-use aiken/transaction/credential.{StakeCredential}
+use aiken/transaction/credential.{Credential, VerificationKeyCredential}
 use aiken/transaction/value
 use assist/addresses
-use assist/credentials
 
 /// A test datum.
 pub const test_datum: ByteArray = #"acabbeeffacecafe"
@@ -253,7 +252,7 @@ pub fn test_signatories() -> List<ByteArray> {
 
 /// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
-  let sc: StakeCredential = credentials.create_stake_credential(#"face")
+  let sc: Credential = VerificationKeyCredential(#"acab")
   let out_ref: OutputReference = test_out_ref()
   let withdrawal =
     dict.new()

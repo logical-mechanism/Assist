@@ -2,8 +2,9 @@
 //// ensuring their correctness. 
 ////
 
-use aiken/transaction/certificate.{Certificate, CredentialDelegation}
+use aiken/transaction/certificate.{Certificate, DelegateStaking}
 use aiken/transaction/credential.{PoolId}
+use aiken/transaction/governance.{DelegStake}
 use assist/credentials
 use assist/types/hashes.{ValidatorHash}
 
@@ -18,17 +19,11 @@ pub fn create_credential_delegation(
   sc: ValidatorHash,
   pool_id: PoolId,
 ) -> Certificate {
-  CredentialDelegation {
-    delegator: credentials.create_stake_credential(sc),
-    delegatee: pool_id,
-  }
+  DelegateStaking(credentials.create_stake_credential(sc), DelegStake(pool_id))
 }
 
 test simple_credential_delegation() {
   let cred: Certificate =
-    CredentialDelegation {
-      delegator: credentials.create_stake_credential(#""),
-      delegatee: #"",
-    }
+    DelegateStaking(credentials.create_stake_credential(#""), DelegStake(#""))
   create_credential_delegation(#"", #"") == cred
 }
