@@ -1,5 +1,5 @@
 name = "logicalmechanism/assist"
-version = "0.4.6"
+version = "0.5.0"
 license = "Apache-2.0"
 description = "Aiken Assist Library"
 
@@ -9,6 +9,6 @@ project = "assist"
 platform = "github"
 
 [[dependencies]]
-name = "aiken-lang/stdlib"
-version = "1.7.0"
+name = "logicalmechanism/stdlib"
+version = "plutus-v3"
 source = "github"
