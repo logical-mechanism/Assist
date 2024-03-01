@@ -15,7 +15,8 @@ use assist/tests/fake_tx
 /// std.out_ref(that_tx_id, that_tx_idx)
 /// ```
 pub fn out_ref(tx_id_hash: ByteArray, idx: Int) -> OutputReference {
-  OutputReference { transaction_id: tx_id_hash, output_index: idx }
+  let tx_id: TransactionId = TransactionId { hash: tx_id_hash }
+  OutputReference { transaction_id: tx_id, output_index: idx }
 }
 
 test correct_out_ref() {
@@ -30,12 +31,12 @@ test bad_out_ref() {
 
 test data_structure() {
   // this can be anything in aiken
-  let tx_id: TransactionId = #""
+  let tx_id: TransactionId = TransactionId { hash: #"" }
   let test_data_structure =
     OutputReference { transaction_id: tx_id, output_index: 0 }
   // now show the cbor
   let cbor_representation =
     test_data_structure
       |> serialise_data
-  cbor_representation == #"d8799f4000ff"
+  cbor_representation == #"d8799fd8799f40ff00ff"
 }

@@ -6,7 +6,7 @@ use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
 use aiken/list
 use aiken/transaction.{
   DatumHash, InlineDatum, Input, NoDatum, Output, OutputReference, Spend,
-  Transaction,
+  Transaction, TransactionId,
 }
 use aiken/transaction/credential.{Credential, VerificationKeyCredential}
 use aiken/transaction/value
@@ -22,14 +22,20 @@ pub type DataType =
 /// Creates an `OutputReference`
 pub fn test_out_ref() -> OutputReference {
   let out_ref: OutputReference =
-    OutputReference { transaction_id: #"acab", output_index: 0 }
+    OutputReference {
+      transaction_id: TransactionId { hash: #"acab" },
+      output_index: 0,
+    }
   out_ref
 }
 
 /// Creates an `OutputReference`
 pub fn test_bad_out_ref() -> OutputReference {
   let out_ref: OutputReference =
-    OutputReference { transaction_id: #"", output_index: 1 }
+    OutputReference {
+      transaction_id: TransactionId { hash: #"" },
+      output_index: 1,
+    }
   out_ref
 }
 
@@ -37,7 +43,10 @@ pub fn test_bad_out_ref() -> OutputReference {
 pub fn test_inputs(amt: Int) -> List<Input> {
   let input: Input =
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 0 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 0,
+      },
       output: Output {
         address: addresses.create_address(#"acab", #""),
         value: value.from_asset(#"acab", #"beef", 100),
@@ -53,7 +62,7 @@ pub fn test_input() -> Input {
   let input: Input =
     Input {
       output_reference: OutputReference {
-        transaction_id: #"acab",
+        transaction_id: TransactionId { hash: #"acab" },
         output_index: 0,
       },
       output: Output {
@@ -70,7 +79,10 @@ pub fn test_input() -> Input {
 pub fn test_script_input() -> Input {
   let input: Input =
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 0 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 0,
+      },
       output: Output {
         address: addresses.create_script_address(#"acab", #""),
         value: value.from_lovelace(100),
@@ -85,7 +97,10 @@ pub fn test_script_input() -> Input {
 pub fn test_input_with_datum_hash() {
   let input: Input =
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 0 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 0,
+      },
       output: Output {
         address: addresses.create_address(#"acab", #""),
         value: value.from_lovelace(100),
@@ -100,7 +115,10 @@ pub fn test_input_with_datum_hash() {
 pub fn test_bad_input() -> Input {
   let input: Input =
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 0 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 0,
+      },
       output: Output {
         address: addresses.create_address(#"acab", #""),
         value: value.from_lovelace(100),
@@ -113,7 +131,10 @@ pub fn test_bad_input() -> Input {
 
 pub fn test_one_lovelace_input() -> Input {
   Input {
-    output_reference: OutputReference { transaction_id: #"", output_index: 1 },
+    output_reference: OutputReference {
+      transaction_id: TransactionId { hash: #"" },
+      output_index: 1,
+    },
     output: Output {
       address: addresses.create_address(#"face", #""),
       value: value.from_lovelace(1),
@@ -126,7 +147,10 @@ pub fn test_one_lovelace_input() -> Input {
 pub fn test_bad_inputs() -> List<Input> {
   [
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 1 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
       output: Output {
         address: addresses.create_script_address(#"acab", #""),
         value: value.from_lovelace(100),
@@ -135,7 +159,10 @@ pub fn test_bad_inputs() -> List<Input> {
       },
     },
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 1 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
       output: Output {
         address: addresses.create_address(#"face", #""),
         value: value.from_lovelace(5),
@@ -144,7 +171,10 @@ pub fn test_bad_inputs() -> List<Input> {
       },
     },
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 1 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
       output: Output {
         address: addresses.create_address(#"face", #""),
         value: value.from_lovelace(1),
@@ -153,7 +183,10 @@ pub fn test_bad_inputs() -> List<Input> {
       },
     },
     Input {
-      output_reference: OutputReference { transaction_id: #"", output_index: 1 },
+      output_reference: OutputReference {
+        transaction_id: TransactionId { hash: #"" },
+        output_index: 1,
+      },
       output: Output {
         address: addresses.create_script_address(#"cafe", #"acab"),
         value: value.from_lovelace(100),
@@ -275,7 +308,7 @@ pub fn test_tx() -> Transaction {
         },
         Input {
           output_reference: OutputReference {
-            transaction_id: #"",
+            transaction_id: TransactionId { hash: #"" },
             output_index: 1,
           },
           output: Output {
@@ -287,7 +320,7 @@ pub fn test_tx() -> Transaction {
         },
         Input {
           output_reference: OutputReference {
-            transaction_id: #"",
+            transaction_id: TransactionId { hash: #"" },
             output_index: 1,
           },
           output: Output {
@@ -336,7 +369,7 @@ pub fn test_tx() -> Transaction {
       extra_signatories: test_signatories(),
       redeemers: redeem,
       datums: dict.new(),
-      id: #"",
+      id: TransactionId { hash: #"" },
       votes: dict.new(),
       proposal_procedures: [],
       current_treasury_amount: None,

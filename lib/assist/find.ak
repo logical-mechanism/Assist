@@ -6,7 +6,7 @@ use aiken/dict.{Dict}
 use aiken/list
 use aiken/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
-  Transaction,
+  Transaction, TransactionId,
 }
 use aiken/transaction/credential.{Address,
   Credential, VerificationKeyCredential}
@@ -52,7 +52,7 @@ test cant_find_first_input_index() fail {
 /// ```
 pub fn first_input_txid(inputs: List<Input>) -> ByteArray {
   when list.head(inputs) is {
-    Some(input) -> input.output_reference.transaction_id
+    Some(input) -> input.output_reference.transaction_id.hash
     None -> fail @"No First Input TxId Found"
   }
 }
@@ -91,7 +91,10 @@ pub fn input_by_ref(inputs: List<Input>, out_ref: OutputReference) -> Input {
 test find_input_by_ref() {
   let inputs: List<Input> = fake_tx.test_tx().inputs
   let out_ref: OutputReference =
-    OutputReference { transaction_id: #"acab", output_index: 0 }
+    OutputReference {
+      transaction_id: TransactionId { hash: #"acab" },
+      output_index: 0,
+    }
   input_by_ref(inputs, out_ref) == fake_tx.test_input()
 }
 
@@ -99,7 +102,10 @@ test cant_find_input_by_ref() fail {
   let inputs: List<Input> =
     []
   let out_ref: OutputReference =
-    OutputReference { transaction_id: #"", output_index: 0 }
+    OutputReference {
+      transaction_id: TransactionId { hash: #"" },
+      output_index: 0,
+    }
   // this will fail
   input_by_ref(inputs, out_ref) == fake_tx.test_input()
 }

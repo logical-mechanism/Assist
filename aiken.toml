@@ -10,5 +10,5 @@ platform = "github"
 
 [[dependencies]]
 name = "logicalmechanism/stdlib"
-version = "plutus-v3"
+version = "v3-review-1"
 source = "github"
