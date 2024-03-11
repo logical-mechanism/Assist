@@ -8,9 +8,10 @@ use aiken/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
   Transaction, TransactionId,
 }
-use aiken/transaction/credential.{Address,
-  Credential, VerificationKeyCredential}
-use aiken/transaction/value.{AssetName, PolicyId, Value}
+use aiken/transaction/credential.{
+  Address, Inline, StakeCredential, VerificationKeyCredential,
+}
+use aiken/transaction/value.{AssetName, Lovelace, PolicyId, Value}
 use assist/addresses
 use assist/data
 // for testing only
@@ -319,8 +320,8 @@ test cant_find_output_by_value() fail {
 /// find.stake_reward_by_sc(tx.withdrawals, datum.wallet.sc)
 /// ```
 pub fn stake_reward_by_sc(
-  withdraws: Dict<Credential, Int>,
-  stake_credential: Credential,
+  withdraws: Dict<StakeCredential, Lovelace>,
+  stake_credential: StakeCredential,
 ) -> Int {
   when dict.get(withdraws, stake_credential) is {
     Some(reward) -> reward
@@ -329,15 +330,16 @@ pub fn stake_reward_by_sc(
 }
 
 test find_stake_reward_by_sc() {
-  let withdrawal: Dict<Credential, Int> = fake_tx.test_tx().withdrawals
+  let withdrawal: Dict<StakeCredential, Lovelace> =
+    fake_tx.test_tx().withdrawals
   // let sc: Referenced<Credential> = credentials.create_stake_credential(#"face")
-  let sc: Credential = VerificationKeyCredential(#"acab")
+  let sc: StakeCredential = Inline(VerificationKeyCredential(#"acab"))
   stake_reward_by_sc(withdrawal, sc) == 100
 }
 
 test cant_find_stake_reward_by_sc() fail {
-  let withdrawal: Dict<Credential, Int> = dict.new()
-  let sc: Credential = VerificationKeyCredential(#"face")
+  let withdrawal: Dict<StakeCredential, Int> = dict.new()
+  let sc: StakeCredential = Inline(VerificationKeyCredential(#"face"))
   // this will fail
   stake_reward_by_sc(withdrawal, sc) == 0
 }

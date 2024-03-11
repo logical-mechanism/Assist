@@ -8,7 +8,9 @@ use aiken/transaction.{
   DatumHash, InlineDatum, Input, NoDatum, Output, OutputReference, Spend,
   Transaction, TransactionId,
 }
-use aiken/transaction/credential.{Credential, VerificationKeyCredential}
+use aiken/transaction/credential.{
+  Inline, StakeCredential, VerificationKeyCredential,
+}
 use aiken/transaction/value
 use assist/addresses
 
@@ -285,7 +287,7 @@ pub fn test_signatories() -> List<ByteArray> {
 
 /// A fake transaction used for testing.
 pub fn test_tx() -> Transaction {
-  let sc: Credential = VerificationKeyCredential(#"acab")
+  let sc: StakeCredential = Inline(VerificationKeyCredential(#"acab"))
   let out_ref: OutputReference = test_out_ref()
   let withdrawal =
     dict.new()

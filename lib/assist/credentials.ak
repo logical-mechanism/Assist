@@ -2,7 +2,7 @@
 //// ensuring their correctness. 
 ////
 
-use aiken/transaction/credential.{Credential, ScriptCredential}
+use aiken/transaction/credential.{Inline, ScriptCredential, StakeCredential}
 use assist/types/hashes.{ValidatorHash}
 
 /// Creates a stake credential from the hex encoding of a stake key.
@@ -12,11 +12,11 @@ use assist/types/hashes.{ValidatorHash}
 /// ```aiken
 /// credentials.create_stake_credential(datum.contract_hash)
 /// ```
-pub fn create_stake_credential(sc: ValidatorHash) -> Credential {
-  // Inline(ScriptCredential(sc))
-  ScriptCredential(sc)
+pub fn create_stake_credential(sc: ValidatorHash) -> StakeCredential {
+  Inline(ScriptCredential(sc))
+  // ScriptCredential(sc)
 }
 
 test simple_stake_credential() {
-  create_stake_credential(#"") == ScriptCredential(#"")
+  create_stake_credential(#"") == Inline(ScriptCredential(#""))
 }
