@@ -1,5 +1,9 @@
 # v0.x.y
 
+# v0.5.0
+
+- Pure Plutus V3 transition.
+
 # v0.4.6
 
 - Added `input_by_nft` to the find submodule.

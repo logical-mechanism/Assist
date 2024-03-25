@@ -2,6 +2,10 @@
 
 The **Aiken Assist Library** is a collection of specialized Aiken functions designed for smart contracts on Cardano. This library extends the default functionality and provides routines that facilitate quick development.
 
+### Path To Plutus V3
+
+The v0.4.x will be the plutus v2 branch for users wishing to conitinue development with Plutus V2. All future versions v0.5.x+ will be Plutus V3 only. Please adjust project accordingly.
+
 ## Getting Started
 
 To start using the library, follow these steps:
