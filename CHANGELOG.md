@@ -1,5 +1,7 @@
 # v0.x.y
 
+- Updated to Aiken 1.0.26
+
 # v0.4.6
 
 - Added `input_by_nft` to the find submodule.
