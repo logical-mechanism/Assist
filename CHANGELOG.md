@@ -1,6 +1,9 @@
 # v0.x.y
 
 - Updated to Aiken 1.0.26
+- Updated to stdlib 1.8.0
+- Update CIP68 Data Structure
+- Changed cip68.get, it loops a list instead of doing a dict.get
 
 # v0.4.6
 
