@@ -120,13 +120,13 @@
       <h2>
         <a href="../../">assist</a>
         <span id="project-version">
-          <span>v0.4.6 </span>
+          <span>v0.4.7 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.6";
+            const currentVersion = "v0.4.7";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -404,7 +404,7 @@ https://cips.cardano.org/cips/cip68/.</p>
         <li class="constructor-item">
           <div class="constructor-row">
             <svg class="icon icon-box"><use xlink:href="#icon-box"></use></svg>
-            <pre class="constructor-name"><code class="hljs aiken">CIP68 { metadata: Dict&lt;Data, Data&gt;, version: Int }</code></pre>
+            <pre class="constructor-name"><code class="hljs aiken">CIP68 { metadata: List&lt;(Data, Data)&gt;, version: Int }</code></pre>
           </div>
 	  
         </li>
@@ -510,7 +510,7 @@ https://developers.cardano.org/docs/governance/cardano-improvement-proposals/cip
     </div>
     <div class="rendered-markdown"><p>Attempt to find a data structure by a key inside the cip68 metadatum. If
 nothing is found then fail.</p>
-<pre><code class="language-aiken">cip68.get(datum, some_key)
+<pre><code class="language-aiken">cip68.get(metadatum, some_key)
 </code></pre>
 </div>
   </div>
@@ -527,7 +527,7 @@ nothing is found then fail.</p>
       
     </div>
     <div class="rendered-markdown"><p>Return the version of the metadata.</p>
-<pre><code class="language-aiken">datum |&gt; cip68.version
+<pre><code class="language-aiken">metadatum |&gt; cip68.version
 </code></pre>
 </div>
   </div>
@@ -605,8 +605,8 @@ nothing is found then fail.</p>
       });
     </script>
     <script src="../../js/lunr.min.js?v=1.0.26-alpha"></script>
-    <script src="../../js/index.js?v=1711467586"></script>
+    <script src="../../js/index.js?v=1712004235"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../../search-data.js?v=1711467586"></script>
+    <script src="../../search-data.js?v=1712004235"></script>
   </body>
 </html>
