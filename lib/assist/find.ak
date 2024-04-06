@@ -384,7 +384,7 @@ pub fn output_datum_by_nft(
 ) -> Data {
   when outputs is {
     [output, ..rest] ->
-      if values.prove_exact_nft(pid, tkn, output.value) {
+      if values.prove_exact_nft(output.value, pid, tkn) {
         when output.datum is {
           // inline and holding the nft
           InlineDatum(outbound_datum) -> outbound_datum
@@ -420,7 +420,7 @@ test cant_find_output_datum_by_nft2() fail {
 pub fn input_by_nft(inputs: List<Input>, pid: PolicyId, tkn: AssetName) -> Input {
   when inputs is {
     [input, ..rest] ->
-      if values.prove_exact_nft(pid, tkn, input.output.value) {
+      if values.prove_exact_nft(input.output.value, pid, tkn) {
         input
       } else {
         input_by_nft(rest, pid, tkn)

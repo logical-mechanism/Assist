@@ -1,5 +1,13 @@
 # v0.x.y
 
+- Updating documentation
+- Functions should be curryable, f |> g |> h
+    - values.contains
+    - values.prove_nft
+    - values.prove_exact_nft
+- values.unique_token_name will remove the hash function in step one for versions of assist v0.5.0+
+    - v0.4.x will keep the hash function to prevent breaking old code
+
 # v0.4.7
 
 - Updated to Aiken 1.0.26
