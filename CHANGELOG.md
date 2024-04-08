@@ -1,5 +1,9 @@
 # v0.x.y
 
+# v0.4.8
+
+*This version is contains breaking changes.*
+
 - Updating documentation
 - Functions should be curryable, f |> g |> h. An updated list of functions are below.
     - values.contains

@@ -1,5 +1,5 @@
 name = "logicalmechanism/assist"
-version = "0.4.7"
+version = "0.4.8"
 license = "Apache-2.0"
 description = "Aiken Assist Library"
 

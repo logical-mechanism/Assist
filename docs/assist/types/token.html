@@ -120,13 +120,13 @@
       <h2>
         <a href="../../">assist</a>
         <span id="project-version">
-          <span>v0.4.7 </span>
+          <span>v0.4.8 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.7";
+            const currentVersion = "v0.4.8";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -520,7 +520,7 @@ the general Value type and potentially allow badly formed values to be used.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="contains"><pre class="hljs language-aiken">contains(target: Tokens, total: Tokens) -&gt; Bool</pre></h2>
+      <h2 id="contains"><pre class="hljs language-aiken">contains(total: Tokens, target: Tokens) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -532,7 +532,7 @@ the general Value type and potentially allow badly formed values to be used.</p>
     <div class="rendered-markdown"><p>Check if a target list of tokens exist inside another list of tokens.
 The token amount must be greater than or equal to the target amount. If
 nothing is found then it returns False.</p>
-<pre><code class="language-aiken">token.contains(target, total)
+<pre><code class="language-aiken">token.contains(total, target)
 </code></pre>
 </div>
   </div>
@@ -558,7 +558,7 @@ infinity.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="exists"><pre class="hljs language-aiken">exists(target: Token, total: Tokens) -&gt; Bool</pre></h2>
+      <h2 id="exists"><pre class="hljs language-aiken">exists(total: Tokens, target: Token) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -569,7 +569,7 @@ infinity.</p>
     </div>
     <div class="rendered-markdown"><p>Check if a Token exists in a list of Tokens. The amount has to be greater
 than or equal to the target.</p>
-<pre><code class="language-aiken">token.exists(target_token, total_tokens)
+<pre><code class="language-aiken">token.exists(total_tokens, target_token )
 </code></pre>
 </div>
   </div>
@@ -734,8 +734,8 @@ on the token.</p>
       });
     </script>
     <script src="../../js/lunr.min.js?v=1.0.26-alpha"></script>
-    <script src="../../js/index.js?v=1712004235"></script>
+    <script src="../../js/index.js?v=1712611119"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../../search-data.js?v=1712004235"></script>
+    <script src="../../search-data.js?v=1712611119"></script>
   </body>
 </html>
