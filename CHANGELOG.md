@@ -10,6 +10,7 @@
 - Addresses now have notes about key length validity checks. Please use Wallet types with `wallet.is_valid`.
 - data.metadata has been removed. Use `CIP68.get` instead.
 - maths.to_int and maths.from_int will use bytearray conversions in assist v0.5.0+
+- Added additional tests for finding inputs and outputs using `values.contains`
 
 # v0.4.7
 
