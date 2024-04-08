@@ -15,6 +15,19 @@ fn do_pos_shift(r: Int, p: Int) -> Int {
   }
 }
 
+// this can get expensive
+test do_pos_shift_test1() {
+  let r = -1975180248
+  let p: Int = 44203
+  do_pos_shift(r, p) == r + 44685 * p
+}
+
+test do_pos_shift_test2() {
+  let r = -15
+  let p: Int = 44203
+  do_pos_shift(r, p) == r + 1 * p
+}
+
 /// Performs a logical `AND` operation on two integer values within an arithmetic circuit.
 ///
 /// ```aiken
@@ -70,19 +83,6 @@ test boundary_and() {
 pub fn or_(x: Int, y: Int, p: Int) -> Int {
   let r: Int = x + y - x * y
   do_pos_shift(r, p)
-}
-
-// this can get expensive
-test do_pos_shift_test1() {
-  let r = -1975180248
-  let p: Int = 44203
-  do_pos_shift(r, p) == r + 44685 * p
-}
-
-test do_pos_shift_test2() {
-  let r = -15
-  let p: Int = 44203
-  do_pos_shift(r, p) == r + 1 * p
 }
 
 // Identity and Dominance tests

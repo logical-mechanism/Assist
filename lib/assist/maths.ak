@@ -138,6 +138,7 @@ test to_base_large() {
 /// maths.to_int(#"acab")
 /// ```
 pub fn to_int(self: ByteArray) -> Int {
+  // use bytearray.bytearray_to_integer
   // base 10 value of a hexadecimal number as a bytearray
   bytearray.foldl(self, 0, fn(byte, acc) { acc * 256 + byte })
 }
@@ -159,6 +160,7 @@ test string_to_int() {
 /// maths.from_int(44203)
 /// ```
 pub fn from_int(self: Int) -> ByteArray {
+  // use bytearray.integer_to_bytearray
   let base_256: List<Int> = base_q(self, 256)
   list.foldr(base_256, #"", fn(n, total) { bytearray.push(total, n) })
 }

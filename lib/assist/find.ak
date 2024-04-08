@@ -252,7 +252,7 @@ pub fn output_by_addr_value(
     [output, ..rest] ->
       if and {
         output.address == addr,
-        values.contains(value, output.value),
+        values.contains(output.value, value),
       } {
         output
       } else {
@@ -267,6 +267,13 @@ test find_output_by_addr_value() {
   let outputs: List<Output> = fake_tx.test_tx().outputs
   let addr: Address = addresses.create_address(#"acab", #"")
   let value: Value = value.from_asset(#"acab", #"beef", 40)
+  output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
+}
+
+test find_just_enough_output_by_addr_value() {
+  let outputs: List<Output> = fake_tx.test_tx().outputs
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let value: Value = value.from_asset(#"acab", #"beef", 20)
   output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
 }
 
@@ -289,7 +296,7 @@ test cant_find_output_by_addr_value() fail {
 pub fn output_by_value(outputs: List<Output>, value: Value) -> Output {
   when outputs is {
     [output, ..rest] ->
-      if values.contains(value, output.value) {
+      if values.contains(output.value, value) {
         output
       } else {
         output_by_value(rest, value)
@@ -384,7 +391,7 @@ pub fn output_datum_by_nft(
 ) -> Data {
   when outputs is {
     [output, ..rest] ->
-      if values.prove_exact_nft(pid, tkn, output.value) {
+      if values.prove_exact_nft(output.value, pid, tkn) {
         when output.datum is {
           // inline and holding the nft
           InlineDatum(outbound_datum) -> outbound_datum
@@ -420,7 +427,7 @@ test cant_find_output_datum_by_nft2() fail {
 pub fn input_by_nft(inputs: List<Input>, pid: PolicyId, tkn: AssetName) -> Input {
   when inputs is {
     [input, ..rest] ->
-      if values.prove_exact_nft(pid, tkn, input.output.value) {
+      if values.prove_exact_nft(input.output.value, pid, tkn) {
         input
       } else {
         input_by_nft(rest, pid, tkn)
