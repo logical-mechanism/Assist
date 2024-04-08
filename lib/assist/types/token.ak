@@ -24,7 +24,7 @@ pub type Tokens =
 /// ```aiken
 /// token.negative(this_token)
 /// ```
-pub fn negative(tkn: Token) {
+pub fn negative(tkn: Token) -> Token {
   Token { pid: tkn.pid, tkn: tkn.tkn, amt: -tkn.amt }
 }
 
@@ -250,15 +250,15 @@ test add_and_subtract_tokens_to_value() {
 pub fn from_value(v: Value) -> Tokens {
   value.to_dict(v)
     |> dict.foldl(
-         [],
-         fn(pid, assets, tokens) {
-           dict.foldl(
-             assets,
-             tokens,
-             fn(tkn, amt, tokens) { list.push(tokens, Token { pid, tkn, amt }) },
-           )
-         },
-       )
+        [],
+        fn(pid, assets, tokens) {
+          dict.foldl(
+            assets,
+            tokens,
+            fn(tkn, amt, tokens) { list.push(tokens, Token { pid, tkn, amt }) },
+          )
+        },
+      )
 }
 
 test from_zero_value() {
@@ -289,9 +289,9 @@ test from_general_value() {
 /// than or equal to the target.
 ///
 /// ```aiken
-/// token.exists(target_token, total_tokens)
+/// token.exists(total_tokens, target_token )
 /// ```
-pub fn exists(target: Token, total: Tokens) -> Bool {
+pub fn exists(total: Tokens, target: Token) -> Bool {
   when total is {
     [] -> False
     [tkn, ..tkns] ->
@@ -302,7 +302,7 @@ pub fn exists(target: Token, total: Tokens) -> Bool {
       } {
         True
       } else {
-        exists(target, tkns)
+        exists(tkns, target)
       }
   }
 }
@@ -312,14 +312,14 @@ pub fn exists(target: Token, total: Tokens) -> Bool {
 /// nothing is found then it returns False.
 ///
 /// ```aiken
-/// token.contains(target, total)
+/// token.contains(total, target)
 /// ```
-pub fn contains(target: Tokens, total: Tokens) -> Bool {
+pub fn contains(total: Tokens, target: Tokens) -> Bool {
   when target is {
     [] -> True
     [t, ..ts] ->
-      if exists(t, total) {
-        contains(ts, total)
+      if exists(total, t) {
+        contains(total, ts)
       } else {
         False
       }
@@ -331,7 +331,7 @@ test tokens_contains_lovelace() {
     [Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 100 }]
   let total: Tokens =
     [Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 100 }]
-  contains(target, total) == True
+  contains(total, target) == True
 }
 
 test tokens_contains_tokens() {
@@ -339,7 +339,7 @@ test tokens_contains_tokens() {
     [Token { pid: #"acab", tkn: #"beef", amt: 10 }]
   let total: Tokens =
     [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
-  contains(target, total) == True
+  contains(total, target) == True
 }
 
 test tokens_contains_both() {
@@ -356,7 +356,7 @@ test tokens_contains_both() {
       Token { pid: #"cafe", tkn: #"face", amt: 100 },
     ]
 
-  contains(target, total) == True
+  contains(total, target) == True
 }
 
 test tokens_contains_nothing() {
@@ -364,5 +364,5 @@ test tokens_contains_nothing() {
     [Token { pid: value.ada_policy_id, tkn: value.ada_asset_name, amt: 100 }]
   let total: Tokens =
     [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
-  contains(target, total) == False
+  contains(total, target) == False
 }
