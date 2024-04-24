@@ -1,5 +1,8 @@
 # v0.x.y
 
+- Updated README with the `aiken packages add` function
+- Fixed formatting in the CONTRIBUTING file
+
 # v0.4.8
 
 *This version is contains breaking changes.*

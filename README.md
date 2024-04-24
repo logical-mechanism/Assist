@@ -6,33 +6,26 @@ The **Aiken Assist Library** is a collection of specialized Aiken functions desi
 
 To start using the library, follow these steps:
 
-1. Open your `aiken.toml` file.
+1. Import the library with the command:
 
-2. Add the following code to bottom of the `aiken.toml` file:
-
-```toml
-[[dependencies]]
-name = "logicalmechanism/assist"
-version = "v0.4.8"
-source = "github"
+```bash
+aiken packages add logicalmechanism/assist --version v0.4.8
 ```
 
-3. Save the `aiken.toml` file.
+- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.2` -> `v0.4.x`.
 
-4. Compile your project by running the command `aiken check` in your project directory.
+2. Compile your project by running the command `aiken check` in your project directory. If a complete recheck is required then run the command:
 
 ```bash
 rm -fr build || true
 aiken check
 ```
 
-- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.2` -> `v0.4.x`.
-
 ## Usage
 
 To use the **Aiken Assist Library** in your project, import the desired submodules into your `.ak` file. For example:
 
-```aiken
+```rust
 use assist/signing
 use assist/count
 ```
