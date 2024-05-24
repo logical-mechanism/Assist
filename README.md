@@ -9,7 +9,7 @@ To start using the library, follow these steps:
 1. Import the library with the command:
 
 ```bash
-aiken packages add logicalmechanism/assist --version v0.4.8
+aiken packages add logicalmechanism/assist --version v0.4.9
 ```
 
 - Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.2` -> `v0.4.x`.
