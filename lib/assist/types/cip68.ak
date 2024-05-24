@@ -19,7 +19,7 @@ pub const prefix_444: ByteArray = #"001bc280"
 /// The generic CIP68 metadatum type as defined in the CIP at
 /// https://cips.cardano.org/cips/cip68/.
 pub type CIP68 {
-  metadata: List<(Data, Data)>,
+  metadata: Pairs<Data, Data>,
   version: Int,
 }
 
@@ -33,7 +33,7 @@ pub fn get(cip68: CIP68, key: Data) -> Data {
   do_get(cip68.metadata, key)
 }
 
-fn do_get(cip68: List<(Data, Data)>, key: Data) -> Data {
+fn do_get(cip68: Pairs<Data, Data>, key: Data) -> Data {
   when cip68 is {
     [] -> fail @"Data Structure Not Found"
     [d, ..ds] ->

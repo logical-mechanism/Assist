@@ -2,8 +2,8 @@
 //// a validating transaction.
 ////
 
-use aiken/dict.{Dict}
 use aiken/list
+use aiken/pairs
 use aiken/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
   Transaction, TransactionId,
@@ -328,24 +328,25 @@ test cant_find_output_by_value() fail {
 /// find.stake_reward_by_sc(tx.withdrawals, datum.wallet.sc)
 /// ```
 pub fn stake_reward_by_sc(
-  withdraws: Dict<StakeCredential, Int>,
+  withdraws: Pairs<StakeCredential, Int>,
   stake_credential: StakeCredential,
 ) -> Int {
-  when dict.get(withdraws, stake_credential) is {
+  when pairs.get_first(withdraws, stake_credential) is {
     Some(reward) -> reward
     None -> fail @"No Staking Rewards Available"
   }
 }
 
 test find_stake_reward_by_sc() {
-  let withdrawal: Dict<Referenced<Credential>, Int> =
+  let withdrawal: Pairs<Referenced<Credential>, Int> =
     fake_tx.test_tx().withdrawals
   let sc: Referenced<Credential> = credentials.create_stake_credential(#"face")
   stake_reward_by_sc(withdrawal, sc) == 100
 }
 
 test cant_find_stake_reward_by_sc() fail {
-  let withdrawal: Dict<Referenced<Credential>, Int> = dict.new()
+  let withdrawal: Pairs<Referenced<Credential>, Int> =
+    []
   let sc: Referenced<Credential> = credentials.create_stake_credential(#"face")
   // this will fail
   stake_reward_by_sc(withdrawal, sc) == 0
@@ -359,11 +360,11 @@ test cant_find_stake_reward_by_sc() fail {
 /// find.redeemer_by_ref(tx.redeemers, that_out_ref)
 /// ```
 pub fn redeemer_by_ref(
-  redeemers: Dict<ScriptPurpose, Redeemer>,
+  redeemers: Pairs<ScriptPurpose, Redeemer>,
   out_ref: OutputReference,
 ) -> Data {
   // make sure only the spend purpose here
-  when dict.get(redeemers, Spend(out_ref)) is {
+  when pairs.get_first(redeemers, Spend(out_ref)) is {
     Some(redeemer) -> redeemer
     None -> fail @"No Spend Redeemer Found"
   }

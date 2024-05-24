@@ -1,5 +1,11 @@
 # v0.x.y
 
+# v0.4.9
+
+*This version is contains breaking changes.*
+
+- Updating Aiken to 1.0.28 and stdlib to 1.9.0
+- Dicts are now Pairs where applicable, dict.get -> pairs.get_first
 - Updated README with the `aiken packages add` function
 - Fixed formatting in the CONTRIBUTING file
 
