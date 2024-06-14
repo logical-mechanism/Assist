@@ -1,5 +1,9 @@
 # v0.x.y
 
+# v0.4.10
+
+- Added additional tests for the Moment type
+
 # v0.4.9
 
 *This version is contains breaking changes.*
