@@ -58,13 +58,18 @@ test an_empty_moment() {
   is_logical(m) == True
 }
 
+test a_singular_moment() {
+  let m: Moment = Moment { start: 10, end: 10 }
+  is_logical(m) == True
+}
+
 test a_nonvalid_moment() {
   let m: Moment = Moment { start: 10, end: 0 }
   is_logical(m) == False
 }
 
 test a_valid_moment() {
-  let m: Moment = Moment { start: 10, end: 11230 }
+  let m: Moment = Moment { start: 1, end: 15 }
   is_logical(m) == True
 }
 
@@ -117,6 +122,23 @@ test infinite_bounds_not_allowed() {
   is_contained(m, vr) == False
 }
 
+test infinite_bounds_not_allowed2() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound {
+        bound_type: NegativeInfinity,
+        is_inclusive: True,
+      },
+      upper_bound: IntervalBound {
+        bound_type: PositiveInfinity,
+        is_inclusive: True,
+      },
+    }
+  let m: Moment = Moment { start: 1, end: 10 }
+  // the bounds can not be infinite
+  is_contained(m, vr) == False
+}
+
 test an_empty_validity_range_inside_a_moment() {
   let vr: ValidityRange =
     Interval {
@@ -157,6 +179,16 @@ test a_validity_range_outside_a_moment() {
   is_contained(m, vr) == False
 }
 
+test a_validity_range_outside_a_moment2() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(3), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(5), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 6, end: 17 }
+  is_contained(m, vr) == False
+}
+
 /// Check if a validity range of a tx is after a moment.
 /// This assumes exclusivity.
 ///
@@ -186,6 +218,26 @@ test a_validity_range_is_after_a_moment() {
   is_after(m, vr) == True
 }
 
+test a_validity_range_start_at_the_end_of_a_moment() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(4), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(10), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 1, end: 4 }
+  is_after(m, vr) == False
+}
+
+test a_validity_range_start_at_the_end_of_a_moment2() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(4), is_inclusive: False },
+      upper_bound: IntervalBound { bound_type: Finite(10), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 1, end: 4 }
+  is_after(m, vr) == False
+}
+
 test a_validity_range_is_not_after_a_moment() {
   let vr: ValidityRange =
     Interval {
@@ -193,6 +245,26 @@ test a_validity_range_is_not_after_a_moment() {
       upper_bound: IntervalBound { bound_type: Finite(10), is_inclusive: True },
     }
   let m: Moment = Moment { start: 1, end: 13 }
+  is_after(m, vr) == False
+}
+
+test a_validity_range_is_not_after_a_moment2() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(0), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(4), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 4, end: 12 }
+  is_after(m, vr) == False
+}
+
+test a_validity_range_is_not_after_a_moment3() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(8), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(14), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 4, end: 12 }
   is_after(m, vr) == False
 }
 
@@ -231,6 +303,46 @@ test a_validity_range_is_not_before_a_moment() {
       lower_bound: IntervalBound { bound_type: Finite(10), is_inclusive: True },
       upper_bound: IntervalBound { bound_type: Finite(12), is_inclusive: True },
     }
-  let m: Moment = Moment { start: 11, end: 13 }
+  let m: Moment = Moment { start: 5, end: 13 }
+  is_before(m, vr) == False
+}
+
+test a_validity_range_is_not_before_a_moment2() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(10), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(16), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 5, end: 13 }
+  is_before(m, vr) == False
+}
+
+test a_validity_range_is_not_before_a_moment3() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(15), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(17), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 5, end: 13 }
+  is_before(m, vr) == False
+}
+
+test a_validity_range_is_not_before_a_moment4() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(1), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(7), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 5, end: 13 }
+  is_before(m, vr) == False
+}
+
+test a_validity_range_is_not_before_a_moment5() {
+  let vr: ValidityRange =
+    Interval {
+      lower_bound: IntervalBound { bound_type: Finite(1), is_inclusive: True },
+      upper_bound: IntervalBound { bound_type: Finite(5), is_inclusive: True },
+    }
+  let m: Moment = Moment { start: 5, end: 13 }
   is_before(m, vr) == False
 }
