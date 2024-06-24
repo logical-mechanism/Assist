@@ -1,5 +1,9 @@
 # v0.x.y
 
+# v0.5.0
+
+- Pure Plutus V3 transition.
+
 # v0.4.10
 
 - Added additional tests for the Moment type
