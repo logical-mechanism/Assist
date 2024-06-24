@@ -2,12 +2,12 @@
 //// functions are designed to return a boolean value instead of an error.
 ////
 
-// for testing only
-use assist/tests/fake_tx
 use aiken/transaction.{Output, Transaction}
 use aiken/transaction/credential.{Address}
 use aiken/transaction/value.{Value}
 use assist/addresses
+// for testing only
+use assist/tests/fake_tx
 use assist/values
 
 /// Find the first occurrence of an exact output that matches a specific
@@ -67,7 +67,7 @@ pub fn at_least(
     [output, ..rest] ->
       if and {
         output.address == payout_address,
-        values.contains(payout_value, output.value),
+        values.contains(output.value, payout_value),
       } {
         True
       } else {

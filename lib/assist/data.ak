@@ -3,7 +3,6 @@
 ////
 
 use aiken/builtin
-use aiken/bytearray
 use aiken/dict.{Dict}
 use aiken/hash.{Blake2b_256, Hash}
 use aiken/transaction.{DatumHash, InlineDatum, Input, Output}
@@ -61,11 +60,7 @@ test find_input_datum_hash() {
   let input: Input = fake_tx.test_input_with_datum_hash()
   let datums: Dict<ByteArray, Data> =
     dict.new()
-      |> dict.insert(
-           key: fake_tx.test_datum,
-           value: builtin.i_data(1),
-           compare: bytearray.compare,
-         )
+      |> dict.insert(key: fake_tx.test_datum, value: builtin.i_data(1))
   expect datum: Int = input_datum_by_hash(input, datums)
   datum == 1
 }
@@ -74,11 +69,7 @@ test cant_find_input_datum_hash() fail {
   let input: Input = fake_tx.test_input_with_datum_hash()
   let datums: Dict<ByteArray, Data> =
     dict.new()
-      |> dict.insert(
-           key: #"acab",
-           value: builtin.i_data(1),
-           compare: bytearray.compare,
-         )
+      |> dict.insert(key: #"acab", value: builtin.i_data(1))
   expect datum: Int = input_datum_by_hash(input, datums)
   // this will fail
   datum == 1
@@ -134,11 +125,7 @@ test find_output_datum_hash() {
   let output: Output = fake_tx.test_output_with_datum_hash()
   let datums: Dict<ByteArray, Data> =
     dict.new()
-      |> dict.insert(
-           key: fake_tx.test_datum,
-           value: builtin.i_data(1),
-           compare: bytearray.compare,
-         )
+      |> dict.insert(key: fake_tx.test_datum, value: builtin.i_data(1))
   expect datum: Int = output_datum_by_hash(output, datums)
   datum == 1
 }
@@ -147,53 +134,8 @@ test cant_find_output_datum_hash() fail {
   let output: Output = fake_tx.test_output_with_datum_hash()
   let datums: Dict<ByteArray, Data> =
     dict.new()
-      |> dict.insert(
-           key: #"acab",
-           value: builtin.i_data(1),
-           compare: bytearray.compare,
-         )
+      |> dict.insert(key: #"acab", value: builtin.i_data(1))
   expect datum: Int = output_datum_by_hash(output, datums)
   // this will fail
   datum == 1
-}
-
-/// Find some data from the metadata or fail. The key and value can be 
-/// arbitrary data. This function is designed to work on the CIP68 generic
-/// type.
-///
-/// ```aiken
-/// expect datum: Data = data.metadata(cip68.metadatum, datum.data_key)
-/// ```
-pub fn metadata(metadata: Dict<Data, Data>, key: Data) -> Data {
-  when dict.get(metadata, key) is {
-    Some(thing) -> thing
-    None -> fail @"Data Not Found In CIP68 Metadatum"
-  }
-}
-
-test find_metadata() {
-  let key: ByteArray = #"acab"
-  let cip68_metadata: Dict<Data, Data> =
-    dict.new()
-      |> dict.insert(
-           key: builtin.b_data(key),
-           value: builtin.i_data(0),
-           compare: fn(_, _) { Equal },
-         )
-  expect metadata: Int = metadata(cip68_metadata, key)
-  metadata == 0
-}
-
-test cant_find_metadata() fail {
-  let key: ByteArray = #"acab"
-  let bad_key: ByteArray = #""
-  let cip68_metadata: Dict<Data, Data> =
-    dict.new()
-      |> dict.insert(
-           key: builtin.b_data(key),
-           value: builtin.i_data(0),
-           compare: fn(_, _) { Equal },
-         )
-  expect metadata: Int = metadata(cip68_metadata, bad_key)
-  metadata == 0
 }

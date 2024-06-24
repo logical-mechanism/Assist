@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.24-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.24-alpha"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.29-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.29-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.6 </span>
+          <span>v0.4.10 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.6";
+            const currentVersion = "v0.4.10";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -353,7 +353,9 @@
 </h1>
 <p>This module incorporates code for generating valid wallet and script 
 addresses, ensuring their correctness. Empty keys are treated as 
-intentional, and address subtypes are not combined nor mixed.</p>
+intentional, and address subtypes are not combined nor mixed. The key
+lengths must be validated on their own as these functions are used to
+just generate Address types assuming valid key lengths.</p>
 
 
 
@@ -379,7 +381,10 @@ intentional, and address subtypes are not combined nor mixed.</p>
     </div>
     <div class="rendered-markdown"><p>Creates a enterprise or base address from the public key hash and stake
 credential. An empty sc means enterpise address by default. This function
-assumes proper key lengths for <code>pkh</code> and <code>sc</code>.</p>
+assumes proper key lengths for <code>pkh</code> and <code>sc</code>. Again, this function does not
+check if the stake credential has a proper length. Address
+types should be generated from the Wallet type so proper length checks are
+done with the <code>wallet.is_valid</code> function.</p>
 <pre><code class="language-aiken">addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 </code></pre>
 </div>
@@ -399,7 +404,9 @@ assumes proper key lengths for <code>pkh</code> and <code>sc</code>.</p>
     <div class="rendered-markdown"><p>Creates a script address for a smart contract. The type does not mix address
 types. Staked smart contracts are contracts as well. An empty sc is
 assumed to be not staked. This function assumes proper key lengths for <code>vkh</code>
-and <code>sc</code>.</p>
+and <code>sc</code>. Again, this function does not check if the stake credential has a
+proper length. Address types should be generated from the Wallet type so 
+proper length checks are done with the <code>wallet.is_valid</code> function.</p>
 <pre><code class="language-aiken">addresses.create_script_address(datum.script.vkh, datum.script.sc)
 </code></pre>
 </div>
@@ -416,7 +423,9 @@ and <code>sc</code>.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Creates an address from the wallet type.</p>
+    <div class="rendered-markdown"><p>Creates an address from the Wallet type. This should be used primairly for
+creating an address as the Wallet type has a <code>is_valid</code> function that should
+be used in the same validaiton.</p>
 <pre><code class="language-aiken">let addr: Address = types.from_wallet(this_wallet)
 </code></pre>
 </div>
@@ -474,8 +483,8 @@ and <code>sc</code>.</p>
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.24-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.24-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.29-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.29-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -494,9 +503,9 @@ and <code>sc</code>.</p>
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.24-alpha"></script>
-    <script src="../js/index.js?v=1708391002"></script>
+    <script src="../js/lunr.min.js?v=1.0.29-alpha"></script>
+    <script src="../js/index.js?v=1718388095"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1708391002"></script>
+    <script src="../search-data.js?v=1718388095"></script>
   </body>
 </html>

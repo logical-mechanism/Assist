@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="./favicon.svg"/>
-    <link rel="stylesheet" href="./css/index.css?v=1.0.24-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.0.24-alpha"/>
+    <link rel="stylesheet" href="./css/index.css?v=1.0.29-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.0.29-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -120,13 +120,13 @@
       <h2>
         <a href="./">assist</a>
         <span id="project-version">
-          <span>v0.4.6 </span>
+          <span>v0.4.10 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.6";
+            const currentVersion = "v0.4.10";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -336,35 +336,22 @@
 <h2>Getting Started</h2>
 <p>To start using the library, follow these steps:</p>
 <ol>
-<li>
-<p>Open your <code>aiken.toml</code> file.</p>
-</li>
-<li>
-<p>Add the following code to bottom of the <code>aiken.toml</code> file:</p>
-</li>
+<li>Import the library with the command:</li>
 </ol>
-<pre><code class="language-toml">[[dependencies]]
-name = &quot;logicalmechanism/assist&quot;
-version = &quot;v0.4.6&quot;
-source = &quot;github&quot;
-</code></pre>
-<ol start="3">
-<li>
-<p>Save the <code>aiken.toml</code> file.</p>
-</li>
-<li>
-<p>Compile your project by running the command <code>aiken check</code> in your project directory.</p>
-</li>
-</ol>
-<pre><code class="language-bash">rm -fr build || true
-aiken check
+<pre><code class="language-bash">aiken packages add logicalmechanism/assist --version v0.4.10
 </code></pre>
 <ul>
 <li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.4.2</code> -&gt; <code>v0.4.x</code>.</li>
 </ul>
+<ol start="2">
+<li>Compile your project by running the command <code>aiken check</code> in your project directory. If a complete recheck is required then run the command:</li>
+</ol>
+<pre><code class="language-bash">rm -fr build || true
+aiken check
+</code></pre>
 <h2>Usage</h2>
 <p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired submodules into your <code>.ak</code> file. For example:</p>
-<pre><code class="language-aiken">use assist/signing
+<pre><code class="language-rust">use assist/signing
 use assist/count
 </code></pre>
 <p>Assist modules can be found in the documentation.</p>
@@ -427,8 +414,8 @@ use assist/count
       </defs>
     </svg>
 
-    <script src="./js/highlight.min.js?v=1.0.24-alpha"></script>
-    <script src="./js/highlightjs-aiken.js?v=1.0.24-alpha"></script>
+    <script src="./js/highlight.min.js?v=1.0.29-alpha"></script>
+    <script src="./js/highlightjs-aiken.js?v=1.0.29-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -447,9 +434,9 @@ use assist/count
 	el.prepend(a);
       });
     </script>
-    <script src="./js/lunr.min.js?v=1.0.24-alpha"></script>
-    <script src="./js/index.js?v=1708391002"></script>
+    <script src="./js/lunr.min.js?v=1.0.29-alpha"></script>
+    <script src="./js/index.js?v=1718388095"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1708391002"></script>
+    <script src="./search-data.js?v=1718388095"></script>
   </body>
 </html>

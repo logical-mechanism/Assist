@@ -1,6 +1,8 @@
 //// This module incorporates code for generating valid wallet and script 
 //// addresses, ensuring their correctness. Empty keys are treated as 
-//// intentional, and address subtypes are not combined nor mixed.
+//// intentional, and address subtypes are not combined nor mixed. The key
+//// lengths must be validated on their own as these functions are used to
+//// just generate Address types assuming valid key lengths.
 ////
 
 use aiken/bytearray
@@ -10,7 +12,9 @@ use aiken/transaction/credential.{
 use assist/types/hashes.{PublicKeyHash, ValidatorHash}
 use assist/types/wallet.{Wallet}
 
-/// Creates an address from the wallet type.
+/// Creates an address from the Wallet type. This should be used primairly for
+/// creating an address as the Wallet type has a `is_valid` function that should
+/// be used in the same validaiton.
 ///
 /// ```aiken
 /// let addr: Address = types.from_wallet(this_wallet)
@@ -21,7 +25,10 @@ pub fn from_wallet(wallet: Wallet) -> Address {
 
 /// Creates a enterprise or base address from the public key hash and stake
 /// credential. An empty sc means enterpise address by default. This function
-/// assumes proper key lengths for `pkh` and `sc`.
+/// assumes proper key lengths for `pkh` and `sc`. Again, this function does not
+/// check if the stake credential has a proper length. Address
+/// types should be generated from the Wallet type so proper length checks are
+/// done with the `wallet.is_valid` function.
 ///
 /// ```aiken
 /// addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
@@ -66,7 +73,9 @@ test correct_wallet_sc() {
 /// Creates a script address for a smart contract. The type does not mix address
 /// types. Staked smart contracts are contracts as well. An empty sc is
 /// assumed to be not staked. This function assumes proper key lengths for `vkh`
-/// and `sc`.
+/// and `sc`. Again, this function does not check if the stake credential has a
+/// proper length. Address types should be generated from the Wallet type so 
+/// proper length checks are done with the `wallet.is_valid` function.
 ///
 /// ```aiken
 /// addresses.create_script_address(datum.script.vkh, datum.script.sc)

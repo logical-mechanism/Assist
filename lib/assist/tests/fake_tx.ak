@@ -290,12 +290,10 @@ pub fn test_tx() -> Transaction {
   let sc: StakeCredential = Inline(VerificationKeyCredential(#"acab"))
   let out_ref: OutputReference = test_out_ref()
   let withdrawal =
-    dict.new()
-      |> dict.insert(key: sc, value: 100, compare: fn(_, _) { Equal })
+    [Pair(sc, 100)]
   let d: DataType = 1
   let redeem =
-    dict.new()
-      |> dict.insert(key: Spend(out_ref), value: d, compare: fn(_, _) { Equal })
+    [Pair(Spend(out_ref), d)]
   let tx =
     Transaction {
       inputs: [

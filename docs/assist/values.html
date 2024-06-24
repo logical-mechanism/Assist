@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
-    <link rel="stylesheet" href="../css/index.css?v=1.0.24-alpha" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.24-alpha"/>
+    <link rel="stylesheet" href="../css/index.css?v=1.0.29-alpha" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../css/atom-one-light.min.css?v=1.0.29-alpha"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -120,13 +120,13 @@
       <h2>
         <a href="../">assist</a>
         <span id="project-version">
-          <span>v0.4.6 </span>
+          <span>v0.4.10 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.6";
+            const currentVersion = "v0.4.10";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -395,7 +395,7 @@ name, and quantity. Empty values return the empty by string.</p>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="contains"><pre class="hljs language-aiken">contains(target: Value, total: Value) -&gt; Bool</pre></h2>
+      <h2 id="contains"><pre class="hljs language-aiken">contains(total: Value, target: Value) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -407,7 +407,7 @@ name, and quantity. Empty values return the empty by string.</p>
     <div class="rendered-markdown"><p>Prove that the target value is contained inside another value. Each token
 inside the target must exist inside the total value. The quantity of each
 token must be at least the target amount or greater.</p>
-<pre><code class="language-aiken">values.contains(payment_value, output_value)
+<pre><code class="language-aiken">values.contains(total_value, target_value)
 </code></pre>
 </div>
   </div>
@@ -467,9 +467,9 @@ of each token.</p>
   <div class="member">
     <div class="member-name">
       <h2 id="prove_exact_nft"><pre class="hljs language-aiken">prove_exact_nft(
+  total_value: Value,
   nft_pid: PolicyId,
   nft_tkn: AssetName,
-  total_value: Value,
 ) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
@@ -484,14 +484,14 @@ name that has a quantity of 1. This will show that a value contains an
 NFT or something that is nft-like. Should be useful to prove that
 something is holding a token inside a transaction when the policy id and
 token name is known.</p>
-<pre><code class="language-aiken">values.prove_exact_nft(pid, tkn, that_value)
+<pre><code class="language-aiken">values.prove_exact_nft(that_value, pid, tkn)
 </code></pre>
 </div>
   </div>
   
   <div class="member">
     <div class="member-name">
-      <h2 id="prove_nft"><pre class="hljs language-aiken">prove_nft(pid: PolicyId, total: Value) -&gt; Bool</pre></h2>
+      <h2 id="prove_nft"><pre class="hljs language-aiken">prove_nft(total: Value, pid: PolicyId) -&gt; Bool</pre></h2>
       
       <!-- TODO: support source linking
       <a class="member-source" alt="View Source" title="View Source" href="#todo">
@@ -505,7 +505,7 @@ name that has a quantity of 1. This will show that a value contains an
 NFT or something that is nft-like. Should be useful to prove that
 something is holding a token inside a transaction when the token name
 is assumed to be unique.</p>
-<pre><code class="language-aiken">values.prove_nft(pid, this_value)
+<pre><code class="language-aiken">values.prove_nft(this_value, pid)
 </code></pre>
 </div>
   </div>
@@ -581,8 +581,8 @@ utxo inside the transaction.</p>
       </defs>
     </svg>
 
-    <script src="../js/highlight.min.js?v=1.0.24-alpha"></script>
-    <script src="../js/highlightjs-aiken.js?v=1.0.24-alpha"></script>
+    <script src="../js/highlight.min.js?v=1.0.29-alpha"></script>
+    <script src="../js/highlightjs-aiken.js?v=1.0.29-alpha"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -601,9 +601,9 @@ utxo inside the transaction.</p>
 	el.prepend(a);
       });
     </script>
-    <script src="../js/lunr.min.js?v=1.0.24-alpha"></script>
-    <script src="../js/index.js?v=1708391002"></script>
+    <script src="../js/lunr.min.js?v=1.0.29-alpha"></script>
+    <script src="../js/index.js?v=1718388095"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1708391002"></script>
+    <script src="../search-data.js?v=1718388095"></script>
   </body>
 </html>

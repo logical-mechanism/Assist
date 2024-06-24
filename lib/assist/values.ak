@@ -48,7 +48,7 @@ fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
     // take a token and add it to the value
     [tkn, ..tkns] ->
       val |> value.add(tkn.pid, tkn.tkn, tkn.amt) |> do_from_tokens(tkns)
-    // everything is negative
+    // all the things are added so return the value
     [] -> val
   }
 }
@@ -74,7 +74,7 @@ fn do_multiply(ans: Tokens, ts: Tokens, n: Int) -> Tokens {
       ans
         |> list.push(Token { pid: tkn.pid, tkn: tkn.tkn, amt: n * tkn.amt })
         |> do_multiply(tkns, n)
-    // everything is negative
+    // each token has been multiplied
     [] -> ans
   }
 }
@@ -102,19 +102,19 @@ test values_multiply_by_52314523() {
 /// token must be at least the target amount or greater.
 ///
 /// ```aiken
-/// values.contains(payment_value, output_value)
+/// values.contains(total_value, target_value)
 /// ```
-pub fn contains(target: Value, total: Value) -> Bool {
+pub fn contains(total: Value, target: Value) -> Bool {
   let flat: List<(PolicyId, AssetName, Int)> = value.flatten(target)
-  do_contains(flat, total)
+  do_contains(total, flat)
 }
 
 // Internal only
-fn do_contains(flat: List<(PolicyId, AssetName, Int)>, total: Value) -> Bool {
+fn do_contains(total: Value, flat: List<(PolicyId, AssetName, Int)>) -> Bool {
   when flat is {
     [(pid, tkn, amt), ..rest] ->
       if value.quantity_of(total, pid, tkn) >= amt {
-        do_contains(rest, total)
+        do_contains(total, rest)
       } else {
         // something is missing
         False
@@ -127,13 +127,13 @@ fn do_contains(flat: List<(PolicyId, AssetName, Int)>, total: Value) -> Bool {
 test value_contains_lovelace() {
   let target: Value = value.from_lovelace(10)
   let total: Value = value.from_lovelace(100)
-  contains(target, total) == True
+  contains(total, target) == True
 }
 
 test value_contains_tokens() {
   let target: Value = value.from_asset(#"acab", #"beef", 10)
   let total: Value = value.from_asset(#"acab", #"beef", 40)
-  contains(target, total) == True
+  contains(total, target) == True
 }
 
 test value_contains_both() {
@@ -147,13 +147,13 @@ test value_contains_both() {
       |> value.merge(value.from_asset(#"cafe", #"face", 40))
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
-  contains(target, total) == True
+  contains(total, target) == True
 }
 
 test value_contains_nothing() {
   let target: Value = value.from_lovelace(10)
   let total: Value = value.from_asset(#"acab", #"beef", 40)
-  contains(target, total) == False
+  contains(total, target) == False
 }
 
 /// Compute the sha3_256 hash of a value by merklizing the policy id, asset
@@ -175,8 +175,10 @@ fn do_compute_hash(
   when flat is {
     [(pid, tkn, amt), ..rest] -> {
       let hashed_amt: ByteArray = int_to_hash(amt)
+      // concat the things then hash
       let concatted: ByteArray =
-        bytearray.concat(pid, tkn)
+        pid
+          |> bytearray.concat(tkn)
           |> bytearray.concat(hashed_amt)
           |> bytearray.concat(total)
       let next: ByteArray = hash.sha3_256(concatted)
@@ -221,6 +223,7 @@ test hash_large_value() {
 /// ```
 pub fn unique_token_name(txid: TxHash, idx: Int, prefix: ByteArray) -> AssetName {
   // sha3_256 hash of the tx id
+  // this step will be removed in Assist v0.5.0+
   let txid_hash: ByteArray = hash.sha3_256(txid)
   // prefix the txid hash with the index
   let prepend_index: ByteArray = bytearray.push(txid_hash, idx)
@@ -258,14 +261,14 @@ test real_token_name() {
 /// is assumed to be unique.
 ///
 /// ```aiken
-/// values.prove_nft(pid, this_value)
+/// values.prove_nft(this_value, pid)
 /// ```
-pub fn prove_nft(pid: PolicyId, total: Value) {
-  let tkns: List<Int> = value.tokens(total, pid) |> dict.values()
-  let sum: Int = list.foldl(tkns, 0, fn(n, total) { n + total })
+pub fn prove_nft(total: Value, pid: PolicyId) {
+  let amts: List<Int> = value.tokens(total, pid) |> dict.values()
+  let sum: Int = list.foldl(amts, 0, fn(n, total) { n + total })
   and {
     // must have only one asset name
-    list.length(tkns) == 1,
+    list.length(amts) == 1,
     sum == 1,
   }
 }
@@ -277,7 +280,7 @@ test prove_nft_from_policy_id() {
       |> value.merge(value.from_asset(#"cafe", #"face", 40))
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
-  prove_nft(#"acab", val) == True
+  prove_nft(val, #"acab") == True
 }
 
 test too_many_nfts() {
@@ -287,7 +290,7 @@ test too_many_nfts() {
       |> value.merge(value.from_asset(#"acab", #"face", 1))
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
-  prove_nft(#"acab", val) == False
+  prove_nft(val, #"acab") == False
 }
 
 test missing_nft() {
@@ -297,7 +300,7 @@ test missing_nft() {
       |> value.merge(value.from_asset(#"cafe", #"face", 10))
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
-  prove_nft(#"acab", val) == False
+  prove_nft(val, #"acab") == False
 }
 
 /// Proves that inside some value there is a policy id with token
@@ -307,12 +310,12 @@ test missing_nft() {
 /// token name is known.
 ///
 /// ```aiken
-/// values.prove_exact_nft(pid, tkn, that_value)
+/// values.prove_exact_nft(that_value, pid, tkn)
 /// ```
 pub fn prove_exact_nft(
+  total_value: Value,
   nft_pid: PolicyId,
   nft_tkn: AssetName,
-  total_value: Value,
 ) -> Bool {
   // exactly 1 token inside a value
   value.quantity_of(total_value, nft_pid, nft_tkn) == 1
@@ -325,7 +328,7 @@ test prove_exact_nft_from_policy_id() {
       |> value.merge(value.from_asset(#"cafe", #"face", 40))
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
-  prove_exact_nft(#"acab", #"beef", val) == True
+  prove_exact_nft(val, #"acab", #"beef") == True
 }
 
 test missing_exact_nft() {
@@ -335,5 +338,5 @@ test missing_exact_nft() {
       |> value.merge(value.from_asset(#"cafe", #"face", 10))
       |> value.merge(value.from_asset(#"beef", #"face", 40))
       |> value.merge(value.from_asset(#"face", #"beef", 40))
-  prove_exact_nft(#"acab", #"beef", val) == False
+  prove_exact_nft(val, #"acab", #"beef") == False
 }

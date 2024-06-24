@@ -2,8 +2,8 @@
 //// a validating transaction.
 ////
 
-use aiken/dict.{Dict}
 use aiken/list
+use aiken/pairs
 use aiken/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
   Transaction, TransactionId,
@@ -251,7 +251,7 @@ pub fn output_by_addr_value(
     [output, ..rest] ->
       if and {
         output.address == addr,
-        values.contains(value, output.value),
+        values.contains(output.value, value),
       } {
         output
       } else {
@@ -266,6 +266,13 @@ test find_output_by_addr_value() {
   let outputs: List<Output> = fake_tx.test_tx().outputs
   let addr: Address = addresses.create_address(#"acab", #"")
   let value: Value = value.from_asset(#"acab", #"beef", 40)
+  output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
+}
+
+test find_just_enough_output_by_addr_value() {
+  let outputs: List<Output> = fake_tx.test_tx().outputs
+  let addr: Address = addresses.create_address(#"acab", #"")
+  let value: Value = value.from_asset(#"acab", #"beef", 20)
   output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
 }
 
@@ -288,7 +295,7 @@ test cant_find_output_by_addr_value() fail {
 pub fn output_by_value(outputs: List<Output>, value: Value) -> Output {
   when outputs is {
     [output, ..rest] ->
-      if values.contains(value, output.value) {
+      if values.contains(output.value, value) {
         output
       } else {
         output_by_value(rest, value)
@@ -320,26 +327,25 @@ test cant_find_output_by_value() fail {
 /// find.stake_reward_by_sc(tx.withdrawals, datum.wallet.sc)
 /// ```
 pub fn stake_reward_by_sc(
-  withdraws: Dict<StakeCredential, Lovelace>,
+  withdraws: Pairs<StakeCredential, Lovelace>,
   stake_credential: StakeCredential,
 ) -> Int {
-  when dict.get(withdraws, stake_credential) is {
+  when pairs.get_first(withdraws, stake_credential) is {
     Some(reward) -> reward
     None -> fail @"No Staking Rewards Available"
   }
 }
 
 test find_stake_reward_by_sc() {
-  let withdrawal: Dict<StakeCredential, Lovelace> =
-    fake_tx.test_tx().withdrawals
-  // let sc: Referenced<Credential> = credentials.create_stake_credential(#"face")
+  let withdrawal: Pairs<StakeCredential, Int> = fake_tx.test_tx().withdrawals
   let sc: StakeCredential = Inline(VerificationKeyCredential(#"acab"))
   stake_reward_by_sc(withdrawal, sc) == 100
 }
 
 test cant_find_stake_reward_by_sc() fail {
-  let withdrawal: Dict<StakeCredential, Int> = dict.new()
-  let sc: StakeCredential = Inline(VerificationKeyCredential(#"face"))
+  let withdrawal: Pairs<StakeCredential, Int> =
+    []
+  let sc: StakeCredential = Inline(VerificationKeyCredential(#"acab"))
   // this will fail
   stake_reward_by_sc(withdrawal, sc) == 0
 }
@@ -352,11 +358,11 @@ test cant_find_stake_reward_by_sc() fail {
 /// find.redeemer_by_ref(tx.redeemers, that_out_ref)
 /// ```
 pub fn redeemer_by_ref(
-  redeemers: Dict<ScriptPurpose, Redeemer>,
+  redeemers: Pairs<ScriptPurpose, Redeemer>,
   out_ref: OutputReference,
 ) -> Data {
   // make sure only the spend purpose here
-  when dict.get(redeemers, Spend(out_ref)) is {
+  when pairs.get_first(redeemers, Spend(out_ref)) is {
     Some(redeemer) -> redeemer
     None -> fail @"No Spend Redeemer Found"
   }
@@ -384,7 +390,7 @@ pub fn output_datum_by_nft(
 ) -> Data {
   when outputs is {
     [output, ..rest] ->
-      if values.prove_exact_nft(pid, tkn, output.value) {
+      if values.prove_exact_nft(output.value, pid, tkn) {
         when output.datum is {
           // inline and holding the nft
           InlineDatum(outbound_datum) -> outbound_datum
@@ -420,7 +426,7 @@ test cant_find_output_datum_by_nft2() fail {
 pub fn input_by_nft(inputs: List<Input>, pid: PolicyId, tkn: AssetName) -> Input {
   when inputs is {
     [input, ..rest] ->
-      if values.prove_exact_nft(pid, tkn, input.output.value) {
+      if values.prove_exact_nft(input.output.value, pid, tkn) {
         input
       } else {
         input_by_nft(rest, pid, tkn)
