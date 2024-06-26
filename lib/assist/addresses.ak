@@ -1,8 +1,8 @@
 //// This module incorporates code for generating valid wallet and script 
 //// addresses, ensuring their correctness. Empty keys are treated as 
 //// intentional, and address subtypes are not combined nor mixed. The key
-//// lengths must be validated on their own as these functions are used to
-//// just generate Address types assuming valid key lengths.
+//// lengths must be valid as these functions will ignore invalid key
+//// keys when generating Address types.
 ////
 
 use aiken/bytearray
@@ -25,17 +25,21 @@ pub fn from_wallet(wallet: Wallet) -> Address {
 
 /// Creates a enterprise or base address from the public key hash and stake
 /// credential. An empty sc means enterpise address by default. This function
-/// assumes proper key lengths for `pkh` and `sc`. Again, this function does not
-/// check if the stake credential has a proper length. Address
-/// types should be generated from the Wallet type so proper length checks are
-/// done with the `wallet.is_valid` function.
+/// assumes proper key lengths for `pkh`.Address types should be generated from
+/// the Wallet type so proper length checks are done with the `wallet.is_valid`
+/// function located in `types/wallet.ak`.
+///
 ///
 /// ```aiken
 /// addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 /// ```
 pub fn create_address(pkh: PublicKeyHash, sc: PublicKeyHash) -> Address {
-  // empty bytearrays means dont add the sc to the pkh
-  if bytearray.is_empty(sc) {
+  // stake credentials that are empty bytearrays or incorrect length bytearrays
+  // should not add to the pkh. This will prevent paitial and invalid addresses
+  if or {
+    bytearray.is_empty(sc),
+    bytearray.length(sc) != 28,
+  } {
     credential.from_verification_key(pkh)
   } else {
     credential.from_verification_key(pkh)
@@ -52,37 +56,78 @@ test enterprise_wallet() {
   create_address(#"acab", #"") == addr
 }
 
-test base_wallet() {
+test bad_base_wallet() {
   let addr: Address =
     Address {
       payment_credential: VerificationKeyCredential(#"acab"),
-      stake_credential: Some(Inline(VerificationKeyCredential(#"face"))),
+      stake_credential: None,
     }
   create_address(#"acab", #"face") == addr
 }
 
-test correct_wallet_sc() {
+test incorrect_stake_key() {
   let addr: Address =
     Address {
       payment_credential: VerificationKeyCredential(#"acab"),
       stake_credential: Some(Inline(VerificationKeyCredential(#""))),
     }
-  create_script_address(#"acab", #"") != addr
+  create_address(#"acab", #"") != addr
 }
 
-/// Creates a script address for a smart contract. The type does not mix address
-/// types. Staked smart contracts are contracts as well. An empty sc is
-/// assumed to be not staked. This function assumes proper key lengths for `vkh`
-/// and `sc`. Again, this function does not check if the stake credential has a
-/// proper length. Address types should be generated from the Wallet type so 
-/// proper length checks are done with the `wallet.is_valid` function.
+test correct_wallet_address() {
+  let addr: Address =
+    Address {
+      payment_credential: VerificationKeyCredential(
+        #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+      ),
+      stake_credential: Some(
+        Inline(
+          VerificationKeyCredential(
+            #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+          ),
+        ),
+      ),
+    }
+  create_address(
+    #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+    #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+  ) == addr
+}
+
+test script_address_is_not_wallet_address() {
+  let addr: Address =
+    Address {
+      payment_credential: VerificationKeyCredential(
+        #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+      ),
+      stake_credential: Some(
+        Inline(
+          VerificationKeyCredential(
+            #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+          ),
+        ),
+      ),
+    }
+  create_script_address(
+    #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+    #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+  ) != addr
+}
+
+/// Creates a script address for a smart contract. The type does not mix
+/// address types. Staking credentials are assumed to be smart contracts. An 
+/// empty stake credential or bad length stake credential is invalid and will
+/// be assumed to be not staked. This function assumes proper key lengths for `vkh`.
 ///
 /// ```aiken
 /// addresses.create_script_address(datum.script.vkh, datum.script.sc)
 /// ```
 pub fn create_script_address(vkh: ValidatorHash, sc: ValidatorHash) -> Address {
   // empty bytearrays means dont add the sc to the pkh
-  if bytearray.is_empty(sc) {
+  if or {
+    bytearray.is_empty(sc),
+    bytearray.length(sc) != 28,
+  } {
     credential.from_script(vkh)
   } else {
     credential.from_script(vkh)
@@ -99,20 +144,60 @@ test enterprise_script() {
   create_script_address(#"acab", #"") == script_addr
 }
 
-test base_script() {
+test bad_base_script() {
   let script_addr: Address =
     Address {
       payment_credential: ScriptCredential(#"acab"),
-      stake_credential: Some(Inline(ScriptCredential(#"face"))),
+      stake_credential: None,
     }
   create_script_address(#"acab", #"face") == script_addr
 }
 
-test correct_script_sc() {
+test incorrect_script_stake_crendential() {
   let script_addr: Address =
     Address {
       payment_credential: ScriptCredential(#"acab"),
       stake_credential: Some(Inline(ScriptCredential(#""))),
     }
   create_script_address(#"acab", #"") != script_addr
+}
+
+test correct_script_address() {
+  let addr: Address =
+    Address {
+      payment_credential: ScriptCredential(
+        #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+      ),
+      stake_credential: Some(
+        Inline(
+          ScriptCredential(
+            #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+          ),
+        ),
+      ),
+    }
+  create_script_address(
+    #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+    #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+  ) == addr
+}
+
+test wallet_address_is_not_script_address() {
+  let addr: Address =
+    Address {
+      payment_credential: ScriptCredential(
+        #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+      ),
+      stake_credential: Some(
+        Inline(
+          ScriptCredential(
+            #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+          ),
+        ),
+      ),
+    }
+  create_address(
+    #"de0c6347552dc5e84f5ba1e945c57c1ce3c49b2c2b8ce7c96bcc8de7",
+    #"6f124ce78e70688a2c333ada555df1ef0d8bda44143ee4cc13ac2dc1",
+  ) != addr
 }

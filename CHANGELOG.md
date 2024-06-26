@@ -1,5 +1,7 @@
 # v0.x.y
 
+- Added a length check for the stake credential inside `addresses.create_address` and `addresses.create_script_address`.
+
 # v0.4.10
 
 - Added additional tests for the Moment type
