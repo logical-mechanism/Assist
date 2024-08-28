@@ -1,11 +1,11 @@
-name = "logicalmechanism/assist"
+name = "logical-mechanism/Assist"
 version = "0.4.10"
 license = "Apache-2.0"
 description = "Aiken Assist Library"
 
 [repository]
-user = "logicalmechanism"
-project = "assist"
+user = "logical-mechanism"
+project = "Assist"
 platform = "github"
 
 [[dependencies]]

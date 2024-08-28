@@ -1,6 +1,12 @@
 # v0.x.y
 
-- Added a length check for the stake credential inside `addresses.create_address` and `addresses.create_script_address`.
+*Plutus V2 support will stay on v0.4.x*
+*Plutus V3+ support will continue on v0.5.x*
+
+- Added a length check for the stake credential inside `addresses.create_address` and `addresses.create_script_address`
+- Added compatibility matrix to readme in anticipation of Plutus V3
+- Updated README with better usage suggestions
+- Updated toml with new organization name
 
 # v0.4.10
 
