@@ -354,8 +354,8 @@
 <p>This module incorporates code for generating valid wallet and script 
 addresses, ensuring their correctness. Empty keys are treated as 
 intentional, and address subtypes are not combined nor mixed. The key
-lengths must be validated on their own as these functions are used to
-just generate Address types assuming valid key lengths.</p>
+lengths must be valid as these functions will ignore invalid key
+keys when generating Address types.</p>
 
 
 
@@ -381,10 +381,9 @@ just generate Address types assuming valid key lengths.</p>
     </div>
     <div class="rendered-markdown"><p>Creates a enterprise or base address from the public key hash and stake
 credential. An empty sc means enterpise address by default. This function
-assumes proper key lengths for <code>pkh</code> and <code>sc</code>. Again, this function does not
-check if the stake credential has a proper length. Address
-types should be generated from the Wallet type so proper length checks are
-done with the <code>wallet.is_valid</code> function.</p>
+assumes proper key lengths for <code>pkh</code>.Address types should be generated from
+the Wallet type so proper length checks are done with the <code>wallet.is_valid</code>
+function located in <code>types/wallet.ak</code>.</p>
 <pre><code class="language-aiken">addresses.create_address(datum.wallet.pkh, datum.wallet.sc)
 </code></pre>
 </div>
@@ -401,12 +400,10 @@ done with the <code>wallet.is_valid</code> function.</p>
       -->
       
     </div>
-    <div class="rendered-markdown"><p>Creates a script address for a smart contract. The type does not mix address
-types. Staked smart contracts are contracts as well. An empty sc is
-assumed to be not staked. This function assumes proper key lengths for <code>vkh</code>
-and <code>sc</code>. Again, this function does not check if the stake credential has a
-proper length. Address types should be generated from the Wallet type so 
-proper length checks are done with the <code>wallet.is_valid</code> function.</p>
+    <div class="rendered-markdown"><p>Creates a script address for a smart contract. The type does not mix
+address types. Staking credentials are assumed to be smart contracts. An 
+empty stake credential or bad length stake credential is invalid and will
+be assumed to be not staked. This function assumes proper key lengths for <code>vkh</code>.</p>
 <pre><code class="language-aiken">addresses.create_script_address(datum.script.vkh, datum.script.sc)
 </code></pre>
 </div>
@@ -504,8 +501,8 @@ be used in the same validaiton.</p>
       });
     </script>
     <script src="../js/lunr.min.js?v=1.0.29-alpha"></script>
-    <script src="../js/index.js?v=1718388095"></script>
+    <script src="../js/index.js?v=1724887800"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1718388095"></script>
+    <script src="../search-data.js?v=1724887800"></script>
   </body>
 </html>

@@ -1,6 +1,15 @@
 # Aiken Assist Library
 
-The **Aiken Assist Library** is a collection of specialized Aiken functions designed for smart contracts on Cardano. This library extends the default functionality and provides routines that facilitate quick development.
+The **Aiken Assist Library** is a collection of specialized functions for [Aiken](https://github.com/aiken-lang/aiken). This library extends the default functionality of [stdlib](https://github.com/aiken-lang/stdlib) and provides routines that facilitate quick development of smart contracts on Cardano.
+
+## Compatibility
+
+aiken's version | assist's version
+---             | ---
+`v1.0.31-alpha` | `>= v0.5.0`
+`v1.0.29-alpha` | `== v0.4.10`
+
+Assist library `v0.5.x` will be Plutus V3+. For Plutus V2 contracts use the latest `v0.4.x` branch.
 
 ## Getting Started
 
@@ -9,7 +18,7 @@ To start using the library, follow these steps:
 1. Import the library with the command:
 
 ```bash
-aiken packages add logicalmechanism/assist --version v0.4.10
+aiken packages add logical-mechanism/Assist --version v0.4.10
 ```
 
 - Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.2` -> `v0.4.x`.
@@ -27,10 +36,11 @@ To use the **Aiken Assist Library** in your project, import the desired submodul
 
 ```rust
 use assist/signing
-use assist/count
+use assist/types/wallet.{Wallet}
+use assist/prefixes.{database}
 ```
 
-Assist modules can be found in the documentation.
+Please refer to the documentaiton for available Assist modules.
 
 ## Documentation
 
