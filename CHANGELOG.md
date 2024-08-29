@@ -1,5 +1,8 @@
 # v0.x.y
 
+- Updated toml to Aiken 1.1.0, stdlib main (2.0.0 should be the tagged release)
+- addresses.from_wallet check if wallet is valid else it fails
+
 # v0.4.11
 
 *Plutus V2 support will stay on v0.4.x*

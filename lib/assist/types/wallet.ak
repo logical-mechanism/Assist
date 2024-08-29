@@ -1,11 +1,11 @@
-use aiken/bytearray
-use aiken/list
-use assist/types/hashes.{PublicKeyHash}
+use aiken/collection/list
+use aiken/crypto.{VerificationKeyHash}
+use aiken/primitive/bytearray
 
 /// A wallet type for a non-smart contract address.
 pub type Wallet {
-  pkh: PublicKeyHash,
-  sc: PublicKeyHash,
+  pkh: VerificationKeyHash,
+  sc: VerificationKeyHash,
 }
 
 /// A list of wallets for non-smart contract addresses.
@@ -18,7 +18,7 @@ pub type Wallets =
 /// ```aiken
 /// wallet.to_vks(datum.wallets)
 /// ```
-pub fn to_vks(wallets: Wallets) -> List<PublicKeyHash> {
+pub fn to_vks(wallets: Wallets) -> List<VerificationKeyHash> {
   list.map(wallets, fn(w) { w.pkh })
 }
 
@@ -41,7 +41,7 @@ test multiple_to_vks() {
       pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
       sc: #"",
     }
-  let expected: List<PublicKeyHash> =
+  let expected: List<VerificationKeyHash> =
     [
       #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
       #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
