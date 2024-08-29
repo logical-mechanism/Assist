@@ -4,7 +4,7 @@
 use aiken/collection/dict
 use aiken/collection/list
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
-use assist/addresses
+use assist/cardano/addresses
 use cardano/assets
 use cardano/transaction.{
   DatumHash, InlineDatum, Input, NoDatum, Output, OutputReference, Spend,
