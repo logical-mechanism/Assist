@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>logicalmechanism/assist</title>
+    <title>logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="./favicon.svg"/>
@@ -118,15 +118,15 @@
       </button>
 
       <h2>
-        <a href="./">assist</a>
+        <a href="./">Assist</a>
         <span id="project-version">
-          <span>v0.4.10 </span>
+          <span>v0.4.11 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.4.10";
+            const currentVersion = "v0.4.11";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -156,7 +156,7 @@
       </h2>
       <div class="search">
         <div class="search-input-wrap">
-          <input type="text" id="search-input" class="search-input" tabindex="0" aria-label="Search assist" autocomplete="off">
+          <input type="text" id="search-input" class="search-input" tabindex="0" aria-label="Search Assist" autocomplete="off">
           <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#icon-svg-search"></use></svg></label>
         </div>
         <div id="search-results" class="search-results"></div>
@@ -182,7 +182,7 @@
         
         <h2>Source code</h2>
         <ul>
-          <li><a href="https://github.com/logicalmechanism/assist">logicalmechanism/assist</a></li>
+          <li><a href="https://github.com/logical-mechanism/Assist">logical-mechanism/Assist</a></li>
         </ul>
         
 
@@ -332,19 +332,19 @@
       <main class="content">
         
 <h1>Aiken Assist Library</h1>
-<p>The <strong>Aiken Assist Library</strong> is a collection of specialized Aiken functions designed for smart contracts on Cardano. This library extends the default functionality and provides routines that facilitate quick development.</p>
+<p>The <strong>Aiken Assist Library</strong> is a collection of specialized functions for <a href="https://github.com/aiken-lang/aiken">Aiken</a>. This library extends the default functionality of <a href="https://github.com/aiken-lang/stdlib">stdlib</a> and provides routines that facilitate quick development of smart contracts on Cardano.</p>
 <h2>Compatibility</h2>
 <table><thead><tr><th>aiken’s version</th><th>assist’s version</th></tr></thead><tbody>
 <tr><td><code>v1.0.31-alpha</code></td><td><code>&gt;= v0.5.0</code></td></tr>
-<tr><td><code>v1.0.29-alpha</code></td><td><code>== v0.4.10</code></td></tr>
+<tr><td><code>v1.0.29-alpha</code></td><td><code>== v0.4.11</code></td></tr>
 </tbody></table>
-<p>Assist library <code>v0.5.x</code> will be Plutus V3 only. For Plutus V2 contracts use <code>v0.4.10</code>.</p>
+<p>Assist library <code>v0.5.x</code> will be Plutus V3+. For Plutus V2 contracts use the latest <code>v0.4.x</code> branch.</p>
 <h2>Getting Started</h2>
 <p>To start using the library, follow these steps:</p>
 <ol>
 <li>Import the library with the command:</li>
 </ol>
-<pre><code class="language-bash">aiken packages add logicalmechanism/assist --version v0.4.10
+<pre><code class="language-bash">aiken packages add logical-mechanism/Assist --version v0.4.11
 </code></pre>
 <ul>
 <li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.4.2</code> -&gt; <code>v0.4.x</code>.</li>
@@ -358,9 +358,10 @@ aiken check
 <h2>Usage</h2>
 <p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired submodules into your <code>.ak</code> file. For example:</p>
 <pre><code class="language-rust">use assist/signing
-use assist/count
+use assist/types/wallet.{Wallet}
+use assist/prefixes.{database}
 </code></pre>
-<p>Assist modules can be found in the documentation.</p>
+<p>Please refer to the documentaiton for available Assist modules.</p>
 <h2>Documentation</h2>
 <p>You can generate the library’s documentation locally by running the command <code>aiken docs</code> in your project directory. Alternatively, you can view the <a href="https://www.logicalmechanism.io/docs/index.html">online documentation</a> for detailed information on the library’s functions and usage.</p>
 <h2>Contributing</h2>
@@ -441,8 +442,8 @@ use assist/count
       });
     </script>
     <script src="./js/lunr.min.js?v=1.0.29-alpha"></script>
-    <script src="./js/index.js?v=1724887800"></script>
+    <script src="./js/index.js?v=1724889454"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1724887800"></script>
+    <script src="./search-data.js?v=1724889454"></script>
   </body>
 </html>

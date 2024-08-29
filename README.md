@@ -7,7 +7,7 @@ The **Aiken Assist Library** is a collection of specialized functions for [Aiken
 aiken's version | assist's version
 ---             | ---
 `v1.0.31-alpha` | `>= v0.5.0`
-`v1.0.29-alpha` | `== v0.4.10`
+`v1.0.29-alpha` | `== v0.4.11`
 
 Assist library `v0.5.x` will be Plutus V3+. For Plutus V2 contracts use the latest `v0.4.x` branch.
 
@@ -18,7 +18,7 @@ To start using the library, follow these steps:
 1. Import the library with the command:
 
 ```bash
-aiken packages add logical-mechanism/Assist --version v0.4.10
+aiken packages add logical-mechanism/Assist --version v0.4.11
 ```
 
 - Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.2` -> `v0.4.x`.
