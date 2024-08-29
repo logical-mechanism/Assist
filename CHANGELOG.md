@@ -2,6 +2,7 @@
 
 - Updated toml to Aiken 1.1.0, stdlib main (2.0.0 should be the tagged release)
 - addresses.from_wallet check if wallet is valid else it fails
+- All math related modules will be in the maths folder
 
 # v0.4.11
 
