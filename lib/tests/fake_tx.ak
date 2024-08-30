@@ -327,7 +327,7 @@ pub fn test_tx() -> Transaction {
         },
       ],
       fee: 0,
-      mint: assets.zero(),
+      mint: assets.zero,
       certificates: [],
       withdrawals: [Pair(Script(#"acab"), 100)],
       validity_range: Interval {
@@ -342,7 +342,7 @@ pub fn test_tx() -> Transaction {
       },
       extra_signatories: test_signatories(),
       redeemers: redeem,
-      datums: dict.new(),
+      datums: dict.empty,
       id: #"",
       votes: [],
       proposal_procedures: [],

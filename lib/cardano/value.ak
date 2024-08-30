@@ -33,7 +33,7 @@ test token_to_value() {
 /// value.from_tokens(redeemer.tokens)
 /// ```
 pub fn from_tokens(tokens: Tokens) -> Value {
-  do_from_tokens(assets.zero(), tokens)
+  do_from_tokens(assets.zero, tokens)
 }
 
 test tokens_to_value() {
@@ -81,7 +81,7 @@ fn do_multiply(ans: Tokens, ts: Tokens, n: Int) -> Tokens {
 
 test values_multiply_by_0() {
   let val: Value = assets.from_lovelace(100)
-  let ans: Value = assets.zero()
+  let ans: Value = assets.zero
   multiply(val, 0) == ans
 }
 
@@ -195,7 +195,7 @@ fn int_to_hash(num: Int) -> ByteArray {
 }
 
 test hash_empty_value() {
-  let val: Value = assets.zero()
+  let val: Value = assets.zero
   compute_hash(val) == #""
 }
 

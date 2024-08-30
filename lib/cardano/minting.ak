@@ -65,7 +65,7 @@ test bad_exact_burn() {
 }
 
 test empty_exact_mint() {
-  let flat = assets.zero() |> assets.flatten()
+  let flat = assets.zero |> assets.flatten()
   exact(flat, #"", #"", 0) == False
 }
 
@@ -127,7 +127,7 @@ test bad_by_prefix_burn() {
 }
 
 test empty_by_prefix_mint() {
-  let flat = assets.zero() |> assets.flatten()
+  let flat = assets.zero |> assets.flatten()
   by_prefix(flat, #"", #"", 0) == False
 }
 

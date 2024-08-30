@@ -185,19 +185,19 @@ pub fn add_token_to_value(the_value: Value, token: Token) -> Value {
 }
 
 test add_empty_token_to_value() {
-  let zero: Value = assets.zero()
+  let zero: Value = assets.zero
   let token: Token = Token { pid: #"", tkn: #"", amt: 0 }
   add_token_to_value(zero, token) == zero
 }
 
 test add_ada_token_to_value() {
-  let zero: Value = assets.zero()
+  let zero: Value = assets.zero
   let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
   add_token_to_value(zero, token) == assets.from_lovelace(10)
 }
 
 test add_and_subtract_token_to_value() {
-  let zero: Value = assets.zero()
+  let zero: Value = assets.zero
   let token1: Token = Token { pid: #"", tkn: #"", amt: 10 }
   let token2: Token = Token { pid: #"", tkn: #"", amt: -10 }
   let expected: Value =
@@ -223,19 +223,19 @@ pub fn add_tokens_to_value(the_value: Value, tokens: Tokens) -> Value {
 }
 
 test add_empty_tokens_to_value() {
-  let zero: Value = assets.zero()
+  let zero: Value = assets.zero
   let token: Token = Token { pid: #"", tkn: #"", amt: 0 }
   add_tokens_to_value(zero, [token, token, token]) == zero
 }
 
 test add_ada_tokens_to_value() {
-  let zero: Value = assets.zero()
+  let zero: Value = assets.zero
   let token: Token = Token { pid: #"", tkn: #"", amt: 10 }
   add_tokens_to_value(zero, [token, token, token]) == assets.from_lovelace(30)
 }
 
 test add_and_subtract_tokens_to_value() {
-  let zero: Value = assets.zero()
+  let zero: Value = assets.zero
   let token1: Token = Token { pid: #"", tkn: #"", amt: 10 }
   let token2: Token = Token { pid: #"", tkn: #"", amt: -10 }
   add_tokens_to_value(zero, [token1, token2]) == zero
@@ -262,7 +262,7 @@ pub fn from_value(v: Value) -> Tokens {
 }
 
 test from_zero_value() {
-  let v: Value = assets.zero()
+  let v: Value = assets.zero
   let e: Tokens =
     []
   from_value(v) == e
