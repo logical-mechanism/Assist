@@ -4,7 +4,7 @@
 
 use aiken/collection/list
 use cardano/address.{Address, Script}
-use cardano/addresses
+// use cardano/addresses
 use cardano/transaction.{DatumHash, InlineDatum, Input, Output, Transaction}
 // for testing only
 use tests/fake_tx
