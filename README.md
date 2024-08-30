@@ -18,10 +18,10 @@ To start using the library, follow these steps:
 1. Import the library with the command:
 
 ```bash
-aiken packages add logical-mechanism/Assist --version v0.4.11
+aiken packages add logical-mechanism/Assist --version v0.5.0
 ```
 
-- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.4.2` -> `v0.4.x`.
+- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.5.0` -> `v0.5.x`.
 
 2. Compile your project by running the command `aiken check` in your project directory. If a complete recheck is required then run the command:
 
@@ -35,9 +35,9 @@ aiken check
 To use the **Aiken Assist Library** in your project, import the desired submodules into your `.ak` file. For example:
 
 ```rust
-use assist/signing
-use assist/types/wallet.{Wallet}
-use assist/prefixes.{database}
+use tx/signing
+use types/wallet.{Wallet}
+use cardano/prefixes.{database}
 ```
 
 Please refer to the documentaiton for available Assist modules.

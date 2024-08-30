@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>maths/routines - logical-mechanism/Assist</title>
+    <title>validation/find - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -196,22 +196,67 @@
 <ul>
   
     
-        <li><a href="#powmod">powmod</a></li>
+        <li><a href="#first_input_index">first_input_index</a></li>
 
       
   
     
-        <li><a href="#base_q">base_q</a></li>
+        <li><a href="#first_input_txid">first_input_txid</a></li>
 
       
   
     
-        <li><a href="#to_int">to_int</a></li>
+        <li><a href="#input_by_ref">input_by_ref</a></li>
 
       
   
     
-        <li><a href="#from_int">from_int</a></li>
+        <li><a href="#input_by_addr">input_by_addr</a></li>
+
+      
+  
+    
+        <li><a href="#output_by_addr">output_by_addr</a></li>
+
+      
+  
+    
+        <li><a href="#first_output_datum">first_output_datum</a></li>
+
+      
+  
+    
+        <li><a href="#output_datum_by_addr">output_datum_by_addr</a></li>
+
+      
+  
+    
+        <li><a href="#output_by_addr_value">output_by_addr_value</a></li>
+
+      
+  
+    
+        <li><a href="#output_by_value">output_by_value</a></li>
+
+      
+  
+    
+        <li><a href="#stake_reward_by_sc">stake_reward_by_sc</a></li>
+
+      
+  
+    
+        <li><a href="#redeemer_by_ref">redeemer_by_ref</a></li>
+
+      
+  
+    
+        <li><a href="#output_datum_by_nft">output_datum_by_nft</a></li>
+
+      
+  
+    
+        <li><a href="#input_by_nft">input_by_nft</a></li>
 
       
   
@@ -304,8 +349,8 @@
         
 	  
 	    
-	      <li data-indent="1" data-current><a href="../maths/routines.html">
-	      <strong>routines</strong>
+	      <li data-indent="1"><a href="../maths/routines.html">
+	      routines
 	      </a></li>
 	    
 	  
@@ -372,8 +417,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="../validation/find.html">
-	      find
+	      <li data-indent="1" data-current><a href="../validation/find.html">
+	      <strong>find</strong>
 	      </a></li>
 	    
 	  
@@ -392,8 +437,10 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">maths/routines</a>
+  <a href="#module-name">validation/find</a>
 </h1>
+<p>This module contains code for finding various aspects of
+a validating transaction.</p>
 
 
 
@@ -409,15 +456,15 @@
   
       <div class="member">
         <div class="member-name">
-          <h2 id="powmod"><pre class="hljs language-aiken">powmod(n: Int, e: Int, q: Int) -&gt; Int</pre></h2>
+          <h2 id="first_input_index"><pre class="hljs language-aiken">first_input_index(inputs: List&lt;Input&gt;) -&gt; Int</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L12-L33"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L26-L31"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Calculate <code>n</code> to the power of <code>e</code> modulo <code>q</code> using the exponentiation by
-squaring method. At each multiplication a modulo is calculated, allowing
-very large <code>n</code> and <code>e</code> values.</p>
-<pre><code class="language-aiken">routines.powmod(3, 2, 5)
+        <div class="rendered-markdown"><p>Find the first input’s output reference index.
+Output references have the form <code>TxId#Idx</code>, this function
+extracts the <code>Idx</code> part. If nothing is found then error.</p>
+<pre><code class="language-aiken">find.first_input_index(tx.inputs)
 </code></pre>
 </div>
       </div>
@@ -426,14 +473,15 @@ very large <code>n</code> and <code>e</code> values.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="base_q"><pre class="hljs language-aiken">base_q(n: Int, q: Int) -&gt; List&lt;Int&gt;</pre></h2>
+          <h2 id="first_input_txid"><pre class="hljs language-aiken">first_input_txid(inputs: List&lt;Input&gt;) -&gt; ByteArray</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L83-L85"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L52-L57"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a integer <code>n</code> into some base <code>q</code>. This method
-should scale with any integer and any logical base.</p>
-<pre><code class="language-aiken">routines.base_q(123, 7)
+        <div class="rendered-markdown"><p>Find the first input’s output reference transaction id hash.
+Output references have the form <code>TxId#Idx</code>, this function
+extracts the <code>TxId</code> part. If nothing is found then error.</p>
+<pre><code class="language-aiken">find.first_input_txid(tx.inputs)
 </code></pre>
 </div>
       </div>
@@ -442,15 +490,15 @@ should scale with any integer and any logical base.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="to_int"><pre class="hljs language-aiken">to_int(self: ByteArray) -&gt; Int</pre></h2>
+          <h2 id="input_by_ref"><pre class="hljs language-aiken">input_by_ref(inputs: List&lt;Input&gt;, out_ref: OutputReference) -&gt; Input</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L133-L135"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L78-L88"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a hexadecimal bytearray into its base 10 representation. This
-only works with even length bytearrays so arbitrary numbers in hexadecimal
-form will not in general work.</p>
-<pre><code class="language-aiken">routines.to_int(#"acab")
+        <div class="rendered-markdown"><p>Find an input by an output reference. If nothing is found then error.
+Similar to the builtin function in stdlib but auto errors instead of
+returning an <code>Option</code>.</p>
+<pre><code class="language-aiken">find.input_by_ref(tx.inputs, out_ref)
 </code></pre>
 </div>
       </div>
@@ -459,17 +507,175 @@ form will not in general work.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="from_int"><pre class="hljs language-aiken">from_int(self: Int) -&gt; ByteArray</pre></h2>
+          <h2 id="input_by_addr"><pre class="hljs language-aiken">input_by_addr(inputs: List&lt;Input&gt;, addr: Address) -&gt; Input</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L153-L155"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L113-L123"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a integer into a hexadecimal bytearray. This works for all integers
-but odd length bytearrays will be prefixed with a zero. This function
-combined with the <code>to_int</code> function allows a string to represent a number
-and still be used for calculations, pushing the <code>2^64 - 1</code> integer boundary.</p>
-<pre><code class="language-aiken">routines.from_int(44203)
+        <div class="rendered-markdown"><p>Find the first occurrence of an input by a specific address. If nothing
+is found then error. The address here is an exact match, so both the
+pkh and sc need to be correct.</p>
+<pre><code class="language-aiken">find.input_by_addr(tx.reference_inputs, ref_addr)
 </code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="output_by_addr"><pre class="hljs language-aiken">output_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Output</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L145-L155"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Find the first occurrence of an output by a specific address. If nothing
+is found then error. The address here is an exact match.</p>
+<pre><code class="language-aiken">find.output_by_addr(tx.outputs, your_address)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="first_output_datum"><pre class="hljs language-aiken">first_output_datum(outputs: List&lt;Output&gt;) -&gt; Data</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L178-L187"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Find the first output with an inline datum and return the datum.
+If nothing is found then error. This works great for tx with a
+single output and datum or where ordering is irrelevant.</p>
+<pre><code class="language-aiken">find.first_output_datum(tx.outputs)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="output_datum_by_addr"><pre class="hljs language-aiken">output_datum_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Data</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L209-L212"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Find the first occurence of output datum by some address. If nothing is
+found then error.</p>
+<pre><code class="language-aiken">expect datum: Datum = find.output_datum_by_addr(tx.outputs, this_addr)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="output_by_addr_value"><pre class="hljs language-aiken">output_by_addr_value(
+  outputs: List&lt;Output&gt;,
+  addr: Address,
+  value: Value,
+) -&gt; Output</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L237-L255"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Return the first occurrence of an output that contains at least some specific
+value at some address. If nothing is found then error. This function
+does not search for an exact UTxO match.</p>
+<pre><code class="language-aiken">find.output_by_addr_value(tx.outputs, wallet_addr, just_token_value)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="output_by_value"><pre class="hljs language-aiken">output_by_value(outputs: List&lt;Output&gt;, value: Value) -&gt; Output</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L287-L298"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Return the first occurrence of an output that contains at least some specific
+value. If nothing is found then error. This function
+does not search for an exact UTxO match.</p>
+<pre><code class="language-aiken">find.output_by_value(tx.outputs, just_token_value)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="stake_reward_by_sc"><pre class="hljs language-aiken">stake_reward_by_sc(
+  withdraws: Pairs&lt;Credential, Int&gt;,
+  stake_credential: Credential,
+) -&gt; Int</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L321-L329"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Find the staking reward amount in loveace for some stake credential.
+If no rewards are available then error. This is a great method for
+checking on-chain staking rewards and withdrawal validation.</p>
+<pre><code class="language-aiken">find.stake_reward_by_sc(tx.withdrawals, datum.wallet.sc)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="redeemer_by_ref"><pre class="hljs language-aiken">redeemer_by_ref(
+  redeemers: Pairs&lt;ScriptPurpose, Redeemer&gt;,
+  out_ref: OutputReference,
+) -&gt; Data</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L349-L358"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Find a redeemer data by an output reference. This is good for checking
+if a specific redeemer is being used on some specific UTxO inside
+the transaction.</p>
+<pre><code class="language-aiken">find.redeemer_by_ref(tx.redeemers, that_out_ref)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="output_datum_by_nft"><pre class="hljs language-aiken">output_datum_by_nft(
+  outputs: List&lt;Output&gt;,
+  pid: PolicyId,
+  tkn: AssetName,
+) -&gt; Data</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L375-L393"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Find the first occurance of an inline datum on an output with a value
+that contains a specific nft.</p>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="input_by_nft"><pre class="hljs language-aiken">input_by_nft(inputs: List&lt;Input&gt;, pid: PolicyId, tkn: AssetName) -&gt; Input</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L415-L425"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Find the first occurance of an inline datum on an output with a value
+that contains a specific nft.</p>
 </div>
       </div>
     

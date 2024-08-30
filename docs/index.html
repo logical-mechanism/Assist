@@ -327,6 +327,34 @@
 	    
 	  
         
+	  
+	    <li data-indent="0"><span>validation</span></li>
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="./validation/count.html">
+	      count
+	      </a></li>
+	    
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="./validation/find.html">
+	      find
+	      </a></li>
+	    
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="./validation/payout.html">
+	      payout
+	      </a></li>
+	    
+	  
+        
         </ul>
       </nav>
 
@@ -345,10 +373,10 @@
 <ol>
 <li>Import the library with the command:</li>
 </ol>
-<pre><code class="language-bash">aiken packages add logical-mechanism/Assist --version v0.4.11
+<pre><code class="language-bash">aiken packages add logical-mechanism/Assist --version v0.5.0
 </code></pre>
 <ul>
-<li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.4.2</code> -&gt; <code>v0.4.x</code>.</li>
+<li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.5.0</code> -&gt; <code>v0.5.x</code>.</li>
 </ul>
 <ol start="2">
 <li>Compile your project by running the command <code>aiken check</code> in your project directory. If a complete recheck is required then run the command:</li>
@@ -358,9 +386,9 @@ aiken check
 </code></pre>
 <h2>Usage</h2>
 <p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired submodules into your <code>.ak</code> file. For example:</p>
-<pre><code class="language-rust">use assist/signing
-use assist/types/wallet.{Wallet}
-use assist/prefixes.{database}
+<pre><code class="language-rust">use tx/signing
+use types/wallet.{Wallet}
+use cardano/prefixes.{database}
 </code></pre>
 <p>Please refer to the documentaiton for available Assist modules.</p>
 <h2>Documentation</h2>
@@ -492,9 +520,9 @@ use assist/prefixes.{database}
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="./js/lunr.min.js?v=1.1.0"></script>
-    <script src="./js/index.js?v=1724975083"></script>
+    <script src="./js/index.js?v=1724981307"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1724975083"></script>
+    <script src="./search-data.js?v=1724981307"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {

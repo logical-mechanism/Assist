@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>maths/routines - logical-mechanism/Assist</title>
+    <title>validation/payout - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -196,22 +196,12 @@
 <ul>
   
     
-        <li><a href="#powmod">powmod</a></li>
+        <li><a href="#exact">exact</a></li>
 
       
   
     
-        <li><a href="#base_q">base_q</a></li>
-
-      
-  
-    
-        <li><a href="#to_int">to_int</a></li>
-
-      
-  
-    
-        <li><a href="#from_int">from_int</a></li>
+        <li><a href="#at_least">at_least</a></li>
 
       
   
@@ -304,8 +294,8 @@
         
 	  
 	    
-	      <li data-indent="1" data-current><a href="../maths/routines.html">
-	      <strong>routines</strong>
+	      <li data-indent="1"><a href="../maths/routines.html">
+	      routines
 	      </a></li>
 	    
 	  
@@ -380,8 +370,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="../validation/payout.html">
-	      payout
+	      <li data-indent="1" data-current><a href="../validation/payout.html">
+	      <strong>payout</strong>
 	      </a></li>
 	    
 	  
@@ -392,8 +382,10 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">maths/routines</a>
+  <a href="#module-name">validation/payout</a>
 </h1>
+<p>This module contains code that assists with payout logic. Payout
+functions are designed to return a boolean value instead of an error.</p>
 
 
 
@@ -409,15 +401,18 @@
   
       <div class="member">
         <div class="member-name">
-          <h2 id="powmod"><pre class="hljs language-aiken">powmod(n: Int, e: Int, q: Int) -&gt; Int</pre></h2>
+          <h2 id="exact"><pre class="hljs language-aiken">exact(
+  payout_address: Address,
+  payout_value: Value,
+  outputs: List&lt;Output&gt;,
+) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L12-L33"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/payout.ak#L19-L38"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Calculate <code>n</code> to the power of <code>e</code> modulo <code>q</code> using the exponentiation by
-squaring method. At each multiplication a modulo is calculated, allowing
-very large <code>n</code> and <code>e</code> values.</p>
-<pre><code class="language-aiken">routines.powmod(3, 2, 5)
+        <div class="rendered-markdown"><p>Find the first occurrence of an exact output that matches a specific
+address and assets. If nothing is found then return False.</p>
+<pre><code class="language-aiken">payout.exact(wallet_addr, validating_value, tx.outputs)
 </code></pre>
 </div>
       </div>
@@ -426,49 +421,19 @@ very large <code>n</code> and <code>e</code> values.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="base_q"><pre class="hljs language-aiken">base_q(n: Int, q: Int) -&gt; List&lt;Int&gt;</pre></h2>
+          <h2 id="at_least"><pre class="hljs language-aiken">at_least(
+  payout_address: Address,
+  payout_value: Value,
+  outputs: List&lt;Output&gt;,
+) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L83-L85"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Convert a integer <code>n</code> into some base <code>q</code>. This method
-should scale with any integer and any logical base.</p>
-<pre><code class="language-aiken">routines.base_q(123, 7)
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="to_int"><pre class="hljs language-aiken">to_int(self: ByteArray) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L133-L135"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/payout.ak#L61-L79"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a hexadecimal bytearray into its base 10 representation. This
-only works with even length bytearrays so arbitrary numbers in hexadecimal
-form will not in general work.</p>
-<pre><code class="language-aiken">routines.to_int(#"acab")
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="from_int"><pre class="hljs language-aiken">from_int(self: Int) -&gt; ByteArray</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L153-L155"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Convert a integer into a hexadecimal bytearray. This works for all integers
-but odd length bytearrays will be prefixed with a zero. This function
-combined with the <code>to_int</code> function allows a string to represent a number
-and still be used for calculations, pushing the <code>2^64 - 1</code> integer boundary.</p>
-<pre><code class="language-aiken">routines.from_int(44203)
+        <div class="rendered-markdown"><p>Find the first occurrence of an output that contains at least some specific
+value at some address. If nothing is found then return False. This function
+does not search for an exact UTxO match.</p>
+<pre><code class="language-aiken">payout.at_least(wallet_addr, just_token_value, tx.outputs)
 </code></pre>
 </div>
       </div>

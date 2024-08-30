@@ -4,6 +4,8 @@
 - addresses.from_wallet check if wallet is valid else it fails
 - All math related modules will be in the maths folder
 - All cardano related modules will be in the cardano folder
+- All validation related modules will be in the validation folder
+- Removed assist top level folder to align with stdlib
 
 # v0.4.11
 

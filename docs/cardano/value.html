@@ -378,6 +378,34 @@
 	    
 	  
         
+	  
+	    <li data-indent="0"><span>validation</span></li>
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="../validation/count.html">
+	      count
+	      </a></li>
+	    
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="../validation/find.html">
+	      find
+	      </a></li>
+	    
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="../validation/payout.html">
+	      payout
+	      </a></li>
+	    
+	  
+        
         </ul>
       </nav>
 
@@ -409,7 +437,7 @@ manipulations and comparisons.</p>
           
         </div>
         <div class="rendered-markdown"><p>Creates a Value type from a token.</p>
-<pre><code class="language-aiken">values.from_token(this_token)
+<pre><code class="language-aiken">value.from_token(this_token)
 </code></pre>
 </div>
       </div>
@@ -424,7 +452,7 @@ manipulations and comparisons.</p>
           
         </div>
         <div class="rendered-markdown"><p>Creates a Value type from a list of tokens.</p>
-<pre><code class="language-aiken">values.from_tokens(redeemer.tokens)
+<pre><code class="language-aiken">value.from_tokens(redeemer.tokens)
 </code></pre>
 </div>
       </div>
@@ -440,7 +468,7 @@ manipulations and comparisons.</p>
         </div>
         <div class="rendered-markdown"><p>Multiply some value by <code>n</code>. This is just a linear scaling to the quantity
 of each token.</p>
-<pre><code class="language-aiken">values.multiply(bundle_value, bundle_size)
+<pre><code class="language-aiken">value.multiply(bundle_value, bundle_size)
 </code></pre>
 </div>
       </div>
@@ -457,7 +485,7 @@ of each token.</p>
         <div class="rendered-markdown"><p>Prove that the target value is contained inside another assets. Each token
 inside the target must exist inside the total assets. The quantity of each
 token must be at least the target amount or greater.</p>
-<pre><code class="language-aiken">values.contains(total_value, target_value)
+<pre><code class="language-aiken">value.contains(total_value, target_value)
 </code></pre>
 </div>
       </div>
@@ -473,7 +501,7 @@ token must be at least the target amount or greater.</p>
         </div>
         <div class="rendered-markdown"><p>Compute the sha3_256 hash of a value by merklizing the policy id, asset
 name, and quantity. Empty values return the empty by string.</p>
-<pre><code class="language-aiken">values.compute_hash(validating_value)
+<pre><code class="language-aiken">value.compute_hash(validating_value)
 </code></pre>
 </div>
       </div>
@@ -490,7 +518,7 @@ name, and quantity. Empty values return the empty by string.</p>
         <div class="rendered-markdown"><p>Calculate a unique token name from a <code>TxId#Idx</code> and prefix. Can be combined
 with the <code>find</code> module to create unique token names from the first input
 utxo inside the transaction.</p>
-<pre><code class="language-aiken">values.unique_token_name(tx_id, tx_idx, cip68.prefix_333)
+<pre><code class="language-aiken">value.unique_token_name(tx_id, tx_idx, cip68.prefix_333)
 </code></pre>
 </div>
       </div>
@@ -509,7 +537,7 @@ name that has a quantity of 1. This will show that a value contains an
 NFT or something that is nft-like. Should be useful to prove that
 something is holding a token inside a transaction when the token name
 is assumed to be unique.</p>
-<pre><code class="language-aiken">values.prove_nft(this_value, pid)
+<pre><code class="language-aiken">value.prove_nft(this_value, pid)
 </code></pre>
 </div>
       </div>
@@ -532,7 +560,7 @@ name that has a quantity of 1. This will show that a value contains an
 NFT or something that is nft-like. Should be useful to prove that
 something is holding a token inside a transaction when the policy id and
 token name is known.</p>
-<pre><code class="language-aiken">values.prove_exact_nft(that_value, pid, tkn)
+<pre><code class="language-aiken">value.prove_exact_nft(that_value, pid, tkn)
 </code></pre>
 </div>
       </div>
@@ -660,9 +688,9 @@ token name is known.</p>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="../js/lunr.min.js?v=1.1.0"></script>
-    <script src="../js/index.js?v=1724975083"></script>
+    <script src="../js/index.js?v=1724981307"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1724975083"></script>
+    <script src="../search-data.js?v=1724981307"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {

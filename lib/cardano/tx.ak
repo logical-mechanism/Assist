@@ -35,7 +35,7 @@ test bad_out_ref() {
 /// verification key.
 ///
 /// ```aiken
-/// signing.verify_signature(context.transaction, wallet_pkh)
+/// tx.verify_signature(context.transaction, wallet_pkh)
 /// ```
 pub fn verify_signature(
   vks: List<VerificationKeyHash>,
@@ -71,7 +71,7 @@ test lots_of_signatures() {
 /// the list of signers then checks if its at least the minimum amount.
 ///
 /// ```aiken
-/// signing.verify_multisig(context.transaction, lst_of_sigs, sig_threshold)
+/// tx.verify_multisig(context.transaction, lst_of_sigs, sig_threshold)
 /// ```
 pub fn verify_multisig(
   sigs: List<VerificationKeyHash>,
@@ -159,6 +159,10 @@ test cant_found_spending_input() fail {
 
 /// Given a set of validator hashes prove that none of them are being spent. Assume
 /// every address is not staked and that the is list is complete.
+///
+/// ```aiken
+/// tx.not_being_spent_from(not_these_vkhs, tx.inputs)
+/// ```
 pub fn not_being_spent_from(
   validator_hashes: List<ScriptHash>,
   inputs: List<Input>,
@@ -205,7 +209,7 @@ test something_being_spent_from() {
 /// transaction and check if it is at least equal to the provided threshold.
 ///
 /// ```aiken
-/// values.total_token_amount(tx.inputs, datum.pid, datum.tkn, datum.threshold)
+/// tx.total_token_amount(tx.inputs, datum.pid, datum.tkn, datum.threshold)
 /// ```
 pub fn total_token_amount(
   inputs: List<Input>,

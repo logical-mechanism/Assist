@@ -358,6 +358,34 @@
 	    
 	  
         
+	  
+	    <li data-indent="0"><span>validation</span></li>
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="../validation/count.html">
+	      count
+	      </a></li>
+	    
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="../validation/find.html">
+	      find
+	      </a></li>
+	    
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="../validation/payout.html">
+	      payout
+	      </a></li>
+	    
+	  
+        
         </ul>
       </nav>
 
@@ -390,7 +418,7 @@ datum found in either an input or output.</p>
         </div>
         <div class="rendered-markdown"><p>Find the datum data on an input or error. The data is assumed
 to be an inline datum.</p>
-<pre><code class="language-aiken">expect datum: Datum = data.input_datum(this_input)
+<pre><code class="language-aiken">expect datum: Datum = datum.input_datum(this_input)
 </code></pre>
 </div>
       </div>
@@ -410,7 +438,7 @@ to be an inline datum.</p>
         <div class="rendered-markdown"><p>Find the datum data on a input by the datum hash or error. The
 data is assumed to be embedded data and must be referenced by
 its hash.</p>
-<pre><code class="language-aiken">expect datum: Datum = data.input_datum_by_hash(this_input, these_datums)
+<pre><code class="language-aiken">expect datum: Datum = datum.input_datum_by_hash(this_input, these_datums)
 </code></pre>
 </div>
       </div>
@@ -426,7 +454,7 @@ its hash.</p>
         </div>
         <div class="rendered-markdown"><p>Find the datum data on an output or error. The data is assumed
 to be an inline datum.</p>
-<pre><code class="language-aiken">expect datum: Datum = data.output_datum(that_output)
+<pre><code class="language-aiken">expect datum: Datum = datum.output_datum(that_output)
 </code></pre>
 </div>
       </div>
@@ -445,7 +473,7 @@ to be an inline datum.</p>
         </div>
         <div class="rendered-markdown"><p>Find the datum data on an output or error. The data is assumed
 to be embedded.</p>
-<pre><code class="language-aiken">expect datum: Datum = data.output_datum_by_hash(that_output, these_datums)
+<pre><code class="language-aiken">expect datum: Datum = datum.output_datum_by_hash(that_output, these_datums)
 </code></pre>
 </div>
       </div>
@@ -573,9 +601,9 @@ to be embedded.</p>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="../js/lunr.min.js?v=1.1.0"></script>
-    <script src="../js/index.js?v=1724975083"></script>
+    <script src="../js/index.js?v=1724981307"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1724975083"></script>
+    <script src="../search-data.js?v=1724981307"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {

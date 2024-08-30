@@ -15,7 +15,7 @@ use types/wallet.{Wallet, is_valid}
 /// be used in the same validaiton.
 ///
 /// ```aiken
-/// let addr: Address = types.from_wallet(this_wallet)
+/// let addr: Address = addresses.from_wallet(this_wallet)
 /// ```
 pub fn from_wallet(wallet: Wallet) -> Address {
   if is_valid(wallet) {

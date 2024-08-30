@@ -15,7 +15,7 @@ use types/token.{Token, Tokens}
 /// Creates a Value type from a token.
 ///
 /// ```aiken
-/// values.from_token(this_token)
+/// value.from_token(this_token)
 /// ```
 pub fn from_token(token: Token) -> Value {
   assets.from_asset(token.pid, token.tkn, token.amt)
@@ -30,7 +30,7 @@ test token_to_value() {
 /// Creates a Value type from a list of tokens.
 ///
 /// ```aiken
-/// values.from_tokens(redeemer.tokens)
+/// value.from_tokens(redeemer.tokens)
 /// ```
 pub fn from_tokens(tokens: Tokens) -> Value {
   do_from_tokens(assets.zero(), tokens)
@@ -57,7 +57,7 @@ fn do_from_tokens(val: Value, tokens: Tokens) -> Value {
 /// of each token.
 ///
 /// ```aiken
-/// values.multiply(bundle_value, bundle_size)
+/// value.multiply(bundle_value, bundle_size)
 /// ```
 pub fn multiply(val: Value, n: Int) -> Value {
   // convert the Value to Tokens
@@ -102,7 +102,7 @@ test values_multiply_by_52314523() {
 /// token must be at least the target amount or greater.
 ///
 /// ```aiken
-/// values.contains(total_value, target_value)
+/// value.contains(total_value, target_value)
 /// ```
 pub fn contains(total: Value, target: Value) -> Bool {
   let flat: List<(PolicyId, AssetName, Int)> = assets.flatten(target)
@@ -160,7 +160,7 @@ test value_contains_nothing() {
 /// name, and quantity. Empty values return the empty by string.
 ///
 /// ```aiken
-/// values.compute_hash(validating_value)
+/// value.compute_hash(validating_value)
 /// ```
 pub fn compute_hash(target: Value) -> ByteArray {
   let flat: List<(PolicyId, AssetName, Int)> = assets.flatten(target)
@@ -219,7 +219,7 @@ test hash_large_value() {
 /// utxo inside the transaction.
 ///
 /// ```aiken
-/// values.unique_token_name(tx_id, tx_idx, cip68.prefix_333)
+/// value.unique_token_name(tx_id, tx_idx, cip68.prefix_333)
 /// ```
 pub fn unique_token_name(
   txid: TransactionId,
@@ -265,7 +265,7 @@ test real_token_name() {
 /// is assumed to be unique.
 ///
 /// ```aiken
-/// values.prove_nft(this_value, pid)
+/// value.prove_nft(this_value, pid)
 /// ```
 pub fn prove_nft(total: Value, pid: PolicyId) {
   let amts: List<Int> = assets.tokens(total, pid) |> dict.values()
@@ -314,7 +314,7 @@ test missing_nft() {
 /// token name is known.
 ///
 /// ```aiken
-/// values.prove_exact_nft(that_value, pid, tkn)
+/// value.prove_exact_nft(that_value, pid, tkn)
 /// ```
 pub fn prove_exact_nft(
   total_value: Value,

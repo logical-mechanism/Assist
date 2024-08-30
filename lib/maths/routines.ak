@@ -7,7 +7,7 @@ use maths/constants.{large_prime}
 /// very large `n` and `e` values.
 ///
 /// ```aiken
-/// maths.powmod(3, 2, 5)
+/// routines.powmod(3, 2, 5)
 /// ```
 pub fn powmod(n: Int, e: Int, q: Int) -> Int {
   if or {
@@ -78,7 +78,7 @@ test powmod_very_large3() {
 /// should scale with any integer and any logical base.
 ///
 /// ```aiken
-/// maths.base_q(123, 7)
+/// routines.base_q(123, 7)
 /// ```
 pub fn base_q(n: Int, q: Int) -> List<Int> {
   do_base_q(n, q, [])
@@ -128,7 +128,7 @@ test to_base_large() {
 /// form will not in general work.
 ///
 /// ```aiken
-/// maths.to_int(#"acab")
+/// routines.to_int(#"acab")
 /// ```
 pub fn to_int(self: ByteArray) -> Int {
   builtin.bytearray_to_integer(True, self)
@@ -148,7 +148,7 @@ test string_to_int() {
 /// and still be used for calculations, pushing the `2^64 - 1` integer boundary.
 ///
 /// ```aiken
-/// maths.from_int(44203)
+/// routines.from_int(44203)
 /// ```
 pub fn from_int(self: Int) -> ByteArray {
   builtin.integer_to_bytearray(True, 0, self)

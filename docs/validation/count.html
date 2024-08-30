@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>maths/routines - logical-mechanism/Assist</title>
+    <title>validation/count - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -196,22 +196,37 @@
 <ul>
   
     
-        <li><a href="#powmod">powmod</a></li>
+        <li><a href="#inputs_by_datum">inputs_by_datum</a></li>
 
       
   
     
-        <li><a href="#base_q">base_q</a></li>
+        <li><a href="#inputs_by_vkh">inputs_by_vkh</a></li>
 
       
   
     
-        <li><a href="#to_int">to_int</a></li>
+        <li><a href="#outputs_by_vkh">outputs_by_vkh</a></li>
 
       
   
     
-        <li><a href="#from_int">from_int</a></li>
+        <li><a href="#inputs_by_addr">inputs_by_addr</a></li>
+
+      
+  
+    
+        <li><a href="#outputs_by_addr">outputs_by_addr</a></li>
+
+      
+  
+    
+        <li><a href="#outputs_by_datum">outputs_by_datum</a></li>
+
+      
+  
+    
+        <li><a href="#single_input_with_bypass">single_input_with_bypass</a></li>
 
       
   
@@ -304,8 +319,8 @@
         
 	  
 	    
-	      <li data-indent="1" data-current><a href="../maths/routines.html">
-	      <strong>routines</strong>
+	      <li data-indent="1"><a href="../maths/routines.html">
+	      routines
 	      </a></li>
 	    
 	  
@@ -364,8 +379,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="../validation/count.html">
-	      count
+	      <li data-indent="1" data-current><a href="../validation/count.html">
+	      <strong>count</strong>
 	      </a></li>
 	    
 	  
@@ -392,8 +407,10 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">maths/routines</a>
+  <a href="#module-name">validation/count</a>
 </h1>
+<p>This module contains code to accurately count the number of inputs and
+outputs in a transaction containing an address or a datum.</p>
 
 
 
@@ -409,15 +426,14 @@
   
       <div class="member">
         <div class="member-name">
-          <h2 id="powmod"><pre class="hljs language-aiken">powmod(n: Int, e: Int, q: Int) -&gt; Int</pre></h2>
+          <h2 id="inputs_by_datum"><pre class="hljs language-aiken">inputs_by_datum(inputs: List&lt;Input&gt;, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L12-L33"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L18-L20"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Calculate <code>n</code> to the power of <code>e</code> modulo <code>q</code> using the exponentiation by
-squaring method. At each multiplication a modulo is calculated, allowing
-very large <code>n</code> and <code>e</code> values.</p>
-<pre><code class="language-aiken">routines.powmod(3, 2, 5)
+        <div class="rendered-markdown"><p>Verify that the number of inputs with an inline datum or datum hash is equal to the
+number intended in the contract. The amount must be exactly the counter.</p>
+<pre><code class="language-aiken">count.inputs_by_datum(tx.inputs, 1)
 </code></pre>
 </div>
       </div>
@@ -426,14 +442,14 @@ very large <code>n</code> and <code>e</code> values.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="base_q"><pre class="hljs language-aiken">base_q(n: Int, q: Int) -&gt; List&lt;Int&gt;</pre></h2>
+          <h2 id="inputs_by_vkh"><pre class="hljs language-aiken">inputs_by_vkh(inputs: List&lt;Input&gt;, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L83-L85"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L75-L77"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a integer <code>n</code> into some base <code>q</code>. This method
-should scale with any integer and any logical base.</p>
-<pre><code class="language-aiken">routines.base_q(123, 7)
+        <div class="rendered-markdown"><p>Count the number of inputs with a payment credential that is a script.
+This does not take in an address but is a general count of validator hashes.</p>
+<pre><code class="language-aiken">count.inputs_by_vkh(tx.inputs, 1)
 </code></pre>
 </div>
       </div>
@@ -442,15 +458,14 @@ should scale with any integer and any logical base.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="to_int"><pre class="hljs language-aiken">to_int(self: ByteArray) -&gt; Int</pre></h2>
+          <h2 id="outputs_by_vkh"><pre class="hljs language-aiken">outputs_by_vkh(outputs: List&lt;Output&gt;, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L133-L135"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L107-L109"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a hexadecimal bytearray into its base 10 representation. This
-only works with even length bytearrays so arbitrary numbers in hexadecimal
-form will not in general work.</p>
-<pre><code class="language-aiken">routines.to_int(#"acab")
+        <div class="rendered-markdown"><p>Count the number of outputs with a payment credential that is a script.
+This does not take in an address but is a general count of validator hashes.</p>
+<pre><code class="language-aiken">count.outputs_by_vkh(tx.outputs, 1)
 </code></pre>
 </div>
       </div>
@@ -459,16 +474,69 @@ form will not in general work.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="from_int"><pre class="hljs language-aiken">from_int(self: Int) -&gt; ByteArray</pre></h2>
+          <h2 id="inputs_by_addr"><pre class="hljs language-aiken">inputs_by_addr(inputs: List&lt;Input&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/maths/routines.ak#L153-L155"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L139-L141"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a integer into a hexadecimal bytearray. This works for all integers
-but odd length bytearrays will be prefixed with a zero. This function
-combined with the <code>to_int</code> function allows a string to represent a number
-and still be used for calculations, pushing the <code>2^64 - 1</code> integer boundary.</p>
-<pre><code class="language-aiken">routines.from_int(44203)
+        <div class="rendered-markdown"><p>Verify that the number of inputs from a specific script is equal to the
+amount intended in the contract. The amount must be exactly the counter.</p>
+<pre><code class="language-aiken">count.inputs_by_addr(tx.inputs, this_addr, 1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="outputs_by_addr"><pre class="hljs language-aiken">outputs_by_addr(outputs: List&lt;Output&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L186-L192"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Verify that the number of outputs from a specific script is equal the amount
+intended in the contract. The amount must be exact with the counter.</p>
+<pre><code class="language-aiken">count.outputs_by_addr(tx.outputs, this_addr, 1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="outputs_by_datum"><pre class="hljs language-aiken">outputs_by_datum(outputs: List&lt;Output&gt;, amount: Int) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L238-L240"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Verify that the number of outputs with an inline datum or datum hash is equal to the
+number intended in the contract. The amount must be exactly the counter.</p>
+<pre><code class="language-aiken">count.outputs_by_datum(tx.outputs, 1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="single_input_with_bypass"><pre class="hljs language-aiken">single_input_with_bypass(
+  inputs: List&lt;Input&gt;,
+  this_addr: Address,
+  those_addrs: List&lt;Address&gt;,
+) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L299-L305"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>The contract can only be spent by itself or along side some list of know
+addresses. Loop all the inputs and count how many datums belong to this
+address. If any of those addresses exists then pass right over them but if
+anything else is found then fail. This should prevent unregulated contracts
+from being spent along side this script.</p>
+<pre><code class="language-aiken">count.single_input_with_bypass(this_tx.inputs, this_addr, [that_addr])
 </code></pre>
 </div>
       </div>

@@ -13,7 +13,7 @@ use tests/fake_tx
 /// to be an inline datum.
 ///
 /// ```aiken
-/// expect datum: Datum = data.input_datum(this_input)
+/// expect datum: Datum = datum.input_datum(this_input)
 /// ```
 pub fn input_datum(possible_input: Input) -> Data {
   when possible_input.output.datum is {
@@ -40,7 +40,7 @@ test cant_find_input_datum() fail {
 /// its hash.
 ///
 /// ```aiken
-/// expect datum: Datum = data.input_datum_by_hash(this_input, these_datums)
+/// expect datum: Datum = datum.input_datum_by_hash(this_input, these_datums)
 /// ```
 pub fn input_datum_by_hash(
   possible_input: Input,
@@ -79,7 +79,7 @@ test cant_find_input_datum_hash() fail {
 /// to be an inline datum.
 ///
 /// ```aiken
-/// expect datum: Datum = data.output_datum(that_output)
+/// expect datum: Datum = datum.output_datum(that_output)
 /// ```
 pub fn output_datum(possible_output: Output) -> Data {
   when possible_output.datum is {
@@ -105,7 +105,7 @@ test cant_find_output_datum() fail {
 /// to be embedded.
 ///
 /// ```aiken
-/// expect datum: Datum = data.output_datum_by_hash(that_output, these_datums)
+/// expect datum: Datum = datum.output_datum_by_hash(that_output, these_datums)
 /// ```
 pub fn output_datum_by_hash(
   possible_output: Output,
