@@ -6,6 +6,7 @@
 - All cardano related modules will be in the cardano folder
 - All validation related modules will be in the validation folder
 - Removed assist top level folder to align with stdlib
+- stdlib is tagged at 2.0.0
 
 # v0.4.11
 

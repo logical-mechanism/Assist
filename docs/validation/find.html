@@ -120,13 +120,13 @@
       <h2>
         <a href="../">Assist</a>
         <span id="project-version">
-          <span>0.5.0 </span>
+          <span>v0.5.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.5.0";
+            const currentVersion = "vv0.5.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -458,7 +458,7 @@ a validating transaction.</p>
         <div class="member-name">
           <h2 id="first_input_index"><pre class="hljs language-aiken">first_input_index(inputs: List&lt;Input&gt;) -&gt; Int</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L26-L31"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L26-L31"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first input’s output reference index.
@@ -475,7 +475,7 @@ extracts the <code>Idx</code> part. If nothing is found then error.</p>
         <div class="member-name">
           <h2 id="first_input_txid"><pre class="hljs language-aiken">first_input_txid(inputs: List&lt;Input&gt;) -&gt; ByteArray</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L52-L57"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L52-L57"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first input’s output reference transaction id hash.
@@ -492,7 +492,7 @@ extracts the <code>TxId</code> part. If nothing is found then error.</p>
         <div class="member-name">
           <h2 id="input_by_ref"><pre class="hljs language-aiken">input_by_ref(inputs: List&lt;Input&gt;, out_ref: OutputReference) -&gt; Input</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L78-L88"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L78-L88"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find an input by an output reference. If nothing is found then error.
@@ -509,7 +509,7 @@ returning an <code>Option</code>.</p>
         <div class="member-name">
           <h2 id="input_by_addr"><pre class="hljs language-aiken">input_by_addr(inputs: List&lt;Input&gt;, addr: Address) -&gt; Input</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L113-L123"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L113-L123"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first occurrence of an input by a specific address. If nothing
@@ -526,7 +526,7 @@ pkh and sc need to be correct.</p>
         <div class="member-name">
           <h2 id="output_by_addr"><pre class="hljs language-aiken">output_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Output</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L145-L155"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L145-L155"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first occurrence of an output by a specific address. If nothing
@@ -542,7 +542,7 @@ is found then error. The address here is an exact match.</p>
         <div class="member-name">
           <h2 id="first_output_datum"><pre class="hljs language-aiken">first_output_datum(outputs: List&lt;Output&gt;) -&gt; Data</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L178-L187"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L178-L187"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first output with an inline datum and return the datum.
@@ -559,7 +559,7 @@ single output and datum or where ordering is irrelevant.</p>
         <div class="member-name">
           <h2 id="output_datum_by_addr"><pre class="hljs language-aiken">output_datum_by_addr(outputs: List&lt;Output&gt;, addr: Address) -&gt; Data</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L209-L212"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L209-L212"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first occurence of output datum by some address. If nothing is
@@ -579,7 +579,7 @@ found then error.</p>
   value: Value,
 ) -&gt; Output</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L237-L255"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L237-L255"></a>
           
         </div>
         <div class="rendered-markdown"><p>Return the first occurrence of an output that contains at least some specific
@@ -596,7 +596,7 @@ does not search for an exact UTxO match.</p>
         <div class="member-name">
           <h2 id="output_by_value"><pre class="hljs language-aiken">output_by_value(outputs: List&lt;Output&gt;, value: Value) -&gt; Output</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L287-L298"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L287-L298"></a>
           
         </div>
         <div class="rendered-markdown"><p>Return the first occurrence of an output that contains at least some specific
@@ -616,7 +616,7 @@ does not search for an exact UTxO match.</p>
   stake_credential: Credential,
 ) -&gt; Int</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L321-L329"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L321-L329"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the staking reward amount in loveace for some stake credential.
@@ -636,7 +636,7 @@ checking on-chain staking rewards and withdrawal validation.</p>
   out_ref: OutputReference,
 ) -&gt; Data</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L349-L358"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L349-L358"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find a redeemer data by an output reference. This is good for checking
@@ -657,7 +657,7 @@ the transaction.</p>
   tkn: AssetName,
 ) -&gt; Data</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L375-L393"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L375-L393"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first occurance of an inline datum on an output with a value
@@ -671,7 +671,7 @@ that contains a specific nft.</p>
         <div class="member-name">
           <h2 id="input_by_nft"><pre class="hljs language-aiken">input_by_nft(inputs: List&lt;Input&gt;, pid: PolicyId, tkn: AssetName) -&gt; Input</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/find.ak#L415-L425"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/find.ak#L415-L425"></a>
           
         </div>
         <div class="rendered-markdown"><p>Find the first occurance of an inline datum on an output with a value
@@ -802,9 +802,9 @@ that contains a specific nft.</p>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="../js/lunr.min.js?v=1.1.0"></script>
-    <script src="../js/index.js?v=1724981307"></script>
+    <script src="../js/index.js?v=1725056065"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1724981307"></script>
+    <script src="../search-data.js?v=1725056065"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {

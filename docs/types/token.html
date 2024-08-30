@@ -120,13 +120,13 @@
       <h2>
         <a href="../">Assist</a>
         <span id="project-version">
-          <span>0.5.0 </span>
+          <span>v0.5.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.5.0";
+            const currentVersion = "vv0.5.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -459,7 +459,7 @@ instead of building out the value type directly which could be harmful.</p>
         </a>
       </h2>
       
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L12-L16"></a>
+        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L12-L16"></a>
       
     </div>
     <div class="custom-type-constructors">
@@ -490,7 +490,7 @@ instead of building out the value type directly which could be harmful.</p>
         </a>
       </h2>
       
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L19-L20"></a>
+        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L19-L20"></a>
       
     </div>
     <div class="custom-type-constructors">
@@ -522,7 +522,7 @@ instead of building out the value type directly which could be harmful.</p>
         <div class="member-name">
           <h2 id="negative"><pre class="hljs language-aiken">negative(tkn: Token) -&gt; Token</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L27-L29"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L27-L29"></a>
           
         </div>
         <div class="rendered-markdown"><p>Give the negative of a token.</p>
@@ -537,7 +537,7 @@ instead of building out the value type directly which could be harmful.</p>
         <div class="member-name">
           <h2 id="negate"><pre class="hljs language-aiken">negate(tokens: Tokens) -&gt; Tokens</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L42-L44"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L42-L44"></a>
           
         </div>
         <div class="rendered-markdown"><p>Negate all the tokens in the list.</p>
@@ -552,7 +552,7 @@ instead of building out the value type directly which could be harmful.</p>
         <div class="member-name">
           <h2 id="divide"><pre class="hljs language-aiken">divide(token: Token, n: Int) -&gt; Token</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L71-L77"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L71-L77"></a>
           
         </div>
         <div class="rendered-markdown"><p>Divide a token by some integer. The divisor must be positive. This is
@@ -569,7 +569,7 @@ infinity.</p>
         <div class="member-name">
           <h2 id="multiply"><pre class="hljs language-aiken">multiply(token: Token, n: Int) -&gt; Token</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L85-L87"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L85-L87"></a>
           
         </div>
         <div class="rendered-markdown"><p>Multiply a token by some integer. This linearly scales the token amount
@@ -585,7 +585,7 @@ on the token.</p>
         <div class="member-name">
           <h2 id="subtraction_only"><pre class="hljs language-aiken">subtraction_only(tokens: Tokens) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L112-L125"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L112-L125"></a>
           
         </div>
         <div class="rendered-markdown"><p>Check that each token is less than zero in a list tokens.</p>
@@ -600,7 +600,7 @@ on the token.</p>
         <div class="member-name">
           <h2 id="addition_only"><pre class="hljs language-aiken">addition_only(tokens: Tokens) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L143-L156"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L143-L156"></a>
           
         </div>
         <div class="rendered-markdown"><p>Check that each token is greater than zero in a list tokens.</p>
@@ -615,7 +615,7 @@ on the token.</p>
         <div class="member-name">
           <h2 id="add_token_to_value"><pre class="hljs language-aiken">add_token_to_value(the_value: Value, token: Token) -&gt; Value</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L183-L185"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L183-L185"></a>
           
         </div>
         <div class="rendered-markdown"><p>Add a Token type to a Value type. This should be a very safe way to
@@ -632,7 +632,7 @@ the general Value type and potentially allow badly formed values to be used.</p>
         <div class="member-name">
           <h2 id="add_tokens_to_value"><pre class="hljs language-aiken">add_tokens_to_value(the_value: Value, tokens: Tokens) -&gt; Value</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L215-L223"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L215-L223"></a>
           
         </div>
         <div class="rendered-markdown"><p>Add a list of Token types to a Value type. This should be a very safe way to
@@ -649,7 +649,7 @@ the general Value type and potentially allow badly formed values to be used.</p>
         <div class="member-name">
           <h2 id="from_value"><pre class="hljs language-aiken">from_value(v: Value) -&gt; Tokens</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L250-L262"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L250-L262"></a>
           
         </div>
         <div class="rendered-markdown"><p>Convert a value into a list of tokens. This conversation is a fast way
@@ -665,7 +665,7 @@ to be able to do multiplication on a assets.</p>
         <div class="member-name">
           <h2 id="exists"><pre class="hljs language-aiken">exists(total: Tokens, target: Token) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L294-L308"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L294-L308"></a>
           
         </div>
         <div class="rendered-markdown"><p>Check if a Token exists in a list of Tokens. The amount has to be greater
@@ -681,7 +681,7 @@ than or equal to the target.</p>
         <div class="member-name">
           <h2 id="contains"><pre class="hljs language-aiken">contains(total: Tokens, target: Tokens) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/types/token.ak#L317-L327"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/token.ak#L317-L327"></a>
           
         </div>
         <div class="rendered-markdown"><p>Check if a target list of tokens exist inside another list of tokens.
@@ -815,9 +815,9 @@ nothing is found then it returns False.</p>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="../js/lunr.min.js?v=1.1.0"></script>
-    <script src="../js/index.js?v=1724981307"></script>
+    <script src="../js/index.js?v=1725056065"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1724981307"></script>
+    <script src="../search-data.js?v=1725056065"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {

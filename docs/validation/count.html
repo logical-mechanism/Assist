@@ -120,13 +120,13 @@
       <h2>
         <a href="../">Assist</a>
         <span id="project-version">
-          <span>0.5.0 </span>
+          <span>v0.5.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "v0.5.0";
+            const currentVersion = "vv0.5.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -428,7 +428,7 @@ outputs in a transaction containing an address or a datum.</p>
         <div class="member-name">
           <h2 id="inputs_by_datum"><pre class="hljs language-aiken">inputs_by_datum(inputs: List&lt;Input&gt;, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L18-L20"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/count.ak#L18-L20"></a>
           
         </div>
         <div class="rendered-markdown"><p>Verify that the number of inputs with an inline datum or datum hash is equal to the
@@ -444,7 +444,7 @@ number intended in the contract. The amount must be exactly the counter.</p>
         <div class="member-name">
           <h2 id="inputs_by_vkh"><pre class="hljs language-aiken">inputs_by_vkh(inputs: List&lt;Input&gt;, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L75-L77"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/count.ak#L75-L77"></a>
           
         </div>
         <div class="rendered-markdown"><p>Count the number of inputs with a payment credential that is a script.
@@ -460,7 +460,7 @@ This does not take in an address but is a general count of validator hashes.</p>
         <div class="member-name">
           <h2 id="outputs_by_vkh"><pre class="hljs language-aiken">outputs_by_vkh(outputs: List&lt;Output&gt;, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L107-L109"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/count.ak#L107-L109"></a>
           
         </div>
         <div class="rendered-markdown"><p>Count the number of outputs with a payment credential that is a script.
@@ -476,7 +476,7 @@ This does not take in an address but is a general count of validator hashes.</p>
         <div class="member-name">
           <h2 id="inputs_by_addr"><pre class="hljs language-aiken">inputs_by_addr(inputs: List&lt;Input&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L139-L141"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/count.ak#L139-L141"></a>
           
         </div>
         <div class="rendered-markdown"><p>Verify that the number of inputs from a specific script is equal to the
@@ -492,7 +492,7 @@ amount intended in the contract. The amount must be exactly the counter.</p>
         <div class="member-name">
           <h2 id="outputs_by_addr"><pre class="hljs language-aiken">outputs_by_addr(outputs: List&lt;Output&gt;, addr: Address, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L186-L192"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/count.ak#L186-L192"></a>
           
         </div>
         <div class="rendered-markdown"><p>Verify that the number of outputs from a specific script is equal the amount
@@ -508,7 +508,7 @@ intended in the contract. The amount must be exact with the counter.</p>
         <div class="member-name">
           <h2 id="outputs_by_datum"><pre class="hljs language-aiken">outputs_by_datum(outputs: List&lt;Output&gt;, amount: Int) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L238-L240"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/count.ak#L238-L240"></a>
           
         </div>
         <div class="rendered-markdown"><p>Verify that the number of outputs with an inline datum or datum hash is equal to the
@@ -528,7 +528,7 @@ number intended in the contract. The amount must be exactly the counter.</p>
   those_addrs: List&lt;Address&gt;,
 ) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/validation/count.ak#L299-L305"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/validation/count.ak#L299-L305"></a>
           
         </div>
         <div class="rendered-markdown"><p>The contract can only be spent by itself or along side some list of know
@@ -664,9 +664,9 @@ from being spent along side this script.</p>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="../js/lunr.min.js?v=1.1.0"></script>
-    <script src="../js/index.js?v=1724981307"></script>
+    <script src="../js/index.js?v=1725056065"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1724981307"></script>
+    <script src="../search-data.js?v=1725056065"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {
