@@ -7,8 +7,8 @@
 
 use aiken/crypto.{ScriptHash, VerificationKeyHash}
 use aiken/primitive/bytearray
-use assist/types/wallet.{Wallet, is_valid}
 use cardano/address.{Address}
+use types/wallet.{Wallet, is_valid}
 
 /// Creates an address from the Wallet type. This should be used primairly for
 /// creating an address as the Wallet type has a `is_valid` function that should

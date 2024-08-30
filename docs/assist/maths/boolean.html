@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/types/wallet - logical-mechanism/Assist</title>
+    <title>assist/maths/boolean - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg"/>
@@ -188,15 +188,6 @@
 
         
 
-<h2>Types</h2>
-<ul>
-  
-  <li><a href="#Wallet">Wallet</a></li>
-  
-  <li><a href="#Wallets">Wallets</a></li>
-  
-</ul>
-
 
 
 
@@ -205,12 +196,42 @@
 <ul>
   
     
-        <li><a href="#to_vks">to_vks</a></li>
+        <li><a href="#and_">and_</a></li>
 
       
   
     
-        <li><a href="#is_valid">is_valid</a></li>
+        <li><a href="#or_">or_</a></li>
+
+      
+  
+    
+        <li><a href="#not_">not_</a></li>
+
+      
+  
+    
+        <li><a href="#xor_">xor_</a></li>
+
+      
+  
+    
+        <li><a href="#nand_">nand_</a></li>
+
+      
+  
+    
+        <li><a href="#nor_">nor_</a></li>
+
+      
+  
+    
+        <li><a href="#xnor_">xnor_</a></li>
+
+      
+  
+    
+        <li><a href="#imply_">imply_</a></li>
 
       
   
@@ -295,8 +316,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="../../assist/maths/boolean.html">
-	      boolean
+	      <li data-indent="1" data-current><a href="../../assist/maths/boolean.html">
+	      <strong>boolean</strong>
 	      </a></li>
 	    
 	  
@@ -363,8 +384,8 @@
         
 	  
 	    
-	      <li data-indent="1" data-current><a href="../../assist/types/wallet.html">
-	      <strong>wallet</strong>
+	      <li data-indent="1"><a href="../../assist/types/wallet.html">
+	      wallet
 	      </a></li>
 	    
 	  
@@ -375,73 +396,12 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/types/wallet</a>
+  <a href="#module-name">assist/maths/boolean</a>
 </h1>
+<p>This module contains code to do boolean logic on integers.
+Boolean logic here is the special case of arithmetic circuit logic with p = 2.</p>
 
 
-
-<section class="module-members">
-  <h1 id="module-types" class="module-member-kind">
-    <a href="#module-types">Types</a>
-  </h1>
-
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="Wallet">
-        <a href="#Wallet">
-	  Wallet
-        </a>
-      </h2>
-      
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L6-L9"></a>
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A wallet type for a non-smart contract address.</p>
-</div>
-      
-      <h3>Constructors</h3>
-      <ul class="constructor-list">
-        
-        <li class="constructor-item">
-          <div class="constructor-row">
-            <svg class="icon icon-box"><use xlink:href="#icon-box"></use></svg>
-            <pre class="constructor-name"><code class="hljs aiken">Wallet { pkh: VerificationKeyHash, sc: VerificationKeyHash }</code></pre>
-          </div>
-	  
-        </li>
-        
-      </ul>
-      
-    </div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="Wallets">
-        <a href="#Wallets">
-	  Wallets
-        </a>
-      </h2>
-      
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L12-L13"></a>
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A list of wallets for non-smart contract addresses.</p>
-</div>
-      
-      <h3>Alias</h3>
-      <div class="constructor-row">
-        <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
-        <pre class="constructor-name"><code class="hljs aiken">Wallets = List&lt;Wallet&gt;</code></pre>
-      </div>
-      
-    </div>
-  </div>
-  
-</section>
 
 
 
@@ -455,14 +415,14 @@
   
       <div class="member">
         <div class="member-name">
-          <h2 id="to_vks"><pre class="hljs language-aiken">to_vks(wallets: Wallets) -&gt; List&lt;VerificationKeyHash&gt;</pre></h2>
+          <h2 id="and_"><pre class="hljs language-aiken">and_(x: Int, y: Int) -&gt; Int</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L21-L23"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L13-L15"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a list of wallets into a list of public key hashes. This is useful
-when doing multisig validation. The output order respects the input order.</p>
-<pre><code class="language-aiken">wallet.to_vks(datum.wallets)
+        <div class="rendered-markdown"><p>Performs a logical <code>AND</code> operation on two integer values.
+Expects both inputs as binary (0 or 1) and returns 1 if both are 1, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.and_(1, 1)
 </code></pre>
 </div>
       </div>
@@ -471,15 +431,110 @@ when doing multisig validation. The output order respects the input order.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="is_valid"><pre class="hljs language-aiken">is_valid(wallet: Wallet) -&gt; Bool</pre></h2>
+          <h2 id="or_"><pre class="hljs language-aiken">or_(x: Int, y: Int) -&gt; Int</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L60-L76"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L39-L41"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Check if a wallet has a bad form and needs to be bypassed.
-The pkh must be the length 56 hex string and the sc is either empty or
-it is also a length 56 hex string.</p>
-<pre><code class="language-aiken">wallet.is_valid(datum.wallet)
+        <div class="rendered-markdown"><p>Performs a logical <code>OR</code> operation on two integer values.
+Expects both inputs as binary (0 or 1) and returns 1 if at least one input is 1, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.or_(0, 1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="not_"><pre class="hljs language-aiken">not_(x: Int) -&gt; Int</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L65-L67"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Performs a logical <code>NOT</code> operation on an integer value.
+Expects the input as binary (0 or 1) and returns the inverse (1 becomes 0, 0 becomes 1).</p>
+<pre><code class="language-aiken">boolean.not_(1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="xor_"><pre class="hljs language-aiken">xor_(x: Int, y: Int) -&gt; Int</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L83-L85"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Performs a logical <code>XOR</code> operation on two integer values.
+Expects both inputs as binary (0 or 1) and returns 1 if the inputs are different, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.xor_(0, 1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="nand_"><pre class="hljs language-aiken">nand_(x: Int, y: Int) -&gt; Int</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L109-L111"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Performs a logical <code>NAND</code> operation on two integer values.
+Returns 1 if at least one input is 0, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.nand_(1, 1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="nor_"><pre class="hljs language-aiken">nor_(x: Int, y: Int) -&gt; Int</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L135-L137"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Performs a logical <code>NOR</code> operation on two integer values.
+Returns 1 if both inputs are 0, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.nor_(0, 0)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="xnor_"><pre class="hljs language-aiken">xnor_(x: Int, y: Int) -&gt; Int</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L161-L163"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Performs a logical <code>XNOR</code> operation on two integer values.
+Returns 1 if the inputs are the same, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.xnor_(1, 1)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="imply_"><pre class="hljs language-aiken">imply_(x: Int, y: Int) -&gt; Int</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/maths/boolean.ak#L187-L189"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Performs a logical implication operation on two integer values.
+Returns 1 if the first input is false or both inputs are true, otherwise returns 0.</p>
+<pre><code class="language-aiken">boolean.imply_(1, 0)
 </code></pre>
 </div>
       </div>

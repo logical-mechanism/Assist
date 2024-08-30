@@ -1,6 +1,6 @@
 use aiken/builtin
 use aiken/collection/list
-use assist/maths/constants.{large_prime}
+use maths/constants.{large_prime}
 
 /// Calculate `n` to the power of `e` modulo `q` using the exponentiation by 
 /// squaring method. At each multiplication a modulo is calculated, allowing

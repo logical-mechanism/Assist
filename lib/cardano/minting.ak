@@ -2,8 +2,8 @@
 ////
 
 use aiken/primitive/bytearray
-use assist/types/cip68
 use cardano/assets.{AssetName, PolicyId}
+use types/cip68
 
 /// This checks if a specific policy id, token name, and amount exist inside
 /// the flattened exact assets. It is searching for an exact match. If found
@@ -110,7 +110,8 @@ test good_by_prefix_mint() {
 }
 
 test good_by_prefix_burn() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_222, -1) |> assets.flatten()
+  let flat =
+    assets.from_asset(#"acab", cip68.prefix_222, -1) |> assets.flatten()
   by_prefix(flat, #"acab", cip68.prefix_222, -1) == True
 }
 
@@ -120,7 +121,8 @@ test bad_by_prefix_mint() {
 }
 
 test bad_by_prefix_burn() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_333, -1) |> assets.flatten()
+  let flat =
+    assets.from_asset(#"acab", cip68.prefix_333, -1) |> assets.flatten()
   by_prefix(flat, #"acab", cip68.prefix_222, -1) == False
 }
 

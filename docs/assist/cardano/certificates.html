@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>assist/types/wallet - logical-mechanism/Assist</title>
+    <title>assist/cardano/certificates - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg"/>
@@ -188,15 +188,6 @@
 
         
 
-<h2>Types</h2>
-<ul>
-  
-  <li><a href="#Wallet">Wallet</a></li>
-  
-  <li><a href="#Wallets">Wallets</a></li>
-  
-</ul>
-
 
 
 
@@ -205,12 +196,7 @@
 <ul>
   
     
-        <li><a href="#to_vks">to_vks</a></li>
-
-      
-  
-    
-        <li><a href="#is_valid">is_valid</a></li>
+        <li><a href="#delegate_credential">delegate_credential</a></li>
 
       
   
@@ -235,8 +221,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="../../assist/cardano/certificates.html">
-	      certificates
+	      <li data-indent="1" data-current><a href="../../assist/cardano/certificates.html">
+	      <strong>certificates</strong>
 	      </a></li>
 	    
 	  
@@ -363,8 +349,8 @@
         
 	  
 	    
-	      <li data-indent="1" data-current><a href="../../assist/types/wallet.html">
-	      <strong>wallet</strong>
+	      <li data-indent="1"><a href="../../assist/types/wallet.html">
+	      wallet
 	      </a></li>
 	    
 	  
@@ -375,73 +361,12 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">assist/types/wallet</a>
+  <a href="#module-name">assist/cardano/certificates</a>
 </h1>
+<p>This module incorporates code for generating valid certificates,
+ensuring their correctness.</p>
 
 
-
-<section class="module-members">
-  <h1 id="module-types" class="module-member-kind">
-    <a href="#module-types">Types</a>
-  </h1>
-
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="Wallet">
-        <a href="#Wallet">
-	  Wallet
-        </a>
-      </h2>
-      
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L6-L9"></a>
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A wallet type for a non-smart contract address.</p>
-</div>
-      
-      <h3>Constructors</h3>
-      <ul class="constructor-list">
-        
-        <li class="constructor-item">
-          <div class="constructor-row">
-            <svg class="icon icon-box"><use xlink:href="#icon-box"></use></svg>
-            <pre class="constructor-name"><code class="hljs aiken">Wallet { pkh: VerificationKeyHash, sc: VerificationKeyHash }</code></pre>
-          </div>
-	  
-        </li>
-        
-      </ul>
-      
-    </div>
-  </div>
-  
-  <div class="member">
-    <div class="member-name">
-      <h2 id="Wallets">
-        <a href="#Wallets">
-	  Wallets
-        </a>
-      </h2>
-      
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L12-L13"></a>
-      
-    </div>
-    <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A list of wallets for non-smart contract addresses.</p>
-</div>
-      
-      <h3>Alias</h3>
-      <div class="constructor-row">
-        <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
-        <pre class="constructor-name"><code class="hljs aiken">Wallets = List&lt;Wallet&gt;</code></pre>
-      </div>
-      
-    </div>
-  </div>
-  
-</section>
 
 
 
@@ -455,31 +380,15 @@
   
       <div class="member">
         <div class="member-name">
-          <h2 id="to_vks"><pre class="hljs language-aiken">to_vks(wallets: Wallets) -&gt; List&lt;VerificationKeyHash&gt;</pre></h2>
+          <h2 id="delegate_credential"><pre class="hljs language-aiken">delegate_credential(sc: ScriptHash, pool_id: StakePoolId) -&gt; Certificate</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L21-L23"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Convert a list of wallets into a list of public key hashes. This is useful
-when doing multisig validation. The output order respects the input order.</p>
-<pre><code class="language-aiken">wallet.to_vks(datum.wallets)
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="is_valid"><pre class="hljs language-aiken">is_valid(wallet: Wallet) -&gt; Bool</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/types/wallet.ak#L60-L76"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/cardano/certificates.ak#L18-L23"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Check if a wallet has a bad form and needs to be bypassed.
-The pkh must be the length 56 hex string and the sc is either empty or
-it is also a length 56 hex string.</p>
-<pre><code class="language-aiken">wallet.is_valid(datum.wallet)
+        <div class="rendered-markdown"><p>Creates a credential delegation for changing the location of the stake.
+This certificate can be used to check if stake is being delegated to
+a specific pool.</p>
+<pre><code class="language-aiken">certificates.create_credential_delegation(datum.contract_hash, datum.pool_id)
 </code></pre>
 </div>
       </div>

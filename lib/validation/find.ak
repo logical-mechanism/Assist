@@ -12,12 +12,12 @@
 //   Address, Credential, Referenced, StakeCredential,
 // }
 // use aiken/transaction/value.{AssetName, PolicyId, Value}
-// use assist/addresses
-// use assist/credentials
-// use assist/data
+// use addresses
+// use credentials
+// use data
 // // for testing only
-// use assist/tests/fake_tx
-// use assist/values
+// use tests/fake_tx
+// use values
 
 // /// Find the first input's output reference index.
 // /// Output references have the form `TxId#Idx`, this function

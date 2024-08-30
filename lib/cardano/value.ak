@@ -7,10 +7,10 @@ use aiken/collection/list
 use aiken/crypto
 use aiken/primitive/bytearray
 use aiken/primitive/string
-use assist/types/cip68
-use assist/types/token.{Token, Tokens}
 use cardano/assets.{AssetName, PolicyId, Value}
 use cardano/transaction.{TransactionId}
+use types/cip68
+use types/token.{Token, Tokens}
 
 /// Creates a Value type from a token.
 ///

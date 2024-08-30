@@ -4,11 +4,11 @@
 
 use aiken/collection/list
 use aiken/crypto.{ScriptHash, VerificationKeyHash}
-// used for testing
-use assist/tests/fake_tx
 use cardano/address
 use cardano/assets.{AssetName, PolicyId}
 use cardano/transaction.{Input, OutputReference}
+// used for testing
+use tests/fake_tx
 
 /// Create an `OutputReference` from the `TxId#Idx` information. This is useful
 /// for building correct output references of specific UTxOs. It can be combined

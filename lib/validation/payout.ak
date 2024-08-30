@@ -5,10 +5,10 @@
 // use aiken/transaction.{Output, Transaction}
 // use aiken/transaction/credential.{Address}
 // use aiken/transaction/value.{Value}
-// use assist/addresses
+// use addresses
 // // for testing only
-// use assist/tests/fake_tx
-// use assist/values
+// use tests/fake_tx
+// use values
 
 // /// Find the first occurrence of an exact output that matches a specific
 // /// address and value. If nothing is found then return False.

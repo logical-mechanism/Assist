@@ -2,7 +2,7 @@
 //// Boolean logic here is the special case of arithmetic circuit logic with p = 2.
 ////
 
-use assist/maths/circuits
+use maths/circuits
 
 /// Performs a logical `AND` operation on two integer values.
 /// Expects both inputs as binary (0 or 1) and returns 1 if both are 1, otherwise returns 0.
