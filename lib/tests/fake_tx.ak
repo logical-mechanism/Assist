@@ -4,6 +4,7 @@
 use aiken/collection/dict
 use aiken/collection/list
 use aiken/interval.{Interval, IntervalBound, NegativeInfinity, PositiveInfinity}
+use cardano/address.{Script}
 use cardano/addresses
 use cardano/assets
 use cardano/transaction.{
@@ -328,7 +329,7 @@ pub fn test_tx() -> Transaction {
       fee: 0,
       mint: assets.zero(),
       certificates: [],
-      withdrawals: [],
+      withdrawals: [Pair(Script(#"acab"), 100)],
       validity_range: Interval {
         lower_bound: IntervalBound {
           bound_type: NegativeInfinity,
