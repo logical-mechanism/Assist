@@ -8,6 +8,7 @@
 - Removed assist top level folder to align with stdlib
 - stdlib is tagged at v2.0.0
 - Updated readme, Plutus v2 is staying on v0.4.11, v3+ is v0.5.x
+- Updating cont integration file
 
 # v0.4.11
 
