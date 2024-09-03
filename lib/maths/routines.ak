@@ -1,3 +1,6 @@
+//// This module contains mathematical routines.
+////
+
 use aiken/builtin
 use aiken/collection/list
 use maths/constants.{large_prime}
