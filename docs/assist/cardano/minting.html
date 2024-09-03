@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>logical-mechanism/Assist</title>
+    <title>assist/cardano/minting - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
-    <link rel="icon" type="image/svg+xml" sizes="any" href="./favicon.svg"/>
-    <link rel="stylesheet" href="./css/index.css?v=1.1.0" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.1.0"/>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="../../favicon.svg"/>
+    <link rel="stylesheet" href="../../css/index.css?v=1.1.0" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="../../css/atom-one-light.min.css?v=1.1.0"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
       "use strict";
-      window.breadcrumbs = '.';
+      window.breadcrumbs = '../..';
       const aikenConfig = {
         theme: {
           values: (() => {
@@ -118,15 +118,15 @@
       </button>
 
       <h2>
-        <a href="./">Assist</a>
+        <a href="../../">Assist</a>
         <span id="project-version">
-          <span>v0.5.0 </span>
+          <span>0.5.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "vv0.5.0";
+            const currentVersion = "v0.5.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -188,16 +188,42 @@
 
         
 
+
+
+
+
+<h2>Functions</h2>
+<ul>
+  
+    
+        <li><a href="#exact">exact</a></li>
+
+      
+  
+    
+        <li><a href="#by_prefix">by_prefix</a></li>
+
+      
+  
+    
+        <li><a href="#is_occurring">is_occurring</a></li>
+
+      
+  
+</ul>
+
+
+
         <h2>Modules</h2>
         <ul>
         
 	  
-	    <li data-indent="0"><span>cardano</span></li>
+	    <li data-indent="0"><span>assist/cardano</span></li>
 	  
         
 	  
 	    
-	      <li data-indent="1"><a href="./cardano/addresses.html">
+	      <li data-indent="1"><a href="../../assist/cardano/addresses.html">
 	      addresses
 	      </a></li>
 	    
@@ -205,7 +231,7 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./cardano/certificates.html">
+	      <li data-indent="1"><a href="../../assist/cardano/certificates.html">
 	      certificates
 	      </a></li>
 	    
@@ -213,7 +239,7 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./cardano/datum.html">
+	      <li data-indent="1"><a href="../../assist/cardano/datum.html">
 	      datum
 	      </a></li>
 	    
@@ -221,15 +247,15 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./cardano/minting.html">
-	      minting
+	      <li data-indent="1" data-current><a href="../../assist/cardano/minting.html">
+	      <strong>minting</strong>
 	      </a></li>
 	    
 	  
         
 	  
 	    
-	      <li data-indent="1"><a href="./cardano/tx.html">
+	      <li data-indent="1"><a href="../../assist/cardano/tx.html">
 	      tx
 	      </a></li>
 	    
@@ -237,19 +263,35 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./cardano/value.html">
+	      <li data-indent="1"><a href="../../assist/cardano/value.html">
 	      value
 	      </a></li>
 	    
 	  
         
 	  
-	    <li data-indent="0"><span>maths</span></li>
+	    <li data-indent="0"><span>assist</span></li>
+	  
+        
+	  
+	    <li data-indent="1"><span>maths</span></li>
 	  
         
 	  
 	    
-	      <li data-indent="1"><a href="./maths/boolean.html">
+	      <li data-indent="2"><a href="../../assist/maths/circuits.html">
+	      circuits
+	      </a></li>
+	    
+	  
+        
+	  
+	    <li data-indent="0"><span>assist/maths</span></li>
+	  
+        
+	  
+	    
+	      <li data-indent="1"><a href="../../assist/maths/boolean.html">
 	      boolean
 	      </a></li>
 	    
@@ -257,15 +299,7 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./maths/circuits.html">
-	      circuits
-	      </a></li>
-	    
-	  
-        
-	  
-	    
-	      <li data-indent="1"><a href="./maths/constants.html">
+	      <li data-indent="1"><a href="../../assist/maths/constants.html">
 	      constants
 	      </a></li>
 	    
@@ -273,31 +307,35 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./maths/routines.html">
+	      <li data-indent="1"><a href="../../assist/maths/routines.html">
 	      routines
 	      </a></li>
 	    
 	  
         
 	  
-	    <li data-indent="0"><span>tests</span></li>
+	    <li data-indent="0"><span>assist</span></li>
+	  
+        
+	  
+	    <li data-indent="1"><span>tests</span></li>
 	  
         
 	  
 	    
-	      <li data-indent="1"><a href="./tests/fake_tx.html">
+	      <li data-indent="2"><a href="../../assist/tests/fake_tx.html">
 	      fake_tx
 	      </a></li>
 	    
 	  
         
 	  
-	    <li data-indent="0"><span>types</span></li>
+	    <li data-indent="0"><span>assist/types</span></li>
 	  
         
 	  
 	    
-	      <li data-indent="1"><a href="./types/cip68.html">
+	      <li data-indent="1"><a href="../../assist/types/cip68.html">
 	      cip68
 	      </a></li>
 	    
@@ -305,15 +343,7 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./types/moment.html">
-	      moment
-	      </a></li>
-	    
-	  
-        
-	  
-	    
-	      <li data-indent="1"><a href="./types/prefixes.html">
+	      <li data-indent="1"><a href="../../assist/types/prefixes.html">
 	      prefixes
 	      </a></li>
 	    
@@ -321,7 +351,7 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./types/token.html">
+	      <li data-indent="1"><a href="../../assist/types/token.html">
 	      token
 	      </a></li>
 	    
@@ -329,36 +359,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./types/wallet.html">
+	      <li data-indent="1"><a href="../../assist/types/wallet.html">
 	      wallet
-	      </a></li>
-	    
-	  
-        
-	  
-	    <li data-indent="0"><span>validation</span></li>
-	  
-        
-	  
-	    
-	      <li data-indent="1"><a href="./validation/count.html">
-	      count
-	      </a></li>
-	    
-	  
-        
-	  
-	    
-	      <li data-indent="1"><a href="./validation/find.html">
-	      find
-	      </a></li>
-	    
-	  
-        
-	  
-	    
-	      <li data-indent="1"><a href="./validation/payout.html">
-	      payout
 	      </a></li>
 	    
 	  
@@ -368,45 +370,92 @@
 
       <main class="content">
         
-<h1>Aiken Assist Library</h1>
-<p>The <strong>Aiken Assist Library</strong> is a collection of specialized functions for <a href="https://github.com/aiken-lang/aiken">Aiken</a>. This library extends the default functionality of <a href="https://github.com/aiken-lang/stdlib">stdlib</a> and provides routines that facilitate quick development of smart contracts on Cardano.</p>
-<h2>Compatibility</h2>
-<table><thead><tr><th>aiken’s version</th><th>assist’s version</th></tr></thead><tbody>
-<tr><td><code>v1.1.0</code></td><td><code>&gt;= v0.5.0</code></td></tr>
-<tr><td><code>v1.0.29-alpha</code></td><td><code>== v0.4.11</code></td></tr>
-</tbody></table>
-<p>Assist library <code>v0.5.x</code> will be Plutus V3+. For Plutus V2 contracts use the <code>v0.4.11</code> branch.</p>
-<h2>Getting Started</h2>
-<p>To start using the library, follow these steps:</p>
-<ol>
-<li>Import the library with the command:</li>
-</ol>
-<pre><code class="language-bash">aiken packages add logical-mechanism/assist --version v0.5.0
+<h1 id="module-name" class="module-name">
+  <a href="#module-name">assist/cardano/minting</a>
+</h1>
+<p>This module incorporates code for various minting and burning validations.</p>
+
+
+
+
+
+
+
+<section class="module-members">
+  <h1 id="module-functions" class="module-member-kind">
+    <a href="#module-functions">Functions</a>
+  </h1>
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="exact"><pre class="hljs language-aiken">exact(
+  flat: List&lt;(PolicyId, AssetName, Int)&gt;,
+  pid: PolicyId,
+  tkn: AssetName,
+  amt: Int,
+) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/cardano/minting.ak#L15-L36"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>This checks if a specific policy id, token name, and amount exist inside
+the flattened exact assets. It is searching for an exact match. If found
+then it returns True else False.</p>
+<pre><code class="language-aiken">minting.exact(flatten_mint_value, pid, tkn, 1)
 </code></pre>
-<ul>
-<li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.5.0</code> -&gt; <code>v0.5.x</code>.</li>
-</ul>
-<ol start="2">
-<li>Compile your project by running the command <code>aiken check</code> in your project directory. If a complete recheck is required then run the command:</li>
-</ol>
-<pre><code class="language-bash">rm -fr build || true
-aiken check
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="by_prefix"><pre class="hljs language-aiken">by_prefix(
+  flat: List&lt;(PolicyId, AssetName, Int)&gt;,
+  pid: PolicyId,
+  prefix: AssetName,
+  amt: Int,
+) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/cardano/minting.ak#L81-L105"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>This checks if a specific policy id, prefix, and amount exist inside
+the flattened exact assets. Instead of searching for exact match, it
+checks if the token name has the correct prefix. This works if
+every token name on the policy id is unique. If found then it returns
+True else False.</p>
+<pre><code class="language-aiken">minting.by_prefix(flatten_mint_value, pid, tkn, 1)
 </code></pre>
-<h2>Usage</h2>
-<p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired submodules into your <code>.ak</code> file. For example:</p>
-<pre><code class="language-rust">use tx/signing
-use types/wallet.{Wallet}
-use cardano/prefixes.{database}
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="is_occurring"><pre class="hljs language-aiken">is_occurring(
+  flat: List&lt;(PolicyId, AssetName, Int)&gt;,
+  pid: PolicyId,
+  tkn: AssetName,
+) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/0.5.0/lib/assist/cardano/minting.ak#L141-L160"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Prove that a transaction is minting something from a specific policy id
+and token name but the amount does not matter. This is great for lock-n-mint
+style contracts where some logic just needs to check if a mint is occuring
+but not the specifics of the amount being minted or burned. If a mint is
+occurring then it will return True else False.</p>
+<pre><code class="language-aiken">minting.is_occurring(flatten_mint_value, pid, tkn)
 </code></pre>
-<p>Please refer to the documentaiton for available Assist modules.</p>
-<h2>Documentation</h2>
-<p>You can generate the library’s documentation locally by running the command <code>aiken docs</code> in your project directory. Alternatively, you can view the <a href="https://www.logicalmechanism.io/docs/index.html">online documentation</a> for detailed information on the library’s functions and usage.</p>
-<h2>Contributing</h2>
-<p>Want to contribute? See <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a> to know how.</p>
-<h2>Contact</h2>
-<p>For any questions or feedback, please contact the project maintainer at <code>support@logicalmechanism.io</code>.</p>
-<h2>License</h2>
-<p>The <strong>Aiken Assist Library</strong> is released under the Apache2 License. See the <code>LICENSE</code> file for more details.</p>
+</div>
+      </div>
+    
+  
+</section>
 
 
       </main>
@@ -484,8 +533,8 @@ use cardano/prefixes.{database}
       </defs>
     </svg>
 
-    <script src="./js/highlight.min.js?v=1.1.0"></script>
-    <script src="./js/highlightjs-aiken.js?v=1.1.0"></script>
+    <script src="../../js/highlight.min.js?v=1.1.0"></script>
+    <script src="../../js/highlightjs-aiken.js?v=1.1.0"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -527,10 +576,10 @@ use cardano/prefixes.{database}
     </script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-    <script src="./js/lunr.min.js?v=1.1.0"></script>
-    <script src="./js/index.js?v=1725398652"></script>
+    <script src="../../js/lunr.min.js?v=1.1.0"></script>
+    <script src="../../js/index.js?v=1724974491"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1725398652"></script>
+    <script src="../../search-data.js?v=1724974491"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {

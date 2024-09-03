@@ -1,5 +1,17 @@
 # v0.x.y
 
+# v0.5.0
+
+- Updated toml to Aiken 1.1.0, stdlib main (v2.0.0 should be the tagged release)
+- addresses.from_wallet check if wallet is valid else it fails
+- All math related modules will be in the maths folder
+- All cardano related modules will be in the cardano folder
+- All validation related modules will be in the validation folder
+- Removed assist top level folder to align with stdlib
+- stdlib is tagged at v2.0.0
+- Updated readme, Plutus v2 is staying on v0.4.11, v3+ is v0.5.x
+- Updating cont integration file
+
 # v0.4.11
 
 *Plutus V2 support will stay on v0.4.x*
