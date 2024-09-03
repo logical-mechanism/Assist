@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>types/wallet - logical-mechanism/Assist</title>
+    <title>types/moment - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -191,9 +191,9 @@
 <h2>Types</h2>
 <ul>
   
-  <li><a href="#Wallet">Wallet</a></li>
+  <li><a href="#Moment">Moment</a></li>
   
-  <li><a href="#Wallets">Wallets</a></li>
+  <li><a href="#Moments">Moments</a></li>
   
 </ul>
 
@@ -205,12 +205,27 @@
 <ul>
   
     
-        <li><a href="#to_vks">to_vks</a></li>
+        <li><a href="#shift">shift</a></li>
 
       
   
     
-        <li><a href="#is_valid">is_valid</a></li>
+        <li><a href="#is_logical">is_logical</a></li>
+
+      
+  
+    
+        <li><a href="#is_contained">is_contained</a></li>
+
+      
+  
+    
+        <li><a href="#is_after">is_after</a></li>
+
+      
+  
+    
+        <li><a href="#is_before">is_before</a></li>
 
       
   
@@ -335,8 +350,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="../types/moment.html">
-	      moment
+	      <li data-indent="1" data-current><a href="../types/moment.html">
+	      <strong>moment</strong>
 	      </a></li>
 	    
 	  
@@ -359,8 +374,8 @@
         
 	  
 	    
-	      <li data-indent="1" data-current><a href="../types/wallet.html">
-	      <strong>wallet</strong>
+	      <li data-indent="1"><a href="../types/wallet.html">
+	      wallet
 	      </a></li>
 	    
 	  
@@ -399,7 +414,7 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">types/wallet</a>
+  <a href="#module-name">types/moment</a>
 </h1>
 
 
@@ -412,17 +427,17 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="Wallet">
-        <a href="#Wallet">
-	  Wallet
+      <h2 id="Moment">
+        <a href="#Moment">
+	  Moment
         </a>
       </h2>
       
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/wallet.ak#L6-L9"></a>
+        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/moment.ak#L7-L10"></a>
       
     </div>
     <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A wallet type for a non-smart contract address.</p>
+      <div class="rendered-markdown"><p>A finite moment of time represented as simple start and end integers.</p>
 </div>
       
       <h3>Constructors</h3>
@@ -431,7 +446,7 @@
         <li class="constructor-item">
           <div class="constructor-row">
             <svg class="icon icon-box"><use xlink:href="#icon-box"></use></svg>
-            <pre class="constructor-name"><code class="hljs aiken">Wallet { pkh: VerificationKeyHash, sc: VerificationKeyHash }</code></pre>
+            <pre class="constructor-name"><code class="hljs aiken">Moment { start: Int, end: Int }</code></pre>
           </div>
 	  
         </li>
@@ -443,23 +458,23 @@
   
   <div class="member">
     <div class="member-name">
-      <h2 id="Wallets">
-        <a href="#Wallets">
-	  Wallets
+      <h2 id="Moments">
+        <a href="#Moments">
+	  Moments
         </a>
       </h2>
       
-        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/wallet.ak#L12-L13"></a>
+        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/moment.ak#L13-L14"></a>
       
     </div>
     <div class="custom-type-constructors">
-      <div class="rendered-markdown"><p>A list of wallets for non-smart contract addresses.</p>
+      <div class="rendered-markdown"><p>A finite list of moments of time.</p>
 </div>
       
       <h3>Alias</h3>
       <div class="constructor-row">
         <svg class="icon icon-at"><use xlink:href="#icon-at"></use></svg>
-        <pre class="constructor-name"><code class="hljs aiken">Wallets = List&lt;Wallet&gt;</code></pre>
+        <pre class="constructor-name"><code class="hljs aiken">Moments = List&lt;Moment&gt;</code></pre>
       </div>
       
     </div>
@@ -479,14 +494,14 @@
   
       <div class="member">
         <div class="member-name">
-          <h2 id="to_vks"><pre class="hljs language-aiken">to_vks(wallets: Wallets) -&gt; List&lt;VerificationKeyHash&gt;</pre></h2>
+          <h2 id="shift"><pre class="hljs language-aiken">shift(m: Moment, t: Int) -&gt; Moment</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/wallet.ak#L21-L23"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/moment.ak#L22-L24"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Convert a list of wallets into a list of public key hashes. This is useful
-when doing multisig validation. The output order respects the input order.</p>
-<pre><code class="language-aiken">wallet.to_vks(datum.wallets)
+        <div class="rendered-markdown"><p>Shifts a moment by some integer amount. This is great for incrementing
+a fixed moment of time, maybe like an epoch boundary by five days.</p>
+<pre><code class="language-aiken">moment.shift(this_moment, a_day)
 </code></pre>
 </div>
       </div>
@@ -495,15 +510,64 @@ when doing multisig validation. The output order respects the input order.</p>
   
       <div class="member">
         <div class="member-name">
-          <h2 id="is_valid"><pre class="hljs language-aiken">is_valid(wallet: Wallet) -&gt; Bool</pre></h2>
+          <h2 id="is_logical"><pre class="hljs language-aiken">is_logical(m: Moment) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/wallet.ak#L60-L76"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/moment.ak#L48-L54"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Check if a wallet has a bad form and needs to be bypassed.
-The pkh must be the length 56 hex string and the sc is either empty or
-it is also a length 56 hex string.</p>
-<pre><code class="language-aiken">wallet.is_valid(datum.wallet)
+        <div class="rendered-markdown"><p>Check if a moment data structure is logical.</p>
+<pre><code class="language-aiken">moment.is_logical(datum.moment)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="is_contained"><pre class="hljs language-aiken">is_contained(m: Moment, vr: ValidityRange) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/moment.ak#L84-L106"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Check if a validity range is contained within some moment.
+This assumes inclusivity.</p>
+<p>|start–|lower––upper|–end|</p>
+<pre><code class="language-aiken">moment.is_contained(datum.moment, this_tx.validity_range)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="is_after"><pre class="hljs language-aiken">is_after(m: Moment, vr: ValidityRange) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/moment.ak#L200-L209"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Check if a validity range of a tx is after a moment.
+This assumes exclusivity.</p>
+<p>|start––end|–|lower––upper|</p>
+<pre><code class="language-aiken">moment.is_after(datum.moment, this_tx.validity_range)
+</code></pre>
+</div>
+      </div>
+    
+  
+  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="is_before"><pre class="hljs language-aiken">is_before(m: Moment, vr: ValidityRange) -&gt; Bool</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.0/lib/types/moment.ak#L279-L288"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>Check if a validity range of a tx is before a moment.
+This assumes exclusivity.</p>
+<p>|lower––upper|–|start––end|</p>
+<pre><code class="language-aiken">moment.is_before(datum.moment, this_tx.validity_range)
 </code></pre>
 </div>
       </div>
