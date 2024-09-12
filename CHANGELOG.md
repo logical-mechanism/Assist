@@ -1,5 +1,7 @@
 # v0.x.y
 
+- Added minting.quantity_of to get prove that some form of minting is occurring then the quantity is returned
+
 # v0.5.0
 
 - Updated toml to Aiken 1.1.0, stdlib main (v2.0.0 should be the tagged release)
