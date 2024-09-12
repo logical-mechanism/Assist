@@ -176,3 +176,47 @@ test tx_is_not_minting() {
   let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
   is_occurring(flat, #"acab", cip68.prefix_333) == False
 }
+
+/// Prove that a transaction is minting something from a specific policy id 
+/// and token name. If it is minting then return the amount else return zero.
+///
+/// ```aiken
+/// minting.quantity_of(flatten_mint_value, pid, tkn)
+/// ```
+pub fn quantity_of(
+  flat: List<(PolicyId, AssetName, Int)>,
+  pid: PolicyId,
+  tkn: AssetName,
+) -> Int {
+  when flat is {
+    // loop the minted value
+    [(policy, token_name, quantity), ..rest] ->
+      if and {
+        policy == pid,
+        token_name == tkn,
+      } {
+        // we found what we are looking for so return the quantity
+        quantity
+      } else {
+        quantity_of(rest, pid, tkn)
+      }
+    // something wasn't found
+    [] -> 0
+  }
+}
+
+test tx_is_empty_minting_quantity() {
+  let flat =
+    []
+  quantity_of(flat, #"acab", cip68.prefix_222) == 0
+}
+
+test tx_is_minting_quantity() {
+  let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
+  quantity_of(flat, #"acab", cip68.prefix_222) == 1
+}
+
+test tx_is_not_minting_quantity() {
+  let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
+  quantity_of(flat, #"acab", cip68.prefix_333) == 0
+}
