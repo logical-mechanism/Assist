@@ -1,6 +1,10 @@
 # v0.x.y
 
+*This version is contains breaking changes.*
+
 - Added minting.quantity_of to get prove that some form of minting is occurring then the quantity is returned
+- Changing sha3_256 to blake2b_256, it is cheaper to compute
+- value.unique_token_name has been changed to the v3 version, no more hashing and has a personal tag feature
 - Updated aiken to v1.1.2 and stdlib to v2.1.0
 
 # v0.5.0
