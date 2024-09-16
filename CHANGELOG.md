@@ -2,6 +2,7 @@
 
 - Added minting.quantity_of to get prove that some form of minting is occurring then the quantity is returned
 - Updated aiken to v1.1.2 and stdlib to v2.1.0
+- Added the registry type and related function
 
 # v0.5.0
 
