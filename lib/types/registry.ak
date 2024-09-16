@@ -99,29 +99,21 @@ pub fn prove(
   bound: ByteArray,
 ) -> Bool {
   //
-  // generator element
-  let g: G1Element = g1.decompress(datum.generator)
-  // public value element
-  let u: G1Element = g1.decompress(datum.public_value)
-  //
   // the z computation: g^z = g^(r + c * x) = g^r * g^(c * x) = g^r * (g^x)^c
   expect Some(z): Option<Scalar> = scalar.from_bytearray_big_endian(z_b)
-  let g_z: G1Element = g1.scale(g, z)
-  //
-  // the g^r term: off-chain computation, uncompress into an element
-  let g_r: G1Element = g1.decompress(g_r_b)
+  let g_z: G1Element = g1.decompress(datum.generator) |> g1.scale(z)
   //
   // use the fiat-shamir heuristic to calculate the challenge then convert it to an integer
-  let c_b: ByteArray =
+  expect Some(c): Option<Scalar> =
     fiat_shamir_heuristic(datum.generator, g_r_b, datum.public_value, bound)
-  expect Some(c): Option<Scalar> = scalar.from_bytearray_big_endian(c_b)
+      |> scalar.from_bytearray_big_endian()
   //
   // the u^c computation: u^c = (g^x)^c = g^(x * c)
-  let u_c: G1Element = g1.scale(u, c)
+  let u_c: G1Element = g1.decompress(datum.public_value) |> g1.scale(c)
   //
   // check if equation: g^z = g^r * u^c is true
   //
-  g_z |> g1.equal(g1.add(g_r, u_c))
+  g_z |> g1.equal(g1.add(g1.decompress(g_r_b), u_c))
 }
 
 test valid_schnorr_proof() {
