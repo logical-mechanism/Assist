@@ -181,7 +181,7 @@ fn do_compute_hash(
           |> bytearray.concat(tkn)
           |> bytearray.concat(hashed_amt)
           |> bytearray.concat(total)
-      let next: ByteArray = crypto.sha3_256(concatted)
+      let next: ByteArray = crypto.blake2b_256(concatted)
       do_compute_hash(rest, next)
     }
     [] -> total
@@ -191,7 +191,7 @@ fn do_compute_hash(
 // Private function to sha3 256 an integer into a bytearray.
 // Internal only
 fn int_to_hash(num: Int) -> ByteArray {
-  string.from_int(num) |> bytearray.from_string() |> crypto.sha3_256()
+  string.from_int(num) |> bytearray.from_string() |> crypto.blake2b_256()
 }
 
 test hash_empty_value() {
@@ -201,7 +201,7 @@ test hash_empty_value() {
 
 test hash_lovelace_value() {
   let val: Value = assets.from_lovelace(100)
-  compute_hash(val) == #"93b41836fbabea4f566ccb5aaa6ba4aa7efc92b4401cce01f4766c8e70225824"
+  compute_hash(val) == #"a0f9d2a93b035c0480612cd839d88c355e134f847d0417256708b0fa8403c652"
 }
 
 test hash_large_value() {
@@ -211,7 +211,7 @@ test hash_large_value() {
       |> assets.merge(assets.from_asset(#"cafe", #"face", 40))
       |> assets.merge(assets.from_asset(#"beef", #"face", 40))
       |> assets.merge(assets.from_asset(#"face", #"beef", 40))
-  compute_hash(val) == #"b22cc86ab71b7aba20615b56f07941aacf5445b9089c2d9ec97164a879e1b6b5"
+  compute_hash(val) == #"249b0e98af109a92da4f70c2258b7a01beaeea3a0433f8459c8eaadbd7e7a383"
 }
 
 /// Calculate a unique token name from a `TxId#Idx` and prefix. Can be combined
@@ -219,31 +219,34 @@ test hash_large_value() {
 /// utxo inside the transaction.
 ///
 /// ```aiken
-/// value.unique_token_name(tx_id, tx_idx, cip68.prefix_333)
+/// value.unique_token_name(tx_id, tx_idx, cip68.prefix_333, personal_tag)
 /// ```
 pub fn unique_token_name(
   txid: TransactionId,
   idx: Int,
   prefix: ByteArray,
+  personal: ByteArray,
 ) -> AssetName {
-  // sha3_256 hash of the tx id
-  // this step will be removed in Assist v0.5.0+
-  let txid_hash: ByteArray = crypto.sha3_256(txid)
-  // prefix the txid hash with the index
-  let prepend_index: ByteArray = bytearray.push(txid_hash, idx)
-  // concat the prefix
-  let prepend_prefix: ByteArray = bytearray.concat(prefix, prepend_index)
+  // prefix the txid with the index
+  let prepend_index: ByteArray = bytearray.push(txid, idx)
+  // the personal part max length is 15
+  let trimmed_personal: ByteArray = bytearray.slice(personal, 0, 14)
+  // concat the name
+  let prepend_prefix: ByteArray =
+    prefix
+      |> bytearray.concat(trimmed_personal)
+      |> bytearray.concat(prepend_index)
   // slice off the first 32
   bytearray.slice(prepend_prefix, 0, 31)
 }
 
 test no_prefix_token_name() {
   // the zero becomes the prefix
-  unique_token_name(#"", 0, #"") == #"00a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f843"
+  unique_token_name(#"", 0, #"", #"") == #"00"
 }
 
 test prefix_222_token_name() {
-  let tkn: AssetName = unique_token_name(#"", 0, cip68.prefix_222)
+  let tkn: AssetName = unique_token_name(#"", 0, cip68.prefix_222, #"")
   // the prefixes all have length 4
   bytearray.take(tkn, 4) == cip68.prefix_222
 }
@@ -254,6 +257,7 @@ test real_token_name() {
       #"82fca2f3221cf2d3ef017e8aa76f5c70317df0af32d327c84af4b9b9bddad91f",
       0,
       cip68.prefix_100,
+      #"",
     )
   bytearray.length(tkn) == 32
 }
