@@ -19,7 +19,7 @@ pub type Register {
 /// ```aiken
 /// registry.randomize(register, random_scalar)
 /// ```
-pub fn randomize(datum: Register, s: Scalar) -> Register {
+fn randomize(datum: Register, s: Scalar) -> Register {
   // decompress the generator and public value
   let g: G1Element = g1.decompress(datum.generator)
   let u: G1Element = g1.decompress(datum.public_value)
@@ -52,29 +52,27 @@ test cheapest_hash() {
 /// ```aiken
 /// registry.fiat_shamir_heuristic(g_b, g_r_b, u_b, b)
 /// ```
-pub fn fiat_shamir_heuristic(
+fn fiat_shamir_heuristic(
   // compressed g element
   g_b: ByteArray,
   // compressed g^r element
   g_r_b: ByteArray,
   // compressed g^x element
   u_b: ByteArray,
-  // upper bound as bytearray, used to create one time transforms
+  // a bound used to create one time transforms
   b: ByteArray,
 ) -> ByteArray {
-  // concat g_b, g_r_b, u_b, b together then hash the result using the 
+  // concat g_b, g_r_b, u_b, and b together then hash the result using the 
   // blake2b_256 hash function as it is the cheapest on chain
   g_b
     |> bytearray.concat(g_r_b)
     |> bytearray.concat(u_b)
     |> bytearray.concat(b)
-    |> crypto.blake2b_256() // below this is a hack to make it work
-    |> bytearray.take(31)
+    |> crypto.blake2b_256()
 }
 
 test empty_fiat_shamir_transform() {
-  fiat_shamir_heuristic(#"", #"", #"", #"") == #"0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3"
-  //a8"
+  fiat_shamir_heuristic(#"", #"", #"", #"") == #"0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8"
 }
 
 test real_fiat_shamir_transform() {
@@ -83,8 +81,7 @@ test real_fiat_shamir_transform() {
     #"81b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd",
     #"a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1",
     #"acab",
-  ) == #"8f9409d05727322c9f2d1d0adf817b8d0e3a681977edc9ab866879a4a4f8f5"
-  //b9"
+  ) == #"8f9409d05727322c9f2d1d0adf817b8d0e3a681977edc9ab866879a4a4f8f5b9"
 }
 
 /// A Schnorr proof to prove knowledge of the secret value x without revealing 
@@ -114,7 +111,7 @@ pub fn prove(
   // the g^r term: off-chain computation, uncompress into an element
   let g_r: G1Element = g1.decompress(g_r_b)
   //
-  // use the fiat-shamir transform to calculate c then convert it to an integer
+  // use the fiat-shamir heuristic to calculate the challenge then convert it to an integer
   let c_b: ByteArray =
     fiat_shamir_heuristic(datum.generator, g_r_b, datum.public_value, bound)
   expect Some(c): Option<Scalar> = scalar.from_bytearray_big_endian(c_b)
@@ -164,7 +161,7 @@ test randomized_valid_schnorr_proof() {
   // some secret x 
   expect Some(x): Option<Scalar> =
     scalar.new(
-      42435875175126190479447740508185965837690552500527637822603658699938581184513,
+      12435875175126190479447740508185965837690552500527637822603658699938581184513,
     )
   // the datum register using the g1 generator and the public value for x
   let datum: Register =
@@ -185,7 +182,7 @@ test randomized_valid_schnorr_proof() {
   // rerandomize the a0 register
   let datum_rng: Register = randomize(datum, d)
   // the bound, something unique from the tx
-  let bound: ByteArray = #""
+  let bound: ByteArray = #"acabface"
   // calculate the g^r term
   let g: G1Element = datum_rng.generator |> g1.decompress
   let g_r: G1Element = g1.scale(g, r)
