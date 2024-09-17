@@ -37,12 +37,14 @@ test cheapest_hash() {
   // PASS [mem:    805, cpu:    1663641] cheap hash
   // crypto.sha3_256(#"") == #"a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
   //
-  // PASS [mem:    805, cpu:     434990] cheaper hash
+  // PASS [mem:    805, cpu:     434990] cheap hash
   // crypto.sha2_256(#"") == #"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  //
+  // PASS [mem:    805, cpu:     357676] cheaper hash
+  // crypto.blake2b_224(#"") == #"836cc68931c2e4e3e838602eca1902591d216837bafddfe6f0c8cb07"
   //
   // PASS [mem:    805, cpu:     351411] cheapest hash
   crypto.blake2b_256(#"") == #"0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8"
-  //
 }
 
 /// A bytearray of a value for the challenge c. This process should act like a
