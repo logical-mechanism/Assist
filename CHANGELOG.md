@@ -7,6 +7,7 @@
 - value.unique_token_name has been changed to the v3 version, no more hashing and has a personal tag feature
 - Updated aiken to v1.1.2 and stdlib to v2.1.0
 - Added the registry type and related function
+- stdlib 2.1.0 forces blake2b_224 upon us, this may change in the future
 
 # v0.5.0
 
