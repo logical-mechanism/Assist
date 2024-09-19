@@ -31,20 +31,22 @@ fn randomize(datum: Register, s: Scalar) -> Register {
 }
 
 test cheapest_hash() {
-  // PASS [mem:    805, cpu:    2467639] expensive hash
-  // crypto.keccak_256(#"") == #"c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+  let s: ByteArray =
+    #"abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+  // PASS [mem:   805, cpu:   2661352] expensive hash
+  // crypto.keccak_256(s) == #"8f0af42555406ff9bab0485545772d9e31b44053cf31ffbfb75ac5a8554d81fe"
   //
-  // PASS [mem:    805, cpu:    1663641] cheap hash
-  // crypto.sha3_256(#"") == #"a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+  // PASS [mem:   805, cpu:   1857339] cheap hash
+  // crypto.sha3_256(s) == #"9ecad985f1c9ea970cea83b6a1e18bf0e3cb904c025024935ca056edb74f4b2a"
   //
-  // PASS [mem:    805, cpu:     434990] cheap hash
-  // crypto.sha2_256(#"") == #"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  // PASS [mem:   805, cpu:    502754] cheap hash
+  // crypto.sha2_256(s) == #"359397539cc67687fa779c133c4da0cc60097dfef9e63b5ccf08eca0fca05530"
   //
-  // PASS [mem:    805, cpu:     357676] cheaper hash
-  // crypto.blake2b_224(#"") == #"836cc68931c2e4e3e838602eca1902591d216837bafddfe6f0c8cb07"
+  // PASS [mem:   805, cpu:    382606] cheaper hash
+  // crypto.blake2b_224(s) == #"0c97d8d889acb1d65d23e44212b0a4e16a57fc0ebcfea8f5f965f8ba"
   //
-  // PASS [mem:    805, cpu:     351411] cheapest hash
-  crypto.blake2b_256(#"") == #"0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8"
+  //  PASS [mem:  805, cpu:    376479] cheapest hash
+  crypto.blake2b_256(s) == #"667f1e9b75c8eac1cccf77a2f82526a478b01ec0f26dd938b5b5b4ad0d856368"
 }
 
 /// A bytearray of a value for the challenge c. This process should act like a
