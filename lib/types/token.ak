@@ -263,8 +263,7 @@ pub fn from_value(v: Value) -> Tokens {
 
 test from_zero_value() {
   let v: Value = assets.zero
-  let e: Tokens =
-    []
+  let e: Tokens = []
   from_value(v) == e
 }
 
@@ -335,10 +334,8 @@ test tokens_contains_lovelace() {
 }
 
 test tokens_contains_tokens() {
-  let target: Tokens =
-    [Token { pid: #"acab", tkn: #"beef", amt: 10 }]
-  let total: Tokens =
-    [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
+  let target: Tokens = [Token { pid: #"acab", tkn: #"beef", amt: 10 }]
+  let total: Tokens = [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
   contains(total, target) == True
 }
 
@@ -362,7 +359,6 @@ test tokens_contains_both() {
 test tokens_contains_nothing() {
   let target: Tokens =
     [Token { pid: assets.ada_policy_id, tkn: assets.ada_asset_name, amt: 100 }]
-  let total: Tokens =
-    [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
+  let total: Tokens = [Token { pid: #"acab", tkn: #"beef", amt: 40 }]
   contains(total, target) == False
 }

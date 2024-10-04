@@ -162,8 +162,7 @@ pub fn is_occurring(
 }
 
 test tx_is_empty_minting() {
-  let flat =
-    []
+  let flat = []
   is_occurring(flat, #"acab", cip68.prefix_222) == False
 }
 
@@ -206,8 +205,7 @@ pub fn quantity_of(
 }
 
 test tx_is_empty_minting_quantity() {
-  let flat =
-    []
+  let flat = []
   quantity_of(flat, #"acab", cip68.prefix_222) == 0
 }
 
