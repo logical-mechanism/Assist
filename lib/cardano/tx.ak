@@ -190,18 +190,14 @@ pub fn not_being_spent_from(
 }
 
 test nothing_being_spent_from() {
-  let inputs: List<Input> =
-    [fake_tx.test_script_input()]
-  let vks: List<ScriptHash> =
-    [#""]
+  let inputs: List<Input> = [fake_tx.test_script_input()]
+  let vks: List<ScriptHash> = [#""]
   not_being_spent_from(vks, inputs) == True
 }
 
 test something_being_spent_from() {
-  let inputs: List<Input> =
-    [fake_tx.test_script_input()]
-  let vks: List<ScriptHash> =
-    [#"acab"]
+  let inputs: List<Input> = [fake_tx.test_script_input()]
+  let vks: List<ScriptHash> = [#"acab"]
   not_being_spent_from(vks, inputs) == False
 }
 

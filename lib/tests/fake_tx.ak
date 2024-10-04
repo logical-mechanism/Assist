@@ -266,8 +266,7 @@ pub fn test_signatories() -> List<ByteArray> {
 pub fn test_tx() -> Transaction {
   let out_ref: OutputReference = test_out_ref()
   let d: DataType = 1
-  let redeem =
-    [Pair(Spend(out_ref), d)]
+  let redeem = [Pair(Spend(out_ref), d)]
   let tx =
     Transaction {
       inputs: [

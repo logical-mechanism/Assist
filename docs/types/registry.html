@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>maths/boolean - logical-mechanism/Assist</title>
+    <title>types/registry - logical-mechanism/Assist</title>
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg"/>
@@ -188,6 +188,13 @@
 
         
 
+<h2>Types</h2>
+<ul>
+  
+  <li><a href="#Register">Register</a></li>
+  
+</ul>
+
 
 
 
@@ -196,42 +203,23 @@
 <ul>
   
     
-        <li><a href="#and_">and_</a></li>
-
-      
+        <li data-heading="1"><a href="#%2297f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb%22%2C">&quot;97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb&quot;,</a></li>
+    
   
     
-        <li><a href="#or_">or_</a></li>
-
-      
+        <li data-heading="1"><a href="#%2281b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd%22%2C">&quot;81b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd&quot;,</a></li>
+    
   
     
-        <li><a href="#not_">not_</a></li>
-
-      
+        <li data-heading="1"><a href="#%22a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1%22%2C">&quot;a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1&quot;,</a></li>
+    
   
     
-        <li><a href="#xor_">xor_</a></li>
-
-      
+        <li data-heading="1"><a href="#%22acab%22%2C">&quot;acab&quot;,</a></li>
+    
   
     
-        <li><a href="#nand_">nand_</a></li>
-
-      
-  
-    
-        <li><a href="#nor_">nor_</a></li>
-
-      
-  
-    
-        <li><a href="#xnor_">xnor_</a></li>
-
-      
-  
-    
-        <li><a href="#imply_">imply_</a></li>
+        <li><a href="#prove">prove</a></li>
 
       
   
@@ -300,8 +288,8 @@
         
 	  
 	    
-	      <li data-indent="1" data-current><a href="../maths/boolean.html">
-	      <strong>boolean</strong>
+	      <li data-indent="1"><a href="../maths/boolean.html">
+	      boolean
 	      </a></li>
 	    
 	  
@@ -372,8 +360,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="../types/registry.html">
-	      registry
+	      <li data-indent="1" data-current><a href="../types/registry.html">
+	      <strong>registry</strong>
 	      </a></li>
 	    
 	  
@@ -428,12 +416,52 @@
       <main class="content">
         
 <h1 id="module-name" class="module-name">
-  <a href="#module-name">maths/boolean</a>
+  <a href="#module-name">types/registry</a>
 </h1>
-<p>This module contains code to do boolean logic on integers.
-Boolean logic here is the special case of arithmetic circuit logic with p = 2.</p>
 
 
+
+<section class="module-members">
+  <h1 id="module-types" class="module-member-kind">
+    <a href="#module-types">Types</a>
+  </h1>
+
+  
+  <div class="member">
+    <div class="member-name">
+      <h2 id="Register">
+        <a href="#Register">
+	  Register
+        </a>
+      </h2>
+      
+        <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/types/registry.ak#L10-L15"></a>
+      
+    </div>
+    <div class="custom-type-constructors">
+      <div class="rendered-markdown"><p>Alpha is the generator and beta is the public value. The pair is formed from
+the relationship g^x = u, where g is the generator and u is the public value.
+The value x is a secret integer used to create the public value from the
+generator.</p>
+</div>
+      
+      <h3>Constructors</h3>
+      <ul class="constructor-list">
+        
+        <li class="constructor-item">
+          <div class="constructor-row">
+            <svg class="icon icon-box"><use xlink:href="#icon-box"></use></svg>
+            <pre class="constructor-name"><code class="hljs aiken">Register { generator: ByteArray, public_value: ByteArray }</code></pre>
+          </div>
+	  
+        </li>
+        
+      </ul>
+      
+    </div>
+  </div>
+  
+</section>
 
 
 
@@ -445,128 +473,47 @@ Boolean logic here is the special case of arithmetic circuit logic with p = 2.</
   </h1>
   
   
-      <div class="member">
-        <div class="member-name">
-          <h2 id="and_"><pre class="hljs language-aiken">and_(x: Int, y: Int) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L13-L15"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Performs a logical <code>AND</code> operation on two integer values.
-Expects both inputs as binary (0 or 1) and returns 1 if both are 1, otherwise returns 0.</p>
-<pre><code class="language-aiken">boolean.and_(1, 1)
-</code></pre>
-</div>
-      </div>
-    
+      
+        <h2 id="%2297f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb%22%2C" class="module-heading"><a href="#%2297f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb%22%2C">&quot;97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb&quot;,</a></h2>
+      
   
   
-      <div class="member">
-        <div class="member-name">
-          <h2 id="or_"><pre class="hljs language-aiken">or_(x: Int, y: Int) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L39-L41"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Performs a logical <code>OR</code> operation on two integer values.
-Expects both inputs as binary (0 or 1) and returns 1 if at least one input is 1, otherwise returns 0.</p>
-<pre><code class="language-aiken">boolean.or_(0, 1)
-</code></pre>
-</div>
-      </div>
-    
+  
+      
+        <h2 id="%2281b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd%22%2C" class="module-heading"><a href="#%2281b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd%22%2C">&quot;81b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd&quot;,</a></h2>
+      
+  
+  
+  
+      
+        <h2 id="%22a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1%22%2C" class="module-heading"><a href="#%22a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1%22%2C">&quot;a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1&quot;,</a></h2>
+      
+  
+  
+  
+      
+        <h2 id="%22acab%22%2C" class="module-heading"><a href="#%22acab%22%2C">&quot;acab&quot;,</a></h2>
+      
+  
   
   
       <div class="member">
         <div class="member-name">
-          <h2 id="not_"><pre class="hljs language-aiken">not_(x: Int) -&gt; Int</pre></h2>
+          <h2 id="prove"><pre class="hljs language-aiken">prove(
+  datum: Register,
+  z_b: ByteArray,
+  g_r_b: ByteArray,
+  bound: ByteArray,
+) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L65-L67"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Performs a logical <code>NOT</code> operation on an integer value.
-Expects the input as binary (0 or 1) and returns the inverse (1 becomes 0, 0 becomes 1).</p>
-<pre><code class="language-aiken">boolean.not_(1)
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="xor_"><pre class="hljs language-aiken">xor_(x: Int, y: Int) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L83-L85"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/types/registry.ak#L108-L130"></a>
           
         </div>
-        <div class="rendered-markdown"><p>Performs a logical <code>XOR</code> operation on two integer values.
-Expects both inputs as binary (0 or 1) and returns 1 if the inputs are different, otherwise returns 0.</p>
-<pre><code class="language-aiken">boolean.xor_(0, 1)
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="nand_"><pre class="hljs language-aiken">nand_(x: Int, y: Int) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L109-L111"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Performs a logical <code>NAND</code> operation on two integer values.
-Returns 1 if at least one input is 0, otherwise returns 0.</p>
-<pre><code class="language-aiken">boolean.nand_(1, 1)
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="nor_"><pre class="hljs language-aiken">nor_(x: Int, y: Int) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L135-L137"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Performs a logical <code>NOR</code> operation on two integer values.
-Returns 1 if both inputs are 0, otherwise returns 0.</p>
-<pre><code class="language-aiken">boolean.nor_(0, 0)
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="xnor_"><pre class="hljs language-aiken">xnor_(x: Int, y: Int) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L161-L163"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Performs a logical <code>XNOR</code> operation on two integer values.
-Returns 1 if the inputs are the same, otherwise returns 0.</p>
-<pre><code class="language-aiken">boolean.xnor_(1, 1)
-</code></pre>
-</div>
-      </div>
-    
-  
-  
-      <div class="member">
-        <div class="member-name">
-          <h2 id="imply_"><pre class="hljs language-aiken">imply_(x: Int, y: Int) -&gt; Int</pre></h2>
-          
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/maths/boolean.ak#L187-L189"></a>
-          
-        </div>
-        <div class="rendered-markdown"><p>Performs a logical implication operation on two integer values.
-Returns 1 if the first input is false or both inputs are true, otherwise returns 0.</p>
-<pre><code class="language-aiken">boolean.imply_(1, 0)
+        <div class="rendered-markdown"><p>A Schnorr proof to prove knowledge of the secret value x without revealing
+the value in the process. The proof uses, in multiplicative form,
+g^z = g^r * u^c, where z = r + c*x and u = g^x. This function uses the
+Fiat-Shamir heuristic for non-interactivity.</p>
+<pre><code class="language-aiken">registry.prove(datum, z_b, g_r_b, bound)
 </code></pre>
 </div>
       </div>
