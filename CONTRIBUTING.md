@@ -35,9 +35,10 @@ Example Contributions:
 ```md
 # v0.x.y
 
-- some new thing
-- fixed or updated something
-- something is gone now
+- added some new thing
+- fixed that one thing
+- updated this thing
+- removed something
 ```
 
 Once a release is ready `# v0.x.y` gets replaced with a version number, i.e. `# v0.4.0`. Usually the maintainers will handle the section renaming along with creating a new empty `# v0.x.y` section at the top of the changelog. When releasing a new version the version number needs to be updated inside `README.md`, `aiken.toml`, and the `CHANGELOG.md`. Run the command below to do a fresh test and rebuild the docs for the final push.
