@@ -1,6 +1,6 @@
 name = "logical-mechanism/Assist"
 version = "v0.5.1"
-compiler = "v1.1.4"
+compiler = "v1.1.5"
 plutus = "v3"
 license = "Apache-2.0"
 description = "Aiken Assist Library"
