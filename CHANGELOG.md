@@ -1,5 +1,9 @@
 # v0.x.y
 
+- Cleaning up registry documentation
+- Fiat Shamir transform is now public
+- The blake2b_224 hash is now used for the fiat shamir transform
+
 # v0.5.1
 
 *This version is contains breaking changes.*
