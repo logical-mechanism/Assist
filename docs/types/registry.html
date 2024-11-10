@@ -203,20 +203,9 @@
 <ul>
   
     
-        <li data-heading="1"><a href="#%2297f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb%22%2C">&quot;97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb&quot;,</a></li>
-    
-  
-    
-        <li data-heading="1"><a href="#%2281b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd%22%2C">&quot;81b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd&quot;,</a></li>
-    
-  
-    
-        <li data-heading="1"><a href="#%22a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1%22%2C">&quot;a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1&quot;,</a></li>
-    
-  
-    
-        <li data-heading="1"><a href="#%22acab%22%2C">&quot;acab&quot;,</a></li>
-    
+        <li><a href="#fiat_shamir_heuristic">fiat_shamir_heuristic</a></li>
+
+      
   
     
         <li><a href="#prove">prove</a></li>
@@ -473,28 +462,26 @@ generator.</p>
   </h1>
   
   
-      
-        <h2 id="%2297f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb%22%2C" class="module-heading"><a href="#%2297f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb%22%2C">&quot;97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb&quot;,</a></h2>
-      
-  
-  
-  
-      
-        <h2 id="%2281b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd%22%2C" class="module-heading"><a href="#%2281b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd%22%2C">&quot;81b223cea171a87feba9b7749a2df7601c5a75ae01155fadc124a2ac49099a514cf1e7d9cdc769dceab14a95bd6cb0bd&quot;,</a></h2>
-      
-  
-  
-  
-      
-        <h2 id="%22a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1%22%2C" class="module-heading"><a href="#%22a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1%22%2C">&quot;a09d99e02f7200526dc55ef722cc171e7aa14fc732614c02ac58d59d7026a7eb18d8798f6928ea2b513f3a4feb0c94d1&quot;,</a></h2>
-      
-  
-  
-  
-      
-        <h2 id="%22acab%22%2C" class="module-heading"><a href="#%22acab%22%2C">&quot;acab&quot;,</a></h2>
-      
-  
+      <div class="member">
+        <div class="member-name">
+          <h2 id="fiat_shamir_heuristic"><pre class="hljs language-aiken">fiat_shamir_heuristic(
+  g_b: ByteArray,
+  g_r_b: ByteArray,
+  u_b: ByteArray,
+  b: ByteArray,
+) -&gt; ByteArray</pre></h2>
+          
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/types/registry.ak#L59-L76"></a>
+          
+        </div>
+        <div class="rendered-markdown"><p>A bytearray of a value for the challenge c. This process should act like a
+random oracle providing a large challenge value for the user. The inputs
+should be compressed g1 elements but they can also be compressed integers.</p>
+<pre><code class="language-aiken">registry.fiat_shamir_heuristic(g_b, g_r_b, u_b, b)
+</code></pre>
+</div>
+      </div>
+    
   
   
       <div class="member">
@@ -506,7 +493,7 @@ generator.</p>
   bound: ByteArray,
 ) -&gt; Bool</pre></h2>
           
-      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/types/registry.ak#L108-L130"></a>
+      	    <a class="member-source" alt="view source" title="view source" target="_blank" href="https://github.com/logical-mechanism/Assist/blob/v0.5.1/lib/types/registry.ak#L99-L121"></a>
           
         </div>
         <div class="rendered-markdown"><p>A Schnorr proof to prove knowledge of the secret value x without revealing
@@ -641,9 +628,9 @@ Fiat-Shamir heuristic for non-interactivity.</p>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="../js/lunr.min.js?v=1.1.5"></script>
-    <script src="../js/index.js?v=1731094584"></script>
+    <script src="../js/index.js?v=1731262126"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="../search-data.js?v=1731094584"></script>
+    <script src="../search-data.js?v=1731262126"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {
