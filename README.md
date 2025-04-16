@@ -6,7 +6,7 @@ The **Aiken Assist Library** is a collection of specialized functions for [Aiken
 
 aiken's version | assist's version
 ---             | ---
-`v1.1.5`        | `>= v0.5.1`
+`v1.1.5+`       | `>= v0.5.1`
 `v1.0.29-alpha` | `== v0.4.11`
 
 Assist library `v0.5.x+` will be Plutus V3+. For Plutus V2 contracts use the `v0.4.11` branch.
