@@ -3,7 +3,7 @@
 - Cleaning up registry documentation
 - Fiat Shamir transform is now public
 - The blake2b_224 hash is now used for the fiat shamir transform
-- Bump to 1.1.10 and 2.2.0
+- Bump to 1.1.16 and 2.2.0
 
 # v0.5.1
 
