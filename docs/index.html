@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)"/>
     <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)"/>
     <link rel="icon" type="image/svg+xml" sizes="any" href="./favicon.svg"/>
-    <link rel="stylesheet" href="./css/index.css?v=1.1.21" type="text/css"/>
-    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.1.21"/>
+    <link rel="stylesheet" href="./css/index.css?v=1.1.24" type="text/css"/>
+    <link id="syntax-theme" rel="stylesheet" href="./css/atom-one-light.min.css?v=1.1.24"/>
   </head>
   <body class="prewrap-off theme-light drawer-closed">
     <script>
@@ -120,13 +120,13 @@
       <h2>
         <a href="./">Assist</a>
         <span id="project-version">
-          <span>v0.6.0 </span>
+          <span>v0.7.0 </span>
         </span>
         <script>
           "use strict";
 
           if ("undefined" !== typeof versionNodes) {
-            const currentVersion = "vv0.6.0";
+            const currentVersion = "vv0.7.0";
             if (! versionNodes.find(element => element.version === currentVersion)) {
               versionNodes.unshift({ version: currentVersion, url: "#" });
             }
@@ -237,8 +237,8 @@
         
 	  
 	    
-	      <li data-indent="1"><a href="./cardano/value.html">
-	      value
+	      <li data-indent="1"><a href="./cardano/values.html">
+	      values
 	      </a></li>
 	    
 	  
@@ -379,10 +379,11 @@
 <h1>Aiken Assist Library</h1>
 <p>The <strong>Aiken Assist Library</strong> is a collection of specialized functions for <a href="https://github.com/aiken-lang/aiken">Aiken</a>. This library extends the default functionality of <a href="https://github.com/aiken-lang/stdlib">stdlib</a> and provides routines that facilitate quick development of smart contracts on Cardano.</p>
 <h2>Compatibility</h2>
-<table><thead><tr><th>aiken’s version</th><th>assist’s version</th></tr></thead><tbody>
-<tr><td><code>v1.1.21+</code></td><td><code>&gt;= v0.6.0</code></td></tr>
-<tr><td><code>v1.1.5-v1.1.20</code></td><td><code>== v0.5.1</code></td></tr>
-<tr><td><code>v1.0.29-alpha</code></td><td><code>== v0.4.11</code></td></tr>
+<table><thead><tr><th>aiken’s version</th><th>stdlib’s version</th><th>assist’s version</th></tr></thead><tbody>
+<tr><td><code>v1.1.24+</code></td><td><code>v4.0.0</code></td><td><code>&gt;= v0.7.0</code></td></tr>
+<tr><td><code>v1.1.21-v1.1.23</code></td><td><code>v3.0.0</code></td><td><code>== v0.6.0</code></td></tr>
+<tr><td><code>v1.1.5-v1.1.20</code></td><td><code>v2.1.0</code></td><td><code>== v0.5.1</code></td></tr>
+<tr><td><code>v1.0.29-alpha</code></td><td><code>v1.9.0</code></td><td><code>== v0.4.11</code></td></tr>
 </tbody></table>
 <p>Assist library <code>v0.5.x+</code> will be Plutus V3+. For Plutus V2 contracts use the <code>v0.4.11</code> branch.</p>
 <h2>Getting Started</h2>
@@ -390,10 +391,10 @@
 <ol>
 <li>Import the library with the command:</li>
 </ol>
-<pre><code class="language-bash">aiken packages add logical-mechanism/assist --version v0.5.1
+<pre><code class="language-bash">aiken packages add logical-mechanism/assist --version v0.7.0
 </code></pre>
 <ul>
-<li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.5.1</code> -&gt; <code>v0.5.x</code>.</li>
+<li>Stay up to date by updating the version to the newest tag when applicable, i.e. <code>v0.7.0</code> -&gt; <code>v0.7.x</code>.</li>
 </ul>
 <ol start="2">
 <li>Compile your project by running the command <code>aiken check</code> in your project directory. If a complete recheck is required then run the command:</li>
@@ -403,11 +404,11 @@ aiken check
 </code></pre>
 <h2>Usage</h2>
 <p>To use the <strong>Aiken Assist Library</strong> in your project, import the desired submodules into your <code>.ak</code> file. For example:</p>
-<pre><code class="language-rust">use tx/signing
+<pre><code class="language-aiken">use cardano/values
 use types/wallet.{Wallet}
-use cardano/prefixes.{database}
+use types/prefixes.{database}
 </code></pre>
-<p>Please refer to the documentaiton for available Assist modules.</p>
+<p>Please refer to the documentation for available Assist modules.</p>
 <h2>Documentation</h2>
 <p>You can generate the library’s documentation locally by running the command <code>aiken docs</code> in your project directory. Alternatively, you can view the <a href="https://www.logicalmechanism.io/docs/index.html">online documentation</a> for detailed information on the library’s functions and usage.</p>
 <h2>Contributing</h2>
@@ -493,8 +494,8 @@ use cardano/prefixes.{database}
       </defs>
     </svg>
 
-    <script src="./js/highlight.min.js?v=1.1.21"></script>
-    <script src="./js/highlightjs-aiken.js?v=1.1.21"></script>
+    <script src="./js/highlight.min.js?v=1.1.24"></script>
+    <script src="./js/highlightjs-aiken.js?v=1.1.24"></script>
     <script>
       document.querySelectorAll("pre code").forEach((elem) => {
         if (elem.className === "") {
@@ -536,10 +537,10 @@ use cardano/prefixes.{database}
     </script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-    <script src="./js/lunr.min.js?v=1.1.21"></script>
-    <script src="./js/index.js?v=1769283304"></script>
+    <script src="./js/lunr.min.js?v=1.1.24"></script>
+    <script src="./js/index.js?v=1794090274"></script>
     <!-- Load the search index using JSONP to avoid CORS issues -->
-    <script src="./search-data.js?v=1769283304"></script>
+    <script src="./search-data.js?v=1794090274"></script>
     <script>
       void function() {
         if (typeof tippy !== "undefined") {

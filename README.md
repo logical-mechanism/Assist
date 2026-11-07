@@ -6,7 +6,7 @@ The **Aiken Assist Library** is a collection of specialized functions for [Aiken
 
 aiken's version   | stdlib's version | assist's version
 ---               | ---              | ---
-`v1.1.24+`        | `v4.0.0`         | `>= vx.y.z` (unreleased)
+`v1.1.24+`        | `v4.0.0`         | `>= v0.7.0`
 `v1.1.21-v1.1.23` | `v3.0.0`         | `== v0.6.0`
 `v1.1.5-v1.1.20`  | `v2.1.0`         | `== v0.5.1`
 `v1.0.29-alpha`   | `v1.9.0`         | `== v0.4.11`
@@ -20,10 +20,10 @@ To start using the library, follow these steps:
 1. Import the library with the command:
 
 ```bash
-aiken packages add logical-mechanism/assist --version v0.5.1
+aiken packages add logical-mechanism/assist --version v0.7.0
 ```
 
-- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.5.1` -> `v0.5.x`.
+- Stay up to date by updating the version to the newest tag when applicable, i.e. `v0.7.0` -> `v0.7.x`.
 
 2. Compile your project by running the command `aiken check` in your project directory. If a complete recheck is required then run the command:
 
