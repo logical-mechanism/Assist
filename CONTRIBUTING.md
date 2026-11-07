@@ -24,6 +24,18 @@ aiken check
 
 If everything runs fine without any errors you're good to go. If you do run into any errors please contact the project maintainer at `support@logicalmechanism.io`.
 
+**Tests**
+
+Unit tests live next to the code they test. Property-based tests live in a `*.test.ak` file beside each module (e.g. `lib/cardano/values.test.ak`) and use [aiken-lang/fuzz](https://github.com/aiken-lang/fuzz). Only `*.test.ak` files may import `aiken/fuzz`, so projects that depend on Assist never need it. New functions should come with both kinds of test.
+
+The suite runs about 3x faster on a single thread:
+
+```bash
+RAYON_NUM_THREADS=1 aiken check
+```
+
+Use `aiken check --seed <n>` to replay a failing property, and `aiken check -m <test name>` to run selected tests.
+
 Pull requests are welcome, but we do recommend you open an issue to bring any idea to discussion first! Especially if the pull request will end up very large, any significant changes should be discussed up front with the maintainer. This avoids awkward situations where someone puts in a bunch of work to ultimately have the pull request closed due to a potential variety of unforeseen reasons.
 
 **Changelog**

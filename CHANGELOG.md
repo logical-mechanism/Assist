@@ -1,5 +1,49 @@
 # vx.y.z
 
+*This version contains breaking changes.*
+
+**Toolchain**
+
+- Bump to aiken v1.1.24 and stdlib v4.0.0. stdlib v4.0.0 needs aiken v1.1.24; older compilers cannot parse its `Value` literals.
+- Add aiken-lang/fuzz v3.0.0 for property-based tests. It is only imported from `*.test.ak` modules, which dependent projects do not compile.
+- CI uses aiken v1.1.24 and actions/checkout@v4, runs the tests single-threaded (about 3x faster), and builds the docs.
+
+**Renamed**
+
+- `cardano/value` is now `cardano/values`, because stdlib v4 ships its own `cardano/value` module.
+- Signatures use stdlib's `Assets` wherever they used `Value`, following stdlib's own rename.
+
+**Removed, use stdlib instead**
+
+- `value.prove_exact_nft(v, pid, tkn)` → `assets.has_nft(v, pid, tkn)`
+- `minting.quantity_of(flat, pid, tkn)` → `assets.quantity_of(tx.mint, pid, tkn)`
+- `tx.verify_signature(sigs, vk)` → `list.has(sigs, vk)`
+- `routines.to_int(bytes)` → `int.from_bytearray_big_endian(bytes)`
+- `routines.from_int(n)` → `bytearray.from_int_big_endian(n, 0)`
+
+**Changed**
+
+- `minting.exact`, `minting.by_prefix` and `minting.is_occurring` take the mint `Assets` directly instead of `assets.flatten(tx.mint)`. `minting.exact` is 2.5x to 7x cheaper as a result.
+- `minting.by_prefix` supports prefixes of any length, not only 4 bytes.
+- `values.multiply` runs in linear time and is 2x to 3x cheaper. `values.prove_nft` is about 40% cheaper and `values.contains` about 15% cheaper.
+
+**Fixed**
+
+- `tx.not_being_spent_from` compared whole addresses without a stake credential, so an input at a staked script address went undetected. It now compares payment credentials.
+- `count.single_input_with_bypass` skipped inputs without a datum. Since Plutus V3 a script output can be spent without a datum, so an unrelated script could be spent alongside this one unchecked. Inputs are now classified by payment credential, and datums are ignored. Wallet inputs that carry a datum no longer fail the check.
+- `values.unique_token_name` halted for output indexes of 256 or more. Larger indexes now use their big-endian bytes. Names for indexes below 256 are unchanged.
+- `token.negate` reversed the order of the list. It now keeps it.
+- `routines.base_q` looped until the budget ran out for a negative number or a base below two (other than zero). It now fails right away.
+- `circuits` gates reduced negative intermediates with a loop that ran up to `p` times, which could cost billions of CPU units for operands near `p`. A single `%` now does it.
+
+**Internal**
+
+- Hand-written recursion was replaced with stdlib helpers (`list.count`, `list.any`, `list.find`, `assets.reduce`, `pairs.get_first`, `transaction.find_input`, ...). Outputs are unchanged, including `values.compute_hash` digests.
+- `tests/fake_tx.test_tx` builds on stdlib's `transaction.placeholder`.
+- Property-based tests for every module, in `*.test.ak` files next to each module. Several compare a function with its previous implementation.
+- New unit tests, including the first tests for `token.divide` and `cip68`.
+- Documentation fixes.
+
 # v0.6.0
 
 *This version is contains breaking changes.*
