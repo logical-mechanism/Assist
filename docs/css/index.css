@@ -453,11 +453,10 @@ body.drawer-open .label-closed {
 
 .member-name > h2 > pre {
   background: none;
-  font-family: 'Ubuntu Mono';
+  font-family: "Ubuntu Mono", monospace;
   box-shadow: unset;
   border-radius: unset;
   margin: 0;
-
 }
 
 .member-name h2 a {
