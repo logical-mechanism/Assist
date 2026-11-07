@@ -9,10 +9,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: aiken-lang/setup-aiken@v1
         with:
-          version: v1.1.21
+          version: v1.1.24
       - run: aiken fmt --check
+      # The suite runs about 3x faster on a single thread; the parallel test
+      # runner spends most of its time contending on the allocator.
       - run: aiken check -D
+        env:
+          RAYON_NUM_THREADS: 1
       - run: aiken build
+      - run: aiken docs -D -o build/docs-check

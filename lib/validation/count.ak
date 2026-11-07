@@ -3,11 +3,32 @@
 ////
 
 use aiken/collection/list
-use cardano/address.{Address, Script}
+use cardano/address.{Address, Script, VerificationKey}
 use cardano/addresses
-use cardano/transaction.{DatumHash, InlineDatum, Input, Output, Transaction}
+use cardano/transaction.{
+  DatumHash, InlineDatum, Input, NoDatum, Output, Transaction,
+}
 // for testing only
 use tests/fake_tx
+
+// True when an output carries an inline datum or a datum hash.
+// Internal only
+fn has_datum(output: Output) -> Bool {
+  when output.datum is {
+    NoDatum -> False
+    InlineDatum(_) -> True
+    DatumHash(_) -> True
+  }
+}
+
+// True when an output is locked by a script payment credential.
+// Internal only
+fn is_script(output: Output) -> Bool {
+  when output.address.payment_credential is {
+    Script(_) -> True
+    VerificationKey(_) -> False
+  }
+}
 
 /// Verify that the number of inputs with an inline datum or datum hash is equal to the
 /// number intended in the contract. The amount must be exactly the counter.
@@ -16,24 +37,7 @@ use tests/fake_tx
 /// count.inputs_by_datum(tx.inputs, 1)
 /// ```
 pub fn inputs_by_datum(inputs: List<Input>, amount: Int) -> Bool {
-  do_inputs_by_datum(inputs, 0) == amount
-}
-
-// Internal only
-fn do_inputs_by_datum(inputs: List<Input>, counter: Int) -> Int {
-  when inputs is {
-    [input, ..rest] ->
-      when input.output.datum is {
-        // the actual datum value isn't important here
-        InlineDatum(_) -> do_inputs_by_datum(rest, counter + 1)
-        // the actual datum hash isn't important here
-        DatumHash(_) -> do_inputs_by_datum(rest, counter + 1)
-        // anything else just keep going
-        _ -> do_inputs_by_datum(rest, counter)
-      }
-    // loop the list
-    [] -> counter
-  }
+  list.count(inputs, fn(input) { has_datum(input.output) }) == amount
 }
 
 test single_input_datum() {
@@ -73,19 +77,7 @@ test empty_input_datums() {
 /// count.inputs_by_vkh(tx.inputs, 1)
 /// ```
 pub fn inputs_by_vkh(inputs: List<Input>, amount: Int) -> Bool {
-  do_inputs_by_vkh(inputs, 0) == amount
-}
-
-fn do_inputs_by_vkh(inputs: List<Input>, counter: Int) -> Int {
-  when inputs is {
-    [input, ..rest] ->
-      // exact address match
-      when input.output.address.payment_credential is {
-        Script(_) -> do_inputs_by_vkh(rest, counter + 1)
-        _ -> do_inputs_by_vkh(rest, counter)
-      }
-    [] -> counter
-  }
+  list.count(inputs, fn(input) { is_script(input.output) }) == amount
 }
 
 test double_vkh_script_input() {
@@ -105,19 +97,7 @@ test no_vkh_script_input() {
 /// count.outputs_by_vkh(tx.outputs, 1)
 /// ```
 pub fn outputs_by_vkh(outputs: List<Output>, amount: Int) -> Bool {
-  do_outputs_by_vkh(outputs, 0) == amount
-}
-
-fn do_outputs_by_vkh(outputs: List<Output>, counter: Int) -> Int {
-  when outputs is {
-    [output, ..rest] ->
-      // exact address match
-      when output.address.payment_credential is {
-        Script(_) -> do_outputs_by_vkh(rest, counter + 1)
-        _ -> do_outputs_by_vkh(rest, counter)
-      }
-    [] -> counter
-  }
+  list.count(outputs, is_script) == amount
 }
 
 test single_vkh_script_output() {
@@ -137,21 +117,7 @@ test no_vkh_script_output() {
 /// count.inputs_by_addr(tx.inputs, this_addr, 1)
 /// ```
 pub fn inputs_by_addr(inputs: List<Input>, addr: Address, amount: Int) -> Bool {
-  do_inputs_by_addr(inputs, addr, 0) == amount
-}
-
-// Internal only
-fn do_inputs_by_addr(inputs: List<Input>, addr: Address, counter: Int) -> Int {
-  when inputs is {
-    [input, ..rest] ->
-      // exact address match
-      if input.output.address == addr {
-        do_inputs_by_addr(rest, addr, counter + 1)
-      } else {
-        do_inputs_by_addr(rest, addr, counter)
-      }
-    [] -> counter
-  }
+  list.count(inputs, fn(input) { input.output.address == addr }) == amount
 }
 
 test single_script_input() {
@@ -188,22 +154,7 @@ pub fn outputs_by_addr(
   addr: Address,
   amount: Int,
 ) -> Bool {
-  do_outputs_by_addr(outputs, addr, 0) == amount
-}
-
-// Internal only
-fn do_outputs_by_addr(outputs: List<Output>, addr: Address, counter: Int) -> Int {
-  when outputs is {
-    [output, ..rest] ->
-      // exact address match
-      if output.address == addr {
-        do_outputs_by_addr(rest, addr, counter + 1)
-      } else {
-        do_outputs_by_addr(rest, addr, counter)
-      }
-    // loop entire list then return counter
-    [] -> counter
-  }
+  list.count(outputs, fn(output) { output.address == addr }) == amount
 }
 
 test single_script_output() {
@@ -236,24 +187,7 @@ test empty_output_addr() {
 /// count.outputs_by_datum(tx.outputs, 1)
 /// ```
 pub fn outputs_by_datum(outputs: List<Output>, amount: Int) -> Bool {
-  do_outputs_by_datum(outputs, 0) == amount
-}
-
-// Internal only
-fn do_outputs_by_datum(outputs: List<Output>, counter: Int) -> Int {
-  when outputs is {
-    [output, ..rest] ->
-      when output.datum is {
-        // the actual datum value is not important here
-        InlineDatum(_) -> do_outputs_by_datum(rest, counter + 1)
-        // the actual datum hash is not important here
-        DatumHash(_) -> do_outputs_by_datum(rest, counter + 1)
-        // anything else just keep going
-        _ -> do_outputs_by_datum(rest, counter)
-      }
-    // loop entire list then return counter
-    [] -> counter
-  }
+  list.count(outputs, has_datum) == amount
 }
 
 test single_output_datum() {
@@ -286,11 +220,18 @@ test empty_output_datums() {
   outputs_by_datum([], 0) == True
 }
 
-/// The contract can only be spent by itself or along side some list of know 
-/// addresses. Loop all the inputs and count how many datums belong to this 
-/// address. If any of those addresses exists then pass right over them but if 
-/// anything else is found then fail. This should prevent unregulated contracts
-/// from being spent along side this script.
+/// The contract can only be spent by itself or along side some list of known
+/// script addresses. Loop all the inputs and count how many are locked by this
+/// address's script. Script inputs belonging to any of those addresses are
+/// passed over, but any other script input fails the check. Wallet inputs are
+/// always allowed. The check passes when exactly one input belongs to this
+/// address. This should prevent unregulated contracts from being spent along
+/// side this script.
+///
+/// Addresses are compared by payment credential only, so stake credentials
+/// are ignored. Datums are ignored too: since Plutus V3 a script output can be
+/// spent without any datum, so the presence of a datum says nothing about
+/// whether an input is a script input.
 ///
 /// ```aiken
 /// count.single_input_with_bypass(this_tx.inputs, this_addr, [that_addr])
@@ -327,6 +268,15 @@ test vkh_addr_eq_works2() {
   vkh_addr_eq(a, b) == False
 }
 
+test vkh_addr_eq_ignores_stake() {
+  let a: Address = addresses.create_script_address(
+    #"acab",
+    #"00000000000000000000000000000000000000000000000000000000",
+  )
+  let b: Address = addresses.create_script_address(#"acab", #"")
+  vkh_addr_eq(a, b)
+}
+
 // Internal only
 fn do_single_input_with_bypass(
   inputs: List<Input>,
@@ -336,46 +286,21 @@ fn do_single_input_with_bypass(
 ) -> Bool {
   when inputs is {
     [input, ..rest] ->
-      when input.output.datum is {
-        // the actual datum value isn't important here
-        InlineDatum(_) ->
-          if vkh_addr_eq(input.output.address, this_addr) {
-            // count it
-            do_single_input_with_bypass(
-              rest,
-              counter + 1,
-              this_addr,
-              those_addrs,
-            )
-          } else if list.any(
-            those_addrs,
-            fn(n) { vkh_addr_eq(input.output.address, n) },
-          ) {
-            // all good
-            do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
-          } else {
-            False
-          }
-        // the actual datum hash isn't important here
-        DatumHash(_) ->
-          if vkh_addr_eq(input.output.address, this_addr) {
-            // count it
-            do_single_input_with_bypass(
-              rest,
-              counter + 1,
-              this_addr,
-              those_addrs,
-            )
-          } else if list.any(
-            those_addrs,
-            fn(n) { vkh_addr_eq(input.output.address, n) },
-          ) {
-            // all good
-            do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
-          } else {
-            False
-          }
-        _ -> do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
+      if !is_script(input.output) {
+        // wallet inputs are always fine
+        do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
+      } else if vkh_addr_eq(input.output.address, this_addr) {
+        // count it
+        do_single_input_with_bypass(rest, counter + 1, this_addr, those_addrs)
+      } else if list.any(
+        those_addrs,
+        fn(n) { vkh_addr_eq(input.output.address, n) },
+      ) {
+        // a known script, all good
+        do_single_input_with_bypass(rest, counter, this_addr, those_addrs)
+      } else {
+        // an unknown script is being spent
+        False
       }
     // there can be only this address and any amount of those addresses but nothing else
     [] -> counter == 1
@@ -393,4 +318,39 @@ test single_input_with_a_bad_bypass() {
   let this_inputs: List<Input> = fake_tx.test_bad_inputs()
   let addr: Address = addresses.create_script_address(#"acab", #"")
   single_input_with_bypass(this_inputs, addr, []) == False
+}
+
+test double_input_with_bypass() {
+  let input: Input = fake_tx.test_script_input()
+  let addr: Address = addresses.create_script_address(#"acab", #"")
+  single_input_with_bypass([input, input], addr, []) == False
+}
+
+test no_input_with_bypass() {
+  let addr: Address = addresses.create_script_address(#"acab", #"")
+  single_input_with_bypass([fake_tx.test_input()], addr, []) == False
+}
+
+test datumless_script_input_cannot_sneak_past_bypass() {
+  // Plutus V3 lets a script output be spent without a datum; it must still
+  // be treated as a script input.
+  let this: Input = fake_tx.test_script_input()
+  let other: Input = fake_tx.test_script_input()
+  let sneaky: Input = Input {
+    ..other,
+    output: Output {
+      ..other.output,
+      address: addresses.create_script_address(#"beef", #""),
+      datum: NoDatum,
+    },
+  }
+  let addr: Address = addresses.create_script_address(#"acab", #"")
+  single_input_with_bypass([this, sneaky], addr, []) == False
+}
+
+test wallet_input_with_datum_is_fine_for_bypass() {
+  let this: Input = fake_tx.test_script_input()
+  // test_input is a wallet input that carries an inline datum
+  let addr: Address = addresses.create_script_address(#"acab", #"")
+  single_input_with_bypass([this, fake_tx.test_input()], addr, []) == True
 }

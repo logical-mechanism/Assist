@@ -1,18 +1,20 @@
-//// This module contains code for finding various aspects of 
-//// a validating transaction.
+//// This module contains code for finding various aspects of
+//// a validating transaction. Every function here fails with a descriptive
+//// trace when nothing is found. For `Option`-returning lookups see stdlib's
+//// `list.find`, `transaction.find_input`, and `pairs.get_first`.
 ////
 
 use aiken/collection/list
 use aiken/collection/pairs
 use cardano/address.{Address, Credential, Script}
 use cardano/addresses
-use cardano/assets.{AssetName, PolicyId, Value}
+use cardano/assets.{AssetName, Assets, PolicyId}
 use cardano/datum
 use cardano/transaction.{
   InlineDatum, Input, Output, OutputReference, Redeemer, ScriptPurpose, Spend,
   Transaction,
 }
-use cardano/value
+use cardano/values
 // for testing only
 use tests/fake_tx
 
@@ -24,9 +26,9 @@ use tests/fake_tx
 /// find.first_input_index(tx.inputs)
 /// ```
 pub fn first_input_index(inputs: List<Input>) -> Int {
-  when list.head(inputs) is {
-    Some(input) -> input.output_reference.output_index
-    None -> fail @"No First Input Index Found"
+  when inputs is {
+    [input, ..] -> input.output_reference.output_index
+    [] -> fail @"No First Input Index Found"
   }
 }
 
@@ -49,9 +51,9 @@ test cant_find_first_input_index() fail {
 /// find.first_input_txid(tx.inputs)
 /// ```
 pub fn first_input_txid(inputs: List<Input>) -> ByteArray {
-  when list.head(inputs) is {
-    Some(input) -> input.output_reference.transaction_id
-    None -> fail @"No First Input TxId Found"
+  when inputs is {
+    [input, ..] -> input.output_reference.transaction_id
+    [] -> fail @"No First Input TxId Found"
   }
 }
 
@@ -66,36 +68,36 @@ test cant_find_first_input_txid() fail {
   first_input_txid(inputs) == #"acab"
 }
 
-/// Find an input by an output reference. If nothing is found then error. 
-/// Similar to the builtin function in stdlib but auto errors instead of
-/// returning an `Option`.
+/// Find an input by an output reference. If nothing is found then error.
+/// Similar to stdlib's `transaction.find_input` but errors instead of
+/// returning an `Option`, and to `transaction.resolve_input` but returns the
+/// whole `Input` instead of its `Output`.
 ///
 /// ```aiken
 /// find.input_by_ref(tx.inputs, out_ref)
 /// ```
 pub fn input_by_ref(inputs: List<Input>, out_ref: OutputReference) -> Input {
-  when inputs is {
-    [input, ..rest] ->
-      if input.output_reference == out_ref {
-        input
-      } else {
-        input_by_ref(rest, out_ref)
-      }
-    [] -> fail @"No Input Found By Output Reference"
+  when transaction.find_input(inputs, out_ref) is {
+    Some(input) -> input
+    None -> fail @"No Input Found By Output Reference"
   }
 }
 
 test find_input_by_ref() {
   let inputs: List<Input> = fake_tx.test_tx().inputs
-  let out_ref: OutputReference =
-    OutputReference { transaction_id: #"acab", output_index: 0 }
+  let out_ref: OutputReference = OutputReference {
+    transaction_id: #"acab",
+    output_index: 0,
+  }
   input_by_ref(inputs, out_ref) == fake_tx.test_input()
 }
 
 test cant_find_input_by_ref() fail {
   let inputs: List<Input> = []
-  let out_ref: OutputReference =
-    OutputReference { transaction_id: #"acab", output_index: 0 }
+  let out_ref: OutputReference = OutputReference {
+    transaction_id: #"acab",
+    output_index: 0,
+  }
   // this will fail
   input_by_ref(inputs, out_ref) == fake_tx.test_input()
 }
@@ -108,14 +110,9 @@ test cant_find_input_by_ref() fail {
 /// find.input_by_addr(tx.reference_inputs, ref_addr)
 /// ```
 pub fn input_by_addr(inputs: List<Input>, addr: Address) -> Input {
-  when inputs is {
-    [input, ..rest] ->
-      if input.output.address == addr {
-        input
-      } else {
-        input_by_addr(rest, addr)
-      }
-    [] -> fail @"No Input Found By Address"
+  when list.find(inputs, fn(input) { input.output.address == addr }) is {
+    Some(input) -> input
+    None -> fail @"No Input Found By Address"
   }
 }
 
@@ -139,14 +136,9 @@ test cant_find_input_by_addr() fail {
 /// find.output_by_addr(tx.outputs, your_address)
 /// ```
 pub fn output_by_addr(outputs: List<Output>, addr: Address) -> Output {
-  when outputs is {
-    [output, ..rest] ->
-      if output.address == addr {
-        output
-      } else {
-        output_by_addr(rest, addr)
-      }
-    [] -> fail @"No Output Found By Address"
+  when list.find(outputs, fn(output) { output.address == addr }) is {
+    Some(output) -> output
+    None -> fail @"No Output Found By Address"
   }
 }
 
@@ -171,18 +163,30 @@ test cant_find_output_by_addr() fail {
 /// find.first_output_datum(tx.outputs)
 /// ```
 pub fn first_output_datum(outputs: List<Output>) -> Data {
-  when outputs is {
-    [output, ..rest] ->
-      when output.datum is {
-        InlineDatum(outbound_datum) -> outbound_datum
-        _ -> first_output_datum(rest)
-      }
-    [] -> fail @"No First Output Datum Found"
+  when
+    list.find_map(
+      outputs,
+      fn(output) {
+        when output.datum is {
+          InlineDatum(outbound_datum) -> Some(outbound_datum)
+          _ -> None
+        }
+      },
+    )
+  is {
+    Some(outbound_datum) -> outbound_datum
+    None -> fail @"No First Output Datum Found"
   }
 }
 
 test find_first_output_datum() {
   let outputs: List<Output> = fake_tx.test_tx().outputs
+  expect datum: ByteArray = first_output_datum(outputs)
+  datum == fake_tx.test_datum
+}
+
+test find_first_output_datum_skips_no_datum() {
+  let outputs: List<Output> = [fake_tx.test_bad_output(), fake_tx.test_output()]
   expect datum: ByteArray = first_output_datum(outputs)
   datum == fake_tx.test_datum
 }
@@ -194,7 +198,7 @@ test cant_find_first_output_datum() fail {
   datum == fake_tx.test_datum
 }
 
-/// Find the first occurence of output datum by some address. If nothing is
+/// Find the first occurrence of output datum by some address. If nothing is
 /// found then error.
 ///
 /// ```aiken
@@ -230,41 +234,42 @@ test cant_find_output_datum_by_addr() fail {
 pub fn output_by_addr_value(
   outputs: List<Output>,
   addr: Address,
-  value: Value,
+  value: Assets,
 ) -> Output {
-  when outputs is {
-    [output, ..rest] ->
-      if and {
-        output.address == addr,
-        value.contains(output.value, value),
-      } {
-        output
-      } else {
-        output_by_addr_value(rest, addr, value)
-      }
-    // nothing was found
-    [] -> fail @"No Output Found By Address And Value"
+  when
+    list.find(
+      outputs,
+      fn(output) {
+        and {
+          output.address == addr,
+          values.contains(output.value, value),
+        }
+      },
+    )
+  is {
+    Some(output) -> output
+    None -> fail @"No Output Found By Address And Value"
   }
 }
 
 test find_output_by_addr_value() {
   let outputs: List<Output> = fake_tx.test_tx().outputs
   let addr: Address = addresses.create_address(#"acab", #"")
-  let value: Value = assets.from_asset(#"acab", #"beef", 40)
+  let value: Assets = assets.from_asset(#"acab", #"beef", 40)
   output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
 }
 
 test find_just_enough_output_by_addr_value() {
   let outputs: List<Output> = fake_tx.test_tx().outputs
   let addr: Address = addresses.create_address(#"acab", #"")
-  let value: Value = assets.from_asset(#"acab", #"beef", 20)
+  let value: Assets = assets.from_asset(#"acab", #"beef", 20)
   output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
 }
 
 test cant_find_output_by_addr_value() fail {
   let outputs: List<Output> = []
   let addr: Address = addresses.create_address(#"acab", #"")
-  let value: Value = assets.from_asset(#"acab", #"beef", 40)
+  let value: Assets = assets.from_asset(#"acab", #"beef", 40)
   // this will fail
   output_by_addr_value(outputs, addr, value) == fake_tx.test_output()
 }
@@ -276,33 +281,29 @@ test cant_find_output_by_addr_value() fail {
 /// ```aiken
 /// find.output_by_value(tx.outputs, just_token_value)
 /// ```
-pub fn output_by_value(outputs: List<Output>, value: Value) -> Output {
-  when outputs is {
-    [output, ..rest] ->
-      if value.contains(output.value, value) {
-        output
-      } else {
-        output_by_value(rest, value)
-      }
-    // nothing was found
-    [] -> fail @"No Output Found By Value"
+pub fn output_by_value(outputs: List<Output>, value: Assets) -> Output {
+  when
+    list.find(outputs, fn(output) { values.contains(output.value, value) })
+  is {
+    Some(output) -> output
+    None -> fail @"No Output Found By Value"
   }
 }
 
 test find_output_by_value() {
   let outputs: List<Output> = fake_tx.test_tx().outputs
-  let value: Value = assets.from_asset(#"acab", #"beef", 10)
+  let value: Assets = assets.from_asset(#"acab", #"beef", 10)
   output_by_value(outputs, value) == fake_tx.test_output()
 }
 
 test cant_find_output_by_value() fail {
   let outputs: List<Output> = []
-  let value: Value = assets.from_asset(#"acab", #"beef", 10)
+  let value: Assets = assets.from_asset(#"acab", #"beef", 10)
   // this will fail
   output_by_value(outputs, value) == fake_tx.test_output()
 }
 
-/// Find the staking reward amount in loveace for some stake credential.
+/// Find the staking reward amount in lovelace for some stake credential.
 /// If no rewards are available then error. This is a great method for
 /// checking on-chain staking rewards and withdrawal validation.
 ///
@@ -330,7 +331,7 @@ test cant_find_stake_reward_by_sc() fail {
 }
 
 /// Find a redeemer data by an output reference. This is good for checking
-/// if a specific redeemer is being used on some specific UTxO inside 
+/// if a specific redeemer is being used on some specific UTxO inside
 /// the transaction.
 ///
 /// ```aiken
@@ -360,25 +361,28 @@ test cant_find_redeemer_by_ref() fail {
   datum == 1
 }
 
-/// Find the first occurance of an inline datum on an output with a value 
-/// that contains a specific nft.
+/// Find the inline datum on the first output that holds exactly one of a
+/// specific token (see `assets.has_nft`). Fails if no output holds the token,
+/// or if the first output holding it has no inline datum.
+///
+/// ```aiken
+/// expect datum: Datum = find.output_datum_by_nft(tx.outputs, pid, tkn)
+/// ```
 pub fn output_datum_by_nft(
   outputs: List<Output>,
   pid: PolicyId,
   tkn: AssetName,
 ) -> Data {
-  when outputs is {
-    [output, ..rest] ->
-      if value.prove_exact_nft(output.value, pid, tkn) {
-        when output.datum is {
-          // inline and holding the nft
-          InlineDatum(outbound_datum) -> outbound_datum
-          _ -> fail @"No Datum On Output"
-        }
-      } else {
-        output_datum_by_nft(rest, pid, tkn)
+  when
+    list.find(outputs, fn(output) { assets.has_nft(output.value, pid, tkn) })
+  is {
+    Some(output) ->
+      when output.datum is {
+        // inline and holding the nft
+        InlineDatum(outbound_datum) -> outbound_datum
+        _ -> fail @"No Datum On Output"
       }
-    [] -> fail @"No Datum Found In Outputs"
+    None -> fail @"No Datum Found In Outputs"
   }
 }
 
@@ -400,17 +404,21 @@ test cant_find_output_datum_by_nft2() fail {
   outcome == fake_tx.test_datum
 }
 
-/// Find the first occurance of an inline datum on an output with a value 
-/// that contains a specific nft.
+/// Find the first input that holds exactly one of a specific token (see
+/// `assets.has_nft`). If nothing is found then error.
+///
+/// ```aiken
+/// find.input_by_nft(tx.inputs, pid, tkn)
+/// ```
 pub fn input_by_nft(inputs: List<Input>, pid: PolicyId, tkn: AssetName) -> Input {
-  when inputs is {
-    [input, ..rest] ->
-      if value.prove_exact_nft(input.output.value, pid, tkn) {
-        input
-      } else {
-        input_by_nft(rest, pid, tkn)
-      }
-    [] -> fail @"No Input Found In Inputs"
+  when
+    list.find(
+      inputs,
+      fn(input) { assets.has_nft(input.output.value, pid, tkn) },
+    )
+  is {
+    Some(input) -> input
+    None -> fail @"No Input Found In Inputs"
   }
 }
 

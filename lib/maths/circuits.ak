@@ -1,31 +1,18 @@
 //// This module contains code to do arithmetic circuit logic on integers.
-//// All values are assumed to be positive and p is a prime.
+//// All values are assumed to be in `[0, p-1]` and p is a prime.
+////
+//// Results are always reduced into `[0, p-1]`. Aiken's `%` is a floored
+//// modulo (the result takes the sign of the divisor), so negative
+//// intermediate values wrap around correctly for any positive `p`.
 ////
 
-// The value must be between [0, p-1]. Sometimes the value is a large negative.
-// It takes the value r and keeps adding p until its greater than zero then
-// finishes by doing value mod p.
-// Internal only
-// 
-fn do_pos_shift(r: Int, p: Int) -> Int {
-  if r < 0 {
-    do_pos_shift(r + p, p)
-  } else {
-    r % p
+test negative_intermediates_wrap() {
+  let p: Int = 44203
+  // -1975180248 + 44685 * p lands in [0, p)
+  and {
+    -1975180248 % p == -1975180248 + 44685 * p,
+    -15 % p == -15 + p,
   }
-}
-
-// this can get expensive
-test do_pos_shift_test1() {
-  let r = -1975180248
-  let p: Int = 44203
-  do_pos_shift(r, p) == r + 44685 * p
-}
-
-test do_pos_shift_test2() {
-  let r = -15
-  let p: Int = 44203
-  do_pos_shift(r, p) == r + 1 * p
 }
 
 /// Performs a logical `AND` operation on two integer values within an arithmetic circuit.
@@ -75,14 +62,13 @@ test boundary_and() {
   }
 }
 
-/// Performs a logical `OR` operation on two integer values within an arithmetic circuit..
+/// Performs a logical `OR` operation on two integer values within an arithmetic circuit.
 /// 
 /// ```aiken
 /// circuits.or_(0, 1, p)
 /// ```
 pub fn or_(x: Int, y: Int, p: Int) -> Int {
-  let r: Int = x + y - x * y
-  do_pos_shift(r, p)
+  ( x + y - x * y ) % p
 }
 
 // Identity and Dominance tests
@@ -150,8 +136,7 @@ test not_inversion() {
 /// circuits.xor_(0, 1, p)
 /// ```
 pub fn xor_(x: Int, y: Int, p: Int) -> Int {
-  let r: Int = x + y - 2 * x * y
-  do_pos_shift(r, p)
+  ( x + y - 2 * x * y ) % p
 }
 
 // Commutative property test

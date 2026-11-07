@@ -1,220 +1,151 @@
 //// This module incorporates code for various minting and burning validations.
 ////
+//// Every function takes the transaction's `mint` field (an `Assets` value)
+//// directly, so there is no need to `assets.flatten` it first. stdlib flags
+//// flattening as too expensive for on-chain use.
+////
+//// To read the minted quantity of an asset, use stdlib's
+//// `assets.quantity_of(tx.mint, pid, tkn)`.
+////
 
+use aiken/collection/dict
+use aiken/collection/list
 use aiken/primitive/bytearray
-use cardano/assets.{AssetName, PolicyId}
+use cardano/assets.{AssetName, Assets, PolicyId}
 use types/cip68
 
 /// This checks if a specific policy id, token name, and amount exist inside
-/// the flattened exact assets. It is searching for an exact match. If found
-/// then it returns True else False.
+/// the mint value. It is searching for an exact match. A positive `amt` is a
+/// mint and a negative `amt` is a burn. An `Assets` value never holds a zero
+/// quantity, so `amt == 0` always returns False.
 ///
 /// ```aiken
-/// minting.exact(flatten_mint_value, pid, tkn, 1)
+/// minting.exact(tx.mint, pid, tkn, 1)
 /// ```
-pub fn exact(
-  flat: List<(PolicyId, AssetName, Int)>,
-  pid: PolicyId,
-  tkn: AssetName,
-  amt: Int,
-) -> Bool {
-  when flat is {
-    // loop the minted value
-    [(policy, token_name, quantity), ..rest] ->
-      if and {
-        policy == pid,
-        token_name == tkn,
-        quantity == amt,
-      } {
-        True
-      } else {
-        exact(rest, pid, tkn, amt)
-      }
-    // something wasn't found
-    [] -> False
-  }
+pub fn exact(mint: Assets, pid: PolicyId, tkn: AssetName, amt: Int) -> Bool {
+  amt != 0 && assets.quantity_of(mint, pid, tkn) == amt
 }
 
 test good_exact_mint() {
-  let flat =
-    assets.from_asset(#"acab", #"beef", 1)
-      |> assets.merge(assets.from_asset(#"fade", #"cafe", -1))
-      |> assets.flatten()
-  exact(flat, #"acab", #"beef", 1) == True
+  let mint: Assets = assets.from_asset(#"acab", #"beef", 1)
+    |> assets.merge(assets.from_asset(#"fade", #"cafe", -1))
+  exact(mint, #"acab", #"beef", 1) == True
 }
 
 test bad_exact_mint() {
-  let flat = assets.from_asset(#"acab", #"beef", 1) |> assets.flatten()
-  exact(flat, #"acab", #"face", 1) == False
+  let mint: Assets = assets.from_asset(#"acab", #"beef", 1)
+  exact(mint, #"acab", #"face", 1) == False
+}
+
+test wrong_amount_exact_mint() {
+  let mint: Assets = assets.from_asset(#"acab", #"beef", 2)
+  exact(mint, #"acab", #"beef", 1) == False
 }
 
 test good_exact_burn() {
-  let flat =
-    assets.from_asset(#"acab", #"beef", 1)
-      |> assets.merge(assets.from_asset(#"fade", #"cafe", -1))
-      |> assets.flatten()
-  exact(flat, #"fade", #"cafe", -1) == True
+  let mint: Assets = assets.from_asset(#"acab", #"beef", 1)
+    |> assets.merge(assets.from_asset(#"fade", #"cafe", -1))
+  exact(mint, #"fade", #"cafe", -1) == True
 }
 
 test bad_exact_burn() {
-  let flat =
-    assets.from_asset(#"acab", #"beef", 1)
-      |> assets.merge(assets.from_asset(#"fade", #"cafe", -1))
-      |> assets.flatten()
-  exact(flat, #"acab", #"beef", -1) == False
+  let mint: Assets = assets.from_asset(#"acab", #"beef", 1)
+    |> assets.merge(assets.from_asset(#"fade", #"cafe", -1))
+  exact(mint, #"acab", #"beef", -1) == False
 }
 
 test empty_exact_mint() {
-  let flat = assets.zero |> assets.flatten()
-  exact(flat, #"", #"", 0) == False
+  exact(assets.zero, #"", #"", 0) == False
 }
 
-/// This checks if a specific policy id, prefix, and amount exist inside
-/// the flattened exact assets. Instead of searching for exact match, it
-/// checks if the token name has the correct prefix. This works if
-/// every token name on the policy id is unique. If found then it returns
-/// True else False.
+/// This checks if some token under a policy id starts with a prefix and has
+/// exactly the amount `amt`. Instead of searching for an exact token name
+/// match, it checks if the token name has the correct prefix. This works if
+/// every token name on the policy id is unique. If found then it returns True
+/// else False. Prefixes of any length are supported. An empty prefix matches
+/// every token name.
 ///
 /// ```aiken
-/// minting.by_prefix(flatten_mint_value, pid, tkn, 1)
+/// minting.by_prefix(tx.mint, pid, cip68.prefix_222, 1)
 /// ```
 pub fn by_prefix(
-  flat: List<(PolicyId, AssetName, Int)>,
+  mint: Assets,
   pid: PolicyId,
-  prefix: AssetName,
+  prefix: ByteArray,
   amt: Int,
 ) -> Bool {
-  when flat is {
-    // loop all the value for the flat value
-    [(policy, token_name, quantity), ..rest] -> {
-      // all cip68 prefixes have the same length
-      let p: ByteArray = bytearray.take(token_name, 4)
-      if and {
-        policy == pid,
-        prefix == p,
-        quantity == amt,
-      } {
-        True
-      } else {
-        by_prefix(rest, pid, prefix, amt)
-      }
-    }
-    // something wasn't found
-    [] -> False
-  }
+  assets.tokens(mint, pid)
+    |> dict.to_pairs()
+    |> list.any(
+        fn(Pair(tkn, quantity)) {
+          quantity == amt && bytearray.starts_with(tkn, prefix)
+        },
+      )
 }
 
 test good_by_prefix_mint() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
-  by_prefix(flat, #"acab", cip68.prefix_222, 1) == True
+  let mint: Assets = assets.from_asset(#"acab", cip68.prefix_222, 1)
+  by_prefix(mint, #"acab", cip68.prefix_222, 1) == True
+}
+
+test good_by_prefix_mint_with_suffix() {
+  let mint: Assets = assets.from_asset(#"acab", #"000de140cafe", 1)
+    |> assets.add(#"acab", #"000643b0cafe", 1)
+  by_prefix(mint, #"acab", cip68.prefix_222, 1) == True
 }
 
 test good_by_prefix_burn() {
-  let flat =
-    assets.from_asset(#"acab", cip68.prefix_222, -1) |> assets.flatten()
-  by_prefix(flat, #"acab", cip68.prefix_222, -1) == True
+  let mint: Assets = assets.from_asset(#"acab", cip68.prefix_222, -1)
+  by_prefix(mint, #"acab", cip68.prefix_222, -1) == True
 }
 
 test bad_by_prefix_mint() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_333, 1) |> assets.flatten()
-  by_prefix(flat, #"acab", cip68.prefix_222, 1) == False
+  let mint: Assets = assets.from_asset(#"acab", cip68.prefix_333, 1)
+  by_prefix(mint, #"acab", cip68.prefix_222, 1) == False
 }
 
 test bad_by_prefix_burn() {
-  let flat =
-    assets.from_asset(#"acab", cip68.prefix_333, -1) |> assets.flatten()
-  by_prefix(flat, #"acab", cip68.prefix_222, -1) == False
+  let mint: Assets = assets.from_asset(#"acab", cip68.prefix_333, -1)
+  by_prefix(mint, #"acab", cip68.prefix_222, -1) == False
+}
+
+test bad_by_prefix_wrong_policy() {
+  let mint: Assets = assets.from_asset(#"cafe", cip68.prefix_222, 1)
+  by_prefix(mint, #"acab", cip68.prefix_222, 1) == False
 }
 
 test empty_by_prefix_mint() {
-  let flat = assets.zero |> assets.flatten()
-  by_prefix(flat, #"", #"", 0) == False
+  by_prefix(assets.zero, #"", #"", 0) == False
 }
 
-/// Prove that a transaction is minting something from a specific policy id 
+/// Prove that a transaction is minting something from a specific policy id
 /// and token name but the amount does not matter. This is great for lock-n-mint
-/// style contracts where some logic just needs to check if a mint is occuring
-/// but not the specifics of the amount being minted or burned. If a mint is
-/// occurring then it will return True else False.
+/// style contracts where some logic just needs to check if a mint is occurring
+/// but not the specifics of the amount being minted or burned. If a mint or
+/// burn is occurring then it will return True else False.
 ///
 /// ```aiken
-/// minting.is_occurring(flatten_mint_value, pid, tkn)
+/// minting.is_occurring(tx.mint, pid, tkn)
 /// ```
-pub fn is_occurring(
-  flat: List<(PolicyId, AssetName, Int)>,
-  pid: PolicyId,
-  tkn: AssetName,
-) -> Bool {
-  when flat is {
-    // loop the minted value
-    [(policy, token_name, _), ..rest] ->
-      if and {
-        policy == pid,
-        token_name == tkn,
-      } {
-        True
-      } else {
-        is_occurring(rest, pid, tkn)
-      }
-    // something wasn't found
-    [] -> False
-  }
+pub fn is_occurring(mint: Assets, pid: PolicyId, tkn: AssetName) -> Bool {
+  assets.quantity_of(mint, pid, tkn) != 0
 }
 
 test tx_is_empty_minting() {
-  let flat = []
-  is_occurring(flat, #"acab", cip68.prefix_222) == False
+  is_occurring(assets.zero, #"acab", cip68.prefix_222) == False
 }
 
 test tx_is_minting() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
-  is_occurring(flat, #"acab", cip68.prefix_222) == True
+  let mint: Assets = assets.from_asset(#"acab", cip68.prefix_222, 1)
+  is_occurring(mint, #"acab", cip68.prefix_222) == True
+}
+
+test tx_is_burning() {
+  let mint: Assets = assets.from_asset(#"acab", cip68.prefix_222, -5)
+  is_occurring(mint, #"acab", cip68.prefix_222) == True
 }
 
 test tx_is_not_minting() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
-  is_occurring(flat, #"acab", cip68.prefix_333) == False
-}
-
-/// Prove that a transaction is minting something from a specific policy id 
-/// and token name. If it is minting then return the amount else return zero.
-///
-/// ```aiken
-/// minting.quantity_of(flatten_mint_value, pid, tkn)
-/// ```
-pub fn quantity_of(
-  flat: List<(PolicyId, AssetName, Int)>,
-  pid: PolicyId,
-  tkn: AssetName,
-) -> Int {
-  when flat is {
-    // loop the minted value
-    [(policy, token_name, quantity), ..rest] ->
-      if and {
-        policy == pid,
-        token_name == tkn,
-      } {
-        // we found what we are looking for so return the quantity
-        quantity
-      } else {
-        quantity_of(rest, pid, tkn)
-      }
-    // something wasn't found
-    [] -> 0
-  }
-}
-
-test tx_is_empty_minting_quantity() {
-  let flat = []
-  quantity_of(flat, #"acab", cip68.prefix_222) == 0
-}
-
-test tx_is_minting_quantity() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
-  quantity_of(flat, #"acab", cip68.prefix_222) == 1
-}
-
-test tx_is_not_minting_quantity() {
-  let flat = assets.from_asset(#"acab", cip68.prefix_222, 1) |> assets.flatten()
-  quantity_of(flat, #"acab", cip68.prefix_333) == 0
+  let mint: Assets = assets.from_asset(#"acab", cip68.prefix_222, 1)
+  is_occurring(mint, #"acab", cip68.prefix_333) == False
 }
