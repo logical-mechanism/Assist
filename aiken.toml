@@ -1,6 +1,6 @@
 name = "logical-mechanism/Assist"
 version = "v0.6.0"
-compiler = "v1.1.21"
+compiler = "v1.1.24"
 plutus = "v3"
 license = "Apache-2.0"
 description = "Aiken Assist Library"
@@ -12,6 +12,13 @@ platform = "github"
 
 [[dependencies]]
 name = "aiken-lang/stdlib"
+version = "v4.0.0"
+source = "github"
+
+# Property-based testing. Only imported from `*.test.ak` modules, so
+# downstream projects never compile against it.
+[[dependencies]]
+name = "aiken-lang/fuzz"
 version = "v3.0.0"
 source = "github"
 

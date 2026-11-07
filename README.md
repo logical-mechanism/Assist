@@ -4,11 +4,12 @@ The **Aiken Assist Library** is a collection of specialized functions for [Aiken
 
 ## Compatibility
 
-aiken's version  | assist's version
----              | ---
-`v1.1.21+`       | `>= v0.6.0`
-`v1.1.5-v1.1.20` | `== v0.5.1`
-`v1.0.29-alpha`  | `== v0.4.11`
+aiken's version   | stdlib's version | assist's version
+---               | ---              | ---
+`v1.1.24+`        | `v4.0.0`         | `>= vx.y.z` (unreleased)
+`v1.1.21-v1.1.23` | `v3.0.0`         | `== v0.6.0`
+`v1.1.5-v1.1.20`  | `v2.1.0`         | `== v0.5.1`
+`v1.0.29-alpha`   | `v1.9.0`         | `== v0.4.11`
 
 Assist library `v0.5.x+` will be Plutus V3+. For Plutus V2 contracts use the `v0.4.11` branch.
 
@@ -35,13 +36,13 @@ aiken check
 
 To use the **Aiken Assist Library** in your project, import the desired submodules into your `.ak` file. For example:
 
-```rust
-use tx/signing
+```aiken
+use cardano/values
 use types/wallet.{Wallet}
-use cardano/prefixes.{database}
+use types/prefixes.{database}
 ```
 
-Please refer to the documentaiton for available Assist modules.
+Please refer to the documentation for available Assist modules.
 
 ## Documentation
 

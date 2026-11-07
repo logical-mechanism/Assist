@@ -1,3 +1,6 @@
+//// A wallet type for non-smart contract addresses.
+////
+
 use aiken/collection/list
 use aiken/crypto.{VerificationKeyHash}
 use aiken/primitive/bytearray
@@ -27,26 +30,23 @@ test empty_to_vks() {
 }
 
 test single_to_vks() {
-  let w: Wallet =
-    Wallet {
-      pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      sc: #"",
-    }
+  let w: Wallet = Wallet {
+    pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    sc: #"",
+  }
   to_vks([w]) == [#"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01"]
 }
 
 test multiple_to_vks() {
-  let w: Wallet =
-    Wallet {
-      pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      sc: #"",
-    }
-  let expected: List<VerificationKeyHash> =
-    [
-      #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-    ]
+  let w: Wallet = Wallet {
+    pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    sc: #"",
+  }
+  let expected: List<VerificationKeyHash> = [
+    #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+  ]
   to_vks([w, w, w]) == expected
 }
 
@@ -58,52 +58,45 @@ test multiple_to_vks() {
 /// wallet.is_valid(datum.wallet)
 /// ```
 pub fn is_valid(wallet: Wallet) -> Bool {
-  if and {
-    // if pkh is 28 then true else false
+  and {
+    // the pkh must be 28 bytes
     bytearray.length(wallet.pkh) == 28,
-    // sc is either empty or 28
+    // sc is either empty or 28 bytes
     or {
       bytearray.is_empty(wallet.sc),
       bytearray.length(wallet.sc) == 28,
     },
-  } {
-    // wallet is valid
-    True
-  } else {
-    // wallet is not valid
-    False
   }
 }
 
 test is_valid_pkh() {
-  let w: Wallet =
-    Wallet {
-      pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      sc: #"",
-    }
+  let w: Wallet = Wallet {
+    pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    sc: #"",
+  }
   is_valid(w)
 }
 
 test is_valid_pkh_sc() {
-  let w: Wallet =
-    Wallet {
-      pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      sc: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-    }
+  let w: Wallet = Wallet {
+    pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    sc: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+  }
   is_valid(w)
 }
 
 test is_invalid_sc() {
-  let w: Wallet =
-    Wallet {
-      pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
-      sc: #"abcd89abcdef0123456789abcdef0123456789abcdef01",
-    }
+  let w: Wallet = Wallet {
+    pkh: #"abcdef0123456789abcdef0123456789abcdef0123456789abcdef01",
+    sc: #"abcd89abcdef0123456789abcdef0123456789abcdef01",
+  }
   is_valid(w) == False
 }
 
 test is_invalid_pkh() {
-  let w: Wallet =
-    Wallet { pkh: #"abcdef9abcdef0123456789abcdef0123456789abcdef0", sc: #"" }
+  let w: Wallet = Wallet {
+    pkh: #"abcdef9abcdef0123456789abcdef0123456789abcdef0",
+    sc: #"",
+  }
   is_valid(w) == False
 }
